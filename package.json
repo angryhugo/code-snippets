@@ -15,5 +15,9 @@
         "password-hash": "1.2.1",
         "moment": "2.1.0",
         "i18next": "1.7.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://git@github.com:rookiehugo/code-snippets.git"
     }
 }

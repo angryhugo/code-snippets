@@ -1,0 +1,31 @@
+div#modal-sign-up.modal.fade
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button.close(type="button",data-dismiss="modal") ×
+                h3.modal-title
+                    | #{t("signup.signup")}
+            div.modal-body
+                form.form-horizontal(action="/users/signup",method="POST")
+                    input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+                    div.form-group
+                        label.col-lg-3.control-label(for='input-signup-email')
+                            | #{t("signup.email")}
+                        div.col-lg-7
+                            input#input-signup-email.form-control(type='text',placeholder='#{t("signup.emailPlaceholder")}',name='email',autocomplete='off')
+                    div.form-group
+                        label.col-lg-3.control-label(for='input-signup-name')
+                            | #{t("signup.name")}
+                        div.col-lg-7
+                            input#input-signup-name.form-control(type='text',placeholder='#{t("signup.namePlaceholder")}',name='username',autocomplete='off')
+                    div.form-group
+                        label.col-lg-3.control-label(for='input-signup-password')
+                            | #{t("signup.password")}
+                        div.col-lg-7
+                            input#input-signup-password.form-control(type='password',placeholder='#{t("signup.passwordPlaceholder")}',name='password',autocomplete='off')
+                    div.col-lg-offset-3.col-lg-3
+                        button.btn.btn-success(type="submit")
+                            | #{t("signup.signup")}
+            div.modal-footer
+                a.btn.btn-default(data-dismiss="modal")
+                    | #{t("signup.close")}

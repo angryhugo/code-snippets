@@ -16,7 +16,6 @@ module.exports = {
         res.redirect('/');
     },
     index: function(req, res, next) {
-        console.log(req.cookies.i18next);
         var user = req.user || '';
         res.render('index', {
             credential: user,

@@ -1,10 +1,16 @@
 {
     "navbar-authorized": {
         "projectName": "代码片段",
-        "modifyPassword": "密码"
+        "password": "密码",
+        "createNew": "新建",
+        "language": "语言",
+        "signOut": "退出"
     },
     "navbar-unauthorized": {
-        "projectName": "代码片段"
+        "projectName": "代码片段",
+        "language": "语言",
+        "signin": "登录",
+        "signup": "注册"
     },
     "login": {
         "login": "登录",
@@ -15,10 +21,20 @@
         "close": "关闭"
     },
     "layout": {
-        "messagesFile": "constants_en"
+        "messagesFile": "constants_cn"
     },
     "index": {
         "projectName": "代码片段",
         "title": "主页"
+    },
+    "signup": {
+        "signup": "注册",
+        "email": "邮箱",
+        "emailPlaceholder": "email@example.com",
+        "password": "密码",
+        "passwordPlaceholder": "密码",
+        "name": "用户名",
+        "namePlaceholder": "用户名",
+        "close": "关闭"
     }
 }

@@ -15,12 +15,12 @@ module.exports = function(app) {
                 req.login(user, function(err) {
                     if (err) {
                         console.log(err);
-                        res.redirect('/login');
+                        res.redirect('/users/login');
                     }
                     return next();
                 });
             } else {
-                res.redirect('/login');
+                res.redirect('/users/login');
             }
         }
     }
@@ -55,13 +55,13 @@ module.exports = function(app) {
         });
     }));
     app.get('/', controller.index);
-    app.post('/login',
+    app.post('/users/login',
         passport.authenticate('local', {
             failureRedirect: '/',
             failureFlash: true
         }), controller.loginHandle);
 
-    app.get('/logout', function(req, res) {
+    app.get('/users/logout', function(req, res) {
         req.logout();
         res.clearCookie('mr-user');
         res.redirect('/');

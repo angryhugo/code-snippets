@@ -1,7 +1,7 @@
 $(function() {
     "use strict";
 
-    $('.btn-active').tooltip();
+    $('.link-tooltip').tooltip();
 
     $("#link-english").click(function() {
         $.cookie("cs_i18next", "en-US", {

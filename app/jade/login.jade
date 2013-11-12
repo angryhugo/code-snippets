@@ -1,4 +1,4 @@
-div#login.modal.fade
+div#modal-login.modal.fade
     div.modal-dialog
         div.modal-content
             div.modal-header
@@ -6,7 +6,7 @@ div#login.modal.fade
                 h3.modal-title
                     | #{t("login.login")}
             div.modal-body
-                form.form-horizontal(action="/login",method="POST")
+                form.form-horizontal(action="/users/login",method="POST")
                     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                     div.form-group
                         label.col-lg-3.control-label(for='input-email')

@@ -2,13 +2,16 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
     div.container
         div.navbar-header
             a.navbar-brand.title(href="/") 
-                | #{t("index.projectName")}
+                | #{t("navbar-unauthorized.projectName")}
         ul.nav.navbar-nav.navbar-right
             li
-                a(data-toggle="modal" data-target="#login",title="login")
+                a.link-tooltip(data-toggle="modal",data-target="#modal-login", data-original-title="#{t('navbar-unauthorized.signin')}", data-placement="bottom")
+                    i.fa.fa-sign-in
+            li
+                a.link-tooltip(data-toggle="modal",data-target="#modal-sign-up", data-original-title="#{t('navbar-unauthorized.signup')}", data-placement="bottom")
                     i.fa.fa-user
             li.dropdown
-                a.dropdown-toggle(href="javascript:;", data-original-title="Globe", data-placement='bottom',data-toggle="dropdown")
+                a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title="#{t('navbar-unauthorized.language')}", data-placement="bottom",data-toggle="dropdown")
                     i.fa.fa-globe
                 ul.dropdown-menu
                     li
