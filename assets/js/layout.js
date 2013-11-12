@@ -4,7 +4,7 @@ $(function() {
     $('.btn-active').tooltip();
 
     $("#link-english").click(function() {
-        $.cookie("i18next", "en-US", {
+        $.cookie("cs_i18next", "en-US", {
             expires: 3000,
             path: '/'
         });
@@ -12,13 +12,13 @@ $(function() {
     });
 
     $("#link-chinese").click(function() {
-        $.cookie("i18next", "zh-CN", {
+        $.cookie("cs_i18next", "zh-CN", {
             expires: 3000,
             path: '/'
         });
         window.location.reload();
     });
-    if ($.cookie("i18next") === 'zh-CN') {
+    if ($.cookie("cs_i18next") === 'zh-CN') {
         bootbox.setDefaults({
             locale: 'zh_CN'
         });

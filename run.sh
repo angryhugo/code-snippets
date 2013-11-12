@@ -5,11 +5,11 @@ PORT=10101
 case $1 in
     dev)
         npm i
-        node ./app/app.js
+        supervisor ./app/app.js
     ;;
     debug)
         npm i
-        node --debug ./app/app.js
+        supervisor --debug ./app/app.js
     ;;
     -help|*)
         echo "Params: {start | debug | -help}"

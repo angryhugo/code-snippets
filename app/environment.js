@@ -32,7 +32,8 @@ module.exports = function(app, express) {
         resGetPath: path.normalize(__dirname + '/i18n/') + '__lng__/__ns__.json',
         resSetPath: path.normalize(__dirname + '/i18n/') + '__lng__/__ns__.json',
         saveMissing: true,
-        fixLng: true
+        fixLng: true,
+        cookieName: 'cs_i18next'
     });
     app.use(i18n.handle);
     app.use(app.router);
