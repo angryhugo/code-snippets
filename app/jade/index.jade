@@ -1,0 +1,24 @@
+extends layout
+
+block title
+    | #{t("index.title")}
+
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/index.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/static/css/index.css')
+    - }
+
+block main
+    div.container.nav-margin
+        | hello index!
+
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/index.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/js/index.js')
+    - }

@@ -1,0 +1,29 @@
+nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
+    div.container
+        div.navbar-header
+            a.navbar-brand.title(href="/") 
+                | #{t("navbar-authorized.projectName")}
+        ul.nav.navbar-nav.navbar-right
+            li
+                a.btn-active
+                    i.fa.fa-user  
+                    | &nbsp;#{credential.name}
+            li.dropdown
+                a.dropdown-toggle(href="javascript:;",data-toggle="dropdown")
+                    i.fa.fa-cog
+                ul.dropdown-menu
+                    li
+                        a(href="/password") 
+                            | #{t("navbar-authorized.modifyPassword")}
+            li.dropdown
+                a.dropdown-toggle(href="javascript:;", data-original-title="Globe", data-placement='bottom',data-toggle="dropdown")
+                    i.fa.fa-globe
+                ul.dropdown-menu
+                    li
+                        a#link-english(href="javascript:;") English
+                    li
+                        a#link-chinese(href="javascript:;") 中文
+            li
+                a.btn-active(href="/logout", data-original-title='', data-placement='bottom')
+                    i.fa.fa-sign-out
+            

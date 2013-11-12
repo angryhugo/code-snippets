@@ -1,0 +1,24 @@
+{
+    "navbar-authorized": {
+        "projectName": "Code Snippets",
+        "modifyPassword": "password"
+    },
+    "navbar-unauthorized": {
+        "projectName": "Code Snippets"
+    },
+    "login": {
+        "login": "login",
+        "email": "Email",
+        "emailPlaceholder": "email@example.com",
+        "password": "password",
+        "passwordPlaceholder": "password",
+        "close": "Close"
+    },
+    "layout": {
+        "messagesFile": "constants_en"
+    },
+    "index": {
+        "projectName": "Code Snippets",
+        "title": "Index Page"
+    }
+}

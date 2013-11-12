@@ -1,0 +1,24 @@
+{
+    "navbar-authorized": {
+        "projectName": "代码片段",
+        "modifyPassword": "密码"
+    },
+    "navbar-unauthorized": {
+        "projectName": "代码片段"
+    },
+    "login": {
+        "login": "登录",
+        "email": "邮箱",
+        "emailPlaceholder": "email@example.com",
+        "password": "密码",
+        "passwordPlaceholder": "密码",
+        "close": "关闭"
+    },
+    "layout": {
+        "messagesFile": "constants_en"
+    },
+    "index": {
+        "projectName": "代码片段",
+        "title": "主页"
+    }
+}

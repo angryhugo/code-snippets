@@ -1,0 +1,102 @@
+!!!
+html(xmlns='http://www.w3.org/1999/xhtml')
+    head
+        meta(http-equiv='content-type', content='text/html;charset=utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(http-equiv='Pragma', content='no-cache')
+        meta(http-equiv='Cache-Control', content='no-cache')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='shortcut icon', type='image/x-icon', href='/static/images/favicon.ico')
+        title
+            block title
+
+        - if (nodeEnv == "production") {
+            link(rel="stylesheet", href="/static/css/layout.min.css")
+        - }
+        - else {
+            link(rel='stylesheet', type='text/css', href='/assets/vendor/bootstrap/css/bootstrap.css')
+            link(rel='stylesheet', type='text/css', href='/assets/vendor/font-awesome/css/font-awesome.min.css')
+            link(rel='stylesheet', type='text/css', href='/static/css/layout.css')
+        - }
+
+        block head
+
+    body
+        // if lt IE 8
+            style(type="text/css").
+                body {
+                    margin: 0px;
+                    padding: 0px;
+                    text-align: center;
+                    font-family: Arial, Simsun;
+                    font-size: 12px;
+                    line-height: 200%;
+                }
+                img {
+                    display: block;
+                    border: none;
+                }
+            div(style="width:400px; margin:auto; color:#08c; text-align:center;")
+                table(style="width:100%;")
+                    tr
+                        td(colspan="5") &nbsp;
+                    tr
+                        td
+                            img(src="/static/images/notsupport.gif")
+                        td(colspan="4", style='font-size:14px;')
+                            | Sorry，The browser that you are using is not supported
+                            br
+                            | Please use the browsers below
+                    tr
+                        td(colspan="5") &nbsp;
+                    tr
+                        td(style='width:20%')
+                            a(target='_blank', href="https://www.google.com/intl/zh-CN/chrome/browser/")
+                                img(src="/static/images/chrome.gif")
+                                | Chrome 4+
+                        td(style='width:20%')
+                            a(target='_blank', href="http://firefox.com.cn/")
+                                img(src="/static/images/firefox.gif")
+                                | Firefox 4+
+                        td(style='width:20%')
+                            a(target='_blank', href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie")
+                                img(src="/static/images/ie.gif")
+                                | IE 8+
+                        td(style='width:20%')
+                            a(target='_blank', href="http://www.apple.com.cn/safari/")
+                                img(src="/static/images/safari.gif")
+                                | Safari 5+
+                        td(style='width:20%')
+                            a(target='_blank', href="http://www.opera.com/zh-cn")
+                                img(src="/static/images/opera.gif")
+                                | Opera 12+
+        | <!--[if gte IE 8]><!-->
+        - if (credential) {
+            include navbar-authorized
+        - }
+        - else {
+            include navbar-unauthorized
+        - }
+
+
+        block main
+
+        include login
+
+        - if (nodeEnv == "production") {
+            script(type='text/javascript', src="/static/js/layout.min.js")
+            script(type='text/javascript', src='/static/js/#{t("layout.messagesFile")}.min.js')
+        - }
+        - else {
+            script(type='text/javascript', src='/assets/vendor/jquery/jquery-1.9.1.js')
+            script(type='text/javascript', src='/assets/vendor/jquery/jquery.cookie.js')
+            script(type='text/javascript', src='/assets/vendor/jquery/jquery.validate.js')
+            script(type='text/javascript', src='/assets/vendor/bootstrap/js/bootstrap.js')
+            script(type='text/javascript', src='/assets/vendor/bootstrap/js/respond.min.js')
+            script(type='text/javascript', src='/assets/vendor/bootbox/bootbox.js')
+            script(type='text/javascript', src='/assets/js/#{t("layout.messagesFile")}.js')
+            script(type='text/javascript', src='/assets/js/layout.js')
+        - }
+
+        block scripts
+        | <!--<![endif]-->
