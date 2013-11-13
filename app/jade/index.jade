@@ -19,11 +19,11 @@ block main
                 pre
                     //- code(style="overflow-x:scroll;white-space:pre")
                     code
-                        | function errHandler(err, message, next) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(err);<br>&nbsp;&nbsp;&nbsp;&nbsp;var error = {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message: message,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detail: err<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br>&nbsp;&nbsp;&nbsp;&nbsp;next(error);<br>}
+                        | if (hasAccount) {<br>&nbsp;&nbsp;&nbsp;&nbsp;login(email,pwd,function(isValid, errMsg) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isValid) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.redirect('/');<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.send(errMsg);<br>&nbsp;&nbsp;&nbsp;&nbsp;});<br>} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;res.redirect('/users/signup');<br>}
             div.col-sm-6.col-lg-6
                 pre
                     code
-                        | function errHandler(err, message, next) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(err);<br>&nbsp;&nbsp;&nbsp;&nbsp;var error = {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message: message,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detail: err<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br>&nbsp;&nbsp;&nbsp;&nbsp;next(error);<br>}
+                        | function login(email, password, callback) {<br>&nbsp;&nbsp;&nbsp;&nbsp;//check account...<br>&nbsp;&nbsp;&nbsp;&nbsp;var isValid= ... || false;<br>&nbsp;&nbsp;&nbsp;&nbsp;var errMsg= ... || '';<br>&nbsp;&nbsp;&nbsp;&nbsp;if (isValid) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(true);<br>&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(false ,errMsg);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}
 
     div.container.search-divider
         div.page-header
@@ -44,25 +44,25 @@ block main
         div.row
             div.col-sm-3.col-lg-3
                 button.card
-                    img(src='/static/images/icon-javascript.png')
+                    img(src='/static/images/icon-js.png')
                     div.description
                         h3 &nbsp;&nbsp;&nbsp;javascript
                         p An interpreted computer programming language
             div.col-sm-3.col-lg-3
                 button.card
-                    img(src='/static/images/icon-javascript.png')
+                    img(src='/static/images/icon-java.png')
                     div.description
                         h3 &nbsp;&nbsp;&nbsp;java
                         p An interpreted computer programming language
             div.col-sm-3.col-lg-3
                 button.card
-                    img(src='/static/images/icon-javascript.png')
+                    img(src='/static/images/icon-c.png')
                     div.description
                         h3 &nbsp;&nbsp;&nbsp;c/c++
                         p An interpreted computer programming language
             div.col-sm-3.col-lg-3
                 button.card
-                    img(src='/static/images/icon-javascript.png')
+                    img(src='/static/images/icon-c-sharp.png')
                     div.description
                         h3 &nbsp;&nbsp;&nbsp;c#
                         p An interpreted computer programming language
