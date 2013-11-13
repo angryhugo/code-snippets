@@ -64,7 +64,7 @@ var CodeSnippet = sequelize.define('CodeSnippets', {
         type: Sequelize.TEXT,
         allowNull: false
     },
-    code: {
+    snippet: {
         type: Sequelize.TEXT,
         allowNull: false
     },
@@ -72,8 +72,6 @@ var CodeSnippet = sequelize.define('CodeSnippets', {
         type: Sequelize.BOOLEAN,
         allowNull: false
     }
-}, {
-    timestamps: false
 });
 
 User.hasMany(CodeSnippet, {
@@ -91,6 +89,20 @@ sequelize.sync({
     User.count().success(function(total) {
         if (total < 1) {
             var initUser = require('../init/init-user');
+        }
+    });
+    CodeSnippet.count().success(function(total) {
+        if (total < 1) {
+            CodeSnippet.create({
+                title: "example",
+                snippet: "#include<iostream>",
+                owner_id: 1,
+                is_deleted: false
+            }).success(function() {
+                console.log('insert snippet successfully!');
+            }).error(function(err) {
+                console.log(err);
+            });
         }
     });
 }).error(function(err) {

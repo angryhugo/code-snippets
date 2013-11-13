@@ -4,10 +4,10 @@ var passwordHash = require('password-hash');
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
-var License = entityFactory.License;
+var CodeSnippet = entityFactory.CodeSnippet;
 
 module.exports = {
-    loginHandle: function(req, res, next) {
+    doLogin: function(req, res, next) {
         res.cookie('mr-user', req.user, {
             path: '/',
             httpOnly: false,
@@ -17,9 +17,37 @@ module.exports = {
     },
     index: function(req, res, next) {
         var user = req.user || '';
-        res.render('index', {
-            credential: user,
-            token: req.csrfToken()
+        var exampleId = 1;
+        CodeSnippet.count().success(function(total) {
+            console.log('total:' + total);
+            if (total > 1) {
+                exampleId = 2;
+            }
+            CodeSnippet.find(exampleId).success(function(codeSnippet) {
+                res.render('index', {
+                    codeSnippet: codeSnippet,
+                    credential: user,
+                    token: req.csrfToken()
+                });
+            }).error(function(err) {
+                console.log(err);
+            });
+        });
+    },
+    doInsert: function(req, res, next) {
+        var snippet = req.body.snippet || '';
+        var title = req.body.title || '';
+        var ownerId = req.user.id;
+        CodeSnippet.create({
+            title: title,
+            snippet: snippet,
+            owner_id: ownerId,
+            is_deleted: false
+        }).success(function() {
+            console.log('insert snippet successfully!');
+            res.redirect('/');
+        }).error(function(err) {
+            console.log(err);
         });
     }
 };

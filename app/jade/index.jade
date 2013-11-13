@@ -9,11 +9,21 @@ append head
     - }
     - else {
         link(rel='stylesheet', href='/static/css/index.css')
+        link(rel='stylesheet', href='/assets/vendor/highlight/css/tomorrow.css')
     - }
 
 block main
     div.container.nav-margin
-        | hello index!
+        div.row
+            div.col-lg-6
+                pre
+                    //- code(style="overflow-x:scroll;white-space:pre")
+                    code
+                        | #{codeSnippet.snippet}
+            div.col-lg-6
+                pre
+                    code
+                        | #{codeSnippet.snippet}
 
 block scripts
     - if (nodeEnv == "production") {
@@ -21,4 +31,5 @@ block scripts
     - }
     - else {
         script(type='text/javascript', src='/assets/js/index.js')
+        script(type='text/javascript', src='/assets/vendor/highlight/js/highlight.pack.js')
     - }

@@ -23,7 +23,23 @@ module.exports = function(app) {
                 res.redirect('/users/login');
             }
         }
-    }
+    };
+
+    function autoLogin(req, res, next) {
+        if (req.cookies['mr-user']) {
+            var user = req.cookies['mr-user'];
+            req.login(user, function(err) {
+                if (err) {
+                    console.log(err);
+                    res.redirect('/users/login');
+                }
+                return next();
+            });
+        } else {
+            return next();
+        }
+    };
+
     var User = models.User;
     passport.serializeUser(function(user, done) {
         done(null, user);
@@ -54,12 +70,17 @@ module.exports = function(app) {
             return done(null, user);
         });
     }));
-    app.get('/', controller.index);
+    app.get('/', autoLogin, controller.index);
+    app.get('/users/login', function(req, res) {
+        res.render('login', {
+            token: req.csrfToken()
+        });
+    });
     app.post('/users/login',
         passport.authenticate('local', {
             failureRedirect: '/',
             failureFlash: true
-        }), controller.loginHandle);
+        }), controller.doLogin);
 
     app.get('/users/logout', function(req, res) {
         req.logout();
@@ -77,4 +98,11 @@ module.exports = function(app) {
     //         errMessage: err.message
     //     });
     // });
+    app.get('/snippets/new', ensureAuthenticated, function(req, res) {
+        res.render('insert', {
+            credential: req.user || '',
+            token: req.csrfToken()
+        });
+    });
+    app.post('/snippets/new', controller.doInsert);
 };

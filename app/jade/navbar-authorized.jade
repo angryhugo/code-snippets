@@ -9,7 +9,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
                     i.fa.fa-plus
             li.dropdown
                 a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title='#{t("navbar-authorized.language")}', data-placement='bottom',data-toggle="dropdown")
-                    i.fa.fa-globe
+                    i.fa.fa-globe.fa-spin
                 ul.dropdown-menu
                     li
                         a#link-english(href="javascript:;") English
@@ -24,7 +24,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
                     li
                         a#btn-change-password(href='/password')
                             i.fa.fa-lock
-                            | &nbsp;#{t("navbar-authorized.password")}
+                            | &nbsp;&nbsp;#{t("navbar-authorized.password")}
                         a(href='javascript:;',href="/users/logout")
                             i.fa.fa-sign-out
                             | &nbsp;#{t("navbar-authorized.signOut")}
