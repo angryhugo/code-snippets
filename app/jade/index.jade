@@ -8,22 +8,64 @@ append head
         link(rel='stylesheet', href='/static/css/index.min.css')
     - }
     - else {
-        link(rel='stylesheet', href='/static/css/index.css')
         link(rel='stylesheet', href='/assets/vendor/highlight/css/tomorrow.css')
+        link(rel='stylesheet', href='/static/css/index.css')
     - }
 
 block main
     div.container.nav-margin
         div.row
-            div.col-lg-6
+            div.col-sm-6.col-lg-6
                 pre
                     //- code(style="overflow-x:scroll;white-space:pre")
                     code
-                        | #{codeSnippet.snippet}
-            div.col-lg-6
+                        | function errHandler(err, message, next) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(err);<br>&nbsp;&nbsp;&nbsp;&nbsp;var error = {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message: message,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detail: err<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br>&nbsp;&nbsp;&nbsp;&nbsp;next(error);<br>}
+            div.col-sm-6.col-lg-6
                 pre
                     code
-                        | #{codeSnippet.snippet}
+                        | function errHandler(err, message, next) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log(err);<br>&nbsp;&nbsp;&nbsp;&nbsp;var error = {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message: message,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detail: err<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br>&nbsp;&nbsp;&nbsp;&nbsp;next(error);<br>}
+
+    div.container.search-divider
+        div.page-header
+            h3
+                | #{t("index.searchTitle")}
+                a.btn.btn-info.pull-right(href="/snippets/new")
+                        i.fa.fa-plus
+                            | #{t("index.createNew")}
+        form#form-search.form-horizontal.col-sm-offset-1.col-sm-10.col-lg-offset-2.col-lg-7(role='form',action='/snippets/search',method='POST')
+            div.input-group
+                input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+                input#input-search.form-control(type="text",name="snippet_title",placeholder='#{t("index.searchPlaceholder")}',autocomplete="off")
+                span.input-group-btn
+                    button#btn-index-search.btn.btn-success
+                        i.fa.fa-search
+
+    div.container
+        div.row
+            div.col-sm-3.col-lg-3
+                button.card
+                    img(src='/static/images/icon-javascript.png')
+                    div.description
+                        h3 &nbsp;&nbsp;&nbsp;javascript
+                        p An interpreted computer programming language
+            div.col-sm-3.col-lg-3
+                button.card
+                    img(src='/static/images/icon-javascript.png')
+                    div.description
+                        h3 &nbsp;&nbsp;&nbsp;java
+                        p An interpreted computer programming language
+            div.col-sm-3.col-lg-3
+                button.card
+                    img(src='/static/images/icon-javascript.png')
+                    div.description
+                        h3 &nbsp;&nbsp;&nbsp;c/c++
+                        p An interpreted computer programming language
+            div.col-sm-3.col-lg-3
+                button.card
+                    img(src='/static/images/icon-javascript.png')
+                    div.description
+                        h3 &nbsp;&nbsp;&nbsp;c#
+                        p An interpreted computer programming language
 
 block scripts
     - if (nodeEnv == "production") {

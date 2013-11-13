@@ -17,22 +17,11 @@ module.exports = {
     },
     index: function(req, res, next) {
         var user = req.user || '';
-        var exampleId = 1;
-        CodeSnippet.count().success(function(total) {
-            console.log('total:' + total);
-            if (total > 1) {
-                exampleId = 2;
-            }
-            CodeSnippet.find(exampleId).success(function(codeSnippet) {
-                res.render('index', {
-                    codeSnippet: codeSnippet,
-                    credential: user,
-                    token: req.csrfToken()
-                });
-            }).error(function(err) {
-                console.log(err);
-            });
+        res.render('index', {
+            credential: user,
+            token: req.csrfToken()
         });
+
     },
     doInsert: function(req, res, next) {
         var snippet = req.body.snippet || '';
@@ -49,6 +38,11 @@ module.exports = {
         }).error(function(err) {
             console.log(err);
         });
+    },
+    doSearch: function(req, res, next) {
+        var title = req.body.snippet_title || '';
+        console.log(title);
+        res.redirect('/');
     }
 };
 

@@ -81,9 +81,9 @@ html(xmlns='http://www.w3.org/1999/xhtml')
 
         block main
 
-        include login
+        include modal-login
 
-        include signup
+        include modal-signup
 
         - if (nodeEnv == "production") {
             script(type='text/javascript', src="/static/js/layout.min.js")

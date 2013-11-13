@@ -25,7 +25,10 @@
     },
     "index": {
         "projectName": "Code Snippets",
-        "title": "Index Page"
+        "title": "Index Page",
+        "searchTitle": "Search Snippets",
+        "searchPlaceholder": "Search for snippet",
+        "createNew": " Create New"
     },
     "signup": {
         "signup": "Sign Up",

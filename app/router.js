@@ -104,5 +104,6 @@ module.exports = function(app) {
             token: req.csrfToken()
         });
     });
-    app.post('/snippets/new', controller.doInsert);
+    app.post('/snippets/new', ensureAuthenticated, controller.doInsert);
+    app.post('/snippets/search', ensureAuthenticated, controller.doSearch);
 };

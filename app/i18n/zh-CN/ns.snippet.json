@@ -25,7 +25,10 @@
     },
     "index": {
         "projectName": "代码片段",
-        "title": "主页"
+        "title": "主页",
+        "searchTitle": "搜索片段",
+        "searchPlaceholder": "搜索片段",
+        "createNew": " 新建"
     },
     "signup": {
         "signup": "注册",
