@@ -19,11 +19,11 @@ block main
                 pre
                     //- code(style="overflow-x:scroll;white-space:pre")
                     code
-                        | if (hasAccount) {<br>&nbsp;&nbsp;&nbsp;&nbsp;login(email,pwd,function(isValid, errMsg) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isValid) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.redirect('/');<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.send(errMsg);<br>&nbsp;&nbsp;&nbsp;&nbsp;});<br>} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;res.redirect('/users/signup');<br>}
+                        | // README<br>if (hasAccount) {<br>&nbsp;&nbsp;&nbsp;&nbsp;login(email, password, function(error) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... // redirect<br>&nbsp;&nbsp;&nbsp;&nbsp;});<br>} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;res.redirect('/users/sign_up');<br>}
             div.col-sm-6.col-lg-6
                 pre
                     code
-                        | function login(email, password, callback) {<br>&nbsp;&nbsp;&nbsp;&nbsp;//check account...<br>&nbsp;&nbsp;&nbsp;&nbsp;var isValid= ... || false;<br>&nbsp;&nbsp;&nbsp;&nbsp;var errMsg= ... || '';<br>&nbsp;&nbsp;&nbsp;&nbsp;if (isValid) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(true);<br>&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(false ,errMsg);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}
+                        | function login(email, password, callback) {<br>&nbsp;&nbsp;&nbsp;&nbsp;... // check<br>&nbsp;&nbsp;&nbsp;&nbsp;if (error) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(error);<br>&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(null);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}
 
     div.container.search-divider
         div.page-header
@@ -46,26 +46,26 @@ block main
                 button.card
                     img(src='/static/images/icon-js.png')
                     div.description
-                        h3 &nbsp;&nbsp;&nbsp;javascript
-                        p An interpreted computer programming language
+                        h3 javascript
+                        p #{t("index.js")}
             div.col-sm-3.col-lg-3
                 button.card
                     img(src='/static/images/icon-java.png')
                     div.description
-                        h3 &nbsp;&nbsp;&nbsp;java
-                        p An interpreted computer programming language
+                        h3 java
+                        p #{t("index.java")}
             div.col-sm-3.col-lg-3
                 button.card
                     img(src='/static/images/icon-c.png')
                     div.description
-                        h3 &nbsp;&nbsp;&nbsp;c/c++
-                        p An interpreted computer programming language
+                        h3 c/c++
+                        p #{t("index.c")}
             div.col-sm-3.col-lg-3
                 button.card
                     img(src='/static/images/icon-c-sharp.png')
                     div.description
-                        h3 &nbsp;&nbsp;&nbsp;c#
-                        p An interpreted computer programming language
+                        h3 c#
+                        p #{t("index.cSharp")}
 
 block scripts
     - if (nodeEnv == "production") {

@@ -25,10 +25,14 @@
     },
     "index": {
         "projectName": "Code Snippets",
-        "title": "Index Page",
+        "title": "Code Snippets | index",
         "searchTitle": "Search Snippets",
         "searchPlaceholder": "Search for snippet",
-        "createNew": " Create New"
+        "createNew": " Create New",
+        "js": "An interpreted computer programming language",
+        "java": "A simple, object-oriented programming language",
+        "c": "A general-purpose, popular programming language",
+        "cSharp": "A simple, modern, general-purpose, OOP language"
     },
     "signup": {
         "signup": "Sign Up",
