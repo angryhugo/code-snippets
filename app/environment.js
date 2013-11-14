@@ -13,9 +13,10 @@ module.exports = function(app, express) {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.errorHandler());
-    app.use(express.cookieParser('my runnable is very cool'));
+    app.use(express.cookieParser('code snippet is very cool'));
     app.use(express.session({
-        secret: 'keyboard cat'
+        secret: 'hello',
+        key: 'snippet'
     }));
     app.use(flash());
     app.use(passport.initialize());

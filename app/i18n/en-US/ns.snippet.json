@@ -4,7 +4,7 @@
         "password": "Password",
         "createNew": "Create New",
         "language": "Language",
-        "signOut": "Sign Out"
+        "logout": "Logout"
     },
     "navbar-unauthorized": {
         "projectName": "Code Snippets",
@@ -26,7 +26,7 @@
     },
     "index": {
         "projectName": "Code Snippets",
-        "title": "Code Snippets | index",
+        "title": "Code Snippets | Home Page",
         "searchTitle": "Search Snippets",
         "searchPlaceholder": "Search for snippet",
         "createNew": " Create New",
