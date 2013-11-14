@@ -13,12 +13,13 @@
         "signup": "sign Up"
     },
     "login": {
-        "login": "login",
+        "login": "Login",
         "email": "Email",
         "emailPlaceholder": "email@example.com",
         "password": "Password",
         "passwordPlaceholder": "Password",
-        "close": "Close"
+        "close": "Close",
+        "signup": "Sign up"
     },
     "layout": {
         "messagesFile": "constants_en"
@@ -42,6 +43,8 @@
         "passwordPlaceholder": "Password",
         "name": "Username",
         "namePlaceholder": "Username",
-        "close": "Close"
+        "close": "Close",
+        "login": "Login",
+        "checkEmail": "check"
     }
 }

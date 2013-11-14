@@ -18,7 +18,8 @@
         "emailPlaceholder": "email@example.com",
         "password": "密码",
         "passwordPlaceholder": "密码",
-        "close": "关闭"
+        "close": "关闭",
+        "signup": "注册"
     },
     "layout": {
         "messagesFile": "constants_cn"
@@ -29,8 +30,8 @@
         "searchTitle": "搜索片段",
         "searchPlaceholder": "搜索片段",
         "createNew": " 新建",
-        "js": "一种直译式编程语言,一种动态类型、弱类型、基于原型的语言",
-        "java": "一种简单、面向对象、可移植、高性能、多线程、动态的语言",
+        "js": "一种直译式编程语言,动态类型、弱类型、基于原型的语言",
+        "java": "一种简单、面向对象、健壮、可移植、多线程、动态的语言",
         "c": "一种通用的、程序式的程式語言,使用最为广泛的编程语言",
         "cSharp": "一种「简单、现代、通用」，以及面向对象的程序设计语言"
     },
@@ -42,6 +43,8 @@
         "passwordPlaceholder": "密码",
         "name": "用户名",
         "namePlaceholder": "用户名",
-        "close": "关闭"
+        "close": "关闭",
+        "login": "登录",
+        "checkEmail": "检查"
     }
 }

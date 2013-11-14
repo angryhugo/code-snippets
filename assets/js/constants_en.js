@@ -1,0 +1,13 @@
+var Message = {
+    LOGIN_ERROR: 'Invalid email or password',
+    LOGIN_FIRST: 'Please login first',
+    SIGNUP_ERROR: 'Email has existed',
+    EMAIL_REQUIRED: "Please enter email",
+    EMAIL_ERROR: "Please enter a valid email address",
+    USERNAME_REQUIRED: "Please enter username",
+    PASSWORD_REQUIRED: "Please enter password",
+    PASSWORD_MIN_LENGTH: "Password requires at least {0} characters",
+    PASSWORD_MAX_LENGTH: "Password requires no more than {0} characters",
+    Email_NOT_EXISTED: "Congradulations! This email has not be used",
+    Email_EXISTED: "Sorry! This email has be used"
+};

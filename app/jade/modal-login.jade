@@ -6,21 +6,24 @@ div#modal-login.modal.fade
                 h3.modal-title
                     | #{t("login.login")}
             div.modal-body
-                form.form-horizontal(action="/users/login",method="POST")
+                div#alert-login.alert.alert-danger
+                form#form-login.form-horizontal(action="/users/login",method="POST")
                     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                     div.form-group
                         label.col-lg-3.control-label(for='input-email')
                             | #{t("login.email")}
                         div.col-lg-7
-                            input#input-email.form-control(type='text',placeholder='#{t("login.emailPlaceholder")}',name='email')
+                            input#input-email.form-control(type='text',placeholder='#{t("login.emailPlaceholder")}',name='login_email')
                     div.form-group
                         label.col-lg-3.control-label(for='input-password')
                             | #{t("login.password")}
                         div.col-lg-7
-                            input#input-password.form-control(type='password',placeholder='#{t("login.passwordPlaceholder")}',name='password')
-                    div.col-lg-offset-3.col-lg-3
-                        button.btn.btn-success(type="submit")
+                            input#input-password.form-control(type='password',placeholder='#{t("login.passwordPlaceholder")}',name='login_password')
+                    div.col-lg-offset-3.col-lg-6
+                        button#btn-login.btn.btn-success(type="submit")
                             | #{t("login.login")}
+                        a#link-sign-up-inModal.btn.btn-info.btn-right
+                            | #{t("login.signup")}
             div.modal-footer
-                a.btn.btn-default(data-dismiss="modal")
+                a#link-close-login-modal.btn.btn-default(data-dismiss="modal")
                     | #{t("login.close")}

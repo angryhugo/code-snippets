@@ -15,12 +15,12 @@ module.exports = function(app) {
                 req.login(user, function(err) {
                     if (err) {
                         console.log(err);
-                        res.redirect('/users/login');
+                        res.redirect('/?error=1'); //account error
                     }
                     return next();
                 });
             } else {
-                res.redirect('/users/login');
+                res.redirect('/?error=3'); //ask for login
             }
         }
     };
@@ -31,7 +31,7 @@ module.exports = function(app) {
             req.login(user, function(err) {
                 if (err) {
                     console.log(err);
-                    res.redirect('/users/login');
+                    res.redirect('/?error=1');
                 }
                 return next();
             });
@@ -48,8 +48,8 @@ module.exports = function(app) {
         done(null, user);
     });
     passport.use(new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password'
+        usernameField: 'login_email',
+        passwordField: 'login_password'
     }, function(username, password, done) {
         console.log('username=' + username);
         User.find({
@@ -71,20 +71,20 @@ module.exports = function(app) {
         });
     }));
     app.get('/', autoLogin, controller.index);
-    app.get('/users/login', function(req, res) {
-        res.render('login', {
-            token: req.csrfToken()
-        });
-    });
     app.post('/users/login',
         passport.authenticate('local', {
-            failureRedirect: '/',
+            failureRedirect: '/?error=1',
             failureFlash: true
         }), controller.doLogin);
 
     app.get('/users/logout', function(req, res) {
         req.logout();
         res.clearCookie('mr-user');
+        res.redirect('/');
+    });
+
+    app.post('/users/sign_up', function(req, res) {
+        console.log('post');
         res.redirect('/');
     });
 
@@ -105,5 +105,7 @@ module.exports = function(app) {
         });
     });
     app.post('/snippets/new', ensureAuthenticated, controller.doInsert);
-    app.post('/snippets/search', ensureAuthenticated, controller.doSearch);
+    app.post('/snippets/search', controller.doSearch);
+
+    app.post('/api/email', controller.checkEmail);
 };

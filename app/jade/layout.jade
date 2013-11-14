@@ -76,18 +76,19 @@ html(xmlns='http://www.w3.org/1999/xhtml')
         - }
         - else {
             include navbar-unauthorized
+            include modal-login
+            include modal-signup
         - }
 
 
         block main
 
-        include modal-login
-
-        include modal-signup
-
         - if (nodeEnv == "production") {
-            script(type='text/javascript', src="/static/js/layout.min.js")
             script(type='text/javascript', src='/static/js/#{t("layout.messagesFile")}.min.js')
+            script(type='text/javascript', src="/static/js/layout.min.js")
+            - if (!credential) {
+                script(type='text/javascript', src='/static/js/unauthorized.min.js')
+            - }
         - }
         - else {
             script(type='text/javascript', src='/assets/vendor/jquery/jquery-1.9.1.js')
@@ -98,6 +99,9 @@ html(xmlns='http://www.w3.org/1999/xhtml')
             script(type='text/javascript', src='/assets/vendor/bootbox/bootbox.js')
             script(type='text/javascript', src='/assets/js/#{t("layout.messagesFile")}.js')
             script(type='text/javascript', src='/assets/js/layout.js')
+            - if (!credential) {
+                script(type='text/javascript', src='/assets/js/unauthorized.js')
+            - }
         - }
 
         block scripts

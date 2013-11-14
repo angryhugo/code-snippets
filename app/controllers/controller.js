@@ -40,9 +40,22 @@ module.exports = {
         });
     },
     doSearch: function(req, res, next) {
-        var title = req.body.snippet_title || '';
-        console.log(title);
-        res.redirect('/');
+        var title = req.body.snippet_title || 'nothing';
+        res.send(title);
+    },
+    checkEmail: function(req, res) {
+        var email = req.body.email || '';
+        User.find({
+            where: {
+                email: email
+            }
+        }).success(function(user) {
+            if (!user) {
+                res.json('ok');
+            } else {
+                res.json('notOk');
+            }
+        });
     }
 };
 

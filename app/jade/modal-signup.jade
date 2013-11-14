@@ -6,13 +6,20 @@ div#modal-sign-up.modal.fade
                 h3.modal-title
                     | #{t("signup.signup")}
             div.modal-body
-                form.form-horizontal(action="/users/sign_up",method="POST")
+                div#alert-sign-up-error.alert.alert-danger
+                div#alert-sign-up-success.alert.alert-success
+                form#form-sign-up.form-horizontal(action="/users/sign_up",method="POST")
                     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                     div.form-group
                         label.col-lg-3.control-label(for='input-signup-email')
                             | #{t("signup.email")}
                         div.col-lg-7
-                            input#input-signup-email.form-control(type='text',placeholder='#{t("signup.emailPlaceholder")}',name='email',autocomplete='off')
+                            div.input-group
+                                input#input-signup-email.form-control(type='text',placeholder='#{t("signup.emailPlaceholder")}',name='email',autocomplete='off')
+                                span.input-group-btn
+                                    button#btn-check-email.btn.btn-default(type='button')
+                                        | #{t("signup.checkEmail")}
+                            label#lab-email-error.error.hide(for="input-signup-email", generated="true")
                     div.form-group
                         label.col-lg-3.control-label(for='input-signup-name')
                             | #{t("signup.name")}
@@ -23,9 +30,11 @@ div#modal-sign-up.modal.fade
                             | #{t("signup.password")}
                         div.col-lg-7
                             input#input-signup-password.form-control(type='password',placeholder='#{t("signup.passwordPlaceholder")}',name='password',autocomplete='off')
-                    div.col-lg-offset-3.col-lg-3
-                        button.btn.btn-success(type="submit")
+                    div.col-lg-offset-3.col-lg-6
+                        button#btn-sign-up.btn.btn-success(type="submit")
                             | #{t("signup.signup")}
+                        a#link-login-inModal.btn.btn-info.btn-right
+                            | #{t("signup.login")}
             div.modal-footer
-                a.btn.btn-default(data-dismiss="modal")
+                a#link-close-sign-up-modal.btn.btn-default(data-dismiss="modal")
                     | #{t("signup.close")}
