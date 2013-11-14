@@ -51,7 +51,6 @@ module.exports = function(app) {
         usernameField: 'login_email',
         passwordField: 'login_password'
     }, function(username, password, done) {
-        console.log('username=' + username);
         User.find({
             where: {
                 email: username
