@@ -66,11 +66,19 @@ $(function() {
                     $('#lab-email-error').removeClass('hide');
                 }
             },
-            username: "required",
+            username: {
+                required: true,
+                errorPlacement: function(error, element) {
+                    $('#lab-username-error').removeClass('hide');
+                }
+            },
             password: {
                 required: true,
                 minlength: 6,
-                maxlength: 16
+                maxlength: 16,
+                errorPlacement: function(error, element) {
+                    $('#lab-password-error').removeClass('hide');
+                }
             }
         },
         messages: {
@@ -84,6 +92,13 @@ $(function() {
                 minlength: jQuery.format(Message.PASSWORD_MIN_LENGTH),
                 maxlength: jQuery.format(Message.PASSWORD_MAX_LENGTH)
             }
+        },
+        highlight: function(element) {
+            $(element).closest('.form-group').removeClass('success').addClass('error');
+        },
+        success: function(element) {
+            element.closest('.form-group').removeClass('error').addClass('success');
+            element.closest('label').addClass('hide');
         }
     });
 
@@ -194,6 +209,7 @@ $(function() {
                 }
             });
         } else {
+            _checkEmailBtn.blur();
             _signupSuccessAlert.hide();
             _signupErrorAlert.html(Message.EMAIL_REQUIRED).show();
             setTimeout(function() {
