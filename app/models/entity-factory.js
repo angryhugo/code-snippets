@@ -18,7 +18,7 @@ if (nodeEnv === 'production') {
 } else {
     sequelize = new Sequelize(null, null, null, {
         dialect: 'sqlite',
-        storage: path.join(__dirname, '../../data/my_runnable.db'),
+        storage: path.join(__dirname, '../../data/code-snippets.db'),
         logging: false,
         define: {
             freezeTableName: true,
@@ -68,23 +68,41 @@ var CodeSnippet = sequelize.define('CodeSnippets', {
         type: Sequelize.TEXT,
         allowNull: false
     },
-    type_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     is_deleted: {
         type: Sequelize.BOOLEAN,
         allowNull: false
     }
 });
 
+var SnippetType = sequelize.define('SnippetTypes', {
+    id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    typeName: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+});
+
 User.hasMany(CodeSnippet, {
-    foreignKey: 'owner_id'
+    foreignKey: 'user_id'
 });
 
 CodeSnippet.belongsTo(User, {
-    as: 'owner',
-    foreignKey: 'owner_id'
+    as: 'user',
+    foreignKey: 'user_id'
+});
+
+SnippetType.hasMany(CodeSnippet, {
+    foreignKey: 'type_id'
+});
+
+CodeSnippet.belongsTo(SnippetType, {
+    as: 'typer',
+    foreignKey: 'type_id'
 });
 
 sequelize.sync({
@@ -95,11 +113,17 @@ sequelize.sync({
             var initUser = require('../init/init-user');
         }
     });
+    SnippetType.count().success(function(total) {
+        if (total < 1) {
+            var initType = require('../init/init-type');
+        }
+    });
 }).error(function(err) {
     console.log(err);
 });
 
 module.exports = {
     User: User,
-    CodeSnippet: CodeSnippet
+    CodeSnippet: CodeSnippet,
+    SnippetType: SnippetType
 };

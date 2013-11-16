@@ -21,22 +21,14 @@ block main
                 div.col-sm-9.col-lg-9
                     | #{snippet.title}
             div.form-group
-                label.col-lg-3.control-label(for='select-snippet-type')
+                label.col-sm-3.col-lg-3.control-label
                     | #{t("new-snippet.snippetType")}
-                div.col-lg-9
-                    select#select-snippet-type.form-control(disabled="true")
-                        option(value=1,selected= (snippet.type_id == 1? true:false))
-                            | javascript
-                        option(value=2,selected= (snippet.type_id == 2? true:false))
-                            | java
-                        option(value=3,selected= (snippet.type_id == 3? true:false))
-                            | c/c++
-                        option(value=4,selected= (snippet.type_id == 4? true:false))
-                            | c#
+                div.col-sm-9.col-lg-9
+                    | #{snippet.type}
             div.form-group
-                label.col-lg-3.control-label
+                label.col-sm-3.col-lg-3.control-label
                     | #{t("view-snippet.snippetContent")}
-                div.col-lg-9
+                div.col-sm-9.col-lg-9
                     pre
                         code
                             | #{snippet.snippet}

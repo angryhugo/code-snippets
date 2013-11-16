@@ -1,31 +1,27 @@
 var fs = require('fs');
 var path = require('path');
 var Sequelize = require("sequelize");
-var passwordHash = require('password-hash');
 var entityFactory = require('../models/entity-factory');
-var USER_LIST_FILE_PATH = path.join(__dirname, '../../data/user.json');
+var TYPE_LIST_FILE_PATH = path.join(__dirname, '../../data/type.json');
 
-var User = entityFactory.User;
+var SnippetType = entityFactory.SnippetType;
 
-function initUser() {
-    fs.exists(USER_LIST_FILE_PATH, function(exists) {
+function initSnippetType() {
+    fs.exists(TYPE_LIST_FILE_PATH, function(exists) {
         if (exists) {
-            fs.readFile(USER_LIST_FILE_PATH, function(err, data) {
+            fs.readFile(TYPE_LIST_FILE_PATH, function(err, data) {
                 if (err) {
                     console.log(err);
                 } else {
                     var list = JSON.parse(data);
                     if (list.length > 0) {
                         for (var i = 0; i < list.length; i++) {
-                            var hashedPassword = passwordHash.generate(list[i].password);
-                            User.create({
-                                email: list[i].email,
-                                name: list[i].name,
-                                password: hashedPassword
+                            SnippetType.create({
+                                typeName: list[i].typeName
                             }).success(function() {
-                                console.log('create user success!');
+                                console.log('create type success!');
                             }).error(function() {
-                                console.log('create failed!');
+                                console.log('create type failed!');
                             });
                         }
                     } else {
@@ -39,8 +35,4 @@ function initUser() {
     });
 }
 
-// module.exports = {
-//     initUser: initUser
-// }
-
-initUser();
+initSnippetType();

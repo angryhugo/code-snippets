@@ -2,9 +2,11 @@ var fs = require('fs');
 var moment = require('moment');
 var passwordHash = require('password-hash');
 var entityFactory = require('../models/entity-factory');
+var mapper = require('../helpers/mapper');
 
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
+var SnippetType = entityFactory.SnippetType;
 
 module.exports = {
     doLogin: function(req, res, next) {
@@ -25,20 +27,30 @@ module.exports = {
     },
     newSnippet: function(req, res, next) {
         var user = req.user || '';
-        res.render('new-snippet', {
-            credential: user,
-            token: req.csrfToken()
-        })
+        SnippetType.findAll().success(function(typeList) {
+            if (!typeList) {
+                errHandler(null, 'snippet type do not exist!', next);
+            } else {
+                res.render('new-snippet', {
+                    credential: user,
+                    typeList: typeList,
+                    token: req.csrfToken()
+                });
+            }
+        }).error(function(err) {
+            errHandler(err, 'server error!', next);
+        });
+
     },
     doNewSnippet: function(req, res, next) {
         var snippet = req.body.snippet || '';
         var title = req.body.title || '';
-        var typeId = req.body.type_id || 0;
-        var ownerId = req.user.id;
+        var typeId = req.body.type_id || 1;
+        var userId = req.user.id;
         CodeSnippet.create({
             title: title,
             snippet: snippet,
-            owner_id: ownerId,
+            user_id: userId,
             type_id: typeId,
             is_deleted: false
         }).success(function() {
@@ -51,13 +63,23 @@ module.exports = {
     viewSnippet: function(req, res, next) {
         var user = req.user || '';
         var snippetId = req.params.id || '';
-        CodeSnippet.find(snippetId).success(function(snippet) {
+        var option = {
+            include: [{
+                model: SnippetType,
+                as: 'typer'
+                    }],
+            where: {
+                id: snippetId
+            }
+        };
+        CodeSnippet.find(option).success(function(snippet) {
             if (!snippet) { //do not exist
                 errHandler(null, 'snippet do not exist!', next);
             } else {
+                console.log(mapper.viewSnippetMapper(snippet));
                 res.render('view-snippet', {
                     credential: user,
-                    snippet: snippet,
+                    snippet: mapper.viewSnippetMapper(snippet),
                     token: req.csrfToken()
                 });
             }
