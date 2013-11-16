@@ -23,20 +23,46 @@ module.exports = {
         });
 
     },
-    doInsert: function(req, res, next) {
+    newSnippet: function(req, res, next) {
+        var user = req.user || '';
+        res.render('new-snippet', {
+            credential: user,
+            token: req.csrfToken()
+        })
+    },
+    doNewSnippet: function(req, res, next) {
         var snippet = req.body.snippet || '';
         var title = req.body.title || '';
+        var typeId = req.body.type_id || 0;
         var ownerId = req.user.id;
         CodeSnippet.create({
             title: title,
             snippet: snippet,
             owner_id: ownerId,
+            type_id: typeId,
             is_deleted: false
         }).success(function() {
             console.log('insert snippet successfully!');
             res.redirect('/');
         }).error(function(err) {
             console.log(err);
+        });
+    },
+    viewSnippet: function(req, res, next) {
+        var user = req.user || '';
+        var snippetId = req.params.id || '';
+        CodeSnippet.find(snippetId).success(function(snippet) {
+            if (!snippet) { //do not exist
+                errHandler(null, 'snippet do not exist!', next);
+            } else {
+                res.render('view-snippet', {
+                    credential: user,
+                    snippet: snippet,
+                    token: req.csrfToken()
+                });
+            }
+        }).error(function(err) {
+            errHandler(err, 'server error!', next);
         });
     },
     doSearch: function(req, res, next) {

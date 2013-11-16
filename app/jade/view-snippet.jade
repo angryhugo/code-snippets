@@ -1,0 +1,54 @@
+extends layout
+
+block title
+    | #{t("view-snippet.title")}
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/view-snippet.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/static/css/view-snippet.css')
+    - }
+block main
+    div.container.nav-margin
+        h3.page-header
+            | #{t("view-snippet.title")}
+        div.col-sm-10.col-lg-10.form-horizontal
+            input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+            div.form-group
+                label.col-sm-3.col-lg-3.control-label
+                    | #{t("view-snippet.snippetTitle")}
+                div.col-sm-9.col-lg-9
+                    | #{snippet.title}
+            div.form-group
+                label.col-lg-3.control-label(for='select-snippet-type')
+                    | #{t("new-snippet.snippetType")}
+                div.col-lg-9
+                    select#select-snippet-type.form-control(disabled="true")
+                        option(value=1,selected= (snippet.type_id == 1? true:false))
+                            | javascript
+                        option(value=2,selected= (snippet.type_id == 2? true:false))
+                            | java
+                        option(value=3,selected= (snippet.type_id == 3? true:false))
+                            | c/c++
+                        option(value=4,selected= (snippet.type_id == 4? true:false))
+                            | c#
+            div.form-group
+                label.col-lg-3.control-label
+                    | #{t("view-snippet.snippetContent")}
+                div.col-lg-9
+                    pre
+                        code
+                            | #{snippet.snippet}
+            div.form-group
+                div.col-lg-offset-3.col-lg-4
+                    a#link-back.btn.btn-info(href='/')
+                        | #{t("view-snippet.backBtn")}
+
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/view-snippet.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/js/view-snippet.js')
+    - }

@@ -1,0 +1,57 @@
+extends layout
+
+block title
+    | #{t("new-snippet.title")}
+append head
+
+block main
+    div.container.nav-margin
+        //- form(method="POST", action="/snippets/new")
+        //-     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+        //-     input(name="title")
+        //-     textarea(name="snippet",style="width:50%",rows="20")
+        //-     button(type="submit")
+        //-         | submit
+
+
+        h3.page-header
+            | #{t("new-snippet.title")}
+        form#form-new-snippet.form-horizontal.col-sm-10.col-lg-10(action='/snippets/new',method='POST',role='form')
+            input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+            div.form-group
+                label.col-lg-3.control-label(for='input-snippet-title')
+                    | #{t("new-snippet.snippetTitle")}
+                div.col-lg-9
+                    input#input-snippet-title.form-control(type='text',name='title',placeholder='#{t("new-snippet.titlePlaceholder")}',autocomplete='off')
+            div.form-group
+                label.col-lg-3.control-label(for='select-snippet-type')
+                    | #{t("new-snippet.snippetType")}
+                div.col-lg-9
+                    select#select-snippet-type.form-control(name='type_id')
+                        option(value=1)
+                            | javascript
+                        option(value=2)
+                            | java
+                        option(value=3)
+                            | c/c++
+                        option(value=4)
+                            | c#
+            div.form-group
+                label.col-lg-3.control-label(for='input-snippet-content')
+                    | #{t("new-snippet.snippetContent")}
+                div.col-lg-9
+                    textarea#input-snippet-content.form-control(rows='15',placeholder='#{t("new-snippet.contentPlaceholder")}',name='snippet',style="resize:none")
+            div.form-group
+                div.col-lg-offset-3.col-lg-4
+                    button#btn-submit.btn.btn-success(type='submit')
+                        | #{t("new-snippet.submitBtn")}
+                    a#link-back.btn.btn-info.btn-right(href='/')
+                        | #{t("new-snippet.backBtn")}
+
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/new-snippet.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/js/new-snippet.js')
+    - }

@@ -46,5 +46,36 @@
         "close": "Close",
         "login": "Login",
         "checkEmail": "check"
+    },
+    "new-snippet": {
+        "title": "New Snippet",
+        "snippetTitle": "Title",
+        "snippetContent": "Snippet",
+        "titlePlaceholder": "Input your title",
+        "contentPlaceholder": "Input your code snippet",
+        "snippetType": "Type",
+        "submitBtn": "Save",
+        "backBtn": "Back"
+    },
+    "error": {
+        "title": "Error Page",
+        "errorDescription": "Server Error",
+        "backDescription": "You can use your browsers Back button to navigate to the page you have prevously come from.",
+        "anotherBackDescription": "Or you could just press this neat little button:",
+        "backBtn": "Take Me Home"
+    },
+    "404": {
+        "title": "404 Not Found",
+        "errorDescription": "Page Not Found",
+        "backDescription": "The page you requested could not be found, either contact your webmaster or try again. Use your browsers Back button to navigate to the page you have prevously come from.",
+        "anotherBackDescription": "Or you could just press this neat little button:",
+        "backBtn": "Take Me Home"
+    },
+    "view-snippet": {
+        "title": "View Snippet",
+        "snippetTitle": "Title",
+        "snippetContent": "Snippet",
+        "snippetType": "Type",
+        "backBtn": "Back"
     }
 }

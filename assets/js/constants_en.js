@@ -9,5 +9,7 @@ var Message = {
     PASSWORD_MIN_LENGTH: "Password requires at least {0} characters",
     PASSWORD_MAX_LENGTH: "Password requires no more than {0} characters",
     Email_NOT_EXISTED: "Congradulations! This email has not be used",
-    Email_EXISTED: "Sorry! This email has be used"
+    Email_EXISTED: "Sorry! This email has be used",
+    TITLE_REQUIRED: "Please enter title",
+    SNIPPET_REQUIRED: "Please enter code snippet"
 };

@@ -1,0 +1,25 @@
+extends layout
+
+block title
+    | #{t("404.title")}
+
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/error.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/static/css/error.css')
+    - }
+
+block main
+    div.jumbotron.center
+        div.container
+            h1
+                | #{t("404.errorDescription")}
+            p
+                | #{t("404.backDescription")}
+            p
+                | #{t("404.anotherBackDescription")}
+            a.btn.btn-large.btn-primary.button-margin(href="/")
+                i.icon-home.icon-white
+                    | #{t("404.backBtn")}

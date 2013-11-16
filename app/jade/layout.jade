@@ -17,6 +17,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
             link(rel='stylesheet', type='text/css', href='/assets/vendor/bootstrap/css/bootstrap.css')
             link(rel='stylesheet', type='text/css', href='/assets/vendor/font-awesome/css/font-awesome.min.css')
             link(rel='stylesheet', type='text/css', href='/static/css/layout.css')
+            link(rel='stylesheet', href='/assets/vendor/highlight/css/tomorrow.css')
         - }
 
         block head
@@ -97,6 +98,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
             script(type='text/javascript', src='/assets/vendor/bootstrap/js/bootstrap.js')
             script(type='text/javascript', src='/assets/vendor/bootstrap/js/respond.min.js')
             script(type='text/javascript', src='/assets/vendor/bootbox/bootbox.js')
+            script(type='text/javascript', src='/assets/vendor/highlight/js/highlight.pack.js')
             script(type='text/javascript', src='/assets/js/#{t("layout.messagesFile")}.js')
             script(type='text/javascript', src='/assets/js/layout.js')
             - if (!credential) {

@@ -1,4 +1,11 @@
 {
+    "404": {
+        "title": "404 未找到页面",
+        "errorDescription": "未找到页面",
+        "backDescription": "你所请求的页面未找到,你可以联系网站管理员或者再试一遍。点击浏览器的返回按钮返回刚才的页面。",
+        "anotherBackDescription": "或者点击下面的小按钮返回主页：",
+        "backBtn": "返回主页"
+    },
     "navbar-authorized": {
         "projectName": "代码片段",
         "password": "密码",
@@ -46,5 +53,29 @@
         "close": "关闭",
         "login": "登录",
         "checkEmail": "检查"
+    },
+    "new-snippet": {
+        "title": "新建片段",
+        "snippetTitle": "标题",
+        "snippetContent": "片段",
+        "titlePlaceholder": "请输入标题",
+        "contentPlaceholder": "请输入代码片段",
+        "snippetType": "类别",
+        "submitBtn": "保存",
+        "backBtn": "返回"
+    },
+    "error": {
+        "title": "错误页面",
+        "errorDescription": "服务器出错",
+        "backDescription": "你可以点击浏览器的返回按钮返回刚才的页面.",
+        "anotherBackDescription": "或者点击下面的小按钮返回主页：",
+        "backBtn": "返回主页"
+    },
+    "view-snippet": {
+        "title": "查看片段",
+        "snippetTitle": "标题",
+        "snippetContent": "片段",
+        "snippetType": "类别",
+        "backBtn": "返回"
     }
 }

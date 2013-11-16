@@ -68,6 +68,10 @@ var CodeSnippet = sequelize.define('CodeSnippets', {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    type_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
     is_deleted: {
         type: Sequelize.BOOLEAN,
         allowNull: false

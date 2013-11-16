@@ -86,25 +86,21 @@ module.exports = function(app) {
         console.log('post');
         res.redirect('/');
     });
-
-    // app.use(function(req, res) {
-    //     res.render('404');
-    // });
-
-    // app.use(function(err, req, res, next) {
-    //     console.log(err);
-    //     res.render('error', {
-    //         errMessage: err.message
-    //     });
-    // });
-    app.get('/snippets/new', ensureAuthenticated, function(req, res) {
-        res.render('insert', {
-            credential: req.user || '',
-            token: req.csrfToken()
-        });
-    });
-    app.post('/snippets/new', ensureAuthenticated, controller.doInsert);
+    app.get('/snippets/new', ensureAuthenticated, controller.newSnippet);
+    app.post('/snippets/new', ensureAuthenticated, controller.doNewSnippet);
+    app.get('/snippets/:id', controller.viewSnippet);
     app.post('/snippets/search', controller.doSearch);
 
     app.post('/api/email', controller.checkEmail);
+
+    app.use(function(req, res) {
+        res.render('404');
+    });
+
+    app.use(function(err, req, res, next) {
+        console.log(err);
+        res.render('error', {
+            errMessage: err.message
+        });
+    });
 };
