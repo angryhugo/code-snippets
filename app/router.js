@@ -88,8 +88,8 @@ module.exports = function(app) {
     });
     app.get('/snippets/new', ensureAuthenticated, controller.newSnippet);
     app.post('/snippets/new', ensureAuthenticated, controller.doNewSnippet);
+    app.get('/snippets/search', controller.searchSnippet);
     app.get('/snippets/:id', controller.viewSnippet);
-    app.post('/snippets/search', controller.doSearch);
 
     app.post('/api/email', controller.checkEmail);
 

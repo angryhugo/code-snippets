@@ -77,5 +77,14 @@
         "snippetContent": "Snippet",
         "snippetType": "Type",
         "backBtn": "Back"
+    },
+    "search-snippet": {
+        "searchFor": "Search Result For",
+        "title": "Search Results",
+        "type": "Type",
+        "creater": "Creater",
+        "createTime": "Created Time",
+        "viewTitle": "more",
+        "noSnippet": "There's no snippet related"
     }
 }

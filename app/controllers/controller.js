@@ -26,6 +26,7 @@ module.exports = {
 
     },
     newSnippet: function(req, res, next) {
+        console.log('newSnippet');
         var user = req.user || '';
         SnippetType.findAll().success(function(typeList) {
             if (!typeList) {
@@ -61,6 +62,7 @@ module.exports = {
         });
     },
     viewSnippet: function(req, res, next) {
+        console.log('viewSnippet');
         var user = req.user || '';
         var snippetId = req.params.id || '';
         var option = {
@@ -87,9 +89,33 @@ module.exports = {
             errHandler(err, 'server error!', next);
         });
     },
-    doSearch: function(req, res, next) {
-        var title = req.body.snippet_title || 'nothing';
-        res.send(title);
+    searchSnippet: function(req, res, next) {
+        var user = req.user || '';
+        var title = req.query.title || '';
+        var whereString = 'title LIKE "%' + title + '%"';
+        var option = {
+            include: [{
+                model: User,
+                as: 'user'
+                    }, {
+                model: SnippetType,
+                as: 'typer'
+                    }],
+            where: [whereString]
+        };
+        CodeSnippet.findAll(option).success(function(snippetList) {
+            if (!snippetList) { //do not exist
+                errHandler(null, 'snippet do not exist!', next);
+            } else {
+                res.render('search-snippet', {
+                    title: title,
+                    credential: user,
+                    snippetList: mapper.searchSnippetListMapper(snippetList)
+                });
+            }
+        }).error(function(err) {
+            errHandler(err, 'server error!', next);
+        });
     },
     checkEmail: function(req, res) {
         var email = req.body.email || '';

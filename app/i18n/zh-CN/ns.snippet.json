@@ -77,5 +77,14 @@
         "snippetContent": "片段",
         "snippetType": "类别",
         "backBtn": "返回"
+    },
+    "search-snippet": {
+        "searchFor": "搜索",
+        "title": "搜索结果",
+        "type": "类别",
+        "creater": "创建者",
+        "createTime": "创建时间",
+        "viewTitle": "查看",
+        "noSnippet": "没有搜索到相关的代码片段"
     }
 }

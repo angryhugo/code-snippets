@@ -31,10 +31,9 @@ block main
                 a.btn.btn-info.pull-right(href="/snippets/new")
                         i.fa.fa-plus
                             | #{t("index.createNew")}
-        form#form-search.form-horizontal.col-sm-offset-1.col-sm-10.col-lg-offset-2.col-lg-7(role='form',action='/snippets/search',method='POST')
+        form#form-search.form-horizontal.col-sm-offset-1.col-sm-10.col-lg-offset-2.col-lg-7(role='form',action='/snippets/search',method='get')
             div.input-group
-                input#input-csrf(type='hidden',name='_csrf',value='#{token}')
-                input#input-search.form-control(type="text",name="snippet_title",placeholder='#{t("index.searchPlaceholder")}',autocomplete="off")
+                input#input-search.form-control(type="text",name="title",placeholder='#{t("index.searchPlaceholder")}',autocomplete="off")
                 span.input-group-btn
                     button#btn-index-search.btn.btn-success
                         i.fa.fa-search
