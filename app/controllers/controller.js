@@ -67,9 +67,12 @@ module.exports = {
         var snippetId = req.params.id || '';
         var option = {
             include: [{
+                model: User,
+                as: 'user'
+                    }, {
                 model: SnippetType,
                 as: 'typer'
-                    }],
+            }],
             where: {
                 id: snippetId
             }

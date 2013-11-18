@@ -6,7 +6,8 @@ module.exports = {
             id: snippetObj.id,
             title: snippetObj.title,
             type: snippetObj.typer.typeName,
-            snippet: snippetObj.snippet
+            snippet: snippetObj.snippet,
+            owner: snippetObj.user.name
         };
     },
     searchSnippetMapper: function(snippetObj) {
