@@ -128,12 +128,12 @@ UserRelation.belongsTo(User, {
 });
 
 User.hasMany(UserRelation, {
-    foreignKey: 'follower_id'
+    foreignKey: 'follow_id'
 });
 
 UserRelation.belongsTo(User, {
-    as: 'follower',
-    foreignKey: 'follower_id'
+    as: 'follow',
+    foreignKey: 'follow_id'
 });
 
 sequelize.sync({
@@ -156,5 +156,6 @@ sequelize.sync({
 module.exports = {
     User: User,
     CodeSnippet: CodeSnippet,
-    SnippetType: SnippetType
+    SnippetType: SnippetType,
+    UserRelation: UserRelation
 };

@@ -7,6 +7,7 @@ var mapper = require('../helpers/mapper');
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var SnippetType = entityFactory.SnippetType;
+var UserRelation = entityFactory.UserRelation;
 
 module.exports = {
     doLogin: function(req, res, next) {
@@ -130,6 +131,21 @@ module.exports = {
             } else {
                 res.json('notOk');
             }
+        });
+    },
+    followUser: function(req, res) {
+        var userId = req.user.id;
+        var followId = req.body.follow_id;
+        console.log(followId);
+        UserRelation.create({
+            user_id: userId,
+            follow_id: followId
+        }).success(function() {
+            console.log('insert UserRelation successfully!');
+            res.json('ok');
+        }).error(function(err) {
+            console.log(err);
+            res.json('notOk');
         });
     }
 };

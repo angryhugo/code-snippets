@@ -92,6 +92,7 @@ module.exports = function(app) {
     app.get('/snippets/:id', controller.viewSnippet);
 
     app.post('/api/email', controller.checkEmail);
+    app.post('/api/follow', controller.followUser);
 
     app.use(function(req, res) {
         res.render('404');
