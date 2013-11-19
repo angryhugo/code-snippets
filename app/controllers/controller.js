@@ -26,7 +26,6 @@ module.exports = {
 
     },
     newSnippet: function(req, res, next) {
-        console.log('newSnippet');
         var user = req.user || '';
         SnippetType.findAll().success(function(typeList) {
             if (!typeList) {

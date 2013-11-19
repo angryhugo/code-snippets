@@ -85,6 +85,19 @@ var SnippetType = sequelize.define('SnippetTypes', {
         type: Sequelize.STRING,
         allowNull: false
     }
+}, {
+    timestamps: false
+});
+
+var UserRelation = sequelize.define('UserRelations', {
+    id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    }
+}, {
+    timestamps: false
 });
 
 User.hasMany(CodeSnippet, {
@@ -103,6 +116,24 @@ SnippetType.hasMany(CodeSnippet, {
 CodeSnippet.belongsTo(SnippetType, {
     as: 'typer',
     foreignKey: 'type_id'
+});
+
+User.hasMany(UserRelation, {
+    foreignKey: 'user_id'
+});
+
+UserRelation.belongsTo(User, {
+    as: 'user',
+    foreignKey: 'user_id'
+});
+
+User.hasMany(UserRelation, {
+    foreignKey: 'follower_id'
+});
+
+UserRelation.belongsTo(User, {
+    as: 'follower',
+    foreignKey: 'follower_id'
 });
 
 sequelize.sync({
