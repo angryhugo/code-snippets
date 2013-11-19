@@ -80,7 +80,6 @@ module.exports = {
             if (!snippet) { //do not exist
                 errHandler(null, 'snippet do not exist!', next);
             } else {
-                console.log(mapper.viewSnippetMapper(snippet));
                 res.render('view-snippet', {
                     credential: user,
                     snippet: mapper.viewSnippetMapper(snippet),
@@ -136,15 +135,12 @@ module.exports = {
     followUser: function(req, res) {
         var userId = req.user.id;
         var followId = req.body.follow_id;
-        console.log(followId);
         UserRelation.create({
             user_id: userId,
             follow_id: followId
         }).success(function() {
-            console.log('insert UserRelation successfully!');
             res.json('ok');
         }).error(function(err) {
-            console.log(err);
             res.json('notOk');
         });
     }

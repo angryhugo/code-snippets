@@ -21,13 +21,12 @@ $(function() {
             },
             dataType: 'json',
             success: function(data) {
-                alert('a');
-                // _followLink.attr('disabled', false);
-                // if (data == 'ok') {
-                //     bootbox.alert('ok');
-                // } else {
-                //     bootbox.alert('not ok');
-                // }
+                _followLink.attr('disabled', false);
+                if (data == 'ok') {
+                    bootbox.alert('ok');
+                } else {
+                    bootbox.alert('not ok');
+                }
             },
             error: function(xhr, status, err) {
                 bootbox.alert(xhr.responseText);
