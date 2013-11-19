@@ -1,7 +1,7 @@
 extends layout
 
 block title
-    | #{t("search-snippet.searchFor")}&nbsp;&apos;#{title}&apos;
+    | #{t("search-snippet.searchFor")}&nbsp;&apos;#{keyword}&apos;
 
 append head
     - if (nodeEnv == "production") {
@@ -44,9 +44,9 @@ block main
             h3
                 | #{t("search-snippet.noSnippet")}
 block scripts
-    - if (nodeEnv == "production") {
-        script(type='text/javascript', src='/static/js/search-snippet.min.js')
-    - }
-    - else {
-        script(type='text/javascript', src='/assets/js/search-snippet.js')
-    - }
+    //- - if (nodeEnv == "production") {
+    //-     script(type='text/javascript', src='/static/js/search-snippet.min.js')
+    //- - }
+    //- - else {
+    //-     script(type='text/javascript', src='/assets/js/search-snippet.js')
+    //- - }

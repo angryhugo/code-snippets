@@ -62,7 +62,6 @@ module.exports = {
         });
     },
     viewSnippet: function(req, res, next) {
-        console.log('viewSnippet');
         var user = req.user || '';
         var snippetId = req.params.id || '';
         var option = {
@@ -94,8 +93,8 @@ module.exports = {
     },
     searchSnippet: function(req, res, next) {
         var user = req.user || '';
-        var title = req.query.title || '';
-        var whereString = 'title LIKE "%' + title + '%"';
+        var keyword = req.query.keyword || '';
+        var whereString = 'title LIKE "%' + keyword + '%"';
         var option = {
             include: [{
                 model: User,
@@ -111,7 +110,7 @@ module.exports = {
                 errHandler(null, 'snippet do not exist!', next);
             } else {
                 res.render('search-snippet', {
-                    title: title,
+                    keyword: keyword,
                     credential: user,
                     snippetList: mapper.searchSnippetListMapper(snippetList)
                 });
