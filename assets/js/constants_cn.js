@@ -13,3 +13,8 @@ var Message = {
     TITLE_REQUIRED: "请输入标题",
     SNIPPET_REQUIRED: "请输入代码片段"
 };
+
+var Opertation = {
+    FOLLOW: '关注',
+    CANCEL: '取消关注'
+};

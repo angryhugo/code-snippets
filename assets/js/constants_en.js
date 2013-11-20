@@ -13,3 +13,8 @@ var Message = {
     TITLE_REQUIRED: "Please enter title",
     SNIPPET_REQUIRED: "Please enter code snippet"
 };
+
+var Opertation = {
+    FOLLOW: 'Follow',
+    CANCEL: 'Cancel'
+};

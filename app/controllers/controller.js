@@ -83,11 +83,22 @@ module.exports = {
             if (!snippet) { //do not exist
                 errHandler(null, 'snippet do not exist!', next);
             } else {
-                res.render('view-snippet', {
-                    credential: user,
-                    snippet: mapper.viewSnippetMapper(snippet),
-                    token: req.csrfToken()
-                });
+                var mappedSnippet = mapper.viewSnippetMapper(snippet);
+                checkFollowStatus(user.id, mappedSnippet.ownerId, function(err, status) {
+                    //followStatus: 0 self; 1 followed; 2 unfollowed; 3 not login
+                    var followStatus;
+                    if (err) {
+                        followStatus = 4;
+                    } else {
+                        followStatus = status;
+                    }
+                    res.render('view-snippet', {
+                        credential: user,
+                        snippet: mappedSnippet,
+                        followStatus: followStatus,
+                        token: req.csrfToken()
+                    });
+                })
             }
         }).error(function(err) {
             errHandler(err, 'server error!', next);
@@ -136,9 +147,23 @@ module.exports = {
         });
     },
     followUser: function(req, res) {
+        console.log('follow');
         var userId = req.user.id;
         var followId = req.body.follow_id;
         UserRelation.create({
+            user_id: userId,
+            follow_id: followId
+        }).success(function() {
+            res.json('ok');
+        }).error(function(err) {
+            res.json('notOk');
+        });
+    },
+    unfollowUser: function(req, res) {
+        console.log('unfollow');
+        var userId = req.user.id;
+        var followId = req.body.follow_id;
+        UserRelation.destroy({
             user_id: userId,
             follow_id: followId
         }).success(function() {
@@ -156,4 +181,28 @@ function errHandler(err, message, next) {
         detail: err
     };
     next(error);
+}
+
+function checkFollowStatus(userId, followId, callback) {
+    //followStatus: 0 self; 1 followed; 2 unfollowed
+    if (!userId) {
+        callback(null, 3);
+    } else if (userId == followId) {
+        callback(null, 0);
+    } else {
+        UserRelation.find({
+            where: {
+                user_id: userId,
+                follow_id: followId
+            }
+        }).success(function(userRelation) {
+            if (userRelation) {
+                callback(null, 1);
+            } else {
+                callback(null, 2);
+            }
+        }).error(function(err) {
+            callback(err);
+        });
+    }
 }

@@ -94,6 +94,8 @@ module.exports = function(app) {
 
     app.post('/api/email', controller.checkEmail);
     app.post('/api/follow', controller.followUser);
+    app.post('/api/unfollow', controller.unfollowUser);
+
 
     app.use(function(req, res) {
         res.render('404');

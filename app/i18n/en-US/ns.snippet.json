@@ -76,7 +76,9 @@
         "snippetTitle": "Title",
         "snippetContent": "Snippet",
         "snippetType": "Type",
-        "backBtn": "Back"
+        "backBtn": "Back",
+        "cancel": "Cancel",
+        "follow": "Follow"
     },
     "search-snippet": {
         "searchFor": "Search Result For",

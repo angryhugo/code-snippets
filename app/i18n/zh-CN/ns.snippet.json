@@ -76,7 +76,9 @@
         "snippetTitle": "标题",
         "snippetContent": "片段",
         "snippetType": "类别",
-        "backBtn": "返回"
+        "backBtn": "返回",
+        "cancel": "取消关注",
+        "follow": "关注"
     },
     "search-snippet": {
         "searchFor": "搜索",

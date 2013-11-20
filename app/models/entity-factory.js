@@ -135,7 +135,7 @@ UserRelation.belongsTo(User, {
 });
 
 sequelize.sync({
-    force: true
+    force: false
 }).success(function() {
     User.count().success(function(total) {
         if (total < 1) {

@@ -3,17 +3,19 @@ $(function() {
     hljs.initHighlightingOnLoad();
 
     var _backLink = $('#link-back');
-    var _followLink = $('#link-follow');
+    var _followBtn = $('#btn-follow');
 
     _backLink.on('click', function() {
         history.back();
     });
 
-    _followLink.on('click', function() {
-        var followId = $(this).attr('data-followId');
-        _followLink.attr('disabled', true);
+    _followBtn.on('click', function() {
+        _followBtn.attr('disabled', true);
+        var self = $(this);
+        var followId = self.attr('data-followId');
+        var url = self.attr('data-url') || '/api/follow';
         $.ajax({
-            url: '/api/follow',
+            url: url,
             type: 'POST',
             data: {
                 follow_id: followId,
@@ -21,12 +23,18 @@ $(function() {
             },
             dataType: 'json',
             success: function(data) {
-                _followLink.attr('disabled', false);
                 if (data == 'ok') {
-                    bootbox.alert('ok');
+                    if (url == '/api/follow') {
+                        self.attr('data-url', '/api/unfollow');
+                        self.text(Opertation.CANCEL);
+                    } else {
+                        self.attr('data-url', '/api/follow');
+                        self.text(Opertation.FOLLOW);
+                    }
                 } else {
                     bootbox.alert('not ok');
                 }
+                _followBtn.attr('disabled', false);
             },
             error: function(xhr, status, err) {
                 bootbox.alert(xhr.responseText);
