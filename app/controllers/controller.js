@@ -15,7 +15,8 @@ module.exports = {
             httpOnly: false,
             maxAge: 604800000
         });
-        res.redirect('/');
+        var returnUrl = req.session.returnUrl || '/';
+        res.redirect(returnUrl);
     },
     index: function(req, res, next) {
         var user = req.user || '';

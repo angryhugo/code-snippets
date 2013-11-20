@@ -10,6 +10,8 @@ module.exports = function(app) {
         if (req.isAuthenticated()) {
             return next();
         } else {
+            var currentUrl = req.url || '/';
+            req.session.returnUrl = currentUrl;
             if (req.cookies['mr-user']) {
                 var user = req.cookies['mr-user'];
                 req.login(user, function(err) {
@@ -70,11 +72,10 @@ module.exports = function(app) {
         });
     }));
     app.get('/', autoLogin, controller.index);
-    app.post('/users/login',
-        passport.authenticate('local', {
-            failureRedirect: '/?error=1',
-            failureFlash: true
-        }), controller.doLogin);
+    app.post('/users/login', passport.authenticate('local', {
+        failureRedirect: '/?error=1',
+        failureFlash: true
+    }), controller.doLogin);
 
     app.get('/users/logout', function(req, res) {
         req.logout();
