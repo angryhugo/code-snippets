@@ -3,6 +3,7 @@ var path = require('path');
 var Sequelize = require("sequelize");
 var passwordHash = require('password-hash');
 var entityFactory = require('../models/entity-factory');
+var utils = require('../helpers/utils');
 var USER_LIST_FILE_PATH = path.join(__dirname, '../../data/user.json');
 
 var User = entityFactory.User;
@@ -19,6 +20,7 @@ function initUser() {
                         for (var i = 0; i < list.length; i++) {
                             var hashedPassword = passwordHash.generate(list[i].password);
                             User.create({
+                                id: utils.generateId(),
                                 email: list[i].email,
                                 name: list[i].name,
                                 password: hashedPassword

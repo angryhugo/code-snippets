@@ -3,6 +3,7 @@ var moment = require('moment');
 var passwordHash = require('password-hash');
 var entityFactory = require('../models/entity-factory');
 var mapper = require('../helpers/mapper');
+var utils = require('../helpers/utils');
 
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
@@ -50,6 +51,7 @@ module.exports = {
         var typeId = req.body.type_id || 1;
         var userId = req.user.id;
         CodeSnippet.create({
+            id: utils.generateId(),
             title: title,
             snippet: snippet,
             user_id: userId,

@@ -31,10 +31,9 @@ if (nodeEnv === 'production') {
 
 var User = sequelize.define('Users', {
     id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+        primaryKey: true
     },
     email: {
         allowNull: false,
@@ -55,10 +54,9 @@ var User = sequelize.define('Users', {
 
 var CodeSnippet = sequelize.define('CodeSnippets', {
     id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+        primaryKey: true
     },
     title: {
         type: Sequelize.TEXT,
@@ -137,7 +135,7 @@ UserRelation.belongsTo(User, {
 });
 
 sequelize.sync({
-    force: false
+    force: true
 }).success(function() {
     User.count().success(function(total) {
         if (total < 1) {
