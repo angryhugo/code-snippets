@@ -25,7 +25,7 @@ block main
                             div(style='font-weight:bold;')
                                 | #{snippet.owner}
                             div(style='margin-top:3px')
-                                a(href="/") 关注
+                                a#link-follow(data-followId='#{snippet.ownerId}') 关注
             div.col-sm-9.col-lg-9.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                 div.form-group

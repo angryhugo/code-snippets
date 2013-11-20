@@ -7,6 +7,7 @@ var mapper = require('../helpers/mapper');
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var SnippetType = entityFactory.SnippetType;
+var UserRelation = entityFactory.UserRelation;
 
 module.exports = {
     doLogin: function(req, res, next) {
@@ -80,7 +81,6 @@ module.exports = {
             if (!snippet) { //do not exist
                 errHandler(null, 'snippet do not exist!', next);
             } else {
-                console.log(mapper.viewSnippetMapper(snippet));
                 res.render('view-snippet', {
                     credential: user,
                     snippet: mapper.viewSnippetMapper(snippet),
@@ -131,6 +131,18 @@ module.exports = {
             } else {
                 res.json('notOk');
             }
+        });
+    },
+    followUser: function(req, res) {
+        var userId = req.user.id;
+        var followId = req.body.follow_id;
+        UserRelation.create({
+            user_id: userId,
+            follow_id: followId
+        }).success(function() {
+            res.json('ok');
+        }).error(function(err) {
+            res.json('notOk');
         });
     }
 };
