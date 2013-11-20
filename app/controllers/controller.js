@@ -147,7 +147,6 @@ module.exports = {
         });
     },
     followUser: function(req, res) {
-        console.log('follow');
         var userId = req.user.id;
         var followId = req.body.follow_id;
         UserRelation.create({
@@ -160,7 +159,6 @@ module.exports = {
         });
     },
     unfollowUser: function(req, res) {
-        console.log('unfollow');
         var userId = req.user.id;
         var followId = req.body.follow_id;
         UserRelation.destroy({

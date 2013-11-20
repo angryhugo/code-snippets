@@ -6,14 +6,6 @@ append head
 
 block main
     div.container.nav-margin
-        //- form(method="POST", action="/snippets/new")
-        //-     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
-        //-     input(name="title")
-        //-     textarea(name="snippet",style="width:50%",rows="20")
-        //-     button(type="submit")
-        //-         | submit
-
-
         h3.page-header
             | #{t("new-snippet.title")}
         form#form-new-snippet.form-horizontal.col-sm-10.col-lg-10(action='/snippets/new',method='POST',role='form')
