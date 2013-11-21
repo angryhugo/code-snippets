@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PORT=10101
+PORT=12481
 
 case $1 in
     dev)

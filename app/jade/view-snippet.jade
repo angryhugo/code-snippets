@@ -27,7 +27,7 @@ block main
                             if followStatus == 1
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/unfollow') #{t("view-snippet.cancel")}
-                            if followStatus == 2
+                            else if followStatus == 2
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow') #{t("view-snippet.follow")}
             div.col-sm-9.col-lg-9.form-horizontal
