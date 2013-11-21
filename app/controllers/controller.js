@@ -107,7 +107,15 @@ module.exports = {
     searchSnippet: function(req, res, next) {
         var user = req.user || '';
         var keyword = req.query.keyword || '';
-        var whereString = 'title LIKE "%' + keyword + '%"';
+        var keywords = keyword.split(' ');
+        var whereString = '';
+        for (var i = 0; i < keywords.length; i++) {
+            if (i == 0) {
+                whereString += 'title LIKE "%' + keywords[i] + '%"';
+            } else {
+                whereString += ' OR title LIKE "%' + keywords[i] + '%"';
+            }
+        }
         var option = {
             include: [{
                 model: User,
@@ -125,7 +133,8 @@ module.exports = {
                 res.render('search-snippet', {
                     keyword: keyword,
                     credential: user,
-                    snippetList: mapper.searchSnippetListMapper(snippetList)
+                    snippetList: mapper.searchSnippetListMapper(snippetList),
+                    token: req.csrfToken()
                 });
             }
         }).error(function(err) {
