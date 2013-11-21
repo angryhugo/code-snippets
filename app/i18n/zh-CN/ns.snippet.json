@@ -83,6 +83,7 @@
     "search-snippet": {
         "searchFor": "搜索",
         "title": "搜索结果",
+        "snippetTitle": "标题",
         "type": "类别",
         "creater": "创建者",
         "createTime": "创建时间",

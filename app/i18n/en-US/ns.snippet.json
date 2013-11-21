@@ -83,6 +83,7 @@
     "search-snippet": {
         "searchFor": "Search Result For",
         "title": "Search Results",
+        "snippetTitle": "Title",
         "type": "Type",
         "creater": "Creater",
         "createTime": "Created Time",
