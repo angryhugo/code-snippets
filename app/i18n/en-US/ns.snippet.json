@@ -87,6 +87,7 @@
         "creater": "Creater",
         "createTime": "Created Time",
         "viewTitle": "more",
-        "noSnippet": "There's no snippet related"
+        "noSnippet": "There's no snippet related",
+        "backBtn": "Back"
     }
 }

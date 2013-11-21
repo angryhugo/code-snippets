@@ -5,3 +5,22 @@
     color: #000;
     // margin-left: 20px;
 }
+
+table tr th {
+    font-size: 16px;
+    &.sortUp {
+        background: #F5F5F5 url(/static/images/asc.gif) no-repeat right center;
+    }
+    &.sortDown {
+        background: #F5F5F5 url(/static/images/desc.gif) no-repeat right center;
+    }
+}
+
+table tbody tr {
+    &.even{
+        background-color: #F0F0F0;
+    }
+    &:hover{
+        background-color: #CCCCCC;
+    }
+}

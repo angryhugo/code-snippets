@@ -13,20 +13,24 @@ append head
 
 block main
     div.container.nav-margin
-        h3.page-header
-            | #{t("search-snippet.title")}
+        div.page-header
+            h3
+                | #{t("search-snippet.title")}
+                a.btn.btn-info.pull-right(href='/')
+                    | #{t("search-snippet.backBtn")}
         if snippetList.length>0
-            table.table
-                tr
-                    th.col-md-3
-                        | #{t("search-snippet.title")}
-                    th.col-md-2 
-                        | #{t("search-snippet.type")}
-                    th.col-md-2
-                        | #{t("search-snippet.creater")}
-                    th.col-md-3
-                        | #{t("search-snippet.createTime")}
-                    th.col-md-1
+            table#table-snippets.table
+                thead
+                    tr
+                        th.col-md-3
+                            | #{t("search-snippet.title")}
+                        th.col-md-2 
+                            | #{t("search-snippet.type")}
+                        th.col-md-2
+                            | #{t("search-snippet.creater")}
+                        th.col-md-3
+                            | #{t("search-snippet.createTime")}
+                        th.col-md-1
                 for snippet in snippetList
                     tr
                         td.col-md-3
@@ -44,9 +48,10 @@ block main
             h3
                 | #{t("search-snippet.noSnippet")}
 block scripts
-    //- - if (nodeEnv == "production") {
-    //-     script(type='text/javascript', src='/static/js/search-snippet.min.js')
-    //- - }
-    //- - else {
-    //-     script(type='text/javascript', src='/assets/js/search-snippet.js')
-    //- - }
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/search-snippet.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/vendor/jquery/jquery.tablesorter.js')
+        script(type='text/javascript', src='/assets/js/search-snippet.js')
+    - }
