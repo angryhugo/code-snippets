@@ -10,6 +10,10 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 
+String.prototype.trim = function() {
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
 module.exports = {
     doLogin: function(req, res, next) {
         res.cookie('mr-user', req.user, {
@@ -107,7 +111,7 @@ module.exports = {
     searchSnippet: function(req, res, next) {
         var user = req.user || '';
         var keyword = req.query.keyword || '';
-        var keywords = keyword.split(' ');
+        var keywords = keyword.trim().split(' ');
         var whereString = '';
         for (var i = 0; i < keywords.length; i++) {
             if (i == 0) {
