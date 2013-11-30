@@ -7,6 +7,7 @@ div#modal-login.modal.fade
                     | #{t("login.login")}
             div.modal-body
                 div#alert-login.alert.alert-danger
+                div#alert-sign-up-success.alert.alert-success
                 form#form-login.form-horizontal(action="/users/login",method="POST")
                     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                     div.form-group

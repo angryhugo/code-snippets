@@ -6,11 +6,13 @@ $(function() {
     var _closeLoginLink = $('#link-close-login-modal');
     var _loginAlert = $('#alert-login');
     var _signupErrorAlert = $('#alert-sign-up-error');
+    var _signupEmailSuccessAlert = $('#alert-sign-up-email-success');
     var _signupSuccessAlert = $('#alert-sign-up-success');
 
     _loginAlert.hide();
     _signupErrorAlert.hide();
     _signupSuccessAlert.hide();
+    _signupEmailSuccessAlert.hide();
 
     var _loginModalLink = $('#link-login-inModal');
     var _signupModalLink = $('#link-sign-up-inModal');
@@ -55,6 +57,17 @@ $(function() {
         case 3:
             errorAlert(_showLoginLink, _loginAlert, Message.LOGIN_FIRST);
             break;
+    }
+
+    var successType = parseInt(getUrlVars()['success']) || 0;
+    //sign up success
+    if (successType === 1) {
+        _closeSignupLink.click();
+        _showLoginLink.click();
+        _signupSuccessAlert.html(Message.SIGNUP_SUCCESS).show();
+        setTimeout(function() {
+            _signupSuccessAlert.hide()
+        }, 5000);
     }
 
     var signupValidator = _signupForm.validate({
@@ -192,12 +205,12 @@ $(function() {
                     _checkEmailBtn.attr('disabled', false);
                     if (data == 'ok') {
                         _signupErrorAlert.hide();
-                        _signupSuccessAlert.html(Message.Email_NOT_EXISTED).show();
+                        _signupEmailSuccessAlert.html(Message.Email_NOT_EXISTED).show();
                         setTimeout(function() {
-                            _signupSuccessAlert.hide();
+                            _signupEmailSuccessAlert.hide();
                         }, 5000);
                     } else {
-                        _signupSuccessAlert.hide();
+                        _signupEmailSuccessAlert.hide();
                         _signupErrorAlert.html(Message.Email_EXISTED).show();
                         setTimeout(function() {
                             _signupErrorAlert.hide();

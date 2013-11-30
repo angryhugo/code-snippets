@@ -83,10 +83,7 @@ module.exports = function(app) {
         res.redirect('/');
     });
 
-    app.post('/users/sign_up', function(req, res) {
-        console.log('post');
-        res.redirect('/');
-    });
+    app.post('/users/sign_up', controller.doSignUp);
     app.get('/snippets/new', ensureAuthenticated, controller.newSnippet);
     app.post('/snippets/new', ensureAuthenticated, controller.doNewSnippet);
     app.get('/snippets/search', controller.searchSnippet);

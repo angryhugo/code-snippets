@@ -24,6 +24,24 @@ module.exports = {
         var returnUrl = req.session.returnUrl || '/';
         res.redirect(returnUrl);
     },
+    doSignUp: function(req, res, next) {
+        var email = req.body.email || '';
+        var password = req.body.password || '';
+        var name = req.body.username || '';
+        var hashedPassword = passwordHash.generate(password);
+        User.create({
+            id: utils.generateId(),
+            email: email,
+            name: name,
+            password: hashedPassword
+        }).success(function(user) {
+            console.log(user);
+            res.redirect('/?success=1'); //sign up successfully
+        }).error(function(err) {
+            console.log(err);
+            res.redirect('/?error=2'); //sign up error
+        });
+    },
     index: function(req, res, next) {
         var user = req.user || '';
         res.render('index', {

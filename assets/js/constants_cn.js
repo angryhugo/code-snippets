@@ -1,7 +1,8 @@
 var Message = {
     LOGIN_ERROR: '邮箱与密码不匹配',
     LOGIN_FIRST: '请先登录',
-    SIGNUP_ERROR: '此邮箱已注册',
+    SIGNUP_ERROR: '对不起！注册失败',
+    SIGNUP_SUCCESS: '恭喜你注册成功！请登录',
     EMAIL_REQUIRED: "邮箱不能为空",
     EMAIL_ERROR: "请输入有效的邮箱地址",
     USERNAME_REQUIRED: "用户名不能为空",

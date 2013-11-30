@@ -1,7 +1,8 @@
 var Message = {
     LOGIN_ERROR: 'Invalid email or password',
     LOGIN_FIRST: 'Please login first',
-    SIGNUP_ERROR: 'Email has existed',
+    SIGNUP_ERROR: 'Sorry! Failed to sign up',
+    SIGNUP_SUCCESS: 'Congradulations! Sign up successfully, please sign in',
     EMAIL_REQUIRED: "Please enter email",
     EMAIL_ERROR: "Please enter a valid email address",
     USERNAME_REQUIRED: "Please enter username",
