@@ -114,10 +114,13 @@ module.exports = {
         var keyword = req.query.keyword || '';
         var keywords = keyword.trim().split(' ');
 
-        var whereString = 'type_id = ' + typeId;
+        var whereString = '';
+        if (typeId != 0) {
+            whereString += 'type_id = ' + typeId + ' AND ';
+        }
         for (var i = 0; i < keywords.length; i++) {
             if (i == 0) {
-                whereString += ' AND (title LIKE "%' + keywords[i] + '%"';
+                whereString += '(title LIKE "%' + keywords[i] + '%"';
             } else {
                 whereString += ' OR title LIKE "%' + keywords[i] + '%"';
             }
