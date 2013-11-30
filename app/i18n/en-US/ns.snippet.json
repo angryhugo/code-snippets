@@ -89,6 +89,7 @@
         "createTime": "Created Time",
         "viewTitle": "more",
         "noSnippet": "There's no snippet related",
-        "backBtn": "Back"
+        "backBtn": "Back",
+        "all": "All"
     }
 }

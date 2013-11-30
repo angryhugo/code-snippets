@@ -110,16 +110,21 @@ module.exports = {
     },
     searchSnippet: function(req, res, next) {
         var user = req.user || '';
+        var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
         var keywords = keyword.trim().split(' ');
-        var whereString = '';
+
+        var whereString = 'type_id = ' + typeId;
         for (var i = 0; i < keywords.length; i++) {
             if (i == 0) {
-                whereString += 'title LIKE "%' + keywords[i] + '%"';
+                whereString += ' AND (title LIKE "%' + keywords[i] + '%"';
             } else {
                 whereString += ' OR title LIKE "%' + keywords[i] + '%"';
             }
         }
+        whereString += ')';
+
+        console.log(whereString);
         var option = {
             include: [{
                 model: User,
@@ -134,11 +139,21 @@ module.exports = {
             if (!snippetList) { //do not exist
                 errHandler(null, 'snippet do not exist!', next);
             } else {
-                res.render('search-snippet', {
-                    keyword: keyword,
-                    credential: user,
-                    snippetList: mapper.searchSnippetListMapper(snippetList),
-                    token: req.csrfToken()
+                SnippetType.findAll().success(function(typeList) {
+                    if (!typeList) {
+                        errHandler(null, 'snippet type do not exist!', next);
+                    } else {
+                        res.render('search-snippet', {
+                            keyword: keyword,
+                            credential: user,
+                            snippetList: mapper.searchSnippetListMapper(snippetList),
+                            typeList: typeList,
+                            typeId: typeId,
+                            token: req.csrfToken()
+                        });
+                    }
+                }).error(function(err) {
+                    errHandler(err, 'server error!', next);
                 });
             }
         }).error(function(err) {

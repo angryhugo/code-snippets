@@ -89,6 +89,7 @@
         "createTime": "创建时间",
         "viewTitle": "查看",
         "noSnippet": "没有搜索到相关的代码片段",
-        "backBtn": "返回"
+        "backBtn": "返回",
+        "all": "全部类型"
     }
 }

@@ -20,9 +20,10 @@ block main
                     | #{t("new-snippet.snippetType")}
                 div.col-lg-9
                     select#select-snippet-type.form-control(name='type_id')
-                        for type in typeList
-                            option(value="#{type.id}") 
-                                | #{type.typeName}
+                        if typeList.length>0
+                            for type in typeList
+                                option(value="#{type.id}") 
+                                    | #{type.typeName}
             div.form-group
                 label.col-lg-3.control-label(for='input-snippet-content')
                     | #{t("new-snippet.snippetContent")}
