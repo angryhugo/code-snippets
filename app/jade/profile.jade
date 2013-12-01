@@ -16,12 +16,12 @@ block main
                 | #{t("profile.title")}
                 a#link-back.btn.btn-info.pull-right
                         | #{t("profile.backBtn")}
-        div.row.col-md-offset-1.col-md-10
-            div.col-md-3
+        div.row.col-xs-12.col-md-offset-1.col-md-10
+            div.col-xs-12.col-md-2
                 div.row
-                    div.col-md-12
+                    div.col-xs-2.col-md-12
                         img.profile(src='/static/images/profile-large.jpg')
-                    div.col-md-12
+                    div.col-xs-3.col-md-12
                         div.profile-info.profile-name
                             | #{credential.name}
                         //- div.row
@@ -35,7 +35,7 @@ block main
                         //-             div
                         //-                 | 120
                         //-             | follower
-            div.col-md-9.form-horizontal
+            div.col-xs-10.col-md-9.form-horizontal
                 ul.nav.nav-tabs
                     li.active
                         a(href='#mine',data-toggle="tab")
