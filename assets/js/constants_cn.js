@@ -1,4 +1,5 @@
 var Message = {
+    SERVER_ERROR: "服务器出错",
     LOGIN_ERROR: '邮箱与密码不匹配',
     LOGIN_FIRST: '请先登录',
     SIGNUP_ERROR: '对不起！注册失败',
@@ -12,7 +13,14 @@ var Message = {
     Email_NOT_EXISTED: "恭喜你！该邮箱可以使用",
     Email_EXISTED: "对不起！此邮箱已被注册",
     TITLE_REQUIRED: "请输入标题",
-    SNIPPET_REQUIRED: "请输入代码片段"
+    SNIPPET_REQUIRED: "请输入代码片段",
+    CURRENT_PASSWORD_REQUIRED: "旧密码不能为空",
+    NEW_PASSWORD_REQUIRED: "新密码不能为空",
+    CONFIRM_PASSWORD_REQUIRED: "确认密码不能为空",
+    PASSWORD_EQUAL_ERROR: "两次新密码不一致",
+    PASSWORD_SAME_ERROR: "新密码与旧密码一致，请输入一个你当前未使用的密码",
+    PASSWORD_SAVE_ERROR: "修改密码失败",
+    PASSWORD_WRONG_ERROR: "旧密码不正确"
 };
 
 var Opertation = {

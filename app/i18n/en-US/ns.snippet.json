@@ -91,5 +91,15 @@
         "noSnippet": "There's no snippet related",
         "backBtn": "Back",
         "all": "All"
+    },
+    "password": {
+        "title": "Modify Password",
+        "successAlert": "Modified successfully!",
+        "email": "Email",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "submitBtn": "Save",
+        "backBtn": "Back"
     }
 }

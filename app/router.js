@@ -84,6 +84,10 @@ module.exports = function(app) {
     });
 
     app.post('/users/sign_up', controller.doSignUp);
+
+    app.get('/password', ensureAuthenticated, controller.modifyPassword);
+    app.post('/password', ensureAuthenticated, controller.doModifyPassword);
+
     app.get('/snippets/new', ensureAuthenticated, controller.newSnippet);
     app.post('/snippets/new', ensureAuthenticated, controller.doNewSnippet);
     app.get('/snippets/search', controller.searchSnippet);

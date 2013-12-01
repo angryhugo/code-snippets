@@ -91,5 +91,16 @@
         "noSnippet": "没有搜索到相关的代码片段",
         "backBtn": "返回",
         "all": "全部类型"
+    },
+    "password": {
+        "title": "修改密码",
+        "successAlert": "修改成功！",
+        "failureAlert": "修改失败！",
+        "email": "邮箱",
+        "currentPassword": "旧密码",
+        "newPassword": "新密码",
+        "confirmPassword": "确认密码",
+        "submitBtn": "保存",
+        "backBtn": "返回"
     }
 }

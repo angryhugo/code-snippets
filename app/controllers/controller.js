@@ -42,6 +42,31 @@ module.exports = {
             res.redirect('/?error=2'); //sign up error
         });
     },
+    modifyPassword: function(req, res, next) {
+        var user = req.user || '';
+        res.render('password', {
+            credential: user,
+            token: req.csrfToken()
+        });
+    },
+    doModifyPassword: function(req, res, next) {
+        var currentPassword = req.body.current_password || '';
+        var newPassword = req.body.new_password || '';
+        User.find(req.user.id).success(function(user) {
+            if (passwordHash.verify(currentPassword, user.password)) {
+                user.password = passwordHash.generate(newPassword);
+                user.save().success(function(user) {
+                    res.send('200');
+                }).error(function(err) {
+                    res.send('SERVER_ERROR');
+                });
+            } else {
+                res.send('PASSWORD_WRONG_ERROR');
+            }
+        }).error(function(err) {
+            res.send('SERVER_ERROR');
+        });
+    },
     index: function(req, res, next) {
         var user = req.user || '';
         res.render('index', {
