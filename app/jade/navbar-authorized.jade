@@ -28,10 +28,13 @@ nav.navbar.navbar-default.navbar-fixed-top
                         b.caret
                     ul.dropdown-menu
                         li
-                            a#btn-change-password(href='/password')
+                            a(href="/users/#{credential.id}/profile")
+                                i.fa.fa-home
+                                | &nbsp;#{t("navbar-authorized.home")}
+                            a#btn-change-password(href='/users/#{credential.id}/password')
                                 i.fa.fa-lock
                                 | &nbsp;&nbsp;#{t("navbar-authorized.password")}
-                            a(href='javascript:;',href="/users/logout")
+                            a(href="/users/logout")
                                 i.fa.fa-sign-out
                                 | &nbsp;#{t("navbar-authorized.logout")}
             

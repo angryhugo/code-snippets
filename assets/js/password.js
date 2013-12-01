@@ -8,6 +8,7 @@ $(function() {
     var _confirmPassword = $('#input-confirm-new-password');
     var _saveSuccessInfo = $('div.alert-success');
     var _saveErrorInfo = $('div.alert-danger');
+    var userId = $('#user-id');
 
     _saveSuccessInfo.hide();
     _saveErrorInfo.hide();
@@ -77,7 +78,7 @@ $(function() {
             } else {
                 setBtnStatus(true);
                 $.ajax({
-                    url: '/password',
+                    url: '/users/' + userId.val() + '/password',
                     type: 'post',
                     data: {
                         _csrf: $('#input-csrf').val(),

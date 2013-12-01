@@ -1,0 +1,83 @@
+extends layout
+
+block title
+    | #{t("profile.title")}
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/profile.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/static/css/profile.css')
+    - }
+block main
+    div.container.nav-margin
+        div.page-header
+            h3
+                | #{t("profile.title")}
+                a#link-back.btn.btn-info.pull-right
+                        | #{t("profile.backBtn")}
+        div.row.col-md-offset-1.col-md-10
+            div.col-md-3
+                div.row
+                    div.col-md-12
+                        img.profile(src='/static/images/profile-large.jpg')
+                    div.col-md-12
+                        div.profile-info.profile-name
+                            | #{credential.name}
+                        //- div.row
+                        //-     div.profile-info.col-md-5
+                        //-         a#btn-following.btn.btn-sm
+                        //-             div
+                        //-                 | 120
+                        //-             | following
+                        //-     div.profile-info.col-md-5
+                        //-         a#btn-follower.btn.btn-sm
+                        //-             div
+                        //-                 | 120
+                        //-             | follower
+            div.col-md-9.form-horizontal
+                ul.nav.nav-tabs
+                    li.active
+                        a(href='#mine',data-toggle="tab")
+                            | #{t("profile.mine")}
+                    if isSelf
+                        li
+                            a(href='#followerSnippets',data-toggle="tab")
+                                | #{t("profile.follower's")}
+                    li
+                        a(href='#following',data-toggle="tab")
+                            | #{t("profile.following")}&nbsp;#{followAmount}
+                    li
+                        a(href='#follower',data-toggle="tab")
+                            | #{t("profile.follower")}&nbsp;#{followerAmount}
+                div.tab-content
+                    div#mine.tab-pane.active
+                        if snippetList.length>0
+                            for snippet in snippetList
+                                div.snippet-item
+                                    div
+                                        a(href='/snippets/#{snippet.id}')
+                                            | #{snippet.title}
+                                    div
+                                        | #{snippet.createTime}
+                                        span.snippet-type
+                                            | #{snippet.type}
+                                        a#link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
+                                            i.fa.fa-times
+                        else
+                            | zero
+                    if isSelf
+                        div#followerSnippets.tab-pane
+                            | This is followers' snippets
+                    div#following.tab-pane
+                        | This is my following
+                    div#follower.tab-pane
+                        | This is my follower
+
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/profile.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/js/profile.js')
+    - }

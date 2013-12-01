@@ -85,13 +85,14 @@ module.exports = function(app) {
 
     app.post('/users/sign_up', controller.doSignUp);
 
-    app.get('/password', ensureAuthenticated, controller.modifyPassword);
-    app.post('/password', ensureAuthenticated, controller.doModifyPassword);
+    app.get('/users/:user_id/password', ensureAuthenticated, controller.modifyPassword);
+    app.post('/users/:user_id/password', ensureAuthenticated, controller.doModifyPassword);
+    app.get('/users/:user_id/profile', ensureAuthenticated, controller.viewProfile);
 
     app.get('/snippets/new', ensureAuthenticated, controller.newSnippet);
     app.post('/snippets/new', ensureAuthenticated, controller.doNewSnippet);
     app.get('/snippets/search', controller.searchSnippet);
-    app.get('/snippets/:id', controller.viewSnippet);
+    app.get('/snippets/:snippet_id', controller.viewSnippet);
 
     app.post('/api/email', controller.checkEmail);
     app.post('/api/follow', controller.followUser);
@@ -99,12 +100,15 @@ module.exports = function(app) {
 
 
     app.use(function(req, res) {
-        res.render('404');
+        res.render('404', {
+            credential: req.user || ''
+        });
     });
 
     app.use(function(err, req, res, next) {
         console.log(err);
         res.render('error', {
+            credential: req.user || '',
             errMessage: err.message
         });
     });

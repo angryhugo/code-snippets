@@ -4,7 +4,8 @@
         "password": "Password",
         "createNew": "Create New",
         "language": "Language",
-        "logout": "Logout"
+        "logout": "Logout",
+        "home": "Home"
     },
     "navbar-unauthorized": {
         "projectName": "Code Snippets",
@@ -101,5 +102,14 @@
         "confirmPassword": "Confirm Password",
         "submitBtn": "Save",
         "backBtn": "Back"
+    },
+    "profile": {
+        "title": "Profile",
+        "backBtn": "Back",
+        "delete": "delete",
+        "mine": "Mine",
+        "follower's": "Following's",
+        "following": "Following",
+        "follower": "Follower"
     }
 }

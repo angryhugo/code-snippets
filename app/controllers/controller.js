@@ -15,6 +15,14 @@ String.prototype.trim = function() {
 }
 
 module.exports = {
+    index: function(req, res, next) {
+        var user = req.user || '';
+        res.render('index', {
+            credential: user,
+            token: req.csrfToken()
+        });
+
+    },
     doLogin: function(req, res, next) {
         res.cookie('mr-user', req.user, {
             path: '/',
@@ -44,10 +52,15 @@ module.exports = {
     },
     modifyPassword: function(req, res, next) {
         var user = req.user || '';
-        res.render('password', {
-            credential: user,
-            token: req.csrfToken()
-        });
+        var userId = req.params.user_id || '';
+        if (userId !== user.id) {
+            errHandler(null, 'forbidden!', next);
+        } else {
+            res.render('password', {
+                credential: user,
+                token: req.csrfToken()
+            });
+        }
     },
     doModifyPassword: function(req, res, next) {
         var currentPassword = req.body.current_password || '';
@@ -67,13 +80,57 @@ module.exports = {
             res.send('SERVER_ERROR');
         });
     },
-    index: function(req, res, next) {
+    viewProfile: function(req, res, next) {
         var user = req.user || '';
-        res.render('index', {
-            credential: user,
-            token: req.csrfToken()
+        var viewUserId = req.params.user_id || '';
+        var isSelf = user.id == viewUserId ? true : false;
+        User.find(viewUserId).success(function(viewUser) {
+            if (!viewUser) {
+                errHandler(null, 'user do not exist', next);
+            } else {
+                UserRelation.count({
+                    where: {
+                        user_id: viewUserId
+                    }
+                }).success(function(followAmount) {
+                    UserRelation.count({
+                        where: {
+                            follow_id: viewUserId
+                        }
+                    }).success(function(followerAmount) {
+                        var option = {
+                            include: [{
+                                model: User,
+                                as: 'user'
+                            }, {
+                                model: SnippetType,
+                                as: 'typer'
+                            }],
+                            where: {
+                                user_id: viewUserId
+                            }
+                        };
+                        CodeSnippet.findAll(option).success(function(snippetList) {
+                            res.render('profile', {
+                                credential: user,
+                                isSelf: isSelf,
+                                followAmount: followAmount,
+                                followerAmount: followerAmount,
+                                snippetList: mapper.profileSnippetListMapper(snippetList)
+                            });
+                        }).error(function(err) {
+                            errHandler(err, 'server error!', next);
+                        });;
+                    }).error(function(err) {
+                        errHandler(err, 'server error!', next);
+                    });
+                }).error(function(err) {
+                    errHandler(err, 'server error!', next);
+                });
+            }
+        }).error(function(err) {
+            errHandler(err, 'server error!', next);
         });
-
     },
     newSnippet: function(req, res, next) {
         var user = req.user || '';
@@ -114,7 +171,7 @@ module.exports = {
     },
     viewSnippet: function(req, res, next) {
         var user = req.user || '';
-        var snippetId = req.params.id || '';
+        var snippetId = req.params.snippet_id || '';
         var option = {
             include: [{
                 model: User,
