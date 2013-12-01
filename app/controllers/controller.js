@@ -84,6 +84,7 @@ module.exports = {
             res.redirect('/');
         }).error(function(err) {
             console.log(err);
+            errHandler(err, 'failed to new snippet!', next);
         });
     },
     viewSnippet: function(req, res, next) {
@@ -131,55 +132,61 @@ module.exports = {
         var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
         var keywords = keyword.trim().split(' ');
-
         var whereString = '';
-        if (typeId != 0) {
-            whereString += 'type_id = ' + typeId + ' AND ';
-        }
-        for (var i = 0; i < keywords.length; i++) {
-            if (i == 0) {
-                whereString += '(title LIKE "%' + keywords[i] + '%"';
-            } else {
-                whereString += ' OR title LIKE "%' + keywords[i] + '%"';
-            }
-        }
-        whereString += ')';
 
-        console.log(whereString);
-        var option = {
-            include: [{
-                model: User,
-                as: 'user'
-                    }, {
-                model: SnippetType,
-                as: 'typer'
-                    }],
-            where: [whereString]
-        };
-        CodeSnippet.findAll(option).success(function(snippetList) {
-            if (!snippetList) { //do not exist
-                errHandler(null, 'snippet do not exist!', next);
-            } else {
-                SnippetType.findAll().success(function(typeList) {
-                    if (!typeList) {
-                        errHandler(null, 'snippet type do not exist!', next);
-                    } else {
-                        res.render('search-snippet', {
-                            keyword: keyword,
-                            credential: user,
-                            snippetList: mapper.searchSnippetListMapper(snippetList),
-                            typeList: typeList,
-                            typeId: typeId,
-                            token: req.csrfToken()
-                        });
-                    }
-                }).error(function(err) {
-                    errHandler(err, 'server error!', next);
-                });
+        SnippetType.count().success(function(total) {
+            if (typeId > total || isNaN(typeId)) {
+                typeId = 0;
             }
+            if (typeId != 0) {
+                whereString += 'type_id = ' + typeId + ' AND ';
+            }
+            for (var i = 0; i < keywords.length; i++) {
+                if (i == 0) {
+                    whereString += '(title LIKE "%' + keywords[i] + '%"';
+                } else {
+                    whereString += ' OR title LIKE "%' + keywords[i] + '%"';
+                }
+            }
+            whereString += ')';
+
+            var option = {
+                include: [{
+                    model: User,
+                    as: 'user'
+                    }, {
+                    model: SnippetType,
+                    as: 'typer'
+                    }],
+                where: [whereString]
+            };
+            CodeSnippet.findAll(option).success(function(snippetList) {
+                if (!snippetList) { //do not exist
+                    errHandler(null, 'snippet do not exist!', next);
+                } else {
+                    SnippetType.findAll().success(function(typeList) {
+                        if (!typeList) {
+                            errHandler(null, 'snippet type do not exist!', next);
+                        } else {
+                            res.render('search-snippet', {
+                                keyword: keyword,
+                                credential: user,
+                                snippetList: mapper.searchSnippetListMapper(snippetList),
+                                typeList: typeList,
+                                typeId: typeId,
+                                token: req.csrfToken()
+                            });
+                        }
+                    }).error(function(err) {
+                        errHandler(err, 'server error!', next);
+                    });
+                }
+            }).error(function(err) {
+                errHandler(err, 'server error!', next);
+            });
         }).error(function(err) {
             errHandler(err, 'server error!', next);
-        });
+        })
     },
     checkEmail: function(req, res) {
         var email = req.body.email || '';
