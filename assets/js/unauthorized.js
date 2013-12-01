@@ -24,6 +24,8 @@ $(function() {
     var _checkEmailBtn = $('#btn-check-email');
     var _signupEmailInput = $('#input-signup-email');
 
+    var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
     function getUrlVars() {
         var vars = [],
             hash;
@@ -191,7 +193,23 @@ $(function() {
 
     _checkEmailBtn.click(function() {
         //first validate email!!!(not do yet)
-        if (_signupEmailInput.val() !== '') {
+        if (_signupEmailInput.val() == '') {
+            _checkEmailBtn.blur();
+            _signupEmailSuccessAlert.hide();
+            _signupErrorAlert.html(Message.EMAIL_REQUIRED).show();
+            setTimeout(function() {
+                _signupErrorAlert.hide()
+            }, 5000);
+            return false;
+        } else if (!emailReg.test(_signupEmailInput.val())) {
+            _checkEmailBtn.blur();
+            _signupEmailSuccessAlert.hide();
+            _signupErrorAlert.html(Message.EMAIL_ERROR).show();
+            setTimeout(function() {
+                _signupErrorAlert.hide()
+            }, 5000);
+            return false;
+        } else {
             _checkEmailBtn.attr('disabled', true);
             $.ajax({
                 url: '/api/email',
@@ -221,13 +239,6 @@ $(function() {
                     bootbox.alert(xhr.responseText);
                 }
             });
-        } else {
-            _checkEmailBtn.blur();
-            _signupSuccessAlert.hide();
-            _signupErrorAlert.html(Message.EMAIL_REQUIRED).show();
-            setTimeout(function() {
-                _signupErrorAlert.hide()
-            }, 5000);
         }
     });
 
