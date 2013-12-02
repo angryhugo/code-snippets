@@ -6,7 +6,8 @@ mixin pager(pager, url)
             else
                 if (pager.currentPage != 1)
                     li
-                        a(href="#{url}&page=#{pager.currentPage - 1}") Previous
+                        a(href="#{url}&page=#{pager.currentPage - 1}") 
+                            | #{t("pagination.previous")}
                 if (pager.left)
                     li
                         a(href="#{url}") 1
@@ -26,4 +27,5 @@ mixin pager(pager, url)
                         a(href="#{url}&page=#{pager.pageCount}") #{pager.pageCount}
                 if (pager.currentPage != pager.pageCount)
                     li
-                        a(href="#{url}&page=#{pager.currentPage + 1}") Next
+                        a(href="#{url}&page=#{pager.currentPage + 1}") 
+                            | #{t("pagination.next")}

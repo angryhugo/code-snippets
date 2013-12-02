@@ -111,5 +111,9 @@
         "follower's": "Following's",
         "following": "Following",
         "follower": "Follower"
+    },
+    "pagination": {
+        "next": "Next",
+        "previous": "Previous"
     }
 }

@@ -220,8 +220,6 @@ module.exports = {
         var keywords = keyword.trim().split(' ');
         var whereString = '';
 
-        url += 'key=' + keyword;
-
         SnippetType.count().success(function(total) {
             if (typeId > total || isNaN(typeId)) {
                 typeId = 0;
@@ -237,6 +235,8 @@ module.exports = {
                 }
             }
             whereString += ')';
+
+            url += 'keyword=' + keyword + '&type=' + typeId;
 
             var option = {
                 include: [{
