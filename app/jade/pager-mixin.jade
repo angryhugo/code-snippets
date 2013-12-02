@@ -1,9 +1,7 @@
 mixin pager(pager, url)
-    div.text-center
-        ul.pagination
-            if (pager.pageCount == 1)
-                div
-            else
+    if (pager.pageCount != 1)
+        div.text-center
+            ul.pagination
                 if (pager.currentPage != 1)
                     li
                         a(href="#{url}&page=#{pager.currentPage - 1}") 

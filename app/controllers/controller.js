@@ -210,9 +210,13 @@ module.exports = {
         });
     },
     searchSnippet: function(req, res, next) {
-        var page = req.query.page || 1,
-            take = 10,
-            skip = (page - 1) * take;
+        var page = req.query.page || 1;
+        var take = 10;
+        if (isNaN(page)) {
+            page = 1;
+        }
+        var skip = (page - 1) * take;
+
         var url = req.path + '?';
         var user = req.user || '';
         var typeId = req.query.type || 0;
@@ -236,7 +240,7 @@ module.exports = {
             }
             whereString += ')';
 
-            url += 'keyword=' + keyword + '&type=' + typeId;
+            url += 'keyword=' + keyword.trim() + '&type=' + typeId;
 
             var option = {
                 include: [{

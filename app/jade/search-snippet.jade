@@ -55,9 +55,6 @@ block main
                             a#link-view-snippet.link-tooltip(href='/snippets/#{snippet.id}',data-original-title='#{t("search-snippet.viewTitle")}', data-placement='left')
                                 i.fa.fa-eye.fa-lg
             mixin pager(pagination.pager, pagination.url)
-        else if pagination.pager.currentPage != 1
-            h3 
-                | Please visit previous page!
         else
             h3
                 | #{t("search-snippet.noSnippet")}
