@@ -24,7 +24,7 @@ module.exports = {
 
     },
     doLogin: function(req, res, next) {
-        res.cookie('mr-user', req.user, {
+        res.cookie('cs-user', req.user, {
             path: '/',
             httpOnly: false,
             maxAge: 604800000

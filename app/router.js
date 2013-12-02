@@ -12,8 +12,8 @@ module.exports = function(app) {
         } else {
             var currentUrl = req.url || '/';
             req.session.returnUrl = currentUrl;
-            if (req.cookies['mr-user']) {
-                var user = req.cookies['mr-user'];
+            if (req.cookies['cs-user']) {
+                var user = req.cookies['cs-user'];
                 req.login(user, function(err) {
                     if (err) {
                         console.log(err);
@@ -28,8 +28,8 @@ module.exports = function(app) {
     };
 
     function autoLogin(req, res, next) {
-        if (req.cookies['mr-user']) {
-            var user = req.cookies['mr-user'];
+        if (req.cookies['cs-user']) {
+            var user = req.cookies['cs-user'];
             req.login(user, function(err) {
                 if (err) {
                     console.log(err);
@@ -79,7 +79,7 @@ module.exports = function(app) {
 
     app.get('/users/logout', function(req, res) {
         req.logout();
-        res.clearCookie('mr-user');
+        res.clearCookie('cs-user');
         res.redirect('/');
     });
 
