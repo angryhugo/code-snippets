@@ -210,11 +210,17 @@ module.exports = {
         });
     },
     searchSnippet: function(req, res, next) {
+        var page = req.query.page || 1,
+            take = 10,
+            skip = (page - 1) * take;
+        var url = req.path + '?';
         var user = req.user || '';
         var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
         var keywords = keyword.trim().split(' ');
         var whereString = '';
+
+        url += 'key=' + keyword;
 
         SnippetType.count().success(function(total) {
             if (typeId > total || isNaN(typeId)) {
@@ -240,29 +246,42 @@ module.exports = {
                     model: SnippetType,
                     as: 'typer'
                     }],
+                offset: skip,
+                limit: take,
                 where: [whereString]
+                // order: 'created_at DESC'
             };
-            CodeSnippet.findAll(option).success(function(snippetList) {
-                if (!snippetList) { //do not exist
-                    errHandler(null, 'snippet do not exist!', next);
-                } else {
-                    SnippetType.findAll().success(function(typeList) {
-                        if (!typeList) {
-                            errHandler(null, 'snippet type do not exist!', next);
-                        } else {
-                            res.render('search-snippet', {
-                                keyword: keyword,
-                                credential: user,
-                                snippetList: mapper.searchSnippetListMapper(snippetList),
-                                typeList: typeList,
-                                typeId: typeId,
-                                token: req.csrfToken()
-                            });
-                        }
-                    }).error(function(err) {
-                        errHandler(err, 'server error!', next);
-                    });
-                }
+            CodeSnippet.count({
+                where: whereString
+            }).success(function(snippetTotal) {
+                CodeSnippet.findAll(option).success(function(snippetList) {
+                    if (!snippetList) { //do not exist
+                        errHandler(null, 'snippet do not exist!', next);
+                    } else {
+                        SnippetType.findAll().success(function(typeList) {
+                            if (!typeList) {
+                                errHandler(null, 'snippet type do not exist!', next);
+                            } else {
+                                res.render('search-snippet', {
+                                    pagination: {
+                                        pager: buildPager(snippetTotal, skip, take),
+                                        url: url
+                                    },
+                                    keyword: keyword,
+                                    credential: user,
+                                    snippetList: mapper.searchSnippetListMapper(snippetList),
+                                    typeList: typeList,
+                                    typeId: typeId,
+                                    token: req.csrfToken()
+                                });
+                            }
+                        }).error(function(err) {
+                            errHandler(err, 'server error!', next);
+                        });
+                    }
+                }).error(function(err) {
+                    errHandler(err, 'server error!', next);
+                });
             }).error(function(err) {
                 errHandler(err, 'server error!', next);
             });
@@ -341,4 +360,51 @@ function checkFollowStatus(userId, followId, callback) {
             callback(err);
         });
     }
+}
+
+function buildPager(total, skip, take) {
+    var pager = {
+        currentPage: 1
+    };
+    pager.pageCount = parseInt(total / take);
+    if (skip > total) {
+        pager.currentPage = pager.pageCount;
+    } else {
+        var mod = parseInt(total % take);
+        if (mod > 0) {
+            pager.pageCount++;
+        } else if (pager.pageCount === 0) {
+            pager.pageCount = 1;
+        }
+        pager.currentPage = parseInt(skip / take) + 1;
+    }
+    pager.pages = [];
+    if (pager.pageCount <= 9) {
+        for (var i = 1; i <= pager.pageCount; i++) {
+            pager.pages.push(i);
+        }
+        pager.left = false;
+        pager.right = false;
+    } else {
+        if (pager.currentPage < 6) {
+            for (var i = 1; i < 8; i++) {
+                pager.pages.push(i);
+            }
+            pager.left = false;
+            pager.right = true;
+        } else if (pager.currentPage > pager.pageCount - 5) {
+            for (var i = pager.pageCount - 6; i <= pager.pageCount; i++) {
+                pager.pages.push(i);
+            }
+            pager.left = true;
+            pager.right = false;
+        } else {
+            for (var i = pager.currentPage - 2; i <= pager.currentPage + 2; i++) {
+                pager.pages.push(i);
+            }
+            pager.left = true;
+            pager.right = true;
+        }
+    }
+    return pager;
 }

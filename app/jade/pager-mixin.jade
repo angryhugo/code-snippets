@@ -1,0 +1,29 @@
+mixin pager(pager, url)
+    div.text-center
+        ul.pagination
+            if (pager.pageCount == 1)
+                div
+            else
+                if (pager.currentPage != 1)
+                    li
+                        a(href="#{url}&page=#{pager.currentPage - 1}") Previous
+                if (pager.left)
+                    li
+                        a(href="#{url}") 1
+                    li.disabled
+                        span(href="javascript:;") ...
+                each i in pager.pages
+                    if (i == pager.currentPage)
+                        li.active
+                            span(href="#{url}&page=#{i}") #{i}
+                    else
+                        li
+                            a(href="#{url}&page=#{i}") #{i}
+                if (pager.right)
+                    li.disabled
+                        a(href="javascript:;") ...
+                    li
+                        a(href="#{url}&page=#{pager.pageCount}") #{pager.pageCount}
+                if (pager.currentPage != pager.pageCount)
+                    li
+                        a(href="#{url}&page=#{pager.currentPage + 1}") Next
