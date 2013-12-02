@@ -161,11 +161,9 @@ module.exports = {
             user_id: userId,
             type_id: typeId,
             is_deleted: false
-        }).success(function() {
-            console.log('insert snippet successfully!');
-            res.redirect('/');
+        }).success(function(snippet) {
+            res.redirect('/snippets/' + snippet.id);
         }).error(function(err) {
-            console.log(err);
             errHandler(err, 'failed to new snippet!', next);
         });
     },

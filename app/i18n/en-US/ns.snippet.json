@@ -60,7 +60,7 @@
     },
     "error": {
         "title": "Error Page",
-        "errorDescription": "Server Error",
+        "errorDescription": "Error",
         "backDescription": "You can use your browsers Back button to navigate to the page you have prevously come from.",
         "anotherBackDescription": "Or you could just press this neat little button:",
         "backBtn": "Take Me Home"

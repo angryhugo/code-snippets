@@ -67,7 +67,7 @@
     },
     "error": {
         "title": "错误页面",
-        "errorDescription": "服务器出错",
+        "errorDescription": "出错啦",
         "backDescription": "你可以点击浏览器的返回按钮返回刚才的页面.",
         "anotherBackDescription": "或者点击下面的小按钮返回主页：",
         "backBtn": "返回主页"
