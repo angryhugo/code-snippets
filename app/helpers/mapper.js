@@ -34,14 +34,14 @@ module.exports = {
             title: snippetObj.title,
             type: snippetObj.typer.typeName,
             createTime: moment(snippetObj.created_at).format('YYYY-MM-DD HH:mm'),
-            owner: snippetObj.user.name,
-            ownerId: snippetObj.user.id
+            creator: snippetObj.user.name,
+            creatorId: snippetObj.user.id
         }
     },
     profileSnippetListMapper: function(snippetList) {
         var profileSnippetList = [];
         for (var i = 0; i < snippetList.length; i++) {
-            var profileSnippet = this.searchSnippetMapper(snippetList[i]);
+            var profileSnippet = this.profileSnippetMapper(snippetList[i]);
             profileSnippetList.push(profileSnippet);
         }
         return profileSnippetList;

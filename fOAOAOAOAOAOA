@@ -1,0 +1,264 @@
+commit ac3f6d6cc2d0f151a0844f43e826550c0e72bf12
+Author: hugo <hugo@hugo.(none)>
+Date:   Mon Dec 2 20:16:58 2013 +0800
+
+    change redirect after create new snippet
+
+commit 0b0e4862c8548a7136375df45000295f5956d5b2
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Mon Dec 2 20:04:34 2013 +0800
+
+    fix pagination
+
+commit 7b6071fba2d05ab46f7773d5d57ee7fce26ee549
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Mon Dec 2 10:46:35 2013 +0800
+
+    fix pagination
+
+commit 0eae6a1edcbe6ed597ea0847bf958855af18f708
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Mon Dec 2 10:34:58 2013 +0800
+
+    add pagination
+
+commit 91d825c09ce05942246e6ba722dd458f9ed7b99d
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Mon Dec 2 09:36:57 2013 +0800
+
+    change cookie name
+
+commit be9803b7d6039ddb226db909be5581ea6cfe2284
+Author: hugo <hugo@hugo.(none)>
+Date:   Sun Dec 1 19:26:46 2013 +0800
+
+    fix profile
+
+commit 6d738f0c821e305a489443e2588230c2723e2610
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sun Dec 1 15:39:04 2013 +0800
+
+    add profile page
+
+commit 94a22a55a51df627f7e83e38c3b378ae9f08333e
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sun Dec 1 12:39:26 2013 +0800
+
+    add modify password
+
+commit cefe3411489d8e6a1d004f9c03dc91ed4161bcde
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sun Dec 1 11:23:28 2013 +0800
+
+    fix emailReg before checkEmail when register
+
+commit 92839edb3ffe0260d48fa09c3e9a72d073a61b4c
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sun Dec 1 10:30:11 2013 +0800
+
+    fix search by error typeId
+
+commit 1e024dd58c9ee25b3eb5abcde48fbbc2128c6d89
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sat Nov 30 19:21:50 2013 +0800
+
+    sign up
+
+commit 613c466b15dc0fbf54f263502a812886c49e1e8d
+Author: hugo <hugo@hugo.(none)>
+Date:   Sat Nov 30 14:38:01 2013 +0800
+
+    fix search filter
+
+commit c653b829ce4533fab333317bc1f82fd429dc5a9d
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sat Nov 30 14:26:32 2013 +0800
+
+    add search filter
+
+commit a47185c8462092accafd941e00407e22e5de4ebe
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Fri Nov 22 20:08:10 2013 +0800
+
+    add string.prototype.trim
+
+commit 48d6c4ca8e194510f0a382789ebed814edd4b9b9
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Thu Nov 21 20:24:06 2013 +0800
+
+    fix search-snippet
+
+commit 8699b088da19f0651b8c0c61e6007a3f506848e9
+Author: hugo <hugo@hugo.(none)>
+Date:   Thu Nov 21 20:01:22 2013 +0800
+
+    add tablesorter
+
+commit 03e45684831b84ef2fb2e1da7b2106c94d342ba6
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Thu Nov 21 16:27:50 2013 +0800
+
+    improve search
+
+commit 76f9903b521ab90e9f7a06da205019f2311515d1
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Thu Nov 21 15:11:08 2013 +0800
+
+    modify port
+
+commit 481f0e0cce2d161691a42133e0e6743de0cd6b82
+Author: hugo <hugo@hugo.(none)>
+Date:   Wed Nov 20 21:29:40 2013 +0800
+
+    fix new-snippet submitBtn
+
+commit d6573b2acc4d73f5f9c145098465d45e4120213e
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Wed Nov 20 15:47:59 2013 +0800
+
+    finish follow
+
+commit 0c0fbb04ebf0b740a94d220b7403a121cca4c8ad
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Wed Nov 20 10:48:55 2013 +0800
+
+    use uuid
+
+commit 7271de6b276283e2fdb6cc7be332d1026dabbde5
+Merge: b27240e e7029a0
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Wed Nov 20 09:25:09 2013 +0800
+
+    Merge branch 'master' of github.com:rookiehugo/code-snippets
+
+commit b27240eee57bbd998316e1ca0597b3831a3ac2f3
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Wed Nov 20 09:24:38 2013 +0800
+
+    add backUrl after login
+
+commit e7029a0443c40bfdd32589ee4c2f93d3468cc6a3
+Author: hugo <hugo@hugo.(none)>
+Date:   Tue Nov 19 21:19:59 2013 +0800
+
+    fix follow ajax
+
+commit 3781b74590f32025b6f632c96a42921e51c5dcb0
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Tue Nov 19 20:59:14 2013 +0800
+
+    add follow
+
+commit 757e487271daf1afe5a8bcbcdff1b783e0e53a6c
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Tue Nov 19 15:34:14 2013 +0800
+
+    add table user_relation
+
+commit 88ae7ea5fb29a9421319d17b39431838edc0eeeb
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Tue Nov 19 13:14:21 2013 +0800
+
+    fix back btn
+
+commit 68b67bb09d1082ced062beabe2c89fd7ac6697f4
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Mon Nov 18 21:46:08 2013 +0800
+
+    fix back btn
+
+commit 83cd887cc77123207083b4a8ad6bd73872073e1a
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Mon Nov 18 21:18:56 2013 +0800
+
+    add owner profile on view-snippet
+
+commit 7136deb6264b07ffe2b55ffb433c6deec46896d2
+Author: hugo <hugo@hugo.(none)>
+Date:   Sun Nov 17 14:55:50 2013 +0800
+
+    add "search snippet"
+
+commit 6a6ee9ee786d4605b8ba24c41fe207440a7dfa48
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Sat Nov 16 21:24:47 2013 +0800
+
+    save type in db
+
+commit ee1a4d9e1acaccbc185518e422dca870fce9f84e
+Author: hugo <hugo@hugo.(none)>
+Date:   Sat Nov 16 15:03:52 2013 +0800
+
+    add 'view,new  snippet'
+
+commit 897eaefddca57c43c6a7090679e17dd5900f0190
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Fri Nov 15 17:25:58 2013 +0800
+
+    validate
+
+commit c926c3cf6818110663607133b437e4737805515d
+Author: rookiehugo <yinhanchun24@gmail.com>
+Date:   Thu Nov 14 21:42:46 2013 +0800
+
+    win7 push test
+
+commit b3718daab744b92b259fe0a4cb5fe0dd149997f6
+Author: hugo <hugo@hugo.(none)>
+Date:   Thu Nov 14 19:47:48 2013 +0800
+
+    fix i18n, add session key
+
+commit 95c5af06f9cf92e996fd6b9a2b0b31618f2d6f9c
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Thu Nov 14 17:14:37 2013 +0800
+
+    finish login/signup
+
+commit ddc1253f0650fc25671f64fa0b1ff0472ad18f33
+Author: hugo <hugo@hugo.(none)>
+Date:   Wed Nov 13 21:52:22 2013 +0800
+
+    i18n language description
+
+commit 4cf475080edaf10b0d432267327b44dea59a6c51
+Author: hugo <hugo@hugo.(none)>
+Date:   Wed Nov 13 19:58:22 2013 +0800
+
+    add icon modify example snippet
+
+commit 5673839bcd243966cf1f2763501f9579c161237a
+Author: hugo <hugo@hugo.(none)>
+Date:   Wed Nov 13 18:27:57 2013 +0800
+
+    remove signup.jade
+
+commit 9043f597346eb0a2fcbf26eba33a2616fae3dc17
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Wed Nov 13 15:53:51 2013 +0800
+
+    almost finish index page
+
+commit 826039c3e574d7e133773a715917855764e3d9f3
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Wed Nov 13 11:20:13 2013 +0800
+
+    fix login,index page
+
+commit a889f995e09f017e12a6cf2d4ae863ef04a93acb
+Author: hugo <hugo@hugo.(none)>
+Date:   Tue Nov 12 20:34:07 2013 +0800
+
+    layout
+
+commit 0f76e49307d3ff0437b1044adfc17a3165a2a78b
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Tue Nov 12 16:21:59 2013 +0800
+
+    fix i18n cookie
+
+commit 8e5a7b44c999de279b9cfbfa449cbbaecacf4e09
+Author: Yin Hanchun <hanchun.yin@leediancn.com>
+Date:   Tue Nov 12 15:34:03 2013 +0800
+
+    init

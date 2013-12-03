@@ -108,7 +108,8 @@ module.exports = {
                             }],
                             where: {
                                 user_id: viewUserId
-                            }
+                            },
+                            order: 'created_at DESC'
                         };
                         CodeSnippet.findAll(option).success(function(snippetList) {
                             res.render('profile', {
@@ -328,6 +329,56 @@ module.exports = {
         }).error(function(err) {
             res.json('notOk');
         });
+    },
+    viewfollowingSnippets: function(req, res) {
+        // // search within a specific range
+        // Project.findAll({
+        //     where: {
+        //         id: [1, 2, 3]
+        //     }
+        // }).success(function(projects) {
+        //     // projects will be an array of Projects having the id 1, 2 or 3
+        //     // this is actually doing an IN query
+        // })
+        var userId = req.user.id;
+        UserRelation.findAll({
+            where: {
+                user_id: userId
+            }
+        }).success(function(userRelation) {
+            if (!userRelation) {
+                res.render('snippet-partial', {
+                    snippetList: []
+                });
+            } else {
+                var followingArray = [];
+                for (var i = 0; i < userRelation.length; i++) {
+                    followingArray.push(userRelation[i].follow_id);
+                }
+                var option = {
+                    include: [{
+                        model: User,
+                        as: 'user'
+                            }, {
+                        model: SnippetType,
+                        as: 'typer'
+                            }],
+                    where: {
+                        user_id: followingArray
+                    },
+                    order: 'created_at DESC'
+                };
+                CodeSnippet.findAll(option).success(function(snippetList) {
+                    res.render('snippet-partial', {
+                        snippetList: mapper.profileSnippetListMapper(snippetList)
+                    });
+                }).error(function(err) {
+                    errHandler(err, 'server error!', next);
+                })
+            }
+        }).error(function(err) {
+            errHandler(err, 'server error!', next);
+        })
     }
 };
 

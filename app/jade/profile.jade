@@ -42,8 +42,8 @@ block main
                             | #{t("profile.mine")}
                     if isSelf
                         li
-                            a(href='#followerSnippets',data-toggle="tab")
-                                | #{t("profile.follower's")}
+                            a#link-following-snippets(href='#followingSnippets',data-toggle="tab")
+                                | #{t("profile.following's")}
                     li
                         a(href='#following',data-toggle="tab")
                             | #{t("profile.following")}&nbsp;#{followAmount}
@@ -67,7 +67,7 @@ block main
                         else
                             | zero
                     if isSelf
-                        div#followerSnippets.tab-pane
+                        div#followingSnippets.tab-pane
                             | This is followers' snippets
                     div#following.tab-pane
                         | This is my following

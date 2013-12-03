@@ -1,0 +1,14 @@
+if snippetList.length>0
+    for snippet in snippetList
+        div.snippet-item
+            div
+                a(href='/snippets/#{snippet.id}')
+                    | #{snippet.title}
+                a.pull-right(href='/users/#{snippet.creatorId}/profile')
+                    | #{snippet.creator}
+            div
+                | #{snippet.createTime}
+                span.snippet-type
+                    | #{snippet.type}
+else
+    | zero

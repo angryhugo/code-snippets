@@ -97,6 +97,7 @@ module.exports = function(app) {
     app.post('/api/email', controller.checkEmail);
     app.post('/api/follow', controller.followUser);
     app.post('/api/unfollow', controller.unfollowUser);
+    app.get('/api/following/snippets', controller.viewfollowingSnippets);
 
 
     app.use(function(req, res) {
