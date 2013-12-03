@@ -20,7 +20,11 @@ var Message = {
     PASSWORD_EQUAL_ERROR: "Two new passwords do not match",
     PASSWORD_SAME_ERROR: "Choose a password that you have not previously used with this account",
     PASSWORD_SAVE_ERROR: "Failed to modify password",
-    PASSWORD_WRONG_ERROR: "The current password you inputed is incorrect!"
+    PASSWORD_WRONG_ERROR: "The current password you inputed is incorrect!",
+    //delete snippet
+    DELETE_SNIPPET_SUCCESS: "Delete code snippet successfully",
+    SNIPPET_NOT_EXSIT: "The code snippet do not exsit",
+    DELETE_SNIPPET_FORBIDDEN: "You are not allowed to delete the code snippet"
 };
 
 var Opertation = {

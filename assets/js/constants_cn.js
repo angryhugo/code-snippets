@@ -20,7 +20,11 @@ var Message = {
     PASSWORD_EQUAL_ERROR: "两次新密码不一致",
     PASSWORD_SAME_ERROR: "新密码与旧密码一致，请输入一个你当前未使用的密码",
     PASSWORD_SAVE_ERROR: "修改密码失败",
-    PASSWORD_WRONG_ERROR: "旧密码不正确"
+    PASSWORD_WRONG_ERROR: "旧密码不正确",
+    //delete snippet
+    DELETE_SNIPPET_SUCCESS: "成功删除代码片段",
+    SNIPPET_NOT_EXSIT: "该代码片段不存在",
+    DELETE_SNIPPET_FORBIDDEN: "您无权删除该代码片段"
 };
 
 var Opertation = {
