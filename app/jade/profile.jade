@@ -11,11 +11,10 @@ append head
     - }
 block main
     div.container.nav-margin
+        input#input-csrf(type='hidden',name='_csrf',value='#{token}')
         div.page-header
             h3
                 | #{t("profile.title")}
-                a#link-back.btn.btn-info.pull-right
-                        | #{t("profile.backBtn")}
         div.row.col-xs-12.col-md-offset-1.col-md-10
             div.col-xs-12.col-md-2
                 div.row
@@ -23,7 +22,7 @@ block main
                         img.profile(src='/static/images/profile-large.jpg')
                     div.col-xs-3.col-md-12
                         div.profile-info.profile-name
-                            | #{credential.name}
+                            | #{userName}
                         //- div.row
                         //-     div.profile-info.col-md-5
                         //-         a#btn-following.btn.btn-sm
@@ -62,8 +61,9 @@ block main
                                         | #{snippet.createTime}
                                         span.snippet-type
                                             | #{snippet.type}
-                                        a#link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
-                                            i.fa.fa-times
+                                        if isSelf
+                                            a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
+                                                i.fa.fa-times
                         else
                             | zero
                     if isSelf

@@ -114,10 +114,12 @@ module.exports = {
                         CodeSnippet.findAll(option).success(function(snippetList) {
                             res.render('profile', {
                                 credential: user,
+                                userName: viewUser.name,
                                 isSelf: isSelf,
                                 followAmount: followAmount,
                                 followerAmount: followerAmount,
-                                snippetList: mapper.profileSnippetListMapper(snippetList)
+                                snippetList: mapper.profileSnippetListMapper(snippetList),
+                                token: req.csrfToken()
                             });
                         }).error(function(err) {
                             errHandler(err, 'server error!', next);
@@ -292,6 +294,28 @@ module.exports = {
             errHandler(err, 'server error!', next);
         })
     },
+    deleteSnippet: function(req, res) {
+        var snippetId = req.body.snippetId || '';
+        var userId = req.user.id;
+        CodeSnippet.find(snippetId).success(function(snippet) {
+            var dataObj = {};
+            if (!snippet) {
+                dataObj.code = 400;
+                res.json(dataObj);
+                return false;
+            } else if (snippet.user_id === userId) {
+                snippet.destroy().success(function() {
+                    dataObj.code = 200;
+                    res.json(dataObj);
+                    return true;
+                });
+            } else {
+                dataObj.code = 403;
+                res.json(dataObj);
+                return false;
+            }
+        });
+    },
     checkEmail: function(req, res) {
         var email = req.body.email || '';
         User.find({
@@ -331,15 +355,6 @@ module.exports = {
         });
     },
     viewfollowingSnippets: function(req, res) {
-        // // search within a specific range
-        // Project.findAll({
-        //     where: {
-        //         id: [1, 2, 3]
-        //     }
-        // }).success(function(projects) {
-        //     // projects will be an array of Projects having the id 1, 2 or 3
-        //     // this is actually doing an IN query
-        // })
         var userId = req.user.id;
         UserRelation.findAll({
             where: {

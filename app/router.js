@@ -94,10 +94,11 @@ module.exports = function(app) {
     app.get('/snippets/search', controller.searchSnippet);
     app.get('/snippets/:snippet_id', controller.viewSnippet);
 
-    app.post('/api/email', controller.checkEmail);
-    app.post('/api/follow', controller.followUser);
-    app.post('/api/unfollow', controller.unfollowUser);
-    app.get('/api/following/snippets', controller.viewfollowingSnippets);
+    app.post('/api/email', ensureAuthenticated, controller.checkEmail);
+    app.post('/api/follow', ensureAuthenticated, controller.followUser);
+    app.post('/api/unfollow', ensureAuthenticated, controller.unfollowUser);
+    app.get('/api/following/snippets', ensureAuthenticated, controller.viewfollowingSnippets);
+    app.delete('/api/snippets', ensureAuthenticated, controller.deleteSnippet);
 
 
     app.use(function(req, res) {
