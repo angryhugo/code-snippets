@@ -355,6 +355,13 @@ module.exports = {
         });
     },
     viewfollowingSnippets: function(req, res) {
+        var page = req.query.page || 1;
+        var take = 10;
+        if (isNaN(page)) {
+            page = 1;
+        }
+        var skip = (page - 1) * take;
+
         var userId = req.user.id;
         UserRelation.findAll({
             where: {
@@ -378,18 +385,31 @@ module.exports = {
                         model: SnippetType,
                         as: 'typer'
                             }],
+                    offset: skip,
+                    limit: take,
                     where: {
                         user_id: followingArray
                     },
                     order: 'created_at DESC'
                 };
-                CodeSnippet.findAll(option).success(function(snippetList) {
-                    res.render('snippet-partial', {
-                        snippetList: mapper.profileSnippetListMapper(snippetList)
-                    });
+                CodeSnippet.count({
+                    where: {
+                        user_id: followingArray
+                    }
+                }).success(function(snippetTotal) {
+                    CodeSnippet.findAll(option).success(function(snippetList) {
+                        res.render('snippet-partial', {
+                            pagination: {
+                                pager: buildPager(snippetTotal, skip, take)
+                            },
+                            snippetList: mapper.profileSnippetListMapper(snippetList)
+                        });
+                    }).error(function(err) {
+                        errHandler(err, 'server error!', next);
+                    })
                 }).error(function(err) {
                     errHandler(err, 'server error!', next);
-                })
+                });
             }
         }).error(function(err) {
             errHandler(err, 'server error!', next);

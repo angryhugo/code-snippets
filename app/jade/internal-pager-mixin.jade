@@ -1,0 +1,29 @@
+mixin internal-pager(pager)
+    if (pager.pageCount != 1)
+        div.text-center
+            ul.pagination
+                if (pager.currentPage != 1)
+                    li
+                        a(data-page="#{pager.currentPage - 1}",href="javascript:;") 
+                            | #{t("pagination.previous")}
+                if (pager.left)
+                    li
+                        a(data-page="1",href="javascript:;") 1
+                    li.disabled
+                        span(href="javascript:;") ...
+                each i in pager.pages
+                    if (i == pager.currentPage)
+                        li.active
+                            span(data-page="#{i}",href="javascript:;") #{i}
+                    else
+                        li
+                            a(data-page="#{i}",href="javascript:;") #{i}
+                if (pager.right)
+                    li.disabled
+                        a(href="javascript:;") ...
+                    li
+                        a(data-page="#{pager.pageCount}",href="javascript:;") #{pager.pageCount}
+                if (pager.currentPage != pager.pageCount)
+                    li
+                        a(data-page="#{pager.currentPage + 1}",href="javascript:;") 
+                            | #{t("pagination.next")}

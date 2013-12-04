@@ -5,10 +5,10 @@ $(function() {
     var _deleteSnippetLink = $('.link-delete-snippet');
     var _token = $('#input-csrf');
 
-    _showFollowingSnippetsLink.on('click', function() {
+    function viewFollowingSnippetsHandler(page) {
         $.ajax({
             type: 'GET',
-            url: '/api/following/snippets',
+            url: '/api/following/snippets?page=' + page,
             dataType: 'html',
             success: function(snippetsHtml) {
                 _followingSnippetsDiv.html(snippetsHtml);
@@ -17,6 +17,15 @@ $(function() {
                 bootbox.alert(Message.SERVER_ERROR);
             }
         });
+    }
+
+    _followingSnippetsDiv.on('click', 'a', function() {
+        var page = $(this).attr('data-page');
+        viewFollowingSnippetsHandler(page);
+    });
+
+    _showFollowingSnippetsLink.on('click', function() {
+        viewFollowingSnippetsHandler(1);
     });
 
     _deleteSnippetLink.on('click', function() {

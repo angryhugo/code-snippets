@@ -1,4 +1,5 @@
 if snippetList.length>0
+    include ./internal-pager-mixin
     for snippet in snippetList
         div.snippet-item
             div
@@ -10,5 +11,6 @@ if snippetList.length>0
                 | #{snippet.createTime}
                 span.snippet-type
                     | #{snippet.type}
+    mixin internal-pager(pagination.pager)
 else
     | zero
