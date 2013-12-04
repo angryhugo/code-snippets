@@ -1,7 +1,10 @@
 extends layout
 
 block title
+    if !isSelf
+        | #{userName}&nbsp;|&nbsp;
     | #{t("profile.title")}
+    
 append head
     - if (nodeEnv == "production") {
         link(rel='stylesheet', href='/static/css/profile.min.css')
@@ -15,8 +18,11 @@ block main
         input#view-user-id(type='hidden',value='#{viewUserId}')
         div.page-header
             h3
-                | #{t("profile.title")}
-        div.row.col-xs-12.col-md-offset-1.col-md-10
+                if !isSelf
+                    | #{userName}
+                else
+                    | #{t("profile.title")}
+        div.col-xs-offset-1.row.col-xs-11.col-md-10
             div.col-xs-12.col-md-2
                 div.row
                     div.col-xs-2.col-md-12
@@ -54,22 +60,24 @@ block main
                         a(href='#follower',data-toggle="tab")
                             | #{t("profile.follower")}&nbsp;#{followerAmount}
                 div.tab-content
-                    di#profile.tab-pane.active
-                        div.col-md-12(style="height:600px")
-                            canvas#test-chart(width=450,height=450)
-                            div.row
-                                input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
-                                input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
-                                input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
-                                input#csharp-amount(type='hidden',name='csharp_amount',value='#{amountObj.csharpAmount}')
-                            div.row
-                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#F7464A")
+                    div#profile.tab-pane.active
+                        div.row
+                            div.col-xs-12.col-md-6
+                            div.col-xs-offset-2.col-xs-6.col-md-offset-0.col-md-4(height=300)
+                                canvas#test-chart(width=200,height=200)
+                                div.row
+                                    input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
+                                    input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
+                                    input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
+                                    input#csharp-amount(type='hidden',name='csharp_amount',value='#{amountObj.csharpAmount}')
+                            div.col-xs-2.col-md-1(style="margin-top:10px")
+                                p.text-center(style="background-color:#39b3d7")
                                     | js
-                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#46BFBD")
+                                p.text-center(style="background-color:#47a447")
                                     | java
-                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#FDB45C")
-                                    | c/c++
-                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#949FB1")
+                                p.text-center(style="background-color:#ed9c28")
+                                    | c++
+                                p.text-center(style="background-color:#d2322d")
                                     | c#
                     div#mine.tab-pane
                         //- if snippetList.length>0

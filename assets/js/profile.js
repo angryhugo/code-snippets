@@ -6,23 +6,24 @@ $(function() {
     var _mineSnippetsDiv = $('#mine');
     var _token = $('#input-csrf');
     var _viewUserId = $('#view-user-id');
+    var _testChart = $("#test-chart");
 
     var doughnutData = [
         {
             value: parseInt($('#js-amount').val()),
-            color: "#F7464A"
+            color: "#39b3d7"
         },
         {
             value: parseInt($('#java-amount').val()),
-            color: "#46BFBD"
+            color: "#47a447"
         },
         {
             value: parseInt($('#c-amount').val()),
-            color: "#FDB45C"
+            color: "#ed9c28"
         },
         {
             value: parseInt($('#csharp-amount').val()),
-            color: "#949FB1"
+            color: "#d2322d"
         }
 
     ];
