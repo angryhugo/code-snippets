@@ -345,7 +345,7 @@ module.exports = {
             res.json('notOk');
         });
     },
-    viewfollowingSnippets: function(req, res) {
+    viewFollowingSnippets: function(req, res) {
         var page = req.query.page || 1;
         var take = 10;
         if (isNaN(page)) {

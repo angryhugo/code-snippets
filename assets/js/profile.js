@@ -32,7 +32,7 @@ $(function() {
     function viewFollowingSnippetsHandler(page) {
         $.ajax({
             type: 'GET',
-            url: '/api/following/snippets?page=' + page,
+            url: '/api/snippets/following?page=' + page,
             dataType: 'html',
             success: function(snippetsHtml) {
                 _followingSnippetsDiv.html(snippetsHtml);
@@ -55,7 +55,7 @@ $(function() {
     function viewMineSnippetsHandler(page) {
         $.ajax({
             type: 'GET',
-            url: '/api/mine/snippets?user_id=' + _viewUserId.val() + '&page=' + page,
+            url: '/api/snippets/mine?user_id=' + _viewUserId.val() + '&page=' + page,
             dataType: 'html',
             success: function(snippetsHtml) {
                 _mineSnippetsDiv.html(snippetsHtml);
