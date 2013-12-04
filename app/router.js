@@ -98,6 +98,7 @@ module.exports = function(app) {
     app.post('/api/follow', ensureAuthenticated, controller.followUser);
     app.post('/api/unfollow', ensureAuthenticated, controller.unfollowUser);
     app.get('/api/following/snippets', ensureAuthenticated, controller.viewfollowingSnippets);
+    app.get('/api/mine/snippets', ensureAuthenticated, controller.viewMineSnippets);
     app.delete('/api/snippets', ensureAuthenticated, controller.deleteSnippet);
 
 

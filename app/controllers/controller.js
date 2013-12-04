@@ -1,6 +1,7 @@
 var fs = require('fs');
 var moment = require('moment');
 var passwordHash = require('password-hash');
+var async = require('async');
 var entityFactory = require('../models/entity-factory');
 var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
@@ -88,48 +89,38 @@ module.exports = {
             if (!viewUser) {
                 errHandler(null, 'user do not exist', next);
             } else {
-                UserRelation.count({
-                    where: {
-                        user_id: viewUserId
-                    }
-                }).success(function(followAmount) {
-                    UserRelation.count({
-                        where: {
-                            follow_id: viewUserId
-                        }
-                    }).success(function(followerAmount) {
-                        var option = {
-                            include: [{
-                                model: User,
-                                as: 'user'
-                            }, {
-                                model: SnippetType,
-                                as: 'typer'
-                            }],
+                getAmountOfEveryType(viewUserId, function(err, amountObj) {
+                    if (err) {
+                        errHandler(err, 'server error!', next);
+                    } else {
+                        UserRelation.count({
                             where: {
                                 user_id: viewUserId
-                            },
-                            order: 'created_at DESC'
-                        };
-                        CodeSnippet.findAll(option).success(function(snippetList) {
-                            res.render('profile', {
-                                credential: user,
-                                userName: viewUser.name,
-                                isSelf: isSelf,
-                                followAmount: followAmount,
-                                followerAmount: followerAmount,
-                                snippetList: mapper.profileSnippetListMapper(snippetList),
-                                token: req.csrfToken()
+                            }
+                        }).success(function(followAmount) {
+                            UserRelation.count({
+                                where: {
+                                    follow_id: viewUserId
+                                }
+                            }).success(function(followerAmount) {
+                                res.render('profile', {
+                                    credential: user,
+                                    viewUserId: viewUserId,
+                                    userName: viewUser.name,
+                                    amountObj: amountObj,
+                                    isSelf: isSelf,
+                                    followAmount: followAmount,
+                                    followerAmount: followerAmount,
+                                    token: req.csrfToken()
+                                });
+                            }).error(function(err) {
+                                errHandler(err, 'server error!', next);
                             });
                         }).error(function(err) {
                             errHandler(err, 'server error!', next);
-                        });;
-                    }).error(function(err) {
-                        errHandler(err, 'server error!', next);
-                    });
-                }).error(function(err) {
-                    errHandler(err, 'server error!', next);
-                });
+                        });
+                    }
+                })
             }
         }).error(function(err) {
             errHandler(err, 'server error!', next);
@@ -402,6 +393,7 @@ module.exports = {
                             pagination: {
                                 pager: buildPager(snippetTotal, skip, take)
                             },
+                            isSelf: false,
                             snippetList: mapper.profileSnippetListMapper(snippetList)
                         });
                     }).error(function(err) {
@@ -414,6 +406,54 @@ module.exports = {
         }).error(function(err) {
             errHandler(err, 'server error!', next);
         })
+    },
+    viewMineSnippets: function(req, res) {
+        var page = req.query.page || 1;
+        var take = 10;
+        if (isNaN(page)) {
+            page = 1;
+        }
+        var skip = (page - 1) * take;
+
+        var userId = req.user.id;
+        var viewUserId = req.query.user_id || '';
+        var isSelf = (userId === viewUserId) ? true : false;
+
+        var option = {
+            include: [{
+                model: User,
+                as: 'user'
+                            }, {
+                model: SnippetType,
+                as: 'typer'
+                            }],
+            offset: skip,
+            limit: take,
+            where: {
+                user_id: viewUserId
+            },
+            order: 'created_at DESC'
+        };
+        CodeSnippet.count({
+            where: {
+                user_id: viewUserId
+            }
+        }).success(function(snippetTotal) {
+            CodeSnippet.findAll(option).success(function(snippetList) {
+                res.render('snippet-partial', {
+                    pagination: {
+                        pager: buildPager(snippetTotal, skip, take)
+                    },
+                    isSelf: isSelf,
+                    snippetList: mapper.profileSnippetListMapper(snippetList)
+                });
+            }).error(function(err) {
+                errHandler(err, 'server error!', next);
+            })
+        }).error(function(err) {
+            errHandler(err, 'server error!', next);
+        });
+
     }
 };
 
@@ -448,6 +488,58 @@ function checkFollowStatus(userId, followId, callback) {
             callback(err);
         });
     }
+}
+
+function getAmountOfEveryType(userId, callback) {
+    async.series({
+            jsAmount: function(callback) {
+                var whereOpiton = {
+                    where: {
+                        user_id: userId,
+                        type_id: 1
+                    }
+                };
+                CodeSnippet.count(whereOpiton).success(function(jsAmount) {
+                    callback(null, jsAmount);
+                });
+            },
+            javaAmount: function(callback) {
+                var whereOpiton = {
+                    where: {
+                        user_id: userId,
+                        type_id: 2
+                    }
+                };
+                CodeSnippet.count(whereOpiton).success(function(javaAmount) {
+                    callback(null, javaAmount);
+                });
+            },
+            cAmount: function(callback) {
+                var whereOpiton = {
+                    where: {
+                        user_id: userId,
+                        type_id: 3
+                    }
+                };
+                CodeSnippet.count(whereOpiton).success(function(cAmount) {
+                    callback(null, cAmount);
+                });
+            },
+            csharpAmount: function(callback) {
+                var whereOpiton = {
+                    where: {
+                        user_id: userId,
+                        type_id: 4
+                    }
+                };
+                CodeSnippet.count(whereOpiton).success(function(csharpAmount) {
+                    callback(null, csharpAmount);
+                });
+            }
+        },
+        function(err, results) {
+            callback(null, results);
+        });
 }
 
 function buildPager(total, skip, take) {

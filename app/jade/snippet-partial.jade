@@ -5,12 +5,16 @@ if snippetList.length>0
             div
                 a(href='/snippets/#{snippet.id}')
                     | #{snippet.title}
-                a.pull-right(href='/users/#{snippet.creatorId}/profile')
-                    | #{snippet.creator}
+                if !isSelf
+                    a.pull-right(href='/users/#{snippet.creatorId}/profile')
+                        | #{snippet.creator}
             div
                 | #{snippet.createTime}
                 span.snippet-type
                     | #{snippet.type}
+                if isSelf
+                    a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
+                        i.fa.fa-times
     mixin internal-pager(pagination.pager)
 else
     | zero

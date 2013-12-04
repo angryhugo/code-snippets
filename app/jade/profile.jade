@@ -12,6 +12,7 @@ append head
 block main
     div.container.nav-margin
         input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+        input#view-user-id(type='hidden',value='#{viewUserId}')
         div.page-header
             h3
                 | #{t("profile.title")}
@@ -37,7 +38,10 @@ block main
             div.col-xs-10.col-md-9.form-horizontal
                 ul.nav.nav-tabs
                     li.active
-                        a(href='#mine',data-toggle="tab")
+                        a(href='#profile',data-toggle="tab")
+                            | #{t("profile.profile")}
+                    li
+                        a#link-mine-snippets(href='#mine',data-toggle="tab")
                             | #{t("profile.mine")}
                     if isSelf
                         li
@@ -50,25 +54,41 @@ block main
                         a(href='#follower',data-toggle="tab")
                             | #{t("profile.follower")}&nbsp;#{followerAmount}
                 div.tab-content
-                    div#mine.tab-pane.active
-                        if snippetList.length>0
-                            for snippet in snippetList
-                                div.snippet-item
-                                    div
-                                        a(href='/snippets/#{snippet.id}')
-                                            | #{snippet.title}
-                                    div
-                                        | #{snippet.createTime}
-                                        span.snippet-type
-                                            | #{snippet.type}
-                                        if isSelf
-                                            a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
-                                                i.fa.fa-times
-                        else
-                            | zero
+                    di#profile.tab-pane.active
+                        div.col-md-12(style="height:600px")
+                            canvas#test-chart(width=450,height=450)
+                            div.row
+                                input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
+                                input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
+                                input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
+                                input#csharp-amount(type='hidden',name='csharp_amount',value='#{amountObj.csharpAmount}')
+                            div.row
+                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#F7464A")
+                                    | js
+                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#46BFBD")
+                                    | java
+                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#FDB45C")
+                                    | c/c++
+                                div.col-md-offset-1.col-md-1.text-center(style="background-color:#949FB1")
+                                    | c#
+                    div#mine.tab-pane
+                        //- if snippetList.length>0
+                        //-     for snippet in snippetList
+                        //-         div.snippet-item
+                        //-             div
+                        //-                 a(href='/snippets/#{snippet.id}')
+                        //-                     | #{snippet.title}
+                        //-             div
+                        //-                 | #{snippet.createTime}
+                        //-                 span.snippet-type
+                        //-                     | #{snippet.type}
+                        //-                 if isSelf
+                        //-                     a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
+                        //-                         i.fa.fa-times
+                        //- else
+                        //-     | zero
                     if isSelf
                         div#followingSnippets.tab-pane
-                            | This is followers' snippets
                     div#following.tab-pane
                         | This is my following
                     div#follower.tab-pane
@@ -79,5 +99,6 @@ block scripts
         script(type='text/javascript', src='/static/js/profile.min.js')
     - }
     - else {
+        script(type='text/javascript', src='/assets/vendor/chart/Chart.js')
         script(type='text/javascript', src='/assets/js/profile.js')
     - }

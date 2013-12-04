@@ -107,6 +107,7 @@
         "title": "Profile",
         "backBtn": "Back",
         "delete": "delete",
+        "profile": "profile",
         "mine": "Mine",
         "following's": "Following's",
         "following": "Following",
