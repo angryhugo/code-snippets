@@ -22,6 +22,7 @@ var Message = {
     PASSWORD_SAVE_ERROR: "修改密码失败",
     PASSWORD_WRONG_ERROR: "旧密码不正确",
     //delete snippet
+    DELETE_SNIPPET_CONFIRM: "确定要删除该代码片段？",
     DELETE_SNIPPET_SUCCESS: "成功删除代码片段",
     SNIPPET_NOT_EXSIT: "该代码片段不存在",
     DELETE_SNIPPET_FORBIDDEN: "您无权删除该代码片段"
