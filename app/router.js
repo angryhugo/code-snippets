@@ -1,4 +1,6 @@
 var controller = require('./controllers/controller');
+var userController = require('./controllers/user-controller');
+var snippetController = require('./controllers/snippet-controller');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
@@ -75,31 +77,32 @@ module.exports = function(app) {
     app.post('/users/login', passport.authenticate('local', {
         failureRedirect: '/?error=1',
         failureFlash: true
-    }), controller.doLogin);
+    }), userController.doLogin);
 
     app.get('/users/logout', function(req, res) {
         req.logout();
         res.clearCookie('cs-user');
+        req.session.returnUrl = '';
         res.redirect('/');
     });
 
-    app.post('/users/sign_up', controller.doSignUp);
+    app.post('/users/sign_up', userController.doSignUp);
 
-    app.get('/users/:user_id/password', ensureAuthenticated, controller.modifyPassword);
-    app.post('/users/:user_id/password', ensureAuthenticated, controller.doModifyPassword);
+    app.get('/users/:user_id/password', ensureAuthenticated, userController.modifyPassword);
+    app.post('/users/:user_id/password', ensureAuthenticated, userController.doModifyPassword);
     app.get('/users/:user_id/profile', ensureAuthenticated, controller.viewProfile);
 
-    app.get('/snippets/new', ensureAuthenticated, controller.newSnippet);
-    app.post('/snippets/new', ensureAuthenticated, controller.doNewSnippet);
-    app.get('/snippets/search', controller.searchSnippet);
-    app.get('/snippets/:snippet_id', controller.viewSnippet);
+    app.get('/snippets/new', ensureAuthenticated, snippetController.newSnippet);
+    app.post('/snippets/new', ensureAuthenticated, snippetController.doNewSnippet);
+    app.get('/snippets/search', snippetController.searchSnippet);
+    app.get('/snippets/:snippet_id', snippetController.viewSnippet);
 
-    app.post('/api/email', ensureAuthenticated, controller.checkEmail);
-    app.post('/api/follow', ensureAuthenticated, controller.followUser);
-    app.post('/api/unfollow', ensureAuthenticated, controller.unfollowUser);
-    app.get('/api/users/:user_id/snippets/following', ensureAuthenticated, controller.viewFollowingSnippets);
-    app.get('/api/users/:user_id/snippets/mine', ensureAuthenticated, controller.viewMineSnippets);
-    app.delete('/api/snippets', ensureAuthenticated, controller.deleteSnippet);
+    app.post('/api/email', userController.checkEmail);
+    app.post('/api/follow', ensureAuthenticated, userController.followUser);
+    app.post('/api/unfollow', ensureAuthenticated, userController.unfollowUser);
+    app.get('/api/users/:user_id/snippets/following', ensureAuthenticated, snippetController.viewFollowingSnippets);
+    app.get('/api/users/:user_id/snippets/mine', ensureAuthenticated, snippetController.viewMineSnippets);
+    app.delete('/api/snippets', ensureAuthenticated, snippetController.deleteSnippet);
 
 
     app.use(function(req, res) {
