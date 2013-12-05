@@ -295,11 +295,7 @@ module.exports = {
                     isSelf: isSelf,
                     snippetList: mapper.profileSnippetListMapper(snippetList)
                 });
-            }).error(function(err) {
-                errHandler(err, 'server error!', next);
-            })
-        }).error(function(err) {
-            errHandler(err, 'server error!', next);
+            });
         });
 
     }

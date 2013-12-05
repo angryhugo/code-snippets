@@ -2,8 +2,9 @@ extends layout
 
 block title
     if !isSelf
-        | #{userName}&nbsp;|&nbsp;
-    | #{t("profile.title")}
+        | #{viewUserObj.name}
+    else
+        | #{t("profile.title")}
     
 append head
     - if (nodeEnv == "production") {
@@ -23,7 +24,7 @@ block main
         div.page-header
             h3
                 if !isSelf
-                    | #{userName}
+                    | #{viewUserObj.name}
                 else
                     | #{t("profile.title")}
         div.col-xs-offset-1.row.col-xs-11.col-md-10
@@ -33,7 +34,7 @@ block main
                         img.profile(src='/static/images/profile-large.jpg')
                     //- div.col-xs-3.col-md-12
                     //-     div.profile-info.profile-name
-                    //-         | #{userName}
+                    //-         | #{viewUserObj.name}
             div.col-xs-10.col-md-9.form-horizontal
                 ul.nav.nav-tabs
                     li.active
@@ -50,7 +51,7 @@ block main
                         a(href='#following',data-toggle="tab")
                             | #{t("profile.following")}&nbsp;#{amountObj.followAmount}
                     li
-                        a(href='#follower',data-toggle="tab")
+                        a#link-follower(href='#follower',data-toggle="tab")
                             | #{t("profile.follower")}&nbsp;#{amountObj.followerAmount}
                 div.tab-content
                     div#profile.tab-pane.active
@@ -84,13 +85,12 @@ block main
                             //- Radar
                             div.col-xs-offset-2.col-xs-10.col-md-offset-0.col-md-6(height=400)
                                 canvas#radar-chart(width=300,height=300)
-                    div#mine.tab-pane(style="padding:1%")
+                    div#mine.tab-pane
                     if isSelf
-                        div#followingSnippets.tab-pane(style="padding:1%")
+                        div#followingSnippets.tab-pane
                     div#following.tab-pane
-                        | This is my following
+
                     div#follower.tab-pane
-                        | This is my follower
 
 block scripts
     - if (nodeEnv == "production") {

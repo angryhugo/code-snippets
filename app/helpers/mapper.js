@@ -46,4 +46,19 @@ module.exports = {
         }
         return profileSnippetList;
     },
+    followerMapper: function(followerObj) {
+        return {
+            id: followerObj.user_id,
+            name: followerObj.user.name,
+            status: followerObj.status
+        }
+    },
+    followerListMapper: function(followerList) {
+        var mappedfollowerList = [];
+        for (var i = 0; i < followerList.length; i++) {
+            var mappedfollower = this.followerMapper(followerList[i]);
+            mappedfollowerList.push(mappedfollower);
+        }
+        return mappedfollowerList;
+    },
 }

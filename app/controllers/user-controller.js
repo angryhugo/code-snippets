@@ -2,6 +2,8 @@ var passwordHash = require('password-hash');
 var async = require('async');
 var entityFactory = require('../models/entity-factory');
 var utils = require('../helpers/utils');
+var mapper = require('../helpers/mapper');
+var async = require('async');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
@@ -101,6 +103,65 @@ module.exports = {
         }).error(function(err) {
             res.json('notOk');
         });
+    },
+    viewFollowers: function(req, res) {
+        var userId = req.user.id;
+        var viewUserId = req.params.user_id || '';
+        var isSelf = (userId === viewUserId) ? true : false;
+        var option = {
+            include: [{
+                model: User,
+                as: 'user'
+                            }],
+            // offset: skip,
+            // limit: take,
+            where: {
+                follow_id: viewUserId
+            }
+            // order: 'created_at DESC'
+        };
+
+        UserRelation.findAll(option).success(function(followerList) {
+            async.each(followerList, function(follower, callback) {
+                if (userId === follower.user_id) {
+                    //self
+                    follower.status = 2;
+                    callback(null);
+                } else {
+                    UserRelation.find({
+                        where: {
+                            user_id: userId,
+                            follow_id: follower.user_id,
+                        }
+                    }).success(function(userRelation) {
+                        if (userRelation) {
+                            //followed
+                            follower.status = 1;
+                        } else {
+                            //unfollowed
+                            follower.status = 0;
+                        }
+                        callback(null);
+                    });
+                }
+            }, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(mapper.followerListMapper(followerList));
+                    res.render('follower-partial', {
+                        // pagination: {
+                        //     pager: utils.buildPager(snippetTotal, skip, take)
+                        // },
+                        isSelf: isSelf,
+                        followerList: mapper.followerListMapper(followerList)
+                    });
+                };
+            });
+        }).error(function(err) {
+            console.log(err);
+        });
+
     }
 };
 

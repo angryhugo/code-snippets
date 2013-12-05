@@ -114,7 +114,9 @@
         "following": "关注",
         "follower": "粉丝",
         "email": "邮箱",
-        "name": "用户名"
+        "name": "用户名",
+        "cancel": "取消关注",
+        "follow": "关注"
     },
     "pagination": {
         "next": "下一页",

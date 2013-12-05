@@ -104,16 +104,18 @@
         "backBtn": "Back"
     },
     "profile": {
-        "title": "Profile",
+        "title": "Home",
         "backBtn": "Back",
         "delete": "delete",
-        "profile": "profile",
+        "profile": "Profile",
         "mine": "Mine",
         "following's": "Following's",
         "following": "Following",
         "follower": "Follower",
         "email": "Email",
-        "name": "Username"
+        "name": "Username",
+        "cancel": "Cancel",
+        "follow": "Follow"
     },
     "pagination": {
         "next": "Next",

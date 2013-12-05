@@ -4,6 +4,8 @@ $(function() {
     var _followingSnippetsDiv = $('#followingSnippets');
     var _showMineSnippetLink = $('#link-mine-snippets');
     var _mineSnippetsDiv = $('#mine');
+    var _followerDiv = $('#follower');
+    var _showFollowerLink = $('#link-follower');
     var _token = $('#input-csrf');
     var _viewUserId = $('#view-user-id');
     var _jsAmount = parseInt($('#js-amount').val());
@@ -77,17 +79,19 @@ $(function() {
 
 
     function viewFollowingSnippetsHandler(page) {
-        $.ajax({
-            type: 'GET',
-            url: '/api/users/' + _viewUserId.val() + '/snippets/following?page=' + page,
-            dataType: 'html',
-            success: function(snippetsHtml) {
-                _followingSnippetsDiv.html(snippetsHtml);
-            },
-            error: function(xhr, status, err) {
-                bootbox.alert(Message.SERVER_ERROR);
-            }
-        });
+        if (_viewUserId.val()) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/' + _viewUserId.val() + '/snippets/following?page=' + page,
+                dataType: 'html',
+                success: function(snippetsHtml) {
+                    _followingSnippetsDiv.html(snippetsHtml);
+                },
+                error: function(xhr, status, err) {
+                    bootbox.alert(Message.SERVER_ERROR);
+                }
+            });
+        }
     }
 
     _followingSnippetsDiv.on('click', '.pagination a', function() {
@@ -100,18 +104,20 @@ $(function() {
     });
 
     function viewMineSnippetsHandler(page) {
-        $.ajax({
-            type: 'GET',
-            url: '/api/users/' + _viewUserId.val() + '/snippets/mine?page=' + page,
-            dataType: 'html',
-            success: function(snippetsHtml) {
-                _mineSnippetsDiv.html(snippetsHtml);
-                _mineSnippetsDiv.find('.link-tooltip').tooltip();
-            },
-            error: function(xhr, status, err) {
-                bootbox.alert(Message.SERVER_ERROR);
-            }
-        });
+        if (_viewUserId.val()) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/' + _viewUserId.val() + '/snippets/mine?page=' + page,
+                dataType: 'html',
+                success: function(snippetsHtml) {
+                    _mineSnippetsDiv.html(snippetsHtml);
+                    _mineSnippetsDiv.find('.link-tooltip').tooltip();
+                },
+                error: function(xhr, status, err) {
+                    bootbox.alert(Message.SERVER_ERROR);
+                }
+            });
+        }
     }
 
     _mineSnippetsDiv.on('click', '.pagination a', function() {
@@ -150,6 +156,55 @@ $(function() {
                         bootbox.alert(Message.SERVER_ERROR);
                     }
                 });
+            }
+        });
+    });
+
+    _showFollowerLink.on('click', function() {
+        if (_viewUserId.val()) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/' + _viewUserId.val() + '/followers',
+                dataType: 'html',
+                success: function(followersHtml) {
+                    _followerDiv.html(followersHtml);
+                },
+                error: function(xhr, status, err) {
+                    bootbox.alert(Message.SERVER_ERROR);
+                }
+            });
+        }
+    });
+
+    _followerDiv.on('click', '.btn-follow', function() {
+        var self = $(this);
+        self.attr('disabled', true);
+        var followId = self.attr('data-followId');
+        var url = self.attr('data-url') || '/api/follow';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                follow_id: followId,
+                _csrf: $('#input-csrf').val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data == 'ok') {
+                    if (url == '/api/follow') {
+                        self.attr('data-url', '/api/unfollow');
+                        self.text(Opertation.CANCEL);
+                    } else {
+                        self.attr('data-url', '/api/follow');
+                        self.text(Opertation.FOLLOW);
+                    }
+                } else {
+                    bootbox.alert('not ok');
+                }
+                self.attr('disabled', false);
+            },
+            error: function(xhr, status, err) {
+                bootbox.alert(xhr.responseText);
             }
         });
     });
