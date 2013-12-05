@@ -17,12 +17,12 @@ block main
                 a#link-back.btn.btn-info.pull-right
                     | #{t("view-snippet.backBtn")}
         div.row
-            div.col-sm-2.col-lg-2(style='margin-left:3%')
+            div.col-xs-12.col-sm-1.col-md-2(style='margin-left:3%')
                 div.row
-                    div.col-sm-12.col-lg-6
+                    div.col-xs-3.col-sm-12.col-md-6
                         a(href="/users/#{snippet.ownerId}/profile")
                             img(src='/static/images/profile.jpg',style='border-radius:15px')
-                    div.col-sm-12.col-lg-6
+                    div.col-xs-3.col-sm-12.col-md-6
                         div
                             div(style='font-weight:bold;')
                                 | #{snippet.owner}
@@ -32,22 +32,22 @@ block main
                             else if followStatus == 2
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow') #{t("view-snippet.follow")}
-            div.col-sm-9.col-lg-9.form-horizontal
+            div.col-xs-12.col-sm-10.col-md-9.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                 div.form-group
-                    label.col-sm-2.col-lg-1.control-label
+                    label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetTitle")}
-                    div.col-sm-10.col-lg-10
+                    div.col-sm-10.col-md-10
                         | #{snippet.title}
                 div.form-group
-                    label.col-sm-2.col-lg-1.control-label
+                    label.col-sm-2.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}
-                    div.col-sm-10.col-lg-10
+                    div.col-sm-10.col-md-10
                         | #{snippet.type}
                 div.form-group
-                    label.col-sm-2.col-lg-1.control-label
+                    label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetContent")}
-                    div.col-sm-10.col-lg-10
+                    div.col-sm-10.col-md-10
                         pre
                             code
                                 | #{snippet.snippet}
