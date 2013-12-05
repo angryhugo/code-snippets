@@ -15,7 +15,7 @@ append head
 block main
     div.container.nav-margin
         input#input-csrf(type='hidden',name='_csrf',value='#{token}')
-        input#view-user-id(type='hidden',value='#{viewUserId}')
+        input#view-user-id(type='hidden',value='#{viewUserObj.id}')
         input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
         input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
         input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
@@ -48,14 +48,24 @@ block main
                                 | #{t("profile.following's")}
                     li
                         a(href='#following',data-toggle="tab")
-                            | #{t("profile.following")}&nbsp;#{followAmount}
+                            | #{t("profile.following")}&nbsp;#{amountObj.followAmount}
                     li
                         a(href='#follower',data-toggle="tab")
-                            | #{t("profile.follower")}&nbsp;#{followerAmount}
+                            | #{t("profile.follower")}&nbsp;#{amountObj.followerAmount}
                 div.tab-content
                     div#profile.tab-pane.active
                         div.row
-                            div.col-xs-12.col-md-6
+                            div.col-xs-offset-2.col-xs-10.col-md-offset-0.col-md-6.form-horizontal(style="padding:5%")
+                                div.form-group
+                                    label.col-xs-3.col-md-4.control-label
+                                        | #{t("profile.name")}
+                                    div.col-xs-8.col-md-8
+                                        | #{viewUserObj.name}
+                                div.form-group
+                                    label.col-xs-3.col-md-4.control-label
+                                        | #{t("profile.email")}
+                                    div.col-xs-8.col-md-8
+                                        | #{viewUserObj.email}
                             //- Doughnut
                             //- div.col-xs-offset-2.col-xs-6.col-md-offset-0.col-md-4(height=300)
                             //-     canvas#test-chart(width=200,height=200)
@@ -72,7 +82,7 @@ block main
                             //- div.col-xs-offset-2.col-xs-12.col-md-offset-0.col-md-6(height=400)
                             //-     canvas#line-chart(width=300,height=300)
                             //- Radar
-                            div.col-xs-offset-2.col-xs-12.col-md-offset-0.col-md-6(height=400)
+                            div.col-xs-offset-2.col-xs-10.col-md-offset-0.col-md-6(height=400)
                                 canvas#radar-chart(width=300,height=300)
                     div#mine.tab-pane
                     if isSelf

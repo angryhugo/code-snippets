@@ -112,7 +112,9 @@
         "mine": "我的",
         "following's": "我关注的",
         "following": "关注",
-        "follower": "粉丝"
+        "follower": "粉丝",
+        "email": "邮箱",
+        "name": "用户名"
     },
     "pagination": {
         "next": "下一页",

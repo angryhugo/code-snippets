@@ -111,7 +111,9 @@
         "mine": "Mine",
         "following's": "Following's",
         "following": "Following",
-        "follower": "Follower"
+        "follower": "Follower",
+        "email": "Email",
+        "name": "Username"
     },
     "pagination": {
         "next": "Next",

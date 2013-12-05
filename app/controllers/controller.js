@@ -89,35 +89,21 @@ module.exports = {
             if (!viewUser) {
                 errHandler(null, 'user do not exist', next);
             } else {
-                getAmountOfEveryType(viewUserId, function(err, amountObj) {
+                getAmountObj(viewUserId, function(err, amountObj) {
                     if (err) {
                         errHandler(err, 'server error!', next);
                     } else {
-                        UserRelation.count({
-                            where: {
-                                user_id: viewUserId
-                            }
-                        }).success(function(followAmount) {
-                            UserRelation.count({
-                                where: {
-                                    follow_id: viewUserId
-                                }
-                            }).success(function(followerAmount) {
-                                res.render('profile', {
-                                    credential: user,
-                                    viewUserId: viewUserId,
-                                    userName: viewUser.name,
-                                    amountObj: amountObj,
-                                    isSelf: isSelf,
-                                    followAmount: followAmount,
-                                    followerAmount: followerAmount,
-                                    token: req.csrfToken()
-                                });
-                            }).error(function(err) {
-                                errHandler(err, 'server error!', next);
-                            });
-                        }).error(function(err) {
-                            errHandler(err, 'server error!', next);
+                        var viewUserObj = {
+                            id: viewUserId,
+                            name: viewUser.name,
+                            email: viewUser.email
+                        };
+                        res.render('profile', {
+                            credential: user,
+                            viewUserObj: viewUserObj,
+                            amountObj: amountObj,
+                            isSelf: isSelf,
+                            token: req.csrfToken()
                         });
                     }
                 })
@@ -490,7 +476,7 @@ function checkFollowStatus(userId, followId, callback) {
     }
 }
 
-function getAmountOfEveryType(userId, callback) {
+function getAmountObj(userId, callback) {
     async.series({
             jsAmount: function(callback) {
                 var whereOpiton = {
@@ -534,6 +520,26 @@ function getAmountOfEveryType(userId, callback) {
                 };
                 CodeSnippet.count(whereOpiton).success(function(csharpAmount) {
                     callback(null, csharpAmount);
+                });
+            },
+            followAmount: function(callback) {
+                var whereOpiton = {
+                    where: {
+                        user_id: userId
+                    }
+                };
+                UserRelation.count(whereOpiton).success(function(followAmount) {
+                    callback(null, followAmount);
+                });
+            },
+            followerAmount: function(callback) {
+                var whereOpiton = {
+                    where: {
+                        follow_id: userId
+                    }
+                };
+                UserRelation.count(whereOpiton).success(function(followerAmount) {
+                    callback(null, followerAmount);
                 });
             }
         },
