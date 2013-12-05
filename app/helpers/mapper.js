@@ -61,4 +61,19 @@ module.exports = {
         }
         return mappedfollowerList;
     },
+    followingMapper: function(followingObj) {
+        return {
+            id: followingObj.follow_id,
+            name: followingObj.follow.name,
+            status: followingObj.status
+        }
+    },
+    followingListMapper: function(followingList) {
+        var mappedfollowingList = [];
+        for (var i = 0; i < followingList.length; i++) {
+            var mappedfollowing = this.followingMapper(followingList[i]);
+            mappedfollowingList.push(mappedfollowing);
+        }
+        return mappedfollowingList;
+    },
 }

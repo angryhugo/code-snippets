@@ -6,6 +6,8 @@ $(function() {
     var _mineSnippetsDiv = $('#mine');
     var _followerDiv = $('#follower');
     var _showFollowerLink = $('#link-follower');
+    var _followingDiv = $('#following');
+    var _showFollowingLink = $('#link-following');
     var _token = $('#input-csrf');
     var _viewUserId = $('#view-user-id');
     var _jsAmount = parseInt($('#js-amount').val());
@@ -176,11 +178,10 @@ $(function() {
         }
     });
 
-    _followerDiv.on('click', '.btn-follow', function() {
-        var self = $(this);
-        self.attr('disabled', true);
-        var followId = self.attr('data-followId');
-        var url = self.attr('data-url') || '/api/follow';
+    function followHandler(thisElement) {
+        thisElement.attr('disabled', true);
+        var followId = thisElement.attr('data-followId');
+        var url = thisElement.attr('data-url') || '/api/follow';
         $.ajax({
             url: url,
             type: 'POST',
@@ -192,20 +193,44 @@ $(function() {
             success: function(data) {
                 if (data == 'ok') {
                     if (url == '/api/follow') {
-                        self.attr('data-url', '/api/unfollow');
-                        self.text(Opertation.CANCEL);
+                        thisElement.attr('data-url', '/api/unfollow');
+                        thisElement.text(Opertation.CANCEL);
                     } else {
-                        self.attr('data-url', '/api/follow');
-                        self.text(Opertation.FOLLOW);
+                        thisElement.attr('data-url', '/api/follow');
+                        thisElement.text(Opertation.FOLLOW);
                     }
                 } else {
                     bootbox.alert('not ok');
                 }
-                self.attr('disabled', false);
+                thisElement.attr('disabled', false);
             },
             error: function(xhr, status, err) {
                 bootbox.alert(xhr.responseText);
             }
         });
+    };
+
+    _followerDiv.on('click', '.btn-follow', function() {
+        followHandler($(this));
+    });
+
+    _showFollowingLink.on('click', function() {
+        if (_viewUserId.val()) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/' + _viewUserId.val() + '/followings',
+                dataType: 'html',
+                success: function(followingsHtml) {
+                    _followingDiv.html(followingsHtml);
+                },
+                error: function(xhr, status, err) {
+                    bootbox.alert(Message.SERVER_ERROR);
+                }
+            });
+        }
+    });
+
+    _followingDiv.on('click', '.btn-follow', function() {
+        followHandler($(this));
     });
 });

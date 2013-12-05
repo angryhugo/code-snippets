@@ -148,7 +148,6 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(mapper.followerListMapper(followerList));
                     res.render('follower-partial', {
                         // pagination: {
                         //     pager: utils.buildPager(snippetTotal, skip, take)
@@ -161,7 +160,63 @@ module.exports = {
         }).error(function(err) {
             console.log(err);
         });
+    },
+    viewFollowings: function(req, res) {
+        var userId = req.user.id;
+        var viewUserId = req.params.user_id || '';
+        var isSelf = (userId === viewUserId) ? true : false;
+        var option = {
+            include: [{
+                model: User,
+                as: 'follow'
+                            }],
+            // offset: skip,
+            // limit: take,
+            where: {
+                user_id: viewUserId
+            }
+            // order: 'created_at DESC'
+        };
 
+        UserRelation.findAll(option).success(function(followingList) {
+            async.each(followingList, function(following, callback) {
+                if (userId === following.follow_id) {
+                    //self
+                    following.status = 2;
+                    callback(null);
+                } else {
+                    UserRelation.find({
+                        where: {
+                            user_id: userId,
+                            follow_id: following.follow_id,
+                        }
+                    }).success(function(userRelation) {
+                        if (userRelation) {
+                            //followed
+                            following.status = 1;
+                        } else {
+                            //unfollowed
+                            following.status = 0;
+                        }
+                        callback(null);
+                    });
+                }
+            }, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render('follower-partial', {
+                        // pagination: {
+                        //     pager: utils.buildPager(snippetTotal, skip, take)
+                        // },
+                        isSelf: isSelf,
+                        followerList: mapper.followingListMapper(followingList)
+                    });
+                };
+            });
+        }).error(function(err) {
+            console.log(err);
+        });
     }
 };
 
