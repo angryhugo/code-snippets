@@ -106,6 +106,7 @@ $(function() {
             dataType: 'html',
             success: function(snippetsHtml) {
                 _mineSnippetsDiv.html(snippetsHtml);
+                _mineSnippetsDiv.find('.link-tooltip').tooltip();
             },
             error: function(xhr, status, err) {
                 bootbox.alert(Message.SERVER_ERROR);
