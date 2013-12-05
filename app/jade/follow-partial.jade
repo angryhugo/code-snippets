@@ -1,0 +1,18 @@
+if followList.length>0
+    include ./internal-pager-mixin
+    for follow in followList
+        div.following-item.col-xs-4
+            div.card
+                div.row
+                    a.col-xs-5(href="/users/#{follow.id}/profile")
+                        img.profile(src='/static/images/profile.jpg')
+                    div.col-xs-7
+                        div
+                            | #{follow.name}
+                        div
+                            if follow.status == 1
+                                button.btn-follow.btn.btn-sm(data-followId='#{follow.id}',data-url='/api/unfollow')
+                                    | #{t("profile.cancel")}
+                            else if follow.status == 0
+                                button.btn-follow.btn.btn-sm(data-followId='#{follow.id}',data-url='/api/follow')
+                                    | #{t("profile.follow")}

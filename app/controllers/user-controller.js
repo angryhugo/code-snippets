@@ -148,12 +148,12 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render('follower-partial', {
+                    res.render('follow-partial', {
                         // pagination: {
                         //     pager: utils.buildPager(snippetTotal, skip, take)
                         // },
                         isSelf: isSelf,
-                        followerList: mapper.followerListMapper(followerList)
+                        followList: mapper.followerListMapper(followerList)
                     });
                 };
             });
@@ -205,12 +205,12 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render('follower-partial', {
+                    res.render('follow-partial', {
                         // pagination: {
                         //     pager: utils.buildPager(snippetTotal, skip, take)
                         // },
                         isSelf: isSelf,
-                        followerList: mapper.followingListMapper(followingList)
+                        followList: mapper.followingListMapper(followingList)
                     });
                 };
             });
