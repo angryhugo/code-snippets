@@ -79,7 +79,7 @@ $(function() {
     function viewFollowingSnippetsHandler(page) {
         $.ajax({
             type: 'GET',
-            url: '/api/snippets/following?page=' + page,
+            url: '/api/users/' + _viewUserId.val() + '/snippets/following?page=' + page,
             dataType: 'html',
             success: function(snippetsHtml) {
                 _followingSnippetsDiv.html(snippetsHtml);
@@ -102,7 +102,7 @@ $(function() {
     function viewMineSnippetsHandler(page) {
         $.ajax({
             type: 'GET',
-            url: '/api/snippets/mine?user_id=' + _viewUserId.val() + '&page=' + page,
+            url: '/api/users/' + _viewUserId.val() + '/snippets/mine?page=' + page,
             dataType: 'html',
             success: function(snippetsHtml) {
                 _mineSnippetsDiv.html(snippetsHtml);

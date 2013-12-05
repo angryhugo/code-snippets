@@ -20,7 +20,8 @@ block main
             div.col-sm-2.col-lg-2(style='margin-left:3%')
                 div.row
                     div.col-sm-12.col-lg-6
-                        img(src='/static/images/profile.jpg',style='border-radius:15px')
+                        a(href="/users/#{snippet.ownerId}/profile")
+                            img(src='/static/images/profile.jpg',style='border-radius:15px')
                     div.col-sm-12.col-lg-6
                         div
                             div(style='font-weight:bold;')

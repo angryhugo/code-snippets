@@ -416,7 +416,7 @@ module.exports = {
         var skip = (page - 1) * take;
 
         var userId = req.user.id;
-        var viewUserId = req.query.user_id || '';
+        var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
 
         var option = {
