@@ -16,6 +16,10 @@ block main
     div.container.nav-margin
         input#input-csrf(type='hidden',name='_csrf',value='#{token}')
         input#view-user-id(type='hidden',value='#{viewUserId}')
+        input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
+        input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
+        input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
+        input#csharp-amount(type='hidden',name='csharp_amount',value='#{amountObj.csharpAmount}')
         div.page-header
             h3
                 if !isSelf
@@ -63,38 +67,25 @@ block main
                     div#profile.tab-pane.active
                         div.row
                             div.col-xs-12.col-md-6
-                            div.col-xs-offset-2.col-xs-6.col-md-offset-0.col-md-4(height=300)
-                                canvas#test-chart(width=200,height=200)
-                                div.row
-                                    input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
-                                    input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
-                                    input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
-                                    input#csharp-amount(type='hidden',name='csharp_amount',value='#{amountObj.csharpAmount}')
-                            div.col-xs-2.col-md-1(style="margin-top:10px")
-                                p.text-center(style="background-color:#39b3d7")
-                                    | js
-                                p.text-center(style="background-color:#47a447")
-                                    | java
-                                p.text-center(style="background-color:#ed9c28")
-                                    | c++
-                                p.text-center(style="background-color:#d2322d")
-                                    | c#
+                            //- Doughnut
+                            //- div.col-xs-offset-2.col-xs-6.col-md-offset-0.col-md-4(height=300)
+                            //-     canvas#test-chart(width=200,height=200)
+                            //- div.col-xs-2.col-md-1(style="margin-top:10px")
+                            //-     p.text-center(style="background-color:#39b3d7")
+                            //-         | js
+                            //-     p.text-center(style="background-color:#47a447")
+                            //-         | java
+                            //-     p.text-center(style="background-color:#ed9c28")
+                            //-         | c++
+                            //-     p.text-center(style="background-color:#d2322d")
+                            //-         | c#
+                            //- Line
+                            //- div.col-xs-offset-2.col-xs-12.col-md-offset-0.col-md-6(height=400)
+                            //-     canvas#line-chart(width=300,height=300)
+                            //- Radar
+                            div.col-xs-offset-2.col-xs-12.col-md-offset-0.col-md-6(height=400)
+                                canvas#radar-chart(width=300,height=300)
                     div#mine.tab-pane
-                        //- if snippetList.length>0
-                        //-     for snippet in snippetList
-                        //-         div.snippet-item
-                        //-             div
-                        //-                 a(href='/snippets/#{snippet.id}')
-                        //-                     | #{snippet.title}
-                        //-             div
-                        //-                 | #{snippet.createTime}
-                        //-                 span.snippet-type
-                        //-                     | #{snippet.type}
-                        //-                 if isSelf
-                        //-                     a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
-                        //-                         i.fa.fa-times
-                        //- else
-                        //-     | zero
                     if isSelf
                         div#followingSnippets.tab-pane
                     div#following.tab-pane

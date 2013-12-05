@@ -6,29 +6,75 @@ $(function() {
     var _mineSnippetsDiv = $('#mine');
     var _token = $('#input-csrf');
     var _viewUserId = $('#view-user-id');
-    var _testChart = $("#test-chart");
+    var _jsAmount = parseInt($('#js-amount').val());
+    var _javaAmount = parseInt($('#java-amount').val());
+    var _cAmount = parseInt($('#c-amount').val());
+    var _csharpAmount = parseInt($('#csharp-amount').val());
 
-    var doughnutData = [
-        {
-            value: parseInt($('#js-amount').val()),
-            color: "#39b3d7"
-        },
-        {
-            value: parseInt($('#java-amount').val()),
-            color: "#47a447"
-        },
-        {
-            value: parseInt($('#c-amount').val()),
-            color: "#ed9c28"
-        },
-        {
-            value: parseInt($('#csharp-amount').val()),
-            color: "#d2322d"
-        }
+    //Doughnut
+    // var _testChart = $("#test-chart");
 
-    ];
+    // var ctx = _testChart.get(0).getContext("2d");
 
-    var _myChart = new Chart(document.getElementById("test-chart").getContext("2d")).Doughnut(doughnutData);
+    // var doughnutData = [
+    //     {
+    //         value: _jsAmount,
+    //         color: "#39b3d7"
+    //     },
+    //     {
+    //         value: _javaAmount,
+    //         color: "#47a447"
+    //     },
+    //     {
+    //         value: _cAmount,
+    //         color: "#ed9c28"
+    //     },
+    //     {
+    //         value: _csharpAmount,
+    //         color: "#d2322d"
+    //     }
+
+    // ];
+
+    // var _myChart = new Chart(ctx).Doughnut(doughnutData);
+
+    //line
+    // var _lineChart = $('#line-chart');
+    // var ctx = _lineChart.get(0).getContext("2d");
+    // var lineChartData = {
+    //     labels: ["Javascript", "Java", "C/C++", "C#"],
+    //     datasets: [
+    //         {
+    //             fillColor: "rgba(151,187,205,0.5)",
+    //             strokeColor: "rgba(151,187,205,1)",
+    //             pointColor: "rgba(151,187,205,1)",
+    //             pointStrokeColor: "#fff",
+    //             data: [_jsAmount, _javaAmount, _cAmount, _csharpAmount]
+    //     }]
+    // };
+
+    // var _myLineChart = new Chart(ctx).Line(lineChartData);
+
+    //radar
+    var _radarChart = $('#radar-chart');
+    var ctx = _radarChart.get(0).getContext("2d");
+    var radarChartData = {
+        labels: ["Javascript", "Java", "C/C++", "C#"],
+        datasets: [
+            {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                data: [_jsAmount, _javaAmount, _cAmount, _csharpAmount]
+        }]
+    };
+
+    var radarOption = {
+        scaleLineColor: "rgba(0,0,0,.3)"
+    }
+    var _myRadarChart = new Chart(ctx).Radar(radarChartData, radarOption);
+
 
     function viewFollowingSnippetsHandler(page) {
         $.ajax({
