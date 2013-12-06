@@ -7,6 +7,7 @@ var async = require('async');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
+var FOLLOW_PAGE_TAKE = 3;
 
 module.exports = {
     doLogin: function(req, res, next) {
@@ -106,31 +107,27 @@ module.exports = {
     },
     viewFollowers: function(req, res) {
         var page = req.query.page || 1;
-        var take = 3;
-        if (isNaN(page)) {
-            page = 1;
-        }
-        var skip = (page - 1) * take;
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
-        var option = {
-            include: [{
-                model: User,
-                as: 'user'
-                            }],
-            offset: skip,
-            limit: take,
-            where: {
-                follow_id: viewUserId
-            }
-            // order: 'created_at DESC'
-        };
         UserRelation.count({
             where: {
                 follow_id: viewUserId
             }
         }).success(function(relationTotal) {
+            var pageParams = utils.generatePageParams(relationTotal, FOLLOW_PAGE_TAKE, page);
+            var option = {
+                include: [{
+                    model: User,
+                    as: 'user'
+                            }],
+                offset: pageParams.skip,
+                limit: FOLLOW_PAGE_TAKE,
+                where: {
+                    follow_id: viewUserId
+                }
+                // order: 'created_at DESC'
+            };
             UserRelation.findAll(option).success(function(followerList) {
                 async.each(followerList, function(follower, callback) {
                     if (userId === follower.user_id) {
@@ -160,7 +157,7 @@ module.exports = {
                     } else {
                         res.render('follow-partial', {
                             pagination: {
-                                pager: utils.buildPager(relationTotal, skip, take)
+                                pager: utils.buildPager(relationTotal, pageParams.skip, FOLLOW_PAGE_TAKE)
                             },
                             isSelf: isSelf,
                             followList: mapper.followerListMapper(followerList)
@@ -174,32 +171,28 @@ module.exports = {
     },
     viewFollowings: function(req, res) {
         var page = req.query.page || 1;
-        var take = 3;
-        if (isNaN(page)) {
-            page = 1;
-        }
-        var skip = (page - 1) * take;
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
-        var option = {
-            include: [{
-                model: User,
-                as: 'follow'
-                            }],
-            offset: skip,
-            limit: take,
-            where: {
-                user_id: viewUserId
-            }
-            // order: 'created_at DESC'
-        };
 
         UserRelation.count({
             where: {
                 user_id: viewUserId
             }
         }).success(function(relationTotal) {
+            var pageParams = utils.generatePageParams(relationTotal, FOLLOW_PAGE_TAKE, page);
+            var option = {
+                include: [{
+                    model: User,
+                    as: 'follow'
+                            }],
+                offset: pageParams.skip,
+                limit: FOLLOW_PAGE_TAKE,
+                where: {
+                    user_id: viewUserId
+                }
+                // order: 'created_at DESC'
+            };
             UserRelation.findAll(option).success(function(followingList) {
                 async.each(followingList, function(following, callback) {
                     if (userId === following.follow_id) {
@@ -229,7 +222,7 @@ module.exports = {
                     } else {
                         res.render('follow-partial', {
                             pagination: {
-                                pager: utils.buildPager(relationTotal, skip, take)
+                                pager: utils.buildPager(relationTotal, pageParams.skip, FOLLOW_PAGE_TAKE)
                             },
                             isSelf: isSelf,
                             followList: mapper.followingListMapper(followingList)

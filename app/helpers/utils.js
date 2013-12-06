@@ -49,5 +49,18 @@ module.exports = {
             }
         }
         return pager;
+    },
+    generatePageParams: function(total, take, page) {
+        var maxPage = parseInt(total / take) + 1;
+        if (isNaN(page)) {
+            page = 1;
+        } else if (page > maxPage) {
+            page = maxPage;
+        }
+        var skip = (page - 1) * take;
+        return {
+            page: page,
+            skip: skip
+        }
     }
 }

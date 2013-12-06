@@ -6,6 +6,7 @@ var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
+var SNIPPET_PAGE_TAKE = 10;
 
 String.prototype.trim = function() {
     return this.replace(/(^\s*)|(\s*$)/g, "");
@@ -89,12 +90,6 @@ module.exports = {
     },
     searchSnippet: function(req, res, next) {
         var page = req.query.page || 1;
-        var take = 10;
-        if (isNaN(page)) {
-            page = 1;
-        }
-        var skip = (page - 1) * take;
-
         var url = req.path + '?';
         var user = req.user || '';
         var typeId = req.query.type || 0;
@@ -120,22 +115,23 @@ module.exports = {
 
             url += 'keyword=' + keyword.trim() + '&type=' + typeId;
 
-            var option = {
-                include: [{
-                    model: User,
-                    as: 'user'
-                    }, {
-                    model: SnippetType,
-                    as: 'typer'
-                    }],
-                offset: skip,
-                limit: take,
-                where: [whereString]
-                // order: 'created_at DESC'
-            };
             CodeSnippet.count({
                 where: whereString
             }).success(function(snippetTotal) {
+                var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+                var option = {
+                    include: [{
+                        model: User,
+                        as: 'user'
+                    }, {
+                        model: SnippetType,
+                        as: 'typer'
+                    }],
+                    offset: pageParams.skip,
+                    limit: SNIPPET_PAGE_TAKE,
+                    where: [whereString]
+                    // order: 'created_at DESC'
+                };
                 CodeSnippet.findAll(option).success(function(snippetList) {
                     if (!snippetList) { //do not exist
                         errHandler(null, 'snippet do not exist!', next);
@@ -146,7 +142,7 @@ module.exports = {
                             } else {
                                 res.render('search-snippet', {
                                     pagination: {
-                                        pager: utils.buildPager(snippetTotal, skip, take),
+                                        pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE),
                                         url: url
                                     },
                                     keyword: keyword,
@@ -195,12 +191,6 @@ module.exports = {
     },
     viewFollowingSnippets: function(req, res) {
         var page = req.query.page || 1;
-        var take = 10;
-        if (isNaN(page)) {
-            page = 1;
-        }
-        var skip = (page - 1) * take;
-
         var userId = req.user.id;
         UserRelation.findAll({
             where: {
@@ -216,30 +206,31 @@ module.exports = {
                 for (var i = 0; i < userRelation.length; i++) {
                     followingArray.push(userRelation[i].follow_id);
                 }
-                var option = {
-                    include: [{
-                        model: User,
-                        as: 'user'
-                            }, {
-                        model: SnippetType,
-                        as: 'typer'
-                            }],
-                    offset: skip,
-                    limit: take,
-                    where: {
-                        user_id: followingArray
-                    },
-                    order: 'created_at DESC'
-                };
                 CodeSnippet.count({
                     where: {
                         user_id: followingArray
                     }
                 }).success(function(snippetTotal) {
+                    var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+                    var option = {
+                        include: [{
+                            model: User,
+                            as: 'user'
+                            }, {
+                            model: SnippetType,
+                            as: 'typer'
+                            }],
+                        offset: pageParams.skip,
+                        limit: SNIPPET_PAGE_TAKE,
+                        where: {
+                            user_id: followingArray
+                        },
+                        order: 'created_at DESC'
+                    };
                     CodeSnippet.findAll(option).success(function(snippetList) {
                         res.render('snippet-partial', {
                             pagination: {
-                                pager: utils.buildPager(snippetTotal, skip, take)
+                                pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
                             },
                             isSelf: false,
                             snippetList: mapper.profileSnippetListMapper(snippetList)
@@ -257,40 +248,35 @@ module.exports = {
     },
     viewMineSnippets: function(req, res) {
         var page = req.query.page || 1;
-        var take = 10;
-        if (isNaN(page)) {
-            page = 1;
-        }
-        var skip = (page - 1) * take;
-
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
 
-        var option = {
-            include: [{
-                model: User,
-                as: 'user'
-                            }, {
-                model: SnippetType,
-                as: 'typer'
-                            }],
-            offset: skip,
-            limit: take,
-            where: {
-                user_id: viewUserId
-            },
-            order: 'created_at DESC'
-        };
         CodeSnippet.count({
             where: {
                 user_id: viewUserId
             }
         }).success(function(snippetTotal) {
+            var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+            var option = {
+                include: [{
+                    model: User,
+                    as: 'user'
+                            }, {
+                    model: SnippetType,
+                    as: 'typer'
+                            }],
+                offset: pageParams.skip,
+                limit: SNIPPET_PAGE_TAKE,
+                where: {
+                    user_id: viewUserId
+                },
+                order: 'created_at DESC'
+            };
             CodeSnippet.findAll(option).success(function(snippetList) {
                 res.render('snippet-partial', {
                     pagination: {
-                        pager: utils.buildPager(snippetTotal, skip, take)
+                        pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
                     },
                     isSelf: isSelf,
                     snippetList: mapper.profileSnippetListMapper(snippetList)
