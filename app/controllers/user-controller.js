@@ -105,6 +105,12 @@ module.exports = {
         });
     },
     viewFollowers: function(req, res) {
+        var page = req.query.page || 1;
+        var take = 3;
+        if (isNaN(page)) {
+            page = 1;
+        }
+        var skip = (page - 1) * take;
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
@@ -113,55 +119,66 @@ module.exports = {
                 model: User,
                 as: 'user'
                             }],
-            // offset: skip,
-            // limit: take,
+            offset: skip,
+            limit: take,
             where: {
                 follow_id: viewUserId
             }
             // order: 'created_at DESC'
         };
-
-        UserRelation.findAll(option).success(function(followerList) {
-            async.each(followerList, function(follower, callback) {
-                if (userId === follower.user_id) {
-                    //self
-                    follower.status = 2;
-                    callback(null);
-                } else {
-                    UserRelation.find({
-                        where: {
-                            user_id: userId,
-                            follow_id: follower.user_id,
-                        }
-                    }).success(function(userRelation) {
-                        if (userRelation) {
-                            //followed
-                            follower.status = 1;
-                        } else {
-                            //unfollowed
-                            follower.status = 0;
-                        }
+        UserRelation.count({
+            where: {
+                follow_id: viewUserId
+            }
+        }).success(function(relationTotal) {
+            UserRelation.findAll(option).success(function(followerList) {
+                async.each(followerList, function(follower, callback) {
+                    if (userId === follower.user_id) {
+                        //self
+                        follower.status = 2;
                         callback(null);
-                    });
-                }
-            }, function(err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.render('follow-partial', {
-                        // pagination: {
-                        //     pager: utils.buildPager(snippetTotal, skip, take)
-                        // },
-                        isSelf: isSelf,
-                        followList: mapper.followerListMapper(followerList)
-                    });
-                };
+                    } else {
+                        UserRelation.find({
+                            where: {
+                                user_id: userId,
+                                follow_id: follower.user_id,
+                            }
+                        }).success(function(userRelation) {
+                            if (userRelation) {
+                                //followed
+                                follower.status = 1;
+                            } else {
+                                //unfollowed
+                                follower.status = 0;
+                            }
+                            callback(null);
+                        });
+                    }
+                }, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('follow-partial', {
+                            pagination: {
+                                pager: utils.buildPager(relationTotal, skip, take)
+                            },
+                            isSelf: isSelf,
+                            followList: mapper.followerListMapper(followerList)
+                        });
+                    };
+                });
+            }).error(function(err) {
+                console.log(err);
             });
-        }).error(function(err) {
-            console.log(err);
         });
     },
     viewFollowings: function(req, res) {
+        var page = req.query.page || 1;
+        var take = 3;
+        if (isNaN(page)) {
+            page = 1;
+        }
+        var skip = (page - 1) * take;
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
@@ -170,52 +187,58 @@ module.exports = {
                 model: User,
                 as: 'follow'
                             }],
-            // offset: skip,
-            // limit: take,
+            offset: skip,
+            limit: take,
             where: {
                 user_id: viewUserId
             }
             // order: 'created_at DESC'
         };
 
-        UserRelation.findAll(option).success(function(followingList) {
-            async.each(followingList, function(following, callback) {
-                if (userId === following.follow_id) {
-                    //self
-                    following.status = 2;
-                    callback(null);
-                } else {
-                    UserRelation.find({
-                        where: {
-                            user_id: userId,
-                            follow_id: following.follow_id,
-                        }
-                    }).success(function(userRelation) {
-                        if (userRelation) {
-                            //followed
-                            following.status = 1;
-                        } else {
-                            //unfollowed
-                            following.status = 0;
-                        }
+        UserRelation.count({
+            where: {
+                user_id: viewUserId
+            }
+        }).success(function(relationTotal) {
+            UserRelation.findAll(option).success(function(followingList) {
+                async.each(followingList, function(following, callback) {
+                    if (userId === following.follow_id) {
+                        //self
+                        following.status = 2;
                         callback(null);
-                    });
-                }
-            }, function(err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.render('follow-partial', {
-                        // pagination: {
-                        //     pager: utils.buildPager(snippetTotal, skip, take)
-                        // },
-                        isSelf: isSelf,
-                        followList: mapper.followingListMapper(followingList)
-                    });
-                };
+                    } else {
+                        UserRelation.find({
+                            where: {
+                                user_id: userId,
+                                follow_id: following.follow_id,
+                            }
+                        }).success(function(userRelation) {
+                            if (userRelation) {
+                                //followed
+                                following.status = 1;
+                            } else {
+                                //unfollowed
+                                following.status = 0;
+                            }
+                            callback(null);
+                        });
+                    }
+                }, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('follow-partial', {
+                            pagination: {
+                                pager: utils.buildPager(relationTotal, skip, take)
+                            },
+                            isSelf: isSelf,
+                            followList: mapper.followingListMapper(followingList)
+                        });
+                    };
+                });
+            }).error(function(err) {
+                console.log(err);
             });
-        }).error(function(err) {
-            console.log(err);
         });
     }
 };

@@ -162,22 +162,6 @@ $(function() {
         });
     });
 
-    _showFollowerLink.on('click', function() {
-        if (_viewUserId.val()) {
-            $.ajax({
-                type: 'GET',
-                url: '/api/users/' + _viewUserId.val() + '/followers',
-                dataType: 'html',
-                success: function(followersHtml) {
-                    _followerDiv.html(followersHtml);
-                },
-                error: function(xhr, status, err) {
-                    bootbox.alert(Message.SERVER_ERROR);
-                }
-            });
-        }
-    });
-
     function followHandler(thisElement) {
         thisElement.attr('disabled', true);
         var followId = thisElement.attr('data-followId');
@@ -210,15 +194,41 @@ $(function() {
         });
     };
 
+    function viewFollowerHandler(page) {
+        if (_viewUserId.val()) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/' + _viewUserId.val() + '/followers?page=' + page,
+                dataType: 'html',
+                success: function(followersHtml) {
+                    _followerDiv.html(followersHtml);
+                },
+                error: function(xhr, status, err) {
+                    bootbox.alert(Message.SERVER_ERROR);
+                }
+            });
+        }
+    };
+
+    _showFollowerLink.on('click', function() {
+        viewFollowerHandler(1);
+    });
+
+
+    _followerDiv.on('click', '.pagination a', function() {
+        var page = $(this).attr('data-page');
+        viewFollowerHandler(page);
+    });
+
     _followerDiv.on('click', '.btn-follow', function() {
         followHandler($(this));
     });
 
-    _showFollowingLink.on('click', function() {
+    function viewFollowingsHandler(page) {
         if (_viewUserId.val()) {
             $.ajax({
                 type: 'GET',
-                url: '/api/users/' + _viewUserId.val() + '/followings',
+                url: '/api/users/' + _viewUserId.val() + '/followings?page=' + page,
                 dataType: 'html',
                 success: function(followingsHtml) {
                     _followingDiv.html(followingsHtml);
@@ -228,6 +238,15 @@ $(function() {
                 }
             });
         }
+    }
+
+    _showFollowingLink.on('click', function() {
+        viewFollowingsHandler(1);
+    });
+
+    _followingDiv.on('click', '.pagination a', function() {
+        var page = $(this).attr('data-page');
+        viewFollowingsHandler(page);
     });
 
     _followingDiv.on('click', '.btn-follow', function() {

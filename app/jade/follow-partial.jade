@@ -16,3 +16,5 @@ if followList.length>0
                             else if follow.status == 0
                                 button.btn-follow.btn.btn-sm(data-followId='#{follow.id}',data-url='/api/follow')
                                     | #{t("profile.follow")}
+    div.col-lg-12(style="float:left")
+        mixin internal-pager(pagination.pager)
