@@ -125,8 +125,8 @@ module.exports = {
                 limit: FOLLOW_PAGE_TAKE,
                 where: {
                     follow_id: viewUserId
-                }
-                // order: 'created_at DESC'
+                },
+                order: 'created_at DESC'
             };
             UserRelation.findAll(option).success(function(followerList) {
                 async.each(followerList, function(follower, callback) {
@@ -190,8 +190,8 @@ module.exports = {
                 limit: FOLLOW_PAGE_TAKE,
                 where: {
                     user_id: viewUserId
-                }
-                // order: 'created_at DESC'
+                },
+                order: 'created_at DESC'
             };
             UserRelation.findAll(option).success(function(followingList) {
                 async.each(followingList, function(following, callback) {

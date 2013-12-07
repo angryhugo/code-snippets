@@ -94,8 +94,6 @@ var UserRelation = sequelize.define('UserRelations', {
         primaryKey: true,
         autoIncrement: true
     }
-}, {
-    timestamps: false
 });
 
 User.hasMany(CodeSnippet, {
