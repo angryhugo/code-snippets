@@ -10,6 +10,7 @@ var passwordHash = require('password-hash');
 module.exports = function(app) {
     function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated()) {
+            res.locals.credential = req.user;
             return next();
         } else {
             var currentUrl = req.url || '/';
@@ -36,6 +37,8 @@ module.exports = function(app) {
                 if (err) {
                     console.log(err);
                     res.redirect('/?error=1');
+                } else {
+                    res.locals.credential = req.user;
                 }
                 return next();
             });

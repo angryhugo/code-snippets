@@ -14,13 +14,13 @@ String.prototype.trim = function() {
 
 module.exports = {
     newSnippet: function(req, res, next) {
-        var user = req.user || '';
+        // var user = req.user || '';
         SnippetType.findAll().success(function(typeList) {
             if (!typeList) {
                 errHandler(null, 'snippet type do not exist!', next);
             } else {
                 res.render('new-snippet', {
-                    credential: user,
+                    // credential: user,
                     typeList: typeList,
                     token: req.csrfToken()
                 });
@@ -77,7 +77,7 @@ module.exports = {
                         followStatus = status;
                     }
                     res.render('view-snippet', {
-                        credential: user,
+                        // credential: user,
                         snippet: mappedSnippet,
                         followStatus: followStatus,
                         token: req.csrfToken()
@@ -91,7 +91,7 @@ module.exports = {
     searchSnippet: function(req, res, next) {
         var page = req.query.page || 1;
         var url = req.path + '?';
-        var user = req.user || '';
+        // var user = req.user || '';
         var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
         var keywords = keyword.trim().split(' ');
@@ -146,7 +146,7 @@ module.exports = {
                                         url: url
                                     },
                                     keyword: keyword,
-                                    credential: user,
+                                    // credential: user,
                                     snippetList: mapper.searchSnippetListMapper(snippetList),
                                     typeList: typeList,
                                     typeId: typeId,

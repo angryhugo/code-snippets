@@ -19,7 +19,7 @@ module.exports = {
     index: function(req, res, next) {
         var user = req.user || '';
         res.render('index', {
-            credential: user,
+            // credential: user,
             token: req.csrfToken()
         });
 
@@ -42,7 +42,7 @@ module.exports = {
                             email: viewUser.email
                         };
                         res.render('profile', {
-                            credential: user,
+                            // credential: user,
                             viewUserObj: viewUserObj,
                             amountObj: amountObj,
                             isSelf: isSelf,

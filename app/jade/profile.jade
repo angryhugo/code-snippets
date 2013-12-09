@@ -50,9 +50,13 @@ block main
                     li
                         a#link-following(href='#following',data-toggle="tab")
                             | #{t("profile.following")}&nbsp;#{amountObj.followAmount}
+                        //- span.follow-amount
+                        //-     | #{amountObj.followAmount}
                     li
                         a#link-follower(href='#follower',data-toggle="tab")
                             | #{t("profile.follower")}&nbsp;#{amountObj.followerAmount}
+                        //- span.follow-amount
+                        //-     | #{amountObj.followerAmount}
                 div.tab-content
                     div#profile.tab-pane.active
                         div.row

@@ -44,7 +44,7 @@ module.exports = {
             errHandler(null, 'forbidden!', next);
         } else {
             res.render('password', {
-                credential: user,
+                // credential: user,
                 token: req.csrfToken()
             });
         }
