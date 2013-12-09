@@ -40,14 +40,11 @@ module.exports = function(app) {
                 } else {
                     res.locals.credential = req.user;
                 }
-                return next();
             });
-        } else {
-            if (req.user) {
-                res.locals.credential = req.user;
-            }
-            return next();
+        } else if (req.isAuthenticated()) {
+            res.locals.credential = req.user;
         }
+        return next();
     };
 
     var User = models.User;
