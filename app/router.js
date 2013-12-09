@@ -31,7 +31,7 @@ module.exports = function(app) {
     };
 
     function autoLogin(req, res, next) {
-        if (req.cookies['cs-user']) {
+        if (!req.isAuthenticated() && req.cookies['cs-user']) {
             var user = req.cookies['cs-user'];
             req.login(user, function(err) {
                 if (err) {
@@ -43,6 +43,7 @@ module.exports = function(app) {
                 return next();
             });
         } else {
+            res.locals.credential = req.user || {};
             return next();
         }
     };
