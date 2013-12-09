@@ -43,7 +43,9 @@ module.exports = function(app) {
                 return next();
             });
         } else {
-            res.locals.credential = req.user || {};
+            if (req.user) {
+                res.locals.credential = req.user;
+            }
             return next();
         }
     };
