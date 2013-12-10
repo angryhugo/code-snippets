@@ -10,6 +10,17 @@ var UserRelation = entityFactory.UserRelation;
 var FOLLOW_PAGE_TAKE = 3;
 
 module.exports = {
+    // findUserByEmail: function(email, callback) {
+    //     User.find({
+    //         where: {
+    //             email: username
+    //         }
+    //     }).success(function(user) {
+    //         callback(null, user);
+    //     }).error(function(err) {
+    //         callback(err);
+    //     });
+    // },
     doLogin: function(req, res, next) {
         res.cookie('cs-user', req.user, {
             path: '/',

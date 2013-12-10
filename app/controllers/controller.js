@@ -16,6 +16,27 @@ String.prototype.trim = function() {
 }
 
 module.exports = {
+    ensureAuthenticated: function(req, res, next) {
+        if (req.isAuthenticated()) {
+            res.locals.credential = req.user;
+            return next();
+        } else {
+            var currentUrl = req.url || '/';
+            req.session.returnUrl = currentUrl;
+            if (req.cookies['cs-user']) {
+                var user = req.cookies['cs-user'];
+                req.login(user, function(err) {
+                    if (err) {
+                        console.log(err);
+                        res.redirect('/?error=1'); //account error
+                    }
+                    return next();
+                });
+            } else {
+                res.redirect('/?error=3'); //ask for login
+            }
+        }
+    },
     index: function(req, res, next) {
         var user = req.user || '';
         res.render('index', {
