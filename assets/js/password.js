@@ -10,9 +10,6 @@ $(function() {
     var _saveErrorInfo = $('div.alert-danger');
     var userId = $('#user-id');
 
-    _saveSuccessInfo.hide();
-    _saveErrorInfo.hide();
-
     var validator = _changePasswordForm.validate({
         rules: {
             current_password: {
@@ -52,9 +49,9 @@ $(function() {
         if (message) {
             element.html(message);
         }
-        element.show();
+        element.removeClass('hide');
         setTimeout(function() {
-            element.hide();
+            element.addClass('hide');
         }, 5000);
         emptyPassword();
     };
