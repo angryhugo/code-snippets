@@ -77,6 +77,17 @@ $(function() {
             email: {
                 required: true,
                 email: true,
+                remote: {
+                    url: "/api/email",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        email: function() {
+                            return _signupEmailInput.val()
+                        },
+                        _csrf: $('#input-csrf').val()
+                    }
+                },
                 errorPlacement: function(error, element) {
                     $('#lab-email-error').removeClass('hide');
                 }
@@ -99,7 +110,8 @@ $(function() {
         messages: {
             email: {
                 required: Message.EMAIL_REQUIRED,
-                email: Message.EMAIL_ERROR
+                email: Message.EMAIL_ERROR,
+                remote: Message.EMAIL_EXISTED
             },
             username: Message.USERNAME_REQUIRED,
             password: {
@@ -191,55 +203,55 @@ $(function() {
         _showSignupLink.click();
     });
 
-    _checkEmailBtn.click(function() {
-        //first validate email!!!(not do yet)
-        if (_signupEmailInput.val() == '') {
-            _checkEmailBtn.blur();
-            _signupEmailSuccessAlert.hide();
-            _signupErrorAlert.html(Message.EMAIL_REQUIRED).show();
-            setTimeout(function() {
-                _signupErrorAlert.hide()
-            }, 5000);
-            return false;
-        } else if (!emailReg.test(_signupEmailInput.val())) {
-            _checkEmailBtn.blur();
-            _signupEmailSuccessAlert.hide();
-            _signupErrorAlert.html(Message.EMAIL_ERROR).show();
-            setTimeout(function() {
-                _signupErrorAlert.hide()
-            }, 5000);
-            return false;
-        } else {
-            _checkEmailBtn.attr('disabled', true);
-            $.ajax({
-                url: '/api/email',
-                type: 'POST',
-                data: {
-                    email: _signupEmailInput.val(),
-                    _csrf: $('#input-csrf').val()
-                },
-                dataType: 'json',
-                success: function(data) {
-                    _checkEmailBtn.attr('disabled', false);
-                    if (data == 'ok') {
-                        _signupErrorAlert.hide();
-                        _signupEmailSuccessAlert.html(Message.Email_NOT_EXISTED).show();
-                        setTimeout(function() {
-                            _signupEmailSuccessAlert.hide();
-                        }, 5000);
-                    } else {
-                        _signupEmailSuccessAlert.hide();
-                        _signupErrorAlert.html(Message.Email_EXISTED).show();
-                        setTimeout(function() {
-                            _signupErrorAlert.hide();
-                        }, 5000);
-                    }
-                },
-                error: function(xhr, status, err) {
-                    bootbox.alert(xhr.responseText);
-                }
-            });
-        }
-    });
+    // _checkEmailBtn.click(function() {
+    //     //first validate email!!!(not do yet)
+    //     if (_signupEmailInput.val() == '') {
+    //         _checkEmailBtn.blur();
+    //         _signupEmailSuccessAlert.hide();
+    //         _signupErrorAlert.html(Message.EMAIL_REQUIRED).show();
+    //         setTimeout(function() {
+    //             _signupErrorAlert.hide()
+    //         }, 5000);
+    //         return false;
+    //     } else if (!emailReg.test(_signupEmailInput.val())) {
+    //         _checkEmailBtn.blur();
+    //         _signupEmailSuccessAlert.hide();
+    //         _signupErrorAlert.html(Message.EMAIL_ERROR).show();
+    //         setTimeout(function() {
+    //             _signupErrorAlert.hide()
+    //         }, 5000);
+    //         return false;
+    //     } else {
+    //         _checkEmailBtn.attr('disabled', true);
+    //         $.ajax({
+    //             url: '/api/email',
+    //             type: 'POST',
+    //             data: {
+    //                 email: _signupEmailInput.val(),
+    //                 _csrf: $('#input-csrf').val()
+    //             },
+    //             dataType: 'json',
+    //             success: function(data) {
+    //                 _checkEmailBtn.attr('disabled', false);
+    //                 if (data == 'ok') {
+    //                     _signupErrorAlert.hide();
+    //                     _signupEmailSuccessAlert.html(Message.EMAIL_NOT_EXISTED).show();
+    //                     setTimeout(function() {
+    //                         _signupEmailSuccessAlert.hide();
+    //                     }, 5000);
+    //                 } else {
+    //                     _signupEmailSuccessAlert.hide();
+    //                     _signupErrorAlert.html(Message.EMAIL_EXISTED).show();
+    //                     setTimeout(function() {
+    //                         _signupErrorAlert.hide();
+    //                     }, 5000);
+    //                 }
+    //             },
+    //             error: function(xhr, status, err) {
+    //                 bootbox.alert(xhr.responseText);
+    //             }
+    //         });
+    //     }
+    // });
 
 });

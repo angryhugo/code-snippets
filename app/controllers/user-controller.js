@@ -86,9 +86,9 @@ module.exports = {
             }
         }).success(function(user) {
             if (!user) {
-                res.json('ok');
+                res.send(true);
             } else {
-                res.json('notOk');
+                res.send(false);
             }
         });
     },
