@@ -3,11 +3,10 @@ var async = require('async');
 var entityFactory = require('../models/entity-factory');
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
-var async = require('async');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
-var FOLLOW_PAGE_TAKE = 3;
+var FOLLOW_PAGE_TAKE = 21;
 
 module.exports = {
     // findUserByEmail: function(email, callback) {

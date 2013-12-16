@@ -68,7 +68,8 @@ var CodeSnippet = sequelize.define('CodeSnippets', {
     },
     is_deleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     }
 });
 
