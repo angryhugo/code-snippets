@@ -102,6 +102,15 @@ var UserRelation = sequelize.define('UserRelations', {
     }
 });
 
+var FavoriteSnippet = sequelize.define('FavoriteSnippets', {
+    id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    }
+});
+
 User.hasMany(CodeSnippet, {
     foreignKey: 'user_id'
 });
@@ -136,6 +145,24 @@ User.hasMany(UserRelation, {
 UserRelation.belongsTo(User, {
     as: 'follow',
     foreignKey: 'follow_id'
+});
+
+User.hasMany(FavoriteSnippet, {
+    foreignKey: 'user_id'
+});
+
+FavoriteSnippet.belongsTo(User, {
+    as: 'user',
+    foreignKey: 'user_id'
+});
+
+CodeSnippet.hasMany(FavoriteSnippet, {
+    foreignKey: 'snippet_id'
+});
+
+FavoriteSnippet.belongsTo(CodeSnippet, {
+    as: 'snippet',
+    foreignKey: 'snippet_id'
 });
 
 sequelize.sync({
