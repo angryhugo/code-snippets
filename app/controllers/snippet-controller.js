@@ -172,6 +172,7 @@ module.exports = {
     },
     deleteSnippet: function(req, res) {
         var snippetId = req.body.snippetId || '';
+        // var snippetId = req.params.snippet_id || '';
         var userId = req.user.id;
         CodeSnippet.find(snippetId).success(function(snippet) {
             var dataObj = {};

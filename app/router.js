@@ -86,8 +86,9 @@ module.exports = function(app) {
     app.get('/api/users/:user_id/snippets/mine', controller.ensureAuthenticated, snippetController.viewMineSnippets);
     app.get('/api/users/:user_id/followers', controller.ensureAuthenticated, userController.viewFollowers);
     app.get('/api/users/:user_id/followings', controller.ensureAuthenticated, userController.viewFollowings)
-    app.delete('/api/snippets', controller.ensureAuthenticated, snippetController.deleteSnippet);
-
+    app.delete('/api/snippets/:snippet_id', controller.ensureAuthenticated, snippetController.deleteSnippet);
+    // app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
+    // app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
 
     app.use(function(req, res) {
         res.render('404', {
