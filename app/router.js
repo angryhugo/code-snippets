@@ -4,8 +4,10 @@ var snippetController = require('./controllers/snippet-controller');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
-var models = require('./models/entity-factory.js');
+var entityFactory = require('./models/entity-factory.js');
 var passwordHash = require('password-hash');
+
+var User = entityFactory.User;
 
 module.exports = function(app) {
     function autoLogin(req, res, next) {
@@ -25,7 +27,6 @@ module.exports = function(app) {
         return next();
     };
 
-    var User = models.User;
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
