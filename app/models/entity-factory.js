@@ -9,6 +9,11 @@ if (nodeEnv === 'production') {
         host: 'localhost',
         port: 3306,
         logging: false,
+        pool: {
+            maxConnections: 100,
+            minConnections: 20,
+            maxIdleTime: 3600
+        },
         define: {
             freezeTableName: true,
             underscored: true,
@@ -154,5 +159,8 @@ module.exports = {
     User: User,
     CodeSnippet: CodeSnippet,
     SnippetType: SnippetType,
-    UserRelation: UserRelation
+    UserRelation: UserRelation,
+    sequelize: function() {
+        return sequelize;
+    }
 };
