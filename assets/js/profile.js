@@ -138,7 +138,7 @@ $(function() {
                 var snippetId = self.attr('data-snippet-id');
                 $.ajax({
                     type: 'DELETE',
-                    url: '/api/snippets',
+                    url: '/api/snippets/' + snippetId,
                     data: {
                         _csrf: _token.val(),
                         snippetId: snippetId
