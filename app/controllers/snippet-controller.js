@@ -40,8 +40,7 @@ module.exports = {
             title: title,
             snippet: snippet,
             user_id: userId,
-            type_id: typeId,
-            is_deleted: false
+            type_id: typeId
         }).success(function(snippet) {
             res.redirect('/snippets/' + snippet.id);
         }).error(function(err) {
@@ -60,7 +59,8 @@ module.exports = {
                 as: 'typer'
             }],
             where: {
-                id: snippetId
+                id: snippetId,
+                is_deleted: false
             }
         };
         CodeSnippet.find(option).success(function(snippet) {
@@ -95,12 +95,14 @@ module.exports = {
         var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
         var keywords = keyword.trim().split(' ');
-        var whereString = '';
+        // var whereString = '';
+        var whereString = 'is_deleted = "0" AND ';
 
         SnippetType.count().success(function(total) {
             if (typeId > total || isNaN(typeId)) {
                 typeId = 0;
             }
+
             if (typeId != 0) {
                 whereString += 'type_id = ' + typeId + ' AND ';
             }
@@ -112,6 +114,7 @@ module.exports = {
                 }
             }
             whereString += ')';
+            console.log(whereString);
 
             url += 'keyword=' + keyword.trim() + '&type=' + typeId;
 
@@ -177,11 +180,17 @@ module.exports = {
                 res.json(dataObj);
                 return false;
             } else if (snippet.user_id === userId) {
-                snippet.destroy().success(function() {
+                snippet.is_deleted = true;
+                snippet.save().success(function() {
                     dataObj.code = 200;
                     res.json(dataObj);
                     return true;
                 });
+                // snippet.destroy().success(function() {
+                //     dataObj.code = 200;
+                //     res.json(dataObj);
+                //     return true;
+                // });
             } else {
                 dataObj.code = 403;
                 res.json(dataObj);
@@ -206,10 +215,12 @@ module.exports = {
                 for (var i = 0; i < userRelation.length; i++) {
                     followingArray.push(userRelation[i].follow_id);
                 }
+                var whereObjForSnippets = {
+                    user_id: followingArray,
+                    is_deleted: false
+                };
                 CodeSnippet.count({
-                    where: {
-                        user_id: followingArray
-                    }
+                    where: whereObjForSnippets
                 }).success(function(snippetTotal) {
                     var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
                     var option = {
@@ -222,9 +233,7 @@ module.exports = {
                             }],
                         offset: pageParams.skip,
                         limit: SNIPPET_PAGE_TAKE,
-                        where: {
-                            user_id: followingArray
-                        },
+                        where: whereObjForSnippets,
                         order: 'created_at DESC'
                     };
                     CodeSnippet.findAll(option).success(function(snippetList) {
@@ -252,10 +261,13 @@ module.exports = {
         var viewUserId = req.params.user_id || '';
         var isSelf = (userId === viewUserId) ? true : false;
 
+        var whereObj = {
+            user_id: viewUserId,
+            is_deleted: false
+        };
+
         CodeSnippet.count({
-            where: {
-                user_id: viewUserId
-            }
+            where: whereObj
         }).success(function(snippetTotal) {
             var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
             var option = {
@@ -268,9 +280,7 @@ module.exports = {
                             }],
                 offset: pageParams.skip,
                 limit: SNIPPET_PAGE_TAKE,
-                where: {
-                    user_id: viewUserId
-                },
+                where: whereObj,
                 order: 'created_at DESC'
             };
             CodeSnippet.findAll(option).success(function(snippetList) {

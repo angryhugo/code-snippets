@@ -7,15 +7,15 @@
 // config.db_max_idletime = 3600;
 
 var async = require("async");
-var utils = require('../helpers/utils');
+var utils = require('../app/helpers/utils');
 var passwordHash = require('password-hash');
-var entityFactory = require('../models/entity-factory');
+var entityFactory = require('../app/models/entity-factory');
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 
 var USER_AMOUNT = 100;
-var HANCHUNYIN_ID = '23e02aeadf0948a38724a5d522b93c16';
+var HANCHUNYIN_ID = '50b42cd577344e17846ad0c022a10a19';
 
 var createUsers = function(amount, callback) {
 	var userEntities = [];
