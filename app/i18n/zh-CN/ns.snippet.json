@@ -79,7 +79,9 @@
         "snippetType": "类别",
         "backBtn": "返回",
         "cancel": "取消关注",
-        "follow": "关注"
+        "follow": "关注",
+        "favorite": "收藏",
+        "unsubscribe": "取消收藏"
     },
     "search-snippet": {
         "searchFor": "搜索",
@@ -110,6 +112,7 @@
         "delete": "删除",
         "profile": "资料",
         "mine": "我的",
+        "favorite": "收藏",
         "following's": "我关注的",
         "following": "关注",
         "follower": "粉丝",

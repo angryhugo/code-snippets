@@ -6,6 +6,7 @@ var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
+var FavoriteSnippet = entityFactory.FavoriteSnippet;
 var SNIPPET_PAGE_TAKE = 10;
 
 String.prototype.trim = function() {
@@ -50,6 +51,8 @@ module.exports = {
     viewSnippet: function(req, res, next) {
         var user = req.user || '';
         var snippetId = req.params.snippet_id || '';
+        var followStatus; //followStatus: 0 self; 1 followed; 2 unfollowed; 3 not login
+        var favoriteStatus; //favoriteStatus:1 favorited; 2 unfavorited;
         var option = {
             include: [{
                 model: User,
@@ -68,21 +71,27 @@ module.exports = {
                 errHandler(null, 'snippet do not exist!', next);
             } else {
                 var mappedSnippet = mapper.viewSnippetMapper(snippet);
-                checkFollowStatus(user.id, mappedSnippet.ownerId, function(err, status) {
-                    //followStatus: 0 self; 1 followed; 2 unfollowed; 3 not login
-                    var followStatus;
+                checkFollowStatus(user.id, mappedSnippet.ownerId, function(err, followStat) {
                     if (err) {
                         followStatus = 4;
                     } else {
-                        followStatus = status;
+                        followStatus = followStat;
+                        checkSnippetStatus(user.id, snippet.id, function(err, favoriteStat) {
+                            if (err) {
+                                favoriteStatus = 4;
+                            } else {
+                                favoriteStatus = favoriteStat;
+                            }
+                            res.render('view-snippet', {
+                                // credential: user,
+                                snippet: mappedSnippet,
+                                followStatus: followStatus,
+                                favoriteStatus: favoriteStatus,
+                                token: req.csrfToken()
+                            });
+                        });
                     }
-                    res.render('view-snippet', {
-                        // credential: user,
-                        snippet: mappedSnippet,
-                        followStatus: followStatus,
-                        token: req.csrfToken()
-                    });
-                })
+                });
             }
         }).error(function(err) {
             errHandler(err, 'server error!', next);
@@ -171,11 +180,11 @@ module.exports = {
         })
     },
     deleteSnippet: function(req, res) {
-        var snippetId = req.body.snippetId || '';
-        // var snippetId = req.params.snippet_id || '';
+        // var snippetId = req.body.snippetId || '';
+        var snippetId = req.params.snippet_id || '';
         var userId = req.user.id;
+        var dataObj = {};
         CodeSnippet.find(snippetId).success(function(snippet) {
-            var dataObj = {};
             if (!snippet) {
                 dataObj.code = 400;
                 res.json(dataObj);
@@ -294,7 +303,121 @@ module.exports = {
                 });
             });
         });
+    },
+    viewFavoriteSnippets: function(req, res) {
+        var page = req.query.page || 1;
+        var userId = req.user.id;
+        var viewUserId = req.params.user_id || '';
+        // var isSelf = (userId === viewUserId) ? true : false;
+        var isSelf = false;
 
+        var whereObj = {
+            user_id: userId
+        };
+
+        FavoriteSnippet.findAll({
+            where: whereObj,
+            order: 'created_at DESC'
+        }).success(function(favoriteSnippetList) {
+            if (!favoriteSnippetList) {
+                res.render('snippet-partial', {
+                    snippetList: []
+                });
+            } else {
+                var snippetTotal = favoriteSnippetList.length;
+                var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+                var snippetArray = [];
+                for (var i = 0; i < favoriteSnippetList.length; i++) {
+                    snippetArray.push(favoriteSnippetList[i].snippet_id);
+                }
+                var whereObjForSnippets = {
+                    id: snippetArray,
+                    is_deleted: false
+                };
+
+                var option = {
+                    include: [{
+                        model: User,
+                        as: 'user'
+                            }, {
+                        model: SnippetType,
+                        as: 'typer'
+                            }],
+                    offset: pageParams.skip,
+                    limit: SNIPPET_PAGE_TAKE,
+                    where: whereObjForSnippets
+                    // order: 'created_at DESC'
+                };
+                CodeSnippet.findAll(option).success(function(snippetList) {
+                    res.render('snippet-partial', {
+                        pagination: {
+                            pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
+                        },
+                        isSelf: isSelf,
+                        snippetList: mapper.profileSnippetListMapper(snippetList)
+                    });
+                });
+            }
+        });
+    },
+    favoriteSnippet: function(req, res) {
+        var userId = req.user.id;
+        var snippetId = req.body.snippet_id || '';
+        var dataObj = {};
+        CodeSnippet.find(snippetId).success(function(snippet) {
+            if (!snippet) {
+                dataObj.code = 400;
+                res.json(dataObj);
+                return false;
+            } else {
+                FavoriteSnippet.create({
+                    user_id: userId,
+                    snippet_id: snippet.id
+                }).success(function(favoriteSnippet) {
+                    dataObj.code = 200;
+                    res.json(dataObj);
+                    return true;
+                }).error(function(err) {
+                    dataObj.code = 500;
+                    res.json(dataObj);
+                    return false;
+                });
+            }
+        }).error(function(err) {
+            dataObj.code = 500;
+            res.json(dataObj);
+            return false;
+        });
+    },
+    unsubscribeSnippet: function(req, res) {
+        console.log('unsubscribeSnippet');
+        var userId = req.user.id;
+        var snippetId = req.body.snippet_id || '';
+        var dataObj = {};
+        CodeSnippet.find(snippetId).success(function(snippet) {
+            if (!snippet) {
+                dataObj.code = 400;
+                res.json(dataObj);
+                return false;
+            } else {
+                FavoriteSnippet.destroy({
+                    user_id: userId,
+                    snippet_id: snippetId
+                }).success(function() {
+                    dataObj.code = 200;
+                    res.json(dataObj);
+                    return true;
+                }).error(function(err) {
+                    dataObj.code = 500;
+                    res.json(dataObj);
+                    return false;
+                });
+            }
+        }).error(function(err) {
+            dataObj.code = 500;
+            res.json(dataObj);
+            return false;
+        });
     }
 };
 
@@ -321,6 +444,29 @@ function checkFollowStatus(userId, followId, callback) {
             }
         }).success(function(userRelation) {
             if (userRelation) {
+                callback(null, 1);
+            } else {
+                callback(null, 2);
+            }
+        }).error(function(err) {
+            callback(err);
+        });
+    }
+}
+
+function checkSnippetStatus(userId, snippetId, callback) {
+    //favoriteStatus:1 favorited; 2 unfavorited; 
+    // 0: self
+    if (!userId || !snippetId) {
+        callback(null, 3);
+    } else {
+        FavoriteSnippet.find({
+            where: {
+                user_id: userId,
+                snippet_id: snippetId
+            }
+        }).success(function(favoriteSnippet) {
+            if (favoriteSnippet) {
                 callback(null, 1);
             } else {
                 callback(null, 2);

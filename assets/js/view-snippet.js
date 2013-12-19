@@ -72,7 +72,7 @@ $(function() {
                 } else {
                     bootbox.alert(Message.SERVER_ERROR);
                 }
-                _followBtn.attr('disabled', false);
+                _favoriteBtn.attr('disabled', false);
             },
             error: function(xhr, status, err) {
                 bootbox.alert(xhr.responseText);

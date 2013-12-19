@@ -83,12 +83,13 @@ module.exports = function(app) {
     app.post('/api/follow', controller.ensureAuthenticated, userController.followUser);
     app.post('/api/unfollow', controller.ensureAuthenticated, userController.unfollowUser);
     app.get('/api/users/:user_id/snippets/following', controller.ensureAuthenticated, snippetController.viewFollowingSnippets);
+    app.get('/api/users/:user_id/snippets/favorite', controller.ensureAuthenticated, snippetController.viewFavoriteSnippets);
     app.get('/api/users/:user_id/snippets/mine', controller.ensureAuthenticated, snippetController.viewMineSnippets);
     app.get('/api/users/:user_id/followers', controller.ensureAuthenticated, userController.viewFollowers);
     app.get('/api/users/:user_id/followings', controller.ensureAuthenticated, userController.viewFollowings)
     app.delete('/api/snippets/:snippet_id', controller.ensureAuthenticated, snippetController.deleteSnippet);
-    // app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
-    // app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
+    app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
+    app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
 
     app.use(function(req, res) {
         res.render('404', {

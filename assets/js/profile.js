@@ -2,6 +2,8 @@ $(function() {
     "use strict";
     var _showFollowingSnippetsLink = $('#link-following-snippets');
     var _followingSnippetsDiv = $('#followingSnippets');
+    var _showFavoriteSnippetsLink = $('#link-favorite-snippets');
+    var _favoriteSnippetsDiv = $('#favoriteSnippets');
     var _showMineSnippetLink = $('#link-mine-snippets');
     var _mineSnippetsDiv = $('#mine');
     var _followerDiv = $('#follower');
@@ -240,7 +242,7 @@ $(function() {
                 }
             });
         }
-    }
+    };
 
     _showFollowingLink.on('click', function() {
         viewFollowingsHandler(1);
@@ -253,5 +255,29 @@ $(function() {
 
     _followingDiv.on('click', '.btn-follow', function() {
         followHandler($(this));
+    });
+
+
+    function viewFavoriteSnippetsHandler(page) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/users/' + _viewUserId.val() + '/snippets/favorite?page=' + page,
+            dataType: 'html',
+            success: function(snippetsHtml) {
+                _favoriteSnippetsDiv.html(snippetsHtml);
+            },
+            error: function(xhr, status, err) {
+                bootbox.alert(Message.SERVER_ERROR);
+            }
+        });
+    };
+
+    _showFavoriteSnippetsLink.on('click', function() {
+        viewFavoriteSnippetsHandler(1);
+    });
+
+    _favoriteSnippetsDiv.on('click', '.pagination a', function() {
+        var page = $(this).attr('data-page');
+        viewFavoriteSnippetsHandler(page);
     });
 });

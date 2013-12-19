@@ -187,6 +187,7 @@ module.exports = {
     CodeSnippet: CodeSnippet,
     SnippetType: SnippetType,
     UserRelation: UserRelation,
+    FavoriteSnippet: FavoriteSnippet,
     sequelize: function() {
         return sequelize;
     }

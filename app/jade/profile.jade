@@ -45,6 +45,9 @@ block main
                             | #{t("profile.mine")}
                     if isSelf
                         li
+                            a#link-favorite-snippets(href='#favoriteSnippets',data-toggle="tab")
+                                | #{t("profile.favorite")}
+                        li
                             a#link-following-snippets(href='#followingSnippets',data-toggle="tab")
                                 | #{t("profile.following's")}
                     li
@@ -92,6 +95,8 @@ block main
                     div#mine.tab-pane
                     if isSelf
                         div#followingSnippets.tab-pane
+                    if isSelf
+                        div#favoriteSnippets.tab-pane
                     div#following.tab-pane
 
                     div#follower.tab-pane

@@ -79,7 +79,9 @@
         "snippetType": "Type",
         "backBtn": "Back",
         "cancel": "Cancel",
-        "follow": "Follow"
+        "follow": "Follow",
+        "favorite": "Favorite",
+        "unsubscribe": "Unsubscribe"
     },
     "search-snippet": {
         "searchFor": "Search Result For",
@@ -109,6 +111,7 @@
         "delete": "delete",
         "profile": "Profile",
         "mine": "Mine",
+        "favorite": "Favorite",
         "following's": "Following's",
         "following": "Following",
         "follower": "Follower",
