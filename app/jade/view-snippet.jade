@@ -29,7 +29,7 @@ block main
                             if followStatus == 1
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/unfollow')
-                                        | #{t("view-snippet.cancel")}
+                                        | #{t("view-snippet.unfollow")}
                             else if followStatus == 2
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow')
@@ -39,23 +39,24 @@ block main
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetTitle")}
-                    div.col-sm-8
+                    div.div-content.col-sm-8
                         | #{snippet.title}
-                    if favoriteStatus == 1
-                        button#btn-favorite.btn.btn-sm.pull-right(data-snippetId='#{snippet.id}',data-url='/api/unsubscribe')
-                            | #{t("view-snippet.unsubscribe")}
-                    else if favoriteStatus == 2
-                        button#btn-favorite.btn.btn-sm.pull-right(data-snippetId='#{snippet.id}',data-url='/api/favorite')
-                            | #{t("view-snippet.favorite")}
+                    div.col-sm-2
+                        if favoriteStatus == 1
+                            a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/unsubscribe',data-original-title='#{t("view-snippet.unsubscribe")}',data-placement='left')
+                                i.fa.fa-star.fa-2x.favorite
+                        else if favoriteStatus == 2
+                            a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/favorite',data-original-title='#{t("view-snippet.favorite")}',data-placement='left')
+                                i.fa.fa-star.fa-2x.unsubscribe
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}
-                    div.col-sm-10
+                    div.div-content.col-sm-10
                         | #{snippet.type}
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetContent")}
-                    div.col-sm-10
+                    div.div-content.col-sm-10
                         pre
                             code
                                 | #{snippet.snippet}

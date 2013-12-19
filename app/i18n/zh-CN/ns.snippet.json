@@ -78,7 +78,7 @@
         "snippetContent": "片段",
         "snippetType": "类别",
         "backBtn": "返回",
-        "cancel": "取消关注",
+        "unfollow": "取消关注",
         "follow": "关注",
         "favorite": "收藏",
         "unsubscribe": "取消收藏"
@@ -118,7 +118,7 @@
         "follower": "粉丝",
         "email": "邮箱",
         "name": "用户名",
-        "cancel": "取消关注",
+        "unfollow": "取消关注",
         "follow": "关注"
     },
     "pagination": {

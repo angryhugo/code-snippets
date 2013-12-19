@@ -166,36 +166,52 @@ $(function() {
 
     function followHandler(thisElement) {
         thisElement.attr('disabled', true);
-        var followId = thisElement.attr('data-followId');
         var url = thisElement.attr('data-url') || '/api/follow';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: {
-                follow_id: followId,
-                _csrf: $('#input-csrf').val()
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.code === 200) {
-                    if (url == '/api/follow') {
-                        thisElement.attr('data-url', '/api/unfollow');
-                        thisElement.text(Opertation.CANCEL);
+
+        function doFollowAjax() {
+            var followId = thisElement.attr('data-followId');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    follow_id: followId,
+                    _csrf: $('#input-csrf').val()
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.code === 200) {
+                        if (url == '/api/follow') {
+                            thisElement.attr('data-url', '/api/unfollow');
+                            thisElement.text(Opertation.UNFOLLOW);
+                        } else {
+                            thisElement.attr('data-url', '/api/follow');
+                            thisElement.text(Opertation.FOLLOW);
+                        }
+                    } else if (data.code === 400) {
+                        bootbox.alert(Message.USER_NOT_EXIST);
                     } else {
-                        thisElement.attr('data-url', '/api/follow');
-                        thisElement.text(Opertation.FOLLOW);
+                        bootbox.alert(Message.SERVER_ERROR);
                     }
-                } else if (data.code === 400) {
-                    bootbox.alert(Message.USER_NOT_EXIST);
-                } else {
-                    bootbox.alert(Message.SERVER_ERROR);
+                    thisElement.attr('disabled', false);
+                },
+                error: function(xhr, status, err) {
+                    bootbox.alert(xhr.responseText);
                 }
-                thisElement.attr('disabled', false);
-            },
-            error: function(xhr, status, err) {
-                bootbox.alert(xhr.responseText);
-            }
-        });
+            });
+        };
+
+        if (url == '/api/unfollow') {
+            bootbox.confirm(Message.UNFOLLOW_CONFIRM, function(result) {
+                if (result) {
+                    doFollowAjax();
+                } else {
+                    thisElement.attr('disabled', false);
+                }
+            })
+        } else {
+            doFollowAjax();
+        }
+
     };
 
     function viewFollowerHandler(page) {

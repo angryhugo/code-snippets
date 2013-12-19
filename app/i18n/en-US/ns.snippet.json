@@ -78,7 +78,7 @@
         "snippetContent": "Snippet",
         "snippetType": "Type",
         "backBtn": "Back",
-        "cancel": "Cancel",
+        "unfollow": "Unfollow",
         "follow": "Follow",
         "favorite": "Favorite",
         "unsubscribe": "Unsubscribe"
@@ -117,7 +117,7 @@
         "follower": "Follower",
         "email": "Email",
         "name": "Username",
-        "cancel": "Cancel",
+        "unfollow": "Unfollow",
         "follow": "Follow"
     },
     "pagination": {

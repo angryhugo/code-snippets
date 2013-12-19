@@ -27,12 +27,14 @@ var Message = {
     SNIPPET_NOT_EXSIT: "The code snippet does not exsit",
     DELETE_SNIPPET_FORBIDDEN: "You are not allowed to delete the code snippet",
 
-    USER_NOT_EXSIT: "The user does not exsit"
+    USER_NOT_EXSIT: "The user does not exsit",
+    UNSUBSCRIBE_SNIPPET_CONFIRM: "Are you sure to unsubscribe the code snippet?",
+    UNFOLLOW_CONFIRM: "Are you sure to unfollow the user?"
 };
 
 var Opertation = {
     FOLLOW: 'Follow',
-    CANCEL: 'Cancel',
+    UNFOLLOW: 'Unfollow',
     FAVORITE: 'Favorite',
     UNSUBSCRIBE: 'Unsubscribe'
 };

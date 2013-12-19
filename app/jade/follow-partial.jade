@@ -12,7 +12,7 @@ if followList.length>0
                         div
                             if follow.status == 1
                                 button.btn-follow.btn.btn-sm(data-followId='#{follow.id}',data-url='/api/unfollow')
-                                    | #{t("profile.cancel")}
+                                    | #{t("profile.unfollow")}
                             else if follow.status == 0
                                 button.btn-follow.btn.btn-sm(data-followId='#{follow.id}',data-url='/api/follow')
                                     | #{t("profile.follow")}
