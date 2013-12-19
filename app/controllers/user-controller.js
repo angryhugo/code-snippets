@@ -94,25 +94,41 @@ module.exports = {
     followUser: function(req, res) {
         var userId = req.user.id;
         var followId = req.body.follow_id;
-        UserRelation.create({
-            user_id: userId,
-            follow_id: followId
-        }).success(function() {
-            res.json('ok');
+        var dataObj = {};
+        User.find(followId).success(function(user) {
+            if (!user) {
+                dataObj.code = 400;
+                res.json(dataObj);
+            } else {
+                UserRelation.create({
+                    user_id: userId,
+                    follow_id: followId
+                }).success(function() {
+                    dataObj.code = 200;
+                    res.json(dataObj);
+                }).error(function(err) {
+                    dataObj.code = 500;
+                    res.json(dataObj);
+                });
+            }
         }).error(function(err) {
-            res.json('notOk');
+            dataObj.code = 500;
+            res.json(dataObj);
         });
     },
     unfollowUser: function(req, res) {
         var userId = req.user.id;
         var followId = req.body.follow_id;
+        var dataObj = {};
         UserRelation.destroy({
             user_id: userId,
             follow_id: followId
         }).success(function() {
-            res.json('ok');
+            dataObj.code = 200;
+            res.json(dataObj);
         }).error(function(err) {
-            res.json('notOk');
+            dataObj.code = 500;
+            res.json(dataObj);
         });
     },
     viewFollowers: function(req, res) {

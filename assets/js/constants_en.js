@@ -24,11 +24,15 @@ var Message = {
     //delete snippet
     DELETE_SNIPPET_CONFIRM: "Are you sure to delete the code snippet?",
     DELETE_SNIPPET_SUCCESS: "Delete code snippet successfully",
-    SNIPPET_NOT_EXSIT: "The code snippet do not exsit",
-    DELETE_SNIPPET_FORBIDDEN: "You are not allowed to delete the code snippet"
+    SNIPPET_NOT_EXSIT: "The code snippet does not exsit",
+    DELETE_SNIPPET_FORBIDDEN: "You are not allowed to delete the code snippet",
+
+    USER_NOT_EXSIT: "The user does not exsit"
 };
 
 var Opertation = {
     FOLLOW: 'Follow',
-    CANCEL: 'Cancel'
+    CANCEL: 'Cancel',
+    FAVORITE: 'Favorite',
+    UNSUBSCRIBE: 'Unsubscribe'
 };

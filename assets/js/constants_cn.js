@@ -25,10 +25,14 @@ var Message = {
     DELETE_SNIPPET_CONFIRM: "确定要删除该代码片段？",
     DELETE_SNIPPET_SUCCESS: "成功删除代码片段",
     SNIPPET_NOT_EXSIT: "该代码片段不存在",
-    DELETE_SNIPPET_FORBIDDEN: "您无权删除该代码片段"
+    DELETE_SNIPPET_FORBIDDEN: "您无权删除该代码片段",
+
+    USER_NOT_EXSIT: "该用户不存在"
 };
 
 var Opertation = {
     FOLLOW: '关注',
-    CANCEL: '取消关注'
+    CANCEL: '取消关注',
+    FAVORITE: '收藏',
+    UNSUBSCRIBE: '取消收藏'
 };

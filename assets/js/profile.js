@@ -140,8 +140,8 @@ $(function() {
                     type: 'DELETE',
                     url: '/api/snippets/' + snippetId,
                     data: {
-                        _csrf: _token.val(),
-                        snippetId: snippetId
+                        _csrf: _token.val()
+                        // snippetId: snippetId
                     },
                     dataType: 'json',
                     success: function(data) {
@@ -175,7 +175,7 @@ $(function() {
             },
             dataType: 'json',
             success: function(data) {
-                if (data == 'ok') {
+                if (data.code === 200) {
                     if (url == '/api/follow') {
                         thisElement.attr('data-url', '/api/unfollow');
                         thisElement.text(Opertation.CANCEL);
@@ -183,8 +183,10 @@ $(function() {
                         thisElement.attr('data-url', '/api/follow');
                         thisElement.text(Opertation.FOLLOW);
                     }
+                } else if (data.code === 400) {
+                    bootbox.alert(Message.USER_NOT_EXIST);
                 } else {
-                    bootbox.alert('not ok');
+                    bootbox.alert(Message.SERVER_ERROR);
                 }
                 thisElement.attr('disabled', false);
             },
