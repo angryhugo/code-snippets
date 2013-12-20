@@ -1,9 +1,7 @@
 $(function() {
     "use strict";
-    var _showLoginLink = $('#link-show-login-modal');
-    var _showSignupLink = $('#link-show-sign-up-modal');
-    var _closeSignupLink = $('#link-close-sign-up-modal');
-    var _closeLoginLink = $('#link-close-login-modal');
+    var _signupModal = $('#modal-sign-up');
+    var _loginModal = $('#modal-login');
     var _loginAlert = $('#alert-login');
     var _signupErrorAlert = $('#alert-sign-up-error');
     var _signupEmailSuccessAlert = $('#alert-sign-up-email-success');
@@ -26,6 +24,16 @@ $(function() {
 
     var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
+    function showModal(modalElement) {
+        modalElement.modal({
+            backdrop: "static"
+        });
+    };
+
+    function hideModal(modalElement) {
+        modalElement.modal('hide');
+    }
+
     function getUrlVars() {
         var vars = [],
             hash;
@@ -39,7 +47,7 @@ $(function() {
     };
 
     function errorAlert(modalElement, alertElement, message) {
-        modalElement.click();
+        showModal(modalElement);
         alertElement.html(message).show();
         setTimeout(function() {
             alertElement.hide()
@@ -51,21 +59,21 @@ $(function() {
         case 0:
             break;
         case 1:
-            errorAlert(_showLoginLink, _loginAlert, Message.LOGIN_ERROR);
+            errorAlert(_loginModal, _loginAlert, Message.LOGIN_ERROR);
             break;
         case 2:
-            errorAlert(_showSignupLink, _signupErrorAlert, Message.SIGNUP_ERROR);
+            errorAlert(_signupModal, _signupErrorAlert, Message.SIGNUP_ERROR);
             break;
         case 3:
-            errorAlert(_showLoginLink, _loginAlert, Message.LOGIN_FIRST);
+            errorAlert(_loginModal, _loginAlert, Message.LOGIN_FIRST);
             break;
     }
 
     var successType = parseInt(getUrlVars()['success']) || 0;
     //sign up success
     if (successType === 1) {
-        _closeSignupLink.click();
-        _showLoginLink.click();
+        hideModal(_signupModal);
+        showModal(_loginModal);
         _signupSuccessAlert.html(Message.SIGNUP_SUCCESS).show();
         setTimeout(function() {
             _signupSuccessAlert.hide()
@@ -194,13 +202,13 @@ $(function() {
     });
 
     _loginModalLink.click(function() {
-        _closeSignupLink.click();
-        _showLoginLink.click();
+        hideModal(_signupModal);
+        showModal(_loginModal);
     });
 
     _signupModalLink.click(function() {
-        _closeLoginLink.click();
-        _showSignupLink.click();
+        hideModal(_loginModal);
+        showModal(_signupModal);
     });
 
     // _checkEmailBtn.click(function() {

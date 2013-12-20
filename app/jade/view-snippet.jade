@@ -17,7 +17,7 @@ block main
                 a#link-back.btn.btn-info.pull-right
                     | #{t("view-snippet.backBtn")}
         div.row
-            div.col-xs-12.col-sm-1.col-md-2(style='margin-left:3%')
+            div.col-xs-12.col-sm-1.col-md-2
                 div.row
                     div.col-xs-3.col-sm-12.col-md-6
                         a(href="/users/#{snippet.ownerId}/profile")
@@ -34,12 +34,12 @@ block main
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow')
                                         | #{t("view-snippet.follow")}
-            div.col-xs-12.col-sm-10.col-md-9.form-horizontal
+            div.col-xs-12.col-sm-10.col-md-10.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetTitle")}
-                    div.div-content.col-sm-8
+                    div.div-content.col-sm-8.col-md-9
                         | #{snippet.title}
                     div.col-sm-2
                         if favoriteStatus == 1
@@ -51,12 +51,12 @@ block main
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}
-                    div.div-content.col-sm-10
+                    div.div-content.col-sm-10.col-md-11
                         | #{snippet.type}
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetContent")}
-                    div.div-content.col-sm-10
+                    div.div-content.col-sm-10.col-md-11
                         pre
                             code
                                 | #{snippet.snippet}

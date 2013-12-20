@@ -1,7 +1,7 @@
 if followList.length>0
     include ./internal-pager-mixin
     for follow in followList
-        div.following-item.col-xs-4
+        div.following-item.col-xs-4.col-md-3
             div.card
                 div.row
                     a.col-xs-5(href="/users/#{follow.id}/profile")

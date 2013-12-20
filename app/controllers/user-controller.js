@@ -6,7 +6,7 @@ var mapper = require('../helpers/mapper');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
-var FOLLOW_PAGE_TAKE = 21;
+var FOLLOW_PAGE_TAKE = 24;
 
 module.exports = {
     // findUserByEmail: function(email, callback) {
