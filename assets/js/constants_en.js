@@ -29,7 +29,10 @@ var Message = {
 
     USER_NOT_EXSIT: "The user does not exsit",
     UNSUBSCRIBE_SNIPPET_CONFIRM: "Are you sure to unsubscribe the code snippet?",
-    UNFOLLOW_CONFIRM: "Are you sure to unfollow the user?"
+    UNFOLLOW_CONFIRM: "Are you sure to unfollow the user?",
+    //update snippet
+    UPDATE_SNIPPET_FORBIDDEN: "You are not allowed to update the code snippet",
+    UPDATE_SNIPPET_SUCCESS: "Update code snippet successfully"
 };
 
 var Opertation = {

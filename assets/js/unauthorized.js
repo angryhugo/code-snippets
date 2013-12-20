@@ -1,5 +1,7 @@
 $(function() {
     "use strict";
+    var _csrf = $('#input-csrf').val();
+
     var _signupModal = $('#modal-sign-up');
     var _loginModal = $('#modal-login');
     var _loginAlert = $('#alert-login');
@@ -93,7 +95,7 @@ $(function() {
                         email: function() {
                             return _signupEmailInput.val()
                         },
-                        _csrf: $('#input-csrf').val()
+                        _csrf: _csrf
                     }
                 },
                 errorPlacement: function(error, element) {
@@ -236,7 +238,7 @@ $(function() {
     //             type: 'POST',
     //             data: {
     //                 email: _signupEmailInput.val(),
-    //                 _csrf: $('#input-csrf').val()
+    //                 _csrf: _csrf
     //             },
     //             dataType: 'json',
     //             success: function(data) {

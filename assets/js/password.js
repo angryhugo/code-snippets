@@ -1,5 +1,8 @@
 $(function() {
     'use strict';
+    var _csrf = $('#input-csrf').val();
+    var userId = $('#user-id').val();
+
     var _changePasswordForm = $('#form-change-password');
     var _submitLink = $('#link-submit');
     var _backLink = $('#link-back');
@@ -8,7 +11,6 @@ $(function() {
     var _confirmPassword = $('#input-confirm-new-password');
     var _saveSuccessInfo = $('div.alert-success');
     var _saveErrorInfo = $('div.alert-danger');
-    var userId = $('#user-id');
 
     var validator = _changePasswordForm.validate({
         rules: {
@@ -75,10 +77,10 @@ $(function() {
             } else {
                 setBtnStatus(true);
                 $.ajax({
-                    url: '/users/' + userId.val() + '/password',
+                    url: '/users/' + userId + '/password',
                     type: 'post',
                     data: {
-                        _csrf: $('#input-csrf').val(),
+                        _csrf: _csrf,
                         current_password: _currentPassword.val(),
                         new_password: _newPasswrod.val()
                     },

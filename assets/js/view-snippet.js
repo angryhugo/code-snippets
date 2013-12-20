@@ -1,6 +1,9 @@
 $(function() {
     "use strict";
     hljs.initHighlightingOnLoad();
+    var _csrf = $('#input-csrf').val();
+    var _snippetId = $('#input-snippet-id').val();
+    var _snippetTypeId = $('#input-snippet-type-id').val();
 
     var _followBtn = $('#btn-follow');
     var _favoriteBtn = $('#btn-favorite');
@@ -9,9 +12,9 @@ $(function() {
     var _editSnippetLink = $('#link-edit-snippet');
     var _snippetContent = $('#input-snippet-hidden').val();
     var _snippetTextarea = $('#input-snippet-content');
-    var _btnGroup = $('#edit-btn-group');
+    var _editLinkGroup = $('#edit-link-group');
     var _cancelEditSnippetLink = $('#link-cancel-edit');
-    var _submitSnippetBtn = $('#btn-save-snippet');
+    var _submitSnippetLink = $('#link-save-snippet');
     //div
     var _snippetTitleDiv = $('#div-snippet-title');
     var _snippetTypeDiv = $('#div-snippet-type');
@@ -27,7 +30,7 @@ $(function() {
         _snippetTitleDiv.removeClass('hide');
         _snippetTypeDiv.removeClass('hide');
         _snippetContentDiv.removeClass('hide');
-        _btnGroup.addClass('hide');
+        _editLinkGroup.addClass('hide');
         _snippetTitleInput.parent().addClass('hide');
         _snippetTypeInput.parent().addClass('hide');
         _snippetContentInput.parent().addClass('hide');
@@ -37,15 +40,24 @@ $(function() {
         _snippetTitleDiv.addClass('hide');
         _snippetTypeDiv.addClass('hide');
         _snippetContentDiv.addClass('hide');
-        _btnGroup.removeClass('hide');
+        _editLinkGroup.removeClass('hide');
+
+        _snippetTitleInput.val(_snippetTitleDiv.html());
+        _snippetTypeInput.val(_snippetTypeId);
+
         _snippetTitleInput.parent().removeClass('hide');
         _snippetTypeInput.parent().removeClass('hide');
         _snippetContentInput.parent().removeClass('hide');
     };
 
-    function refreshDiv() {
-
-    };
+    // function refreshDiv() {
+    //     _snippetTitleDiv.text(_snippetTitleInput.val());
+    //     // _snippetTypeInput.attr('data-type') //undefine
+    //     _snippetTypeDiv.text(_snippetTypeInput.attr('data-type'));
+    //     _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
+    //     //do not work
+    //     hljs.initHighlightingOnLoad();
+    // };
 
     _editSnippetLink.on('click', function() {
         showInputsHideDivs();
@@ -57,8 +69,43 @@ $(function() {
         _editSnippetLink.removeClass('hide');
     });
 
-    _submitSnippetBtn.on('click', function() {
-        showDivsHideInputs();
+    _submitSnippetLink.on('click', function() {
+        // refreshDiv();
+        // showDivsHideInputs();
+        // _editSnippetLink.removeClass('hide');
+
+        _submitSnippetLink.attr('disabled', true);
+        _cancelEditSnippetLink.attr('disabled', true);
+        $.ajax({
+            type: 'POST',
+            url: '/snippets/' + _snippetId,
+            data: {
+                _csrf: _csrf,
+                title: _snippetTitleInput.val(),
+                type_id: _snippetTypeInput.val(),
+                snippet: _snippetContentInput.val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.code === 200) {
+                    bootbox.alert(Message.UPDATE_SNIPPET_SUCCESS, function() {
+                        //refresh page
+                        window.location.reload();
+                    });
+                } else if (data.code === 400) {
+                    bootbox.alert(Message.SNIPPET_NOT_EXSIT, function() {
+                        window.location.reload();
+                    });
+                } else if (data.code === 403) {
+                    bootbox.alert(Message.UPDATE_SNIPPET_FORBIDDEN, function() {
+                        window.location.reload();
+                    });
+                }
+            },
+            error: function(xhr, status, err) {
+                bootbox.alert(xhr.responseText);
+            }
+        });
     });
 
     _followBtn.on('click', function() {
@@ -73,7 +120,7 @@ $(function() {
                 type: 'POST',
                 data: {
                     follow_id: followId,
-                    _csrf: $('#input-csrf').val()
+                    _csrf: _csrf
                 },
                 dataType: 'json',
                 success: function(data) {
@@ -117,13 +164,12 @@ $(function() {
         var url = self.attr('data-url') || '/api/favorite';
 
         function doFavoriteAjax() {
-            var snippetId = self.attr('data-snippetId');
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: {
-                    snippet_id: snippetId,
-                    _csrf: $('#input-csrf').val()
+                    snippet_id: _snippetId,
+                    _csrf: _csrf
                 },
                 dataType: 'json',
                 success: function(data) {

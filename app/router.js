@@ -78,6 +78,7 @@ module.exports = function(app) {
     app.post('/snippets/new', controller.ensureAuthenticated, snippetController.doNewSnippet);
     app.get('/snippets/search', autoLogin, snippetController.searchSnippet);
     app.get('/snippets/:snippet_id', autoLogin, snippetController.viewSnippet);
+    app.post('/snippets/:snippet_id', controller.ensureAuthenticated, snippetController.updateSnippet);
 
     app.post('/api/email', userController.checkEmail);
     app.post('/api/follow', controller.ensureAuthenticated, userController.followUser);

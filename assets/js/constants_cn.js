@@ -25,11 +25,14 @@ var Message = {
     DELETE_SNIPPET_CONFIRM: "确定要删除该代码片段？",
     DELETE_SNIPPET_SUCCESS: "成功删除代码片段",
     SNIPPET_NOT_EXSIT: "该代码片段不存在",
-    DELETE_SNIPPET_FORBIDDEN: "您无权删除该代码片段",
+    DELETE_SNIPPET_FORBIDDEN: "你无权删除该代码片段",
 
     USER_NOT_EXSIT: "该用户不存在",
     UNSUBSCRIBE_SNIPPET_CONFIRM: "确定要取消收藏该代码片段？",
-    UNFOLLOW_CONFIRM: "确定要取消关注该用户吗？"
+    UNFOLLOW_CONFIRM: "确定要取消关注该用户吗？",
+    //update snippet
+    UPDATE_SNIPPET_FORBIDDEN: "你无权修改该代码片段",
+    UPDATE_SNIPPET_SUCCESS: "成功更新代码片段"
 };
 
 var Opertation = {

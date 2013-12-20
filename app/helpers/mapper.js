@@ -5,7 +5,10 @@ module.exports = {
         return {
             id: snippetObj.id,
             title: snippetObj.title,
-            type: snippetObj.typer.typeName,
+            type: {
+                id: snippetObj.typer.id,
+                name: snippetObj.typer.typeName
+            },
             snippet: snippetObj.snippet,
             owner: snippetObj.user.name,
             ownerId: snippetObj.user.id

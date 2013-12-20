@@ -1,5 +1,7 @@
 $(function() {
     "use strict";
+    var _csrf = $('#input-csrf').val();
+
     var _showFollowingSnippetsLink = $('#link-following-snippets');
     var _followingSnippetsDiv = $('#followingSnippets');
     var _showFavoriteSnippetsLink = $('#link-favorite-snippets');
@@ -10,7 +12,6 @@ $(function() {
     var _showFollowerLink = $('#link-follower');
     var _followingDiv = $('#following');
     var _showFollowingLink = $('#link-following');
-    var _token = $('#input-csrf');
     var _viewUserId = $('#view-user-id');
     var _jsAmount = parseInt($('#js-amount').val());
     var _javaAmount = parseInt($('#java-amount').val());
@@ -142,7 +143,7 @@ $(function() {
                     type: 'DELETE',
                     url: '/api/snippets/' + snippetId,
                     data: {
-                        _csrf: _token.val()
+                        _csrf: _csrf
                         // snippetId: snippetId
                     },
                     dataType: 'json',
@@ -175,7 +176,7 @@ $(function() {
                 type: 'POST',
                 data: {
                     follow_id: followId,
-                    _csrf: $('#input-csrf').val()
+                    _csrf: _csrf
                 },
                 dataType: 'json',
                 success: function(data) {

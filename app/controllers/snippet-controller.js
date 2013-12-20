@@ -107,6 +107,32 @@ module.exports = {
             errHandler(err, 'server error!', next);
         });
     },
+    updateSnippet: function(req, res) {
+        var userId = req.user.id;
+        var snippetId = req.params.snippet_id || '';
+        var snippetContent = req.body.snippet || '';
+        var title = req.body.title || '';
+        var typeId = req.body.type_id || 1;
+        var dataObj = {};
+
+        CodeSnippet.find(snippetId).success(function(snippet) {
+            if (!snippet) {
+                dataObj.code = 400;
+                res.json(dataObj);
+            } else if (snippet.user_id === userId) {
+                snippet.title = title;
+                snippet.type_id = typeId;
+                snippet.snippet = snippetContent;
+                snippet.save().success(function() {
+                    dataObj.code = 200;
+                    res.json(dataObj);
+                });
+            } else {
+                dataObj.code = 403;
+                res.json(dataObj);
+            }
+        });
+    },
     searchSnippet: function(req, res, next) {
         var page = req.query.page || 1;
         var url = req.path + '?';
@@ -198,13 +224,11 @@ module.exports = {
             if (!snippet) {
                 dataObj.code = 400;
                 res.json(dataObj);
-                return false;
             } else if (snippet.user_id === userId) {
                 snippet.is_deleted = true;
                 snippet.save().success(function() {
                     dataObj.code = 200;
                     res.json(dataObj);
-                    return true;
                 });
                 // snippet.destroy().success(function() {
                 //     dataObj.code = 200;
@@ -214,7 +238,6 @@ module.exports = {
             } else {
                 dataObj.code = 403;
                 res.json(dataObj);
-                return false;
             }
         });
     },
@@ -400,7 +423,6 @@ module.exports = {
         });
     },
     unsubscribeSnippet: function(req, res) {
-        console.log('unsubscribeSnippet');
         var userId = req.user.id;
         var snippetId = req.body.snippet_id || '';
         var dataObj = {};
