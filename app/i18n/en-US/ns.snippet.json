@@ -81,7 +81,8 @@
         "unfollow": "Unfollow",
         "follow": "Follow",
         "favorite": "Favorite",
-        "unsubscribe": "Unsubscribe"
+        "unsubscribe": "Unsubscribe",
+        "edit": "Edit"
     },
     "search-snippet": {
         "searchFor": "Search Result For",

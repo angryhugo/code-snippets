@@ -52,7 +52,7 @@ module.exports = {
         var user = req.user || '';
         var snippetId = req.params.snippet_id || '';
         var followStatus; //followStatus: 0 self; 1 followed; 2 unfollowed; 3 not login
-        var favoriteStatus; //favoriteStatus:1 favorited; 2 unfavorited;
+        var favoriteStatus; //favoriteStatus:0 self; 1 favorited; 2 unfavorited; 3 not login
         var option = {
             include: [{
                 model: User,
@@ -455,21 +455,28 @@ function checkFollowStatus(userId, followId, callback) {
 }
 
 function checkSnippetStatus(userId, snippetId, callback) {
-    //favoriteStatus:1 favorited; 2 unfavorited; 
-    // 0: self
+    //favoriteStatus:0 self; 1 favorited; 2 unfavorited; 
     if (!userId || !snippetId) {
         callback(null, 3);
     } else {
-        FavoriteSnippet.find({
-            where: {
-                user_id: userId,
-                snippet_id: snippetId
-            }
-        }).success(function(favoriteSnippet) {
-            if (favoriteSnippet) {
-                callback(null, 1);
+        CodeSnippet.find(snippetId).success(function(snippet) {
+            if (snippet.user_id == userId) {
+                callback(null, 0);
             } else {
-                callback(null, 2);
+                FavoriteSnippet.find({
+                    where: {
+                        user_id: userId,
+                        snippet_id: snippetId
+                    }
+                }).success(function(favoriteSnippet) {
+                    if (favoriteSnippet) {
+                        callback(null, 1);
+                    } else {
+                        callback(null, 2);
+                    }
+                }).error(function(err) {
+                    callback(err);
+                });
             }
         }).error(function(err) {
             callback(err);

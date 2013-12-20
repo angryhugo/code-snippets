@@ -81,7 +81,8 @@
         "unfollow": "取消关注",
         "follow": "关注",
         "favorite": "收藏",
-        "unsubscribe": "取消收藏"
+        "unsubscribe": "取消收藏",
+        "edit": "编辑"
     },
     "search-snippet": {
         "searchFor": "搜索",

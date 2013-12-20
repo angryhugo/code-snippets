@@ -2,13 +2,8 @@ $(function() {
     "use strict";
     hljs.initHighlightingOnLoad();
 
-    var _backLink = $('#link-back');
     var _followBtn = $('#btn-follow');
     var _favoriteBtn = $('#btn-favorite');
-
-    _backLink.on('click', function() {
-        history.back();
-    });
 
     _followBtn.on('click', function() {
         _followBtn.attr('disabled', true);

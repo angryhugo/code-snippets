@@ -27,4 +27,8 @@ $(function() {
             locale: 'en'
         });
     }
+
+    $('#link-back').on('click', function() {
+        history.back();
+    });
 });

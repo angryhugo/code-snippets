@@ -18,8 +18,8 @@ block main
         div.page-header
             h3
                 | #{t("search-snippet.title")}
-                a.btn.btn-info.pull-right(href='/')
-                    | #{t("search-snippet.backBtn")}
+                a.link-tooltip.pull-right(href='/',data-original-title='#{t("search-snippet.backBtn")}',data-placement='left')
+                    i.fa.fa-mail-reply
         div.filter
             select#select2-search-snippets(style="width:200px")
                 option(value=0)
