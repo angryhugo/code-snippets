@@ -14,8 +14,8 @@ block main
         div.page-header
             h3
                 | #{t("view-snippet.title")}
-                a#link-back.btn.btn-info.pull-right
-                    | #{t("view-snippet.backBtn")}
+                a#link-back.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.backBtn")}',data-placement='left')
+                    i.fa.fa-mail-reply
         div.row
             div.col-xs-12.col-sm-1.col-md-2
                 div.row
@@ -34,14 +34,20 @@ block main
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow')
                                         | #{t("view-snippet.follow")}
-            div.col-xs-12.col-sm-10.col-md-10.form-horizontal
+            form.col-xs-12.col-sm-10.col-md-10.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+                input#input-snippet-hidden(type='hidden',name='_csrf',value='#{snippet.snippet}')
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetTitle")}
-                    div.div-content.col-sm-8.col-md-9
+                    div#div-snippet-title.div-content.col-sm-8.col-md-9
                         | #{snippet.title}
+                    div.col-sm-8.col-md-11.hide
+                        input#input-snippet-title.form-control(type="text",name="title",value="#{snippet.title}")
                     div.col-sm-2
+                        if favoriteStatus==0
+                            a#link-edit-snippet.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.edit")}',data-placement='left')
+                                i.fa.fa-edit.fa-2x
                         if favoriteStatus == 1
                             a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/unsubscribe',data-original-title='#{t("view-snippet.unsubscribe")}',data-placement='left')
                                 i.fa.fa-star.fa-2x.favorite
@@ -51,15 +57,29 @@ block main
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}
-                    div.div-content.col-sm-10.col-md-11
+                    div#div-snippet-type.div-content.col-sm-10.col-md-11
                         | #{snippet.type}
+                    div.col-sm-10.col-md-11.hide
+                        select#input-snippet-type.form-control(name='type_id')
+                            if typeList.length>0
+                                for type in typeList
+                                    option(value="#{type.id}",selected=(type.typeName==snippet.type)?true:false) 
+                                        | #{type.typeName}
                 div.form-group
                     label.col-sm-2.col-md-1.control-label
                         | #{t("view-snippet.snippetContent")}
-                    div.div-content.col-sm-10.col-md-11
+                    div#div-snippet-content.div-content.col-sm-10.col-md-11
                         pre
                             code
                                 | #{snippet.snippet}
+                    div.col-sm-10.col-md-11.hide
+                        textarea#input-snippet-content.form-control(rows='15',name='snippet',style="resize:none")
+                div#edit-btn-group.form-group.hide
+                    div.col-sm-offset-2.col-md-offset-1.col-sm-4
+                        button#btn-save-snippet.btn.btn-success
+                            | save
+                        a#link-cancel-edit.btn.btn-info.btn-right
+                            | cancel
 
 block scripts
     - if (nodeEnv == "production") {

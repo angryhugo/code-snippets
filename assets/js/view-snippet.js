@@ -5,6 +5,62 @@ $(function() {
     var _followBtn = $('#btn-follow');
     var _favoriteBtn = $('#btn-favorite');
 
+    //for edit
+    var _editSnippetLink = $('#link-edit-snippet');
+    var _snippetContent = $('#input-snippet-hidden').val();
+    var _snippetTextarea = $('#input-snippet-content');
+    var _btnGroup = $('#edit-btn-group');
+    var _cancelEditSnippetLink = $('#link-cancel-edit');
+    var _submitSnippetBtn = $('#btn-save-snippet');
+    //div
+    var _snippetTitleDiv = $('#div-snippet-title');
+    var _snippetTypeDiv = $('#div-snippet-type');
+    var _snippetContentDiv = $('#div-snippet-content');
+    //input
+    var _snippetTitleInput = $('#input-snippet-title');
+    var _snippetTypeInput = $('#input-snippet-type');
+    var _snippetContentInput = $('#input-snippet-content');
+
+    _snippetTextarea.text(_snippetContent);
+
+    function showDivsHideInputs() {
+        _snippetTitleDiv.removeClass('hide');
+        _snippetTypeDiv.removeClass('hide');
+        _snippetContentDiv.removeClass('hide');
+        _btnGroup.addClass('hide');
+        _snippetTitleInput.parent().addClass('hide');
+        _snippetTypeInput.parent().addClass('hide');
+        _snippetContentInput.parent().addClass('hide');
+    };
+
+    function showInputsHideDivs() {
+        _snippetTitleDiv.addClass('hide');
+        _snippetTypeDiv.addClass('hide');
+        _snippetContentDiv.addClass('hide');
+        _btnGroup.removeClass('hide');
+        _snippetTitleInput.parent().removeClass('hide');
+        _snippetTypeInput.parent().removeClass('hide');
+        _snippetContentInput.parent().removeClass('hide');
+    };
+
+    function refreshDiv() {
+
+    };
+
+    _editSnippetLink.on('click', function() {
+        showInputsHideDivs();
+        $(this).addClass('hide');
+    });
+
+    _cancelEditSnippetLink.on('click', function() {
+        showDivsHideInputs();
+        _editSnippetLink.removeClass('hide');
+    });
+
+    _submitSnippetBtn.on('click', function() {
+        showDivsHideInputs();
+    });
+
     _followBtn.on('click', function() {
         _followBtn.attr('disabled', true);
         var self = $(this);

@@ -82,13 +82,23 @@ module.exports = {
                             } else {
                                 favoriteStatus = favoriteStat;
                             }
-                            res.render('view-snippet', {
-                                // credential: user,
-                                snippet: mappedSnippet,
-                                followStatus: followStatus,
-                                favoriteStatus: favoriteStatus,
-                                token: req.csrfToken()
+                            SnippetType.findAll().success(function(typeList) {
+                                if (!typeList) {
+                                    errHandler(null, 'snippet type do not exist!', next);
+                                } else {
+                                    res.render('view-snippet', {
+                                        // credential: user,
+                                        typeList: typeList,
+                                        snippet: mappedSnippet,
+                                        followStatus: followStatus,
+                                        favoriteStatus: favoriteStatus,
+                                        token: req.csrfToken()
+                                    });
+                                }
+                            }).error(function(err) {
+                                errHandler(err, 'server error!', next);
                             });
+
                         });
                     }
                 });
