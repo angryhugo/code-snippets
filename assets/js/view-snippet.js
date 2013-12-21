@@ -11,7 +11,6 @@ $(function() {
     //for edit
     var _editSnippetLink = $('#link-edit-snippet');
     var _snippetContent = $('#input-snippet-hidden').val();
-    var _snippetTextarea = $('#input-snippet-content');
     var _editLinkGroup = $('#edit-link-group');
     var _cancelEditSnippetLink = $('#link-cancel-edit');
     var _submitSnippetLink = $('#link-save-snippet');
@@ -23,8 +22,6 @@ $(function() {
     var _snippetTitleInput = $('#input-snippet-title');
     var _snippetTypeInput = $('#input-snippet-type');
     var _snippetContentInput = $('#input-snippet-content');
-
-    _snippetTextarea.text(_snippetContent);
 
     function showDivsHideInputs() {
         _snippetTitleDiv.removeClass('hide');
@@ -45,19 +42,34 @@ $(function() {
         _snippetTitleInput.val(_snippetTitleDiv.html());
         _snippetTypeInput.val(_snippetTypeId);
 
+        //textarea 第一次赋值有效 之后赋值无效了？？？
+        _snippetContentInput.text(_snippetContent);
+
         _snippetTitleInput.parent().removeClass('hide');
         _snippetTypeInput.parent().removeClass('hide');
         _snippetContentInput.parent().removeClass('hide');
     };
 
-    // function refreshDiv() {
-    //     _snippetTitleDiv.text(_snippetTitleInput.val());
-    //     // _snippetTypeInput.attr('data-type') //undefine
-    //     _snippetTypeDiv.text(_snippetTypeInput.attr('data-type'));
-    //     _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
-    //     //do not work
-    //     hljs.initHighlightingOnLoad();
-    // };
+    function refreshDiv() {
+        var findString = "option[value='" + _snippetTypeId + "']";
+        _snippetTitleDiv.text(_snippetTitleInput.val());
+        _snippetTypeDiv.text(_snippetTypeInput.find(findString).attr('data-type'));
+        _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
+    };
+
+    function afterUpdate() {
+        _snippetTypeId = _snippetTypeInput.val();
+        refreshDiv();
+        showDivsHideInputs();
+        _editSnippetLink.removeClass('hide');
+        hljs.highlightBlock(_snippetContentDiv.find('pre code')[0]);
+        setLinkGroup(false);
+    };
+
+    function setLinkGroup(isDisabled) {
+        _submitSnippetLink.attr('disabled', isDisabled);
+        _cancelEditSnippetLink.attr('disabled', isDisabled);
+    };
 
     _editSnippetLink.on('click', function() {
         showInputsHideDivs();
@@ -70,12 +82,7 @@ $(function() {
     });
 
     _submitSnippetLink.on('click', function() {
-        // refreshDiv();
-        // showDivsHideInputs();
-        // _editSnippetLink.removeClass('hide');
-
-        _submitSnippetLink.attr('disabled', true);
-        _cancelEditSnippetLink.attr('disabled', true);
+        setLinkGroup(true);
         $.ajax({
             type: 'POST',
             url: '/snippets/' + _snippetId,
@@ -88,18 +95,14 @@ $(function() {
             dataType: 'json',
             success: function(data) {
                 if (data.code === 200) {
-                    bootbox.alert(Message.UPDATE_SNIPPET_SUCCESS, function() {
-                        //refresh page
-                        window.location.reload();
-                    });
+                    afterUpdate();
+                    bootbox.alert(Message.UPDATE_SNIPPET_SUCCESS);
                 } else if (data.code === 400) {
-                    bootbox.alert(Message.SNIPPET_NOT_EXSIT, function() {
-                        window.location.reload();
-                    });
+                    showDivsHideInputs();
+                    bootbox.alert(Message.SNIPPET_NOT_EXSIT);
                 } else if (data.code === 403) {
-                    bootbox.alert(Message.UPDATE_SNIPPET_FORBIDDEN, function() {
-                        window.location.reload();
-                    });
+                    showDivsHideInputs();
+                    bootbox.alert(Message.UPDATE_SNIPPET_FORBIDDEN);
                 }
             },
             error: function(xhr, status, err) {
