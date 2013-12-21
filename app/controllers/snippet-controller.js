@@ -107,7 +107,7 @@ module.exports = {
             errHandler(err, 'server error!', next);
         });
     },
-    updateSnippet: function(req, res) {
+    updateSnippet: function(req, res, next) {
         var userId = req.user.id;
         var snippetId = req.params.snippet_id || '';
         var snippetContent = req.body.snippet || '';
@@ -215,7 +215,7 @@ module.exports = {
             errHandler(err, 'server error!', next);
         })
     },
-    deleteSnippet: function(req, res) {
+    deleteSnippet: function(req, res, next) {
         // var snippetId = req.body.snippetId || '';
         var snippetId = req.params.snippet_id || '';
         var userId = req.user.id;
@@ -241,7 +241,7 @@ module.exports = {
             }
         });
     },
-    viewFollowingSnippets: function(req, res) {
+    viewFollowingSnippets: function(req, res, next) {
         var page = req.query.page || 1;
         var userId = req.user.id;
         UserRelation.findAll({
@@ -298,7 +298,7 @@ module.exports = {
             errHandler(err, 'server error!', next);
         })
     },
-    viewMineSnippets: function(req, res) {
+    viewMineSnippets: function(req, res, next) {
         var page = req.query.page || 1;
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
@@ -337,7 +337,7 @@ module.exports = {
             });
         });
     },
-    viewFavoriteSnippets: function(req, res) {
+    viewFavoriteSnippets: function(req, res, next) {
         var page = req.query.page || 1;
         var userId = req.user.id;
         var viewUserId = req.params.user_id || '';
@@ -348,46 +348,38 @@ module.exports = {
             user_id: userId
         };
 
-        FavoriteSnippet.findAll({
-            where: whereObj,
-            order: 'created_at DESC'
-        }).success(function(favoriteSnippetList) {
-            if (!favoriteSnippetList) {
+        FavoriteSnippet.count({
+            where: whereObj
+        }).success(function(snippetTotal) {
+            if (snippetTotal <= 0) {
                 res.render('snippet-partial', {
                     snippetList: []
                 });
             } else {
-                var snippetTotal = favoriteSnippetList.length;
                 var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
-                var snippetArray = [];
-                for (var i = 0; i < favoriteSnippetList.length; i++) {
-                    snippetArray.push(favoriteSnippetList[i].snippet_id);
-                }
-                var whereObjForSnippets = {
-                    id: snippetArray,
-                    is_deleted: false
-                };
-
                 var option = {
                     include: [{
-                        model: User,
-                        as: 'user'
-                            }, {
-                        model: SnippetType,
-                        as: 'typer'
+                        model: CodeSnippet,
+                        as: 'snippet'
                             }],
                     offset: pageParams.skip,
                     limit: SNIPPET_PAGE_TAKE,
-                    where: whereObjForSnippets
-                    // order: 'created_at DESC'
+                    where: whereObj,
+                    order: 'created_at DESC'
                 };
-                CodeSnippet.findAll(option).success(function(snippetList) {
-                    res.render('snippet-partial', {
-                        pagination: {
-                            pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
-                        },
-                        isSelf: isSelf,
-                        snippetList: mapper.profileSnippetListMapper(snippetList)
+                FavoriteSnippet.findAll(option).success(function(favoriteSnippetList) {
+                    mapper.favoriteSnippetListMapper(favoriteSnippetList, function(err, favoriteSnippets) {
+                        if (err) {
+                            errHandler(err, 'server error!', next);
+                        } else {
+                            res.render('snippet-partial', {
+                                pagination: {
+                                    pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
+                                },
+                                isSelf: isSelf,
+                                snippetList: favoriteSnippets
+                            });
+                        }
                     });
                 });
             }

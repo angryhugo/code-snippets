@@ -1,4 +1,5 @@
 var moment = require('moment');
+var async = require('async');
 
 module.exports = {
     viewSnippetMapper: function(snippetObj) {
@@ -48,6 +49,32 @@ module.exports = {
             profileSnippetList.push(profileSnippet);
         }
         return profileSnippetList;
+    },
+    favoriteSnippetListMapper: function(favoriteSnippetList, callback) {
+        var favoriteSnippets = [];
+        async.each(favoriteSnippetList, function(favoriteSnippetObj, cb) {
+            var snippetObj = favoriteSnippetObj.snippet;
+            snippetObj.getTyper().success(function(typer) {
+                snippetObj.getUser().success(function(user) {
+                    var favoriteSnippet = {
+                        id: snippetObj.id,
+                        title: snippetObj.title,
+                        createTime: moment(favoriteSnippetObj.created_at).format('YYYY-MM-DD HH:mm'),
+                        type: typer.typeName,
+                        creator: user.name,
+                        creatorId: user.id
+                    }
+                    favoriteSnippets.push(favoriteSnippet);
+                    cb(null);
+                });
+            });
+        }, function(err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, favoriteSnippets);
+            }
+        });
     },
     followerMapper: function(followerObj) {
         return {
