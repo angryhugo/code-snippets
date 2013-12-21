@@ -277,11 +277,10 @@ module.exports = {
                 userObj.save().success(function() {
                     dataObj.code = 200;
                     res.json(dataObj);
-                    req.login(userObj, function(err) {
+                    req.login(userObj.dataValues, function(err) {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log(req.user);
                             res.cookie('cs-user', req.user, {
                                 path: '/',
                                 httpOnly: false,
