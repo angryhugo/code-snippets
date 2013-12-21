@@ -259,6 +259,45 @@ module.exports = {
                 console.log(err);
             });
         });
+    },
+    updateProfile: function(req, res, next) {
+        var user = req.user || '';
+        var userId = req.params.user_id || '';
+        var name = req.body.name || '';
+        var dataObj = {};
+        User.find(userId).success(function(userObj) {
+            if (!userObj) {
+                dataObj.code = 400;
+                res.json(dataObj);
+            } else if (userId !== user.id) {
+                dataObj.code = 403;
+                res.json(dataObj);
+            } else {
+                userObj.name = name;
+                userObj.save().success(function() {
+                    dataObj.code = 200;
+                    res.json(dataObj);
+                    req.login(userObj, function(err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(req.user);
+                            res.cookie('cs-user', req.user, {
+                                path: '/',
+                                httpOnly: false,
+                                maxAge: 604800000
+                            });
+                        }
+                    });
+                }).error(function(err) {
+                    dataObj.code = 500;
+                    res.json(dataObj);
+                });
+            }
+        }).error(function(err) {
+            dataObj.code = 500;
+            res.json(dataObj);
+        });
     }
 };
 

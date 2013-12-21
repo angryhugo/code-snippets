@@ -6,7 +6,7 @@ var Message = {
     SIGNUP_SUCCESS: '恭喜你注册成功！请登录',
     EMAIL_REQUIRED: "邮箱不能为空",
     EMAIL_ERROR: "请输入有效的邮箱地址",
-    USERNAME_REQUIRED: "用户名不能为空",
+    USERNAME_REQUIRED: "昵称不能为空",
     PASSWORD_REQUIRED: "密码不能为空",
     PASSWORD_MIN_LENGTH: "密码至少需要 {0} 个字",
     PASSWORD_MAX_LENGTH: "密码不能超过 {0} 个字",
@@ -32,7 +32,10 @@ var Message = {
     UNFOLLOW_CONFIRM: "确定要取消关注该用户吗？",
     //update snippet
     UPDATE_SNIPPET_FORBIDDEN: "你无权修改该代码片段",
-    UPDATE_SNIPPET_SUCCESS: "成功更新代码片段"
+    UPDATE_SNIPPET_SUCCESS: "成功更新代码片段",
+    //update profile
+    UPDATE_PROFILE_FORBIDDEN: "你无权修改该用户资料",
+    UPDATE_PROFILE_SUCCESS: "成功更新资料",
 };
 
 var Opertation = {

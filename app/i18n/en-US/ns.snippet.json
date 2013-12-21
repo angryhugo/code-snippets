@@ -82,7 +82,9 @@
         "follow": "Follow",
         "favorite": "Favorite",
         "unsubscribe": "Unsubscribe",
-        "edit": "Edit"
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "save": "Save"
     },
     "search-snippet": {
         "searchFor": "Search Result For",
@@ -117,9 +119,12 @@
         "following": "Following",
         "follower": "Follower",
         "email": "Email",
-        "name": "Username",
+        "name": "Name",
         "unfollow": "Unfollow",
-        "follow": "Follow"
+        "follow": "Follow",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "save": "Save"
     },
     "pagination": {
         "next": "Next",

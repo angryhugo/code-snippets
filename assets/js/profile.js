@@ -18,6 +18,75 @@ $(function() {
     var _cAmount = parseInt($('#c-amount').val());
     var _csharpAmount = parseInt($('#csharp-amount').val());
 
+    var _editProfileLink = $('#link-edit-profile');
+    var _editLinkGroup = $('#edit-link-group');
+    var _cancelEditProfileLink = $('#link-cancel-edit');
+    var _submitProfileLink = $('#link-save-snippet');
+    var _nameInput = $('#input-name');
+    var _nameDiv = $('#div-name');
+    var _layoutCredentialName = $('#layout-credential-name');
+
+    _nameInput.on('keypress', function(event) {
+        if (event.which == 13) {
+            _submitProfileLink.click();
+        }
+    });
+
+    _editProfileLink.on('click', function() {
+        _nameInput.parent().removeClass('hide');
+        _editLinkGroup.removeClass('hide');
+        _nameDiv.addClass('hide');
+        $(this).addClass('hide');
+    });
+
+    _cancelEditProfileLink.on('click', function() {
+        showDivsHideInputs();
+        _nameInput.val(_nameDiv.text());
+    });
+
+    _submitProfileLink.on('click', function() {
+        setLinkGroup(true);
+        $.ajax({
+            type: 'POST',
+            url: '/users/' + _viewUserId.val() + '/profile',
+            data: {
+                _csrf: _csrf,
+                name: _nameInput.val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.code === 200) {
+                    _layoutCredentialName.text(' ' + _nameInput.val());
+                    _nameDiv.text(_nameInput.val());
+                    bootbox.alert(Message.UPDATE_PROFILE_SUCCESS);
+                } else if (data.code === 400) {
+                    bootbox.alert(Message.USER_NOT_EXSIT);
+                } else if (data.code === 403) {
+                    bootbox.alert(Message.UPDATE_PROFILE_FORBIDDEN);
+                } else {
+                    bootbox.alert(Message.SERVER_ERROR);
+                }
+                showDivsHideInputs();
+            },
+            error: function(xhr, status, err) {
+                bootbox.alert(xhr.responseText);
+            }
+        });
+        setLinkGroup(false);
+    });
+
+    function setLinkGroup(isDisabled) {
+        _submitProfileLink.attr('disabled', isDisabled);
+        _cancelEditProfileLink.attr('disabled', isDisabled);
+    };
+
+    function showDivsHideInputs() {
+        _nameInput.parent().addClass('hide');
+        _editLinkGroup.addClass('hide');
+        _nameDiv.removeClass('hide');
+        _editProfileLink.removeClass('hide');
+    };
+
     //Doughnut
     // var _testChart = $("#test-chart");
 

@@ -131,6 +131,9 @@ module.exports = {
                 dataObj.code = 403;
                 res.json(dataObj);
             }
+        }).error(function(err) {
+            dataObj.code = 500;
+            res.json(dataObj);
         });
     },
     searchSnippet: function(req, res, next) {

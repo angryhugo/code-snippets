@@ -49,8 +49,8 @@
         "emailPlaceholder": "email@example.com",
         "password": "密码",
         "passwordPlaceholder": "密码",
-        "name": "用户名",
-        "namePlaceholder": "用户名",
+        "name": "昵称",
+        "namePlaceholder": "昵称",
         "close": "关闭",
         "login": "登录",
         "checkEmail": "检查"
@@ -82,7 +82,9 @@
         "follow": "关注",
         "favorite": "收藏",
         "unsubscribe": "取消收藏",
-        "edit": "编辑"
+        "edit": "编辑",
+        "cancel": "取消",
+        "save": "保存"
     },
     "search-snippet": {
         "searchFor": "搜索",
@@ -118,9 +120,12 @@
         "following": "关注",
         "follower": "粉丝",
         "email": "邮箱",
-        "name": "用户名",
+        "name": "昵称",
         "unfollow": "取消关注",
-        "follow": "关注"
+        "follow": "关注",
+        "edit": "编辑",
+        "cancel": "取消",
+        "save": "保存"
     },
     "pagination": {
         "next": "下一页",

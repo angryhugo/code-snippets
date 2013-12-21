@@ -73,6 +73,7 @@ module.exports = function(app) {
     app.get('/users/:user_id/password', controller.ensureAuthenticated, userController.modifyPassword);
     app.post('/users/:user_id/password', controller.ensureAuthenticated, userController.doModifyPassword);
     app.get('/users/:user_id/profile', controller.ensureAuthenticated, controller.viewProfile);
+    app.post('/users/:user_id/profile', controller.ensureAuthenticated, userController.updateProfile);
 
     app.get('/snippets/new', controller.ensureAuthenticated, snippetController.newSnippet);
     app.post('/snippets/new', controller.ensureAuthenticated, snippetController.doNewSnippet);

@@ -40,7 +40,7 @@ block main
                 input#input-snippet-type-id(type='hidden',value='#{snippet.type.id}')
                 input#input-snippet-hidden(type='hidden',value='#{snippet.snippet}')
                 div.form-group
-                    label.col-sm-2.col-md-1.control-label
+                    label.col-sm-2.col-md-1.control-label(for='input-snippet-title')
                         | #{t("view-snippet.snippetTitle")}
                     div#div-snippet-title.div-content.col-sm-8.col-md-9
                         | #{snippet.title}
@@ -68,7 +68,7 @@ block main
                                     option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 
                                         | #{type.typeName}
                 div.form-group
-                    label.col-sm-2.col-md-1.control-label
+                    label.col-sm-2.col-md-1.control-label(for='input-snippet-content')
                         | #{t("view-snippet.snippetContent")}
                     div#div-snippet-content.div-content.col-sm-10.col-md-11
                         pre
@@ -79,9 +79,9 @@ block main
                 div#edit-link-group.form-group.hide
                     div.col-sm-offset-2.col-md-offset-1.col-sm-4
                         a#link-save-snippet.btn.btn-success
-                            | save
+                            | #{t("view-snippet.save")}
                         a#link-cancel-edit.btn.btn-info.btn-right
-                            | cancel
+                            | #{t("view-snippet.cancel")}
 
 block scripts
     - if (nodeEnv == "production") {

@@ -32,7 +32,10 @@ var Message = {
     UNFOLLOW_CONFIRM: "Are you sure to unfollow the user?",
     //update snippet
     UPDATE_SNIPPET_FORBIDDEN: "You are not allowed to update the code snippet",
-    UPDATE_SNIPPET_SUCCESS: "Update code snippet successfully"
+    UPDATE_SNIPPET_SUCCESS: "Update code snippet successfully",
+    //update profile
+    UPDATE_PROFILE_FORBIDDEN: "You are not allowed to update the profile",
+    UPDATE_PROFILE_SUCCESS: "Update profile successfully",
 };
 
 var Opertation = {

@@ -103,6 +103,9 @@ $(function() {
                 } else if (data.code === 403) {
                     showDivsHideInputs();
                     bootbox.alert(Message.UPDATE_SNIPPET_FORBIDDEN);
+                } else {
+                    showDivsHideInputs();
+                    bootbox.alert(Message.SERVER_ERROR);
                 }
             },
             error: function(xhr, status, err) {

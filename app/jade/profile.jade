@@ -63,17 +63,31 @@ block main
                 div.tab-content
                     div#profile.tab-pane.active
                         div.row
-                            div.col-xs-offset-2.col-xs-10.col-md-offset-0.col-md-6.form-horizontal(style="padding:5%")
-                                div.form-group
-                                    label.col-xs-3.col-md-4.control-label
-                                        | #{t("profile.name")}
-                                    div.col-xs-8.col-md-8
-                                        | #{viewUserObj.name}
-                                div.form-group
-                                    label.col-xs-3.col-md-4.control-label
-                                        | #{t("profile.email")}
-                                    div.col-xs-8.col-md-8
-                                        | #{viewUserObj.email}
+                            div.col-xs-10.col-md-6
+                                div.row.form-horizontal
+                                    div.col-xs-10
+                                        div.form-group
+                                            label.col-xs-2.control-label(for='input-name')
+                                                | #{t("profile.name")}
+                                            div#div-name.div-content.col-xs-8
+                                                | #{viewUserObj.name}
+                                            if isSelf
+                                                div.col-xs-8.hide
+                                                    input#input-name.form-control(type='text',value='#{viewUserObj.name}')
+                                                div.col-xs-2
+                                                    a#link-edit-profile.link-tooltip.pull-right(href='javascript:',data-original-title='#{t("profile.edit")}',data-placement='left')
+                                                        i.fa.fa-edit
+                                        div.form-group
+                                            label.col-xs-2.control-label
+                                                | #{t("profile.email")}
+                                            div.div-content.col-xs-8
+                                                | #{viewUserObj.email}
+                                        div#edit-link-group.form-group.hide
+                                            div.col-xs-10
+                                                a#link-save-snippet.btn.btn-success.btn-sm
+                                                    | #{t("profile.save")}
+                                                a#link-cancel-edit.btn.btn-info.btn-right.btn-sm
+                                                    | #{t("profile.cancel")}
                             //- Doughnut
                             //- div.col-xs-offset-2.col-xs-6.col-md-offset-0.col-md-4(height=300)
                             //-     canvas#test-chart(width=200,height=200)
@@ -90,7 +104,7 @@ block main
                             //- div.col-xs-offset-2.col-xs-12.col-md-offset-0.col-md-6(height=400)
                             //-     canvas#line-chart(width=300,height=300)
                             //- Radar
-                            div.col-xs-offset-2.col-xs-10.col-md-offset-0.col-md-6(height=400)
+                            div.col-xs-10.col-md-6(height=400)
                                 canvas#radar-chart(width=300,height=300)
                     div#mine.tab-pane
                     if isSelf
