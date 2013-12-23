@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PORT=12481
+PORT=12344
 
 case $1 in
     dev)
@@ -12,7 +12,7 @@ case $1 in
         supervisor --debug ./app/app.js
     ;;
     -help|*)
-        echo "Params: {start | debug | -help}"
+        echo "Params: {dev | debug | -help}"
         exit 1
     ;;
 esac
