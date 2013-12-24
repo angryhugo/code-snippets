@@ -87,7 +87,8 @@ function getAmountObj(userId, callback) {
                 var opiton = {
                     where: {
                         user_id: userId,
-                        type_id: 1
+                        type_id: 1,
+                        is_deleted: false
                     }
                 };
                 CodeSnippet.count(opiton).success(function(jsAmount) {
@@ -98,7 +99,8 @@ function getAmountObj(userId, callback) {
                 var opiton = {
                     where: {
                         user_id: userId,
-                        type_id: 2
+                        type_id: 2,
+                        is_deleted: false
                     }
                 };
                 CodeSnippet.count(opiton).success(function(javaAmount) {
@@ -109,7 +111,8 @@ function getAmountObj(userId, callback) {
                 var opiton = {
                     where: {
                         user_id: userId,
-                        type_id: 3
+                        type_id: 3,
+                        is_deleted: false
                     }
                 };
                 CodeSnippet.count(opiton).success(function(cAmount) {
@@ -120,7 +123,8 @@ function getAmountObj(userId, callback) {
                 var opiton = {
                     where: {
                         user_id: userId,
-                        type_id: 4
+                        type_id: 4,
+                        is_deleted: false
                     }
                 };
                 CodeSnippet.count(opiton).success(function(csharpAmount) {
