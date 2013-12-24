@@ -1,5 +1,7 @@
 $(function() {
     "use strict";
+    var _searchInputInNavbar = $('#input-search-navbar');
+    var _searchBtnInNavbar = $('#btn-search-navbar');
 
     $('.link-tooltip').tooltip();
 
@@ -30,5 +32,11 @@ $(function() {
 
     $('#link-back').on('click', function() {
         history.back();
+    });
+
+    _searchInputInNavbar.on('focus', function() {
+        _searchBtnInNavbar.addClass('btn-search-navbar-focus');
+    }).on('blur', function() {
+        _searchBtnInNavbar.removeClass('btn-search-navbar-focus');
     });
 });

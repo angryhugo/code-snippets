@@ -13,10 +13,10 @@ nav.navbar.navbar-default.navbar-fixed-top
                 li
                     form#form-inline-navbar.form-inline(role='form',action='/snippets/search',method='get')
                         div.input-group
-                            span.input-group-addon
-                                i.fa.fa-search
-                            //- label.sr-only(for='input-search-navbar')
                             input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("layout.searchPlaceholder")}',autocomplete="off")
+                            span.input-group-btn
+                                button#btn-search-navbar.btn.btn-success
+                                    i.fa.fa-search
                 li
                     a.link-tooltip(href="/snippets/new",data-toggle='tooltip', data-original-title='#{t("navbar-authorized.createNew")}', data-placement='bottom')
                         i.fa.fa-plus

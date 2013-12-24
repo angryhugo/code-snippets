@@ -46,15 +46,27 @@ pre code {
     .input-group {
         width: 1px;
         .form-control {
-            height: 26px;
+            height: 28px;
         }
-        #input-search-navbar{
+        #input-search-navbar {
             width: 156px;
-            // background-color: rgba(255,255,255,0.5);
+            background-color: rgba(235, 235, 235, 0.5);
             &:focus {
                 width: 256px;
                 background-color: white;
                 border-color: #5cb85c;
+            }
+        }
+        .input-group-btn {
+            #btn-search-navbar {
+                background-color: rgba(92, 184, 92, 0.5);
+                border-color: rgba(76, 174, 76, 0);
+                padding: 3px 5px 3px 5px;
+                height: 28px;
+            }
+            .btn-search-navbar-focus {
+                background-color: rgba(92, 184, 92, 1) ! important;
+                border-color: rgba(76, 174, 76, 1) ! important;
             }
         }
     }
