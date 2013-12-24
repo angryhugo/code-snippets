@@ -30,7 +30,8 @@
         "signup": "注册"
     },
     "layout": {
-        "messagesFile": "constants_cn"
+        "messagesFile": "constants_cn",
+        "searchPlaceholder": "搜索"
     },
     "index": {
         "projectName": "代码片段",

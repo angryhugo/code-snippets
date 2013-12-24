@@ -23,7 +23,8 @@
         "signup": "Sign up"
     },
     "layout": {
-        "messagesFile": "constants_en"
+        "messagesFile": "constants_en",
+        "searchPlaceholder": "search"
     },
     "index": {
         "projectName": "Code Snippets",
