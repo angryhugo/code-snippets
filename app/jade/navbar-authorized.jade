@@ -12,7 +12,9 @@ nav.navbar.navbar-default.navbar-fixed-top
             ul.nav.navbar-nav.navbar-right
                 li
                     form#form-inline-navbar.form-inline(role='form',action='/snippets/search',method='get')
-                        div.from-group
+                        div.input-group
+                            span.input-group-addon
+                                i.fa.fa-search
                             //- label.sr-only(for='input-search-navbar')
                             input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("layout.searchPlaceholder")}',autocomplete="off")
                 li
