@@ -93,7 +93,7 @@
         "snippetTitle": "Title",
         "type": "Type",
         "creater": "Creator",
-        "createTime": "Created Time",
+        "createTime": "Created At",
         "viewTitle": "more",
         "noSnippet": "There's no snippet related",
         "backBtn": "Back",
@@ -112,7 +112,7 @@
     "profile": {
         "title": "Home",
         "backBtn": "Back",
-        "delete": "delete",
+        "delete": "Delete",
         "profile": "Profile",
         "mine": "Mine",
         "favorite": "Favorite",
@@ -130,5 +130,13 @@
     "pagination": {
         "next": "Next",
         "previous": "Previous"
+    },
+    "admin-accounts": {
+        "title": "Account Management",
+        "email": "Email",
+        "name": "Name",
+        "createTime": "Created At",
+        "updateTime": "Updated At",
+        "deleteTitle": "Delete"
     }
 }

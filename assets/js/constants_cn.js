@@ -22,13 +22,13 @@ var Message = {
     PASSWORD_SAVE_ERROR: "修改密码失败",
     PASSWORD_WRONG_ERROR: "旧密码不正确",
     //delete snippet
-    DELETE_SNIPPET_CONFIRM: "确定要删除该代码片段？",
+    DELETE_SNIPPET_CONFIRM: "确定要删除该代码片段吗？",
     DELETE_SNIPPET_SUCCESS: "成功删除代码片段",
     SNIPPET_NOT_EXSIT: "该代码片段不存在",
     DELETE_SNIPPET_FORBIDDEN: "你无权删除该代码片段",
 
     USER_NOT_EXSIT: "该用户不存在",
-    UNSUBSCRIBE_SNIPPET_CONFIRM: "确定要取消收藏该代码片段？",
+    UNSUBSCRIBE_SNIPPET_CONFIRM: "确定要取消收藏该代码片段吗？",
     UNFOLLOW_CONFIRM: "确定要取消关注该用户吗？",
     //update snippet
     UPDATE_SNIPPET_FORBIDDEN: "你无权修改该代码片段",
@@ -36,6 +36,9 @@ var Message = {
     //update profile
     UPDATE_PROFILE_FORBIDDEN: "你无权修改该用户资料",
     UPDATE_PROFILE_SUCCESS: "成功更新资料",
+
+    DELETE_USER_CONFIRM: "确定要删除该用户吗？",
+    DELETE_USER_SUCCESS: "成功删除用户"
 };
 
 var Opertation = {

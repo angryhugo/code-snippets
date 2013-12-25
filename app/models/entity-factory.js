@@ -58,8 +58,6 @@ var User = sequelize.define('Users', {
         allowNull: false,
         defaultValue: -1
     }
-}, {
-    timestamps: false
 });
 
 var CodeSnippet = sequelize.define('CodeSnippets', {
@@ -176,6 +174,7 @@ sequelize.sync({
     User.count().success(function(total) {
         if (total < 1) {
             var initUser = require('../init/init-user');
+            var initAdmin = require('../init/init-admin');
         }
     });
     SnippetType.count().success(function(total) {

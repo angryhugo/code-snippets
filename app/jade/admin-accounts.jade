@@ -1,0 +1,58 @@
+extends layout
+
+block title
+    | #{t("admin-accounts.title")}
+
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/admin-accounts.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/static/css/admin-accounts.css')
+    - }
+
+block main
+    include ./pager-mixin
+    input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+    div.container.nav-margin
+        div.page-header
+            h3
+                | #{t("admin-accounts.title")}
+        if accountList.length>0
+            table#table-accounts.table
+                thead
+                    tr
+                        th.col-md-3
+                            | #{t("admin-accounts.email")}
+                        th.col-md-3 
+                            | #{t("admin-accounts.name")}
+                        th.col-md-2 
+                            | #{t("admin-accounts.createTime")}
+                        th.col-md-2
+                            | #{t("admin-accounts.updateTime")}
+                        th.col-md-1
+                for account in accountList
+                    tr(id='#{account.id}')
+                        td.col-md-3
+                            | #{account.email}
+                        td.col-md-3 
+                            | #{account.name}
+                        td.col-md-2 
+                            | #{account.createTime}
+                        td.col-md-2
+                            | #{account.updateTime}
+                        td.col-md-1
+                            a.link-delete-account.link-tooltip.pull-right(data-id='#{account.id}',data-original-title='#{t("admin-accounts.deleteTitle")}', data-placement='left')
+                                i.fa.fa-times.fa-lg
+            mixin pager(pagination.pager, pagination.url)
+        else
+            h3
+                | #{t("admin-accounts.noAccount")}
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/admin-accounts.min.js')
+    - }
+    - else {
+        //- script(type='text/javascript', src='/assets/vendor/jquery/jquery.tablesorter.js')
+        script(type='text/javascript', src='/assets/js/admin-accounts.js')
+    - }

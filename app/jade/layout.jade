@@ -72,14 +72,16 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                                 img(src="/static/images/opera.gif")
                                 | Opera 12+
         | <!--[if gte IE 8]><!-->
-        - if (credential) {
-            include navbar-authorized
-        - }
-        - else {
+        if !credential
             include navbar-unauthorized
             include modal-login
             include modal-signup
-        - }
+        else if credential.admin_type === -1
+            include navbar-authorized
+        else if credential.admin_type === 0
+            include navbar-admin-account
+        else
+            include navbar-admin-module
 
 
         block main

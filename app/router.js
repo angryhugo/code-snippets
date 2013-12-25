@@ -94,7 +94,8 @@ module.exports = function(app) {
     app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
     app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
 
-    app.get('/admin/account', controller.ensureAuthenticated, controller.adminEnsureAuthenticated, adminController.accountIndex);
+    app.get('/admin/accounts', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountIndex);
+    app.post('/admin/accounts/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
 
     app.use(function(req, res) {
         res.render('404', {

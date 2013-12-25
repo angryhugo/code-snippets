@@ -25,19 +25,18 @@ module.exports = {
                     if (err) {
                         console.log(err);
                         res.redirect('/?error=1'); //account error
-                    } else {
-                        return next();
                     }
+                    return next();
                 });
             } else {
                 res.redirect('/?error=3'); //ask for login
             }
         }
     },
-    adminEnsureAuthenticated: function(req, res, next) {
+    adminAccountEnsureAuthenticated: function(req, res, next) {
         var adminType = req.user.admin_type;
         adminType = parseInt(adminType);
-        if (adminType < 0) {
+        if (adminType !== 0) {
             errHandler(null, PERMISSION_NOT_ALLOWED, next);
         } else {
             return next();

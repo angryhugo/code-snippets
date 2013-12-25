@@ -52,7 +52,7 @@ block main
                         td.col-md-3
                             | #{snippet.createTime}
                         td.col-md-1
-                            a#link-view-snippet.link-tooltip(href='/snippets/#{snippet.id}',data-original-title='#{t("search-snippet.viewTitle")}', data-placement='left')
+                            a.link-view-snippet.link-tooltip.pull-right(href='/snippets/#{snippet.id}',data-original-title='#{t("search-snippet.viewTitle")}', data-placement='left')
                                 i.fa.fa-eye.fa-lg
             mixin pager(pagination.pager, pagination.url)
         else

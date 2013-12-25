@@ -31,10 +31,10 @@ module.exports = {
             returnUrl = req.session.returnUrl || '/';
         } else if (req.user.admin_type === 0) {
             //accont admin
-            returnUrl = req.session.returnUrl || '/admin/account';
+            returnUrl = req.session.returnUrl || '/admin/accounts';
         } else {
             //accont admin
-            returnUrl = req.session.returnUrl || '/admin/module';
+            returnUrl = req.session.returnUrl || '/admin/modules';
         }
         res.redirect(returnUrl);
     },

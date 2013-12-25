@@ -1,0 +1,28 @@
+[
+    {
+        "email": "admin@123.com",
+        "name": "admin",
+        "password": "123456",
+        "admin_type": "0"
+    }, {
+        "email": "javascript@123.com",
+        "name": "jsAdmin",
+        "password": "123456",
+        "admin_type": "1"
+    }, {
+        "email": "java@123.com",
+        "name": "javaAdmin",
+        "password": "123456",
+        "admin_type": "2"
+    }, {
+        "email": "c@123.com",
+        "name": "cAdmin",
+        "password": "123456",
+        "admin_type": "3"
+    }, {
+        "email": "csharp@123.com",
+        "name": "csharpAdmin",
+        "password": "123456",
+        "admin_type": "4"
+    }
+]

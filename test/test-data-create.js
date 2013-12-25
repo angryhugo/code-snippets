@@ -15,7 +15,7 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 
 var USER_AMOUNT = 100;
-var HANCHUNYIN_ID = '8d1cd604ba124aa7a8d924f73664ecd1';
+var HANCHUNYIN_ID = '9dc634c3174a48439eaa59cfa687be14';
 
 var createUsers = function(amount, callback) {
 	var userEntities = [];

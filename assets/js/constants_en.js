@@ -36,6 +36,9 @@ var Message = {
     //update profile
     UPDATE_PROFILE_FORBIDDEN: "You are not allowed to update the profile",
     UPDATE_PROFILE_SUCCESS: "Update profile successfully",
+
+    DELETE_USER_CONFIRM: "Are you sure to delete the user?",
+    DELETE_USER_SUCCESS: "Delete user successfully"
 };
 
 var Opertation = {

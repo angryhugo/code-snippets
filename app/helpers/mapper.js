@@ -2,6 +2,23 @@ var moment = require('moment');
 var async = require('async');
 
 module.exports = {
+    searchUserMapper: function(userObj) {
+        return {
+            id: userObj.id,
+            email: userObj.email,
+            name: userObj.name,
+            createTime: moment(userObj.created_at).format('YYYY-MM-DD HH:mm'),
+            updateTime: moment(userObj.updated_at).format('YYYY-MM-DD HH:mm'),
+        };
+    },
+    searchUserListMapper: function(userList) {
+        var searchUserList = [];
+        for (var i = 0; i < userList.length; i++) {
+            var searchUser = this.searchUserMapper(userList[i]);
+            searchUserList.push(searchUser);
+        }
+        return searchUserList;
+    },
     viewSnippetMapper: function(snippetObj) {
         return {
             id: snippetObj.id,
