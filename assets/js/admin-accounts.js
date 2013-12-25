@@ -13,12 +13,12 @@ $(function() {
     _accountTable.find("tr:even").addClass('even');
 
     _deleteAccountLink.on('click', function() {
-        var self = $(this);
+        var userId = $(this).attr('data-id');
         bootbox.confirm(Message.DELETE_USER_CONFIRM, function(result) {
             if (result) {
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/accounts/' + self.attr('data-id'),
+                    url: '/admin/accounts/' + userId,
                     data: {
                         _csrf: _csrf
                     },
@@ -26,6 +26,7 @@ $(function() {
                     success: function(data) {
                         if (data.code === 200) {
                             bootbox.alert(Message.DELETE_USER_SUCCESS);
+                            $('#' + userId).remove();
                         } else if (data.code === 400) {
                             bootbox.alert(Message.USER_NOT_EXSIT);
                         } else {
