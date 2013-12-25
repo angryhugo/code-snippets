@@ -52,6 +52,11 @@ var User = sequelize.define('Users', {
     password: {
         allowNull: false,
         type: Sequelize.STRING
+    },
+    admin_type: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: -1
     }
 }, {
     timestamps: false

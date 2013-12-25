@@ -1,5 +1,6 @@
 var controller = require('./controllers/controller');
 var userController = require('./controllers/user-controller');
+var adminController = require('./controllers/admin-controller');
 var snippetController = require('./controllers/snippet-controller');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -92,6 +93,8 @@ module.exports = function(app) {
     app.delete('/api/snippets/:snippet_id', controller.ensureAuthenticated, snippetController.deleteSnippet);
     app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
     app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
+
+    app.get('/admin/account', controller.ensureAuthenticated, controller.adminEnsureAuthenticated, adminController.accountIndex);
 
     app.use(function(req, res) {
         res.render('404', {

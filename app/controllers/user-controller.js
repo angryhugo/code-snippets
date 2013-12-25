@@ -26,7 +26,16 @@ module.exports = {
             httpOnly: false,
             maxAge: 604800000
         });
-        var returnUrl = req.session.returnUrl || '/';
+        var returnUrl = '';
+        if (req.user.admin_type === -1) {
+            returnUrl = req.session.returnUrl || '/';
+        } else if (req.user.admin_type === 0) {
+            //accont admin
+            returnUrl = req.session.returnUrl || '/admin/account';
+        } else {
+            //accont admin
+            returnUrl = req.session.returnUrl || '/admin/module';
+        }
         res.redirect(returnUrl);
     },
     doSignUp: function(req, res, next) {

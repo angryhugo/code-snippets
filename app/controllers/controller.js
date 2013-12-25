@@ -4,6 +4,8 @@ var entityFactory = require('../models/entity-factory');
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
+var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
+var SERVER_ERROR = 'Server error';
 
 String.prototype.trim = function() {
     return this.replace(/(^\s*)|(\s*$)/g, "");
@@ -23,12 +25,22 @@ module.exports = {
                     if (err) {
                         console.log(err);
                         res.redirect('/?error=1'); //account error
+                    } else {
+                        return next();
                     }
-                    return next();
                 });
             } else {
                 res.redirect('/?error=3'); //ask for login
             }
+        }
+    },
+    adminEnsureAuthenticated: function(req, res, next) {
+        var adminType = req.user.admin_type;
+        adminType = parseInt(adminType);
+        if (adminType < 0) {
+            errHandler(null, PERMISSION_NOT_ALLOWED, next);
+        } else {
+            return next();
         }
     },
     index: function(req, res, next) {
@@ -67,13 +79,13 @@ module.exports = {
                 })
             }
         }).error(function(err) {
-            errHandler(err, 'server error!', next);
+            errHandler(err, SERVER_ERROR, next);
         });
     }
 };
 
 function errHandler(err, message, next) {
-    console.log(err);
+    // console.log(err);
     var error = {
         message: message,
         detail: err
