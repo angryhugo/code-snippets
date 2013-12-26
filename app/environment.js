@@ -25,7 +25,8 @@ module.exports = function(app, express) {
 
     i18n.init({
         lng: "zh-CN",
-        fallbackLng: 'zh-CN',
+        // fallbackLng: 'zh-CN', //this will fallback zh-CN while the field does not exist
+        fallbackLng: false,
         ns: {
             namespaces: ['ns.snippet'],
             defaultNs: 'ns.snippet'
