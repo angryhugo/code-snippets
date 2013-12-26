@@ -1,5 +1,6 @@
 $(function() {
     "use strict";
+    $('.selectpicker').selectpicker();
     hljs.initHighlightingOnLoad();
     var _csrf = $('#input-csrf').val();
     var _snippetId = $('#input-snippet-id').val();

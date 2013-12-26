@@ -61,7 +61,8 @@
         "contentPlaceholder": "请输入代码片段",
         "snippetType": "类别",
         "submitBtn": "保存",
-        "backBtn": "返回"
+        "backBtn": "返回",
+        "selectHeader": "选择一种语言："
     },
     "error": {
         "title": "错误页面",

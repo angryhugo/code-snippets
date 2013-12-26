@@ -7,6 +7,7 @@ append head
         link(rel='stylesheet', href='/static/css/view-snippet.min.css')
     - }
     - else {
+        link(rel='stylesheet', href='/assets/vendor/bootstrap-select/bootstrap-select.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/codemirror.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/base16-light.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/addon/display/fullscreen.css')
@@ -28,7 +29,8 @@ block main
                 label.col-lg-3.control-label(for='select-snippet-type')
                     | #{t("new-snippet.snippetType")}
                 div.col-lg-9
-                    select#select-snippet-type.form-control(name='type_id')
+                    //- select: data-header='#{t("new-snippet.selectHeader")}'
+                    select#select-snippet-type.form-control.selectpicker(name='type_id',data-live-search='true')
                         if typeList.length>0
                             for type in typeList
                                 option(value="#{type.id}") 
@@ -50,6 +52,7 @@ block scripts
         script(type='text/javascript', src='/static/js/new-snippet.min.js')
     - }
     - else {
+        script(type='text/javascript', src='/assets/vendor/bootstrap-select/bootstrap-select.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/js/codemirror.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/js/clike.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/addon/display/fullscreen.js')

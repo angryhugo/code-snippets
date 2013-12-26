@@ -54,7 +54,8 @@
         "contentPlaceholder": "Input your code snippet",
         "snippetType": "Type",
         "submitBtn": "Save",
-        "backBtn": "Back"
+        "backBtn": "Back",
+        "selectHeader": "Select one language:"
     },
     "error": {
         "title": "Error Page",

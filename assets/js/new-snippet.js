@@ -1,5 +1,6 @@
 $(function() {
 	"use strict";
+	$('.selectpicker').selectpicker();
 	var _submitBtn = $('#btn-submit');
 	var _backLink = $('#link-back');
 	var _newSnippetForm = $('#form-new-snippet');

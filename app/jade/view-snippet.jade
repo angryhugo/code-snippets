@@ -7,10 +7,11 @@ append head
         link(rel='stylesheet', href='/static/css/view-snippet.min.css')
     - }
     - else {
-        link(rel='stylesheet', href='/static/css/view-snippet.css')
+        link(rel='stylesheet', href='/assets/vendor/bootstrap-select/bootstrap-select.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/codemirror.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/base16-light.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/addon/display/fullscreen.css')
+        link(rel='stylesheet', href='/static/css/view-snippet.css')
         //- link(rel='stylesheet', href='/assets/vendor/codemirror/css/paraiso-light.css')
     - }
 block main
@@ -66,7 +67,7 @@ block main
                     div#div-snippet-type.div-content.col-sm-10.col-md-11
                         | #{snippet.type.name}
                     div.col-sm-10.col-md-11.hide
-                        select#select-snippet-type.form-control(name='type_id')
+                        select#select-snippet-type.form-control.selectpicker(name='type_id',data-live-search='true')
                             if typeList.length>0
                                 for type in typeList
                                     option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 
@@ -93,6 +94,7 @@ block scripts
         script(type='text/javascript', src='/static/js/view-snippet.min.js')
     - }
     - else {
+        script(type='text/javascript', src='/assets/vendor/bootstrap-select/bootstrap-select.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/js/codemirror.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/js/clike.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/addon/display/fullscreen.js')
