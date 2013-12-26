@@ -7,6 +7,7 @@ var mapper = require('../helpers/mapper');
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
 var FOLLOW_PAGE_TAKE = 24;
+var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 
 module.exports = {
     // findUserByEmail: function(email, callback) {
@@ -60,7 +61,7 @@ module.exports = {
         var user = req.user || '';
         var userId = req.params.user_id || '';
         if (userId !== user.id) {
-            errHandler(null, 'forbidden!', next);
+            errHandler(null, PERMISSION_NOT_ALLOWED, next);
         } else {
             res.render('password', {
                 // credential: user,

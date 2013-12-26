@@ -73,14 +73,14 @@ module.exports = function(app) {
 
     app.get('/users/:user_id/password', controller.ensureAuthenticated, userController.modifyPassword);
     app.post('/users/:user_id/password', controller.ensureAuthenticated, userController.doModifyPassword);
-    app.get('/users/:user_id/profile', controller.ensureAuthenticated, controller.viewProfile);
-    app.post('/users/:user_id/profile', controller.ensureAuthenticated, userController.updateProfile);
+    app.get('/users/:user_id/profile', controller.ensureAuthenticated, controller.userEnsureAuthenticated, controller.viewProfile);
+    app.post('/users/:user_id/profile', controller.ensureAuthenticated, controller.userEnsureAuthenticated, userController.updateProfile);
 
     app.get('/snippets/new', controller.ensureAuthenticated, snippetController.newSnippet);
     app.post('/snippets/new', controller.ensureAuthenticated, snippetController.doNewSnippet);
     app.get('/snippets/search', autoLogin, snippetController.searchSnippet);
     app.get('/snippets/:snippet_id', autoLogin, snippetController.viewSnippet);
-    app.post('/snippets/:snippet_id', controller.ensureAuthenticated, snippetController.updateSnippet);
+    app.post('/snippets/:snippet_id', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.updateSnippet);
 
     app.post('/api/email', userController.checkEmail);
     app.post('/api/follow', controller.ensureAuthenticated, userController.followUser);

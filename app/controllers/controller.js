@@ -33,6 +33,15 @@ module.exports = {
             }
         }
     },
+    userEnsureAuthenticated: function(req, res, next) {
+        var adminType = req.user.admin_type;
+        adminType = parseInt(adminType);
+        if (adminType !== -1) {
+            errHandler(null, PERMISSION_NOT_ALLOWED, next);
+        } else {
+            return next();
+        }
+    },
     adminAccountEnsureAuthenticated: function(req, res, next) {
         var adminType = req.user.admin_type;
         adminType = parseInt(adminType);
