@@ -166,7 +166,6 @@ module.exports = {
                 }
             }
             whereString += ')';
-            console.log(whereString);
 
             url += 'keyword=' + keyword.trim() + '&type=' + typeId;
 

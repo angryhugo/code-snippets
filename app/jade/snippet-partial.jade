@@ -14,7 +14,7 @@ if snippetList.length>0
                     | #{snippet.type}
                 if isSelf
                     a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
-                        i.fa.fa-times
+                        i.fa.fa-times.fa-lg
     mixin internal-pager(pagination.pager)
 else
     | zero

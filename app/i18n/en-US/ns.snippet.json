@@ -1,17 +1,15 @@
 {
-    "navbar-authorized": {
+    "navbar": {
         "projectName": "Code Snippets",
         "password": "Password",
         "createNew": "Create New",
         "language": "Language",
         "logout": "Logout",
-        "home": "Home"
-    },
-    "navbar-unauthorized": {
-        "projectName": "Code Snippets",
-        "language": "Language",
+        "home": "Home",
         "signin": "Sign In",
-        "signup": "sign Up"
+        "signup": "sign Up",
+        "searchSnippetPlaceholder": "search",
+        "searchUserPlaceholder": "search user"
     },
     "login": {
         "login": "Login",
@@ -23,8 +21,7 @@
         "signup": "Sign up"
     },
     "layout": {
-        "messagesFile": "constants_en",
-        "searchPlaceholder": "search"
+        "messagesFile": "constants_en"
     },
     "index": {
         "projectName": "Code Snippets",
@@ -137,6 +134,7 @@
         "name": "Name",
         "createTime": "Created At",
         "updateTime": "Updated At",
-        "deleteTitle": "Delete"
+        "deleteTitle": "Delete",
+        "noAccount": "There's no user related"
     }
 }

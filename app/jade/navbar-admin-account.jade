@@ -2,7 +2,7 @@ nav.navbar.navbar-default.navbar-fixed-top
     div.container
         div.navbar-header
             a.navbar-brand(href="/admin/accounts",style="border-right:'1px solid #cccccc';") 
-                | #{t("navbar-authorized.projectName")}
+                | #{t("navbar.projectName")}
             button.navbar-toggle(type="button",data-toggle="collapse", data-target="#navbar-collapse-1")
                     span.sr-only Toggle navigation
                     span.icon-bar
@@ -10,15 +10,15 @@ nav.navbar.navbar-default.navbar-fixed-top
                     span.icon-bar
         div#navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
-                //- li
-                //-     form#form-inline-navbar.form-inline(role='form',action='/snippets/search',method='get')
-                //-         div.input-group
-                //-             input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("layout.searchPlaceholder")}',autocomplete="off")
-                //-             span.input-group-btn
-                //-                 button#btn-search-navbar.btn.btn-success
-                //-                     i.fa.fa-search
+                li
+                    form#form-inline-navbar.form-inline(role='form',action='/admin/accounts',method='get')
+                        div.input-group
+                            input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("navbar.searchUserPlaceholder")}',autocomplete="off")
+                            span.input-group-btn
+                                button#btn-search-navbar.btn.btn-success
+                                    i.fa.fa-search
                 li.dropdown
-                    a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title='#{t("navbar-authorized.language")}', data-placement='bottom',data-toggle="dropdown")
+                    a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title='#{t("navbar.language")}', data-placement='bottom',data-toggle="dropdown")
                         i.fa.fa-globe.fa-spin
                     ul.dropdown-menu
                         li
@@ -32,10 +32,13 @@ nav.navbar.navbar-default.navbar-fixed-top
                         b.caret
                     ul.dropdown-menu
                         li
-                            a#btn-change-password(href='/admin/#{credential.id}/password')
+                            a(href="/admin/accounts")
+                                i.fa.fa-home
+                                | &nbsp;#{t("navbar.home")}
+                            a#btn-change-password(href='/users/#{credential.id}/password')
                                 i.fa.fa-lock
-                                | &nbsp;&nbsp;#{t("navbar-authorized.password")}
+                                | &nbsp;&nbsp;#{t("navbar.password")}
                             a(href="/users/logout")
                                 i.fa.fa-sign-out
-                                | &nbsp;#{t("navbar-authorized.logout")}
+                                | &nbsp;#{t("navbar.logout")}
             

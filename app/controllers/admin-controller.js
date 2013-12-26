@@ -14,18 +14,18 @@ var SERVER_ERROR = 'Server error';
 module.exports = {
     accountIndex: function(req, res, next) {
         var page = req.query.page || 1;
-        var url = req.path + '?';
-        var whereObj = {
-            admin_type: -1
-        };
+        var keyword = req.query.keyword || '';
+        var url = req.path + '?keyword=' + keyword;
+        var whereString = 'admin_type = "-1" AND ';
+        whereString += '(name LIKE "%' + keyword + '%" OR email LIKE "%' + keyword + '%")';
         User.count({
-            where: whereObj
+            where: whereString
         }).success(function(userTotal) {
             var pageParams = utils.generatePageParams(userTotal, USER_PAGE_TAKE, page);
             var option = {
                 offset: pageParams.skip,
                 limit: USER_PAGE_TAKE,
-                where: whereObj,
+                where: whereString,
                 order: 'created_at DESC'
             };
             User.findAll(option).success(function(users) {

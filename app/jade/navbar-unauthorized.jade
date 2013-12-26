@@ -2,7 +2,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
     div.container
         div.navbar-header
             a.navbar-brand(href="/") 
-                | #{t("navbar-unauthorized.projectName")}
+                | #{t("navbar.projectName")}
             button.navbar-toggle(type="button",data-toggle="collapse", data-target="#navbar-collapse-1")
                         span.sr-only Toggle navigation
                         span.icon-bar
@@ -13,18 +13,18 @@ nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
                 li
                     form#form-inline-navbar.form-inline(role='form',action='/snippets/search',method='get')
                         div.input-group
-                            input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("layout.searchPlaceholder")}',autocomplete="off")
+                            input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("navbar.searchSnippetPlaceholder")}',autocomplete="off")
                             span.input-group-btn
                                 button#btn-search-navbar.btn.btn-success
                                     i.fa.fa-search
                 li
-                    a#link-show-login-modal.link-tooltip(data-toggle="modal",data-target="#modal-login", data-original-title="#{t('navbar-unauthorized.signin')}", data-placement="bottom")
+                    a#link-show-login-modal.link-tooltip(data-toggle="modal",data-target="#modal-login", data-original-title="#{t('navbar.signin')}", data-placement="bottom")
                         i.fa.fa-sign-in
                 li
-                    a#link-show-sign-up-modal.link-tooltip(data-toggle="modal",data-target="#modal-sign-up", data-original-title="#{t('navbar-unauthorized.signup')}", data-placement="bottom")
+                    a#link-show-sign-up-modal.link-tooltip(data-toggle="modal",data-target="#modal-sign-up", data-original-title="#{t('navbar.signup')}", data-placement="bottom")
                         i.fa.fa-user
                 li.dropdown
-                    a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title="#{t('navbar-unauthorized.language')}", data-placement="bottom",data-toggle="dropdown")
+                    a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title="#{t('navbar.language')}", data-placement="bottom",data-toggle="dropdown")
                         i.fa.fa-globe
                     ul.dropdown-menu
                         li

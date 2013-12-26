@@ -60,7 +60,6 @@ $(function() {
         _snippetTitleInput.val(_snippetTitleDiv.html());
         _snippetTypeInput.val(_snippetTypeId);
 
-        _snippetContentInput.click();
         // _snippetContentInput.val(_snippetContent);
         // editor.setValue(_snippetContent); //not work
 

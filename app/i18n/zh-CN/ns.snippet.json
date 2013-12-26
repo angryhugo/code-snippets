@@ -6,19 +6,17 @@
         "anotherBackDescription": "或者点击下面的小按钮返回主页：",
         "backBtn": "返回主页"
     },
-    "navbar-authorized": {
+    "navbar": {
         "projectName": "代码片段",
         "password": "密码",
         "createNew": "新建",
         "language": "语言",
         "logout": "退出",
-        "home": "主页"
-    },
-    "navbar-unauthorized": {
-        "projectName": "代码片段",
-        "language": "语言",
+        "home": "主页",
         "signin": "登录",
-        "signup": "注册"
+        "signup": "注册",
+        "searchSnippetPlaceholder": "搜索",
+        "searchUserPlaceholder": "搜索用户"
     },
     "login": {
         "login": "登录",
@@ -30,8 +28,7 @@
         "signup": "注册"
     },
     "layout": {
-        "messagesFile": "constants_cn",
-        "searchPlaceholder": "搜索"
+        "messagesFile": "constants_cn"
     },
     "index": {
         "projectName": "代码片段",
@@ -138,6 +135,7 @@
         "name": "昵称",
         "createTime": "创建时间",
         "updateTime": "更新时间",
-        "deleteTitle": "删除"
+        "deleteTitle": "删除",
+        "noAccount": "没有搜索到相关的用户"
     }
 }
