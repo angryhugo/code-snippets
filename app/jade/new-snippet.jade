@@ -3,6 +3,14 @@ extends layout
 block title
     | #{t("new-snippet.title")}
 append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/view-snippet.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/assets/vendor/codemirror/css/codemirror.css')
+        link(rel='stylesheet', href='/assets/vendor/codemirror/css/base16-light.css')
+        //- link(rel='stylesheet', href='/assets/vendor/codemirror/css/paraiso-light.css')
+    - }
 
 block main
     div.container.nav-margin
@@ -41,5 +49,8 @@ block scripts
         script(type='text/javascript', src='/static/js/new-snippet.min.js')
     - }
     - else {
+        script(type='text/javascript', src='/assets/vendor/codemirror/js/codemirror.js')
+        script(type='text/javascript', src='/assets/vendor/codemirror/js/clike.js')
+        //- script(type='text/javascript', src='/assets/vendor/codemirror/js/javascript.js')
         script(type='text/javascript', src='/assets/js/new-snippet.js')
     - }

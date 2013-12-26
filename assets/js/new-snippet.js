@@ -2,8 +2,24 @@ $(function() {
 	"use strict";
 	var _submitBtn = $('#btn-submit');
 	var _backLink = $('#link-back');
-
 	var _newSnippetForm = $('#form-new-snippet');
+	var _snippetTypeSelect = $('#select-snippet-type');
+	var MODE_ARRAY = ['text/x-c++src', 'text/x-java', 'text/x-c++src', 'text/x-csharp']; //first should be javascript
+
+	var _editorMode = 'text/x-c++src';
+	var editor = CodeMirror.fromTextArea(document.getElementById("input-snippet-content"), {
+		lineNumbers: true,
+		matchBrackets: true,
+		theme: 'base16-light',
+		mode: _editorMode
+	});
+
+	_snippetTypeSelect.on('change', function() {
+		var self = $(this);
+		_editorMode = MODE_ARRAY[parseInt(self.val()) - 1];
+		editor.setOption("mode", _editorMode);
+		self.blur();
+	});
 
 	var newSnippetValidator = _newSnippetForm.validate({
 		rules: {

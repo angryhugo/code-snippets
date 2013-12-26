@@ -20,8 +20,25 @@ $(function() {
     var _snippetContentDiv = $('#div-snippet-content');
     //input
     var _snippetTitleInput = $('#input-snippet-title');
-    var _snippetTypeInput = $('#input-snippet-type');
+    var _snippetTypeInput = $('#select-snippet-type');
     var _snippetContentInput = $('#input-snippet-content');
+
+    var MODE_ARRAY = ['text/x-c++src', 'text/x-java', 'text/x-c++src', 'text/x-csharp']; //first should be javascript
+
+    var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
+    var editor = CodeMirror.fromTextArea(document.getElementById("input-snippet-content"), {
+        lineNumbers: true,
+        matchBrackets: true,
+        theme: 'base16-light',
+        mode: _editorMode
+    });
+
+    _snippetTypeInput.on('change', function() {
+        var self = $(this);
+        _editorMode = MODE_ARRAY[parseInt(self.val()) - 1];
+        editor.setOption("mode", _editorMode);
+        self.blur();
+    });
 
     function showDivsHideInputs() {
         _snippetTitleDiv.removeClass('hide');
@@ -31,6 +48,7 @@ $(function() {
         _snippetTitleInput.parent().addClass('hide');
         _snippetTypeInput.parent().addClass('hide');
         _snippetContentInput.parent().addClass('hide');
+        _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
     };
 
     function showInputsHideDivs() {
@@ -42,23 +60,28 @@ $(function() {
         _snippetTitleInput.val(_snippetTitleDiv.html());
         _snippetTypeInput.val(_snippetTypeId);
 
-        _snippetContentInput.val(_snippetContent);
+        _snippetContentInput.click();
+        // _snippetContentInput.val(_snippetContent);
+        // editor.setValue(_snippetContent); //not work
 
         _snippetTitleInput.parent().removeClass('hide');
         _snippetTypeInput.parent().removeClass('hide');
         _snippetContentInput.parent().removeClass('hide');
+        editor.refresh();
+        editor.setCursor(editor.lineCount());
     };
 
     function refreshDiv() {
         var findString = "option[value='" + _snippetTypeId + "']";
         _snippetTitleDiv.text(_snippetTitleInput.val());
         _snippetTypeDiv.text(_snippetTypeInput.find(findString).attr('data-type'));
-        _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
+        // _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
+        _snippetContentDiv.find('pre code').text(editor.getValue());
     };
 
     function afterUpdate() {
         _snippetTypeId = _snippetTypeInput.val();
-        _snippetContent = _snippetContentInput.val();
+        _snippetContent = editor.getValue();
         refreshDiv();
         showDivsHideInputs();
         _editSnippetLink.removeClass('hide');
@@ -90,7 +113,7 @@ $(function() {
                 _csrf: _csrf,
                 title: _snippetTitleInput.val(),
                 type_id: _snippetTypeInput.val(),
-                snippet: _snippetContentInput.val()
+                snippet: editor.getValue()
             },
             dataType: 'json',
             success: function(data) {

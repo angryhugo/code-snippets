@@ -8,6 +8,9 @@ append head
     - }
     - else {
         link(rel='stylesheet', href='/static/css/view-snippet.css')
+        link(rel='stylesheet', href='/assets/vendor/codemirror/css/codemirror.css')
+        link(rel='stylesheet', href='/assets/vendor/codemirror/css/base16-light.css')
+        //- link(rel='stylesheet', href='/assets/vendor/codemirror/css/paraiso-light.css')
     - }
 block main
     div.container.nav-margin
@@ -62,7 +65,7 @@ block main
                     div#div-snippet-type.div-content.col-sm-10.col-md-11
                         | #{snippet.type.name}
                     div.col-sm-10.col-md-11.hide
-                        select#input-snippet-type.form-control(name='type_id')
+                        select#select-snippet-type.form-control(name='type_id')
                             if typeList.length>0
                                 for type in typeList
                                     option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 
@@ -76,6 +79,7 @@ block main
                                 | #{snippet.snippet}
                     div.col-sm-10.col-md-11.hide
                         textarea#input-snippet-content.form-control(rows='15',name='snippet',style="resize:none")
+                            | #{snippet.snippet}
                 div#edit-link-group.form-group.hide
                     div.col-sm-offset-2.col-md-offset-1.col-sm-4
                         a#link-save-snippet.btn.btn-success
@@ -88,5 +92,8 @@ block scripts
         script(type='text/javascript', src='/static/js/view-snippet.min.js')
     - }
     - else {
+        script(type='text/javascript', src='/assets/vendor/codemirror/js/codemirror.js')
+        script(type='text/javascript', src='/assets/vendor/codemirror/js/clike.js')
+        //- script(type='text/javascript', src='/assets/vendor/codemirror/js/javascript.js')
         script(type='text/javascript', src='/assets/js/view-snippet.js')
     - }
