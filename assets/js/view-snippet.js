@@ -42,8 +42,7 @@ $(function() {
         _snippetTitleInput.val(_snippetTitleDiv.html());
         _snippetTypeInput.val(_snippetTypeId);
 
-        //textarea 第一次赋值有效 之后赋值无效了？？？
-        _snippetContentInput.text(_snippetContent);
+        _snippetContentInput.val(_snippetContent);
 
         _snippetTitleInput.parent().removeClass('hide');
         _snippetTypeInput.parent().removeClass('hide');
@@ -59,6 +58,7 @@ $(function() {
 
     function afterUpdate() {
         _snippetTypeId = _snippetTypeInput.val();
+        _snippetContent = _snippetContentInput.val();
         refreshDiv();
         showDivsHideInputs();
         _editSnippetLink.removeClass('hide');
