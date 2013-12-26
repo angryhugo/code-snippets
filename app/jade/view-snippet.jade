@@ -10,6 +10,7 @@ append head
         link(rel='stylesheet', href='/static/css/view-snippet.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/codemirror.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/base16-light.css')
+        link(rel='stylesheet', href='/assets/vendor/codemirror/addon/display/fullscreen.css')
         //- link(rel='stylesheet', href='/assets/vendor/codemirror/css/paraiso-light.css')
     - }
 block main
@@ -94,6 +95,7 @@ block scripts
     - else {
         script(type='text/javascript', src='/assets/vendor/codemirror/js/codemirror.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/js/clike.js')
+        script(type='text/javascript', src='/assets/vendor/codemirror/addon/display/fullscreen.js')
         //- script(type='text/javascript', src='/assets/vendor/codemirror/js/javascript.js')
         script(type='text/javascript', src='/assets/js/view-snippet.js')
     - }

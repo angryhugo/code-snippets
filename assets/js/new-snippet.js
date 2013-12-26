@@ -11,7 +11,15 @@ $(function() {
 		lineNumbers: true,
 		matchBrackets: true,
 		theme: 'base16-light',
-		mode: _editorMode
+		mode: _editorMode,
+		extraKeys: {
+			"F11": function(cm) {
+				cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+			},
+			"Esc": function(cm) {
+				if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+			}
+		}
 	});
 
 	_snippetTypeSelect.on('change', function() {
