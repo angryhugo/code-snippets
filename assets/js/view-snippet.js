@@ -1,6 +1,5 @@
 $(function() {
     "use strict";
-    $('.selectpicker').selectpicker();
     hljs.initHighlightingOnLoad();
     var _csrf = $('#input-csrf').val();
     var _snippetId = $('#input-snippet-id').val();
@@ -42,6 +41,8 @@ $(function() {
         }
     });
 
+    _snippetTypeInput.selectpicker();
+
     _snippetTypeInput.on('change', function() {
         var self = $(this);
         _editorMode = MODE_ARRAY[parseInt(self.val()) - 1];
@@ -67,10 +68,8 @@ $(function() {
         _editLinkGroup.removeClass('hide');
 
         _snippetTitleInput.val(_snippetTitleDiv.html());
-        _snippetTypeInput.val(_snippetTypeId);
-
-        // _snippetContentInput.val(_snippetContent);
-        // editor.setValue(_snippetContent); //not work
+        _snippetTypeInput.selectpicker('val', _snippetTypeId);
+        // _snippetTypeInput.val(_snippetTypeId);
 
         _snippetTitleInput.parent().removeClass('hide');
         _snippetTypeInput.parent().removeClass('hide');

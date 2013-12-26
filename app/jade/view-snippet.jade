@@ -67,7 +67,7 @@ block main
                     div#div-snippet-type.div-content.col-sm-10.col-md-11
                         | #{snippet.type.name}
                     div.col-sm-10.col-md-11.hide
-                        select#select-snippet-type.form-control.selectpicker(name='type_id',data-live-search='true')
+                        select#select-snippet-type.form-control.selectpicker(name='type_id', data-live-search='true')
                             if typeList.length>0
                                 for type in typeList
                                     option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 

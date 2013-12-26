@@ -9,6 +9,7 @@ append head
     - }
     - else {
         link(rel="stylesheet", href="/assets/vendor/select2/css/select2.css")
+        link(rel='stylesheet', href='/assets/vendor/bootstrap-select/bootstrap-select.css')
         link(rel='stylesheet', href='/static/css/search-snippet.css')
     - }
 
@@ -21,7 +22,8 @@ block main
                 a.link-tooltip.pull-right(href='/',data-original-title='#{t("search-snippet.backBtn")}',data-placement='left')
                     i.fa.fa-mail-reply
         div.filter
-            select#select2-search-snippets(style="width:200px")
+            //- select#select-search-snippets(style="width:200px")
+            select#select-search-snippets.selectpicker(style="width:200px", data-live-search='true')
                 option(value=0)
                     | #{t("search-snippet.all")}
                     if typeList.length>0
@@ -65,5 +67,6 @@ block scripts
     - else {
         script(type='text/javascript', src='/assets/vendor/jquery/jquery.tablesorter.js')
         script(type='text/javascript', src='/assets/vendor/select2/js/select2.js')
+        script(type='text/javascript', src='/assets/vendor/bootstrap-select/bootstrap-select.js')
         script(type='text/javascript', src='/assets/js/search-snippet.js')
     - }

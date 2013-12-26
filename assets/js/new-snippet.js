@@ -1,6 +1,5 @@
 $(function() {
 	"use strict";
-	$('.selectpicker').selectpicker();
 	var _submitBtn = $('#btn-submit');
 	var _backLink = $('#link-back');
 	var _newSnippetForm = $('#form-new-snippet');
@@ -22,6 +21,8 @@ $(function() {
 			}
 		}
 	});
+
+	_snippetTypeSelect.selectpicker();
 
 	_snippetTypeSelect.on('change', function() {
 		var self = $(this);

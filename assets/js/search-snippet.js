@@ -1,6 +1,6 @@
 $(function() {
     var _keyword = getUrlVars()['keyword'] || '';
-    var _select = $('#select2-search-snippets');
+    var _select = $('#select-search-snippets');
 
     $("#table-snippets").tablesorter({
         sortList: [[0, 0]],
@@ -9,7 +9,8 @@ $(function() {
         widgets: ["zebra"]
     });
 
-    _select.select2();
+    // _select.select2();
+    _select.selectpicker();
 
     function getUrlVars() {
         var vars = [],
