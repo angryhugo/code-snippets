@@ -59,6 +59,7 @@ $(function() {
         _snippetTypeInput.parent().addClass('hide');
         _snippetContentInput.parent().addClass('hide');
         _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
+        $(window).unbind("beforeunload");
     };
 
     function showInputsHideDivs() {
@@ -76,6 +77,9 @@ $(function() {
         _snippetContentInput.parent().removeClass('hide');
         editor.refresh();
         editor.setCursor(editor.lineCount());
+        $(window).bind("beforeunload", function() {
+            return Message.LEAVE_CONFIRM_WHEN_EDITING;
+        });
     };
 
     function refreshDiv() {

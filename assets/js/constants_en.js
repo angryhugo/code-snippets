@@ -38,7 +38,9 @@ var Message = {
     UPDATE_PROFILE_SUCCESS: "Update profile successfully",
 
     DELETE_USER_CONFIRM: "Are you sure to delete the user?",
-    DELETE_USER_SUCCESS: "Delete user successfully"
+    DELETE_USER_SUCCESS: "Delete user successfully",
+
+    LEAVE_CONFIRM_WHEN_EDITING: "Leave or refresh this page will lose your editing content!"
 };
 
 var Opertation = {
