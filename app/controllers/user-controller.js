@@ -1,5 +1,7 @@
-var passwordHash = require('password-hash');
 var async = require('async');
+var _str = require('underscore.string');
+var passwordHash = require('password-hash');
+
 var entityFactory = require('../models/entity-factory');
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
@@ -40,9 +42,9 @@ module.exports = {
         res.redirect(returnUrl);
     },
     doSignUp: function(req, res, next) {
-        var email = req.body.email || '';
-        var password = req.body.password || '';
-        var name = req.body.username || '';
+        var email = _str.trim(req.body.email || '');
+        var password = _str.trim(req.body.password || '');
+        var name = _str.trim(req.body.username || '');
         var hashedPassword = passwordHash.generate(password);
         User.create({
             id: utils.generateId(),
@@ -70,8 +72,8 @@ module.exports = {
         }
     },
     doModifyPassword: function(req, res, next) {
-        var currentPassword = req.body.current_password || '';
-        var newPassword = req.body.new_password || '';
+        var currentPassword = _str.trim(req.body.current_password || '');
+        var newPassword = _str.trim(req.body.new_password || '');
         User.find(req.user.id).success(function(user) {
             if (passwordHash.verify(currentPassword, user.password)) {
                 user.password = passwordHash.generate(newPassword);
@@ -88,7 +90,7 @@ module.exports = {
         });
     },
     checkEmail: function(req, res) {
-        var email = req.body.email || '';
+        var email = _str.trim(req.body.email || '');
         User.find({
             where: {
                 email: email
@@ -273,7 +275,7 @@ module.exports = {
     updateProfile: function(req, res, next) {
         var user = req.user || '';
         var userId = req.params.user_id || '';
-        var name = req.body.name || '';
+        var name = _str.trim(req.body.name || '');
         var dataObj = {};
         User.find(userId).success(function(userObj) {
             if (!userObj) {

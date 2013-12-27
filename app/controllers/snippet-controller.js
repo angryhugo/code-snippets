@@ -1,3 +1,5 @@
+var _str = require('underscore.string');
+
 var entityFactory = require('../models/entity-factory');
 var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
@@ -11,11 +13,6 @@ var SNIPPET_PAGE_TAKE = 10;
 var SERVER_ERROR = 'Server error';
 var SNIPPET_NOT_EXIST = 'Snippet not exist';
 var SNIPPET_TYPE_NOT_EXIST = 'Snippet type not exist';
-
-
-String.prototype.trim = function() {
-    return this.replace(/(^\s*)|(\s*$)/g, "");
-}
 
 module.exports = {
     newSnippet: function(req, res, next) {
@@ -146,7 +143,7 @@ module.exports = {
         // var user = req.user || '';
         var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
-        var keywords = keyword.trim().split(' ');
+        var keywords = _str.trim(keyword).split(' ');
         // var whereString = '';
         var whereString = 'is_deleted = "0" AND ';
 
@@ -167,7 +164,7 @@ module.exports = {
             }
             whereString += ')';
 
-            url += 'keyword=' + keyword.trim() + '&type=' + typeId;
+            url += 'keyword=' + _str.trim(keyword) + '&type=' + typeId;
 
             CodeSnippet.count({
                 where: whereString

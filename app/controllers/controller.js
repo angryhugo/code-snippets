@@ -1,4 +1,5 @@
 var async = require('async');
+
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
@@ -6,10 +7,6 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 var SERVER_ERROR = 'Server error';
-
-String.prototype.trim = function() {
-    return this.replace(/(^\s*)|(\s*$)/g, "");
-}
 
 module.exports = {
     ensureAuthenticated: function(req, res, next) {
