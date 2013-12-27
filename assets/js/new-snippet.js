@@ -4,9 +4,9 @@ $(function() {
 	var _backLink = $('#link-back');
 	var _newSnippetForm = $('#form-new-snippet');
 	var _snippetTypeSelect = $('#select-snippet-type');
-	var MODE_ARRAY = ['text/x-c++src', 'text/x-java', 'text/x-c++src', 'text/x-csharp']; //first should be javascript
+	var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
+	var _editorMode = MODE_ARRAY[0];
 
-	var _editorMode = 'text/x-c++src';
 	var editor = CodeMirror.fromTextArea(document.getElementById("input-snippet-content"), {
 		lineNumbers: true,
 		matchBrackets: true,

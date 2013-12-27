@@ -23,9 +23,9 @@ $(function() {
     var _snippetTypeInput = $('#select-snippet-type');
     var _snippetContentInput = $('#input-snippet-content');
 
-    var MODE_ARRAY = ['text/x-c++src', 'text/x-java', 'text/x-c++src', 'text/x-csharp']; //first should be javascript
-
+    var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
     var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
+
     var editor = CodeMirror.fromTextArea(document.getElementById("input-snippet-content"), {
         lineNumbers: true,
         matchBrackets: true,
