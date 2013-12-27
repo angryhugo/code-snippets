@@ -17,7 +17,7 @@ $(function() {
         bootbox.confirm(Message.DELETE_USER_CONFIRM, function(result) {
             if (result) {
                 $.ajax({
-                    type: 'POST',
+                    type: 'DELETE',
                     url: '/admin/accounts/' + userId,
                     data: {
                         _csrf: _csrf

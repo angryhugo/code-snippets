@@ -78,7 +78,7 @@ module.exports = function(app) {
     app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
 
     app.get('/admin/accounts', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountIndex);
-    app.post('/admin/accounts/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
+    app.delete('/admin/accounts/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
 
     app.use(function(req, res) {
         res.render('404', {
