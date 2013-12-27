@@ -2,9 +2,10 @@ var async = require('async');
 var _str = require('underscore.string');
 var passwordHash = require('password-hash');
 
-var entityFactory = require('../models/entity-factory');
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
+var exceptionFactory = require('../helpers/exception-factory');
+var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
@@ -67,7 +68,7 @@ module.exports = {
         var user = req.user || '';
         var userId = req.params.user_id || '';
         if (userId !== user.id) {
-            errHandler(null, PERMISSION_NOT_ALLOWED, next);
+            exceptionFactory.errorHandler(null, PERMISSION_NOT_ALLOWED, next);
         } else {
             res.render('password', {
                 // credential: user,
@@ -315,12 +316,3 @@ module.exports = {
         });
     }
 };
-
-function errHandler(err, message, next) {
-    console.log(err);
-    var error = {
-        message: message,
-        detail: err
-    };
-    next(error);
-}

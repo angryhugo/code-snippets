@@ -1,12 +1,14 @@
 var async = require('async');
 
+var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
-var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 var SERVER_ERROR = 'Server error';
+var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
+var USER_NOT_EXIST = 'User not exist';
 
 module.exports = {
     ensureAuthenticated: function(req, res, next) {
@@ -34,7 +36,7 @@ module.exports = {
         var adminType = req.user.admin_type;
         adminType = parseInt(adminType);
         if (adminType !== -1) {
-            errHandler(null, PERMISSION_NOT_ALLOWED, next);
+            exceptionFactory.errorHandler(null, PERMISSION_NOT_ALLOWED, next);
         } else {
             return next();
         }
@@ -43,7 +45,7 @@ module.exports = {
         var adminType = req.user.admin_type;
         adminType = parseInt(adminType);
         if (adminType !== 0) {
-            errHandler(null, PERMISSION_NOT_ALLOWED, next);
+            exceptionFactory.errorHandler(null, PERMISSION_NOT_ALLOWED, next);
         } else {
             return next();
         }
@@ -62,11 +64,11 @@ module.exports = {
         var isSelf = user.id == viewUserId ? true : false;
         User.find(viewUserId).success(function(viewUser) {
             if (!viewUser) {
-                errHandler(null, 'user do not exist', next);
+                exceptionFactory.errorHandler(null, USER_NOT_EXIST, next);
             } else {
                 getAmountObj(viewUserId, function(err, amountObj) {
                     if (err) {
-                        errHandler(err, 'server error!', next);
+                        exceptionFactory.errorHandler(err, SERVER_ERROR, next);
                     } else {
                         var viewUserObj = {
                             id: viewUserId,
@@ -84,19 +86,10 @@ module.exports = {
                 })
             }
         }).error(function(err) {
-            errHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
         });
     }
 };
-
-function errHandler(err, message, next) {
-    // console.log(err);
-    var error = {
-        message: message,
-        detail: err
-    };
-    next(error);
-}
 
 function getAmountObj(userId, callback) {
     async.series({

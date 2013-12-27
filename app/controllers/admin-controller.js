@@ -1,7 +1,8 @@
 var async = require('async');
-var entityFactory = require('../models/entity-factory');
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
+var exceptionFactory = require('../helpers/exception-factory');
+var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
@@ -38,10 +39,10 @@ module.exports = {
                     accountList: mapper.searchUserListMapper(users)
                 });
             }).error(function(err) {
-                errHandler(err, SERVER_ERROR, next);
+                exceptionFactory.errorHandler(err, SERVER_ERROR, next);
             });
         }).error(function(err) {
-            errHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
         });
     },
     deleteUser: function(req, res, next) {
@@ -71,15 +72,6 @@ module.exports = {
         });
     }
 };
-
-function errHandler(err, message, next) {
-    console.log(err);
-    var error = {
-        message: message,
-        detail: err
-    };
-    next(error);
-}
 
 function deleteUserHandler(userEntity, callback) {
     var snippetIdArray = [];
