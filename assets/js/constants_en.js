@@ -47,3 +47,7 @@ var Opertation = {
     FAVORITE: 'Favorite',
     UNSUBSCRIBE: 'Unsubscribe'
 };
+
+var BootstrapSelect = {
+    NO_RESULTS_MATCH: 'No results match "'
+};

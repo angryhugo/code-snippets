@@ -47,3 +47,7 @@ var Opertation = {
     FAVORITE: '收藏',
     UNSUBSCRIBE: '取消收藏'
 };
+
+var BootstrapSelect = {
+    NO_RESULTS_MATCH: '未找到 "'
+};
