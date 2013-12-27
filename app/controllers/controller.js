@@ -11,6 +11,22 @@ var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 var USER_NOT_EXIST = 'User not exist';
 
 module.exports = {
+    autoLogin: function(req, res, next) {
+        if (!req.isAuthenticated() && req.cookies['cs-user']) {
+            var user = req.cookies['cs-user'];
+            req.login(user, function(err) {
+                if (err) {
+                    console.log(err);
+                    res.redirect('/?error=1');
+                } else {
+                    res.locals.credential = req.user;
+                }
+            });
+        } else if (req.isAuthenticated()) {
+            res.locals.credential = req.user;
+        }
+        return next();
+    },
     ensureAuthenticated: function(req, res, next) {
         if (req.isAuthenticated()) {
             res.locals.credential = req.user;

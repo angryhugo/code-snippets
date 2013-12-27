@@ -11,23 +11,6 @@ var passwordHash = require('password-hash');
 var User = entityFactory.User;
 
 module.exports = function(app) {
-    function autoLogin(req, res, next) {
-        if (!req.isAuthenticated() && req.cookies['cs-user']) {
-            var user = req.cookies['cs-user'];
-            req.login(user, function(err) {
-                if (err) {
-                    console.log(err);
-                    res.redirect('/?error=1');
-                } else {
-                    res.locals.credential = req.user;
-                }
-            });
-        } else if (req.isAuthenticated()) {
-            res.locals.credential = req.user;
-        }
-        return next();
-    };
-
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
@@ -56,7 +39,7 @@ module.exports = function(app) {
             return done(null, user);
         });
     }));
-    app.get('/', autoLogin, controller.index);
+    app.get('/', controller.autoLogin, controller.index);
     app.post('/users/login', passport.authenticate('local', {
         failureRedirect: '/?error=1',
         failureFlash: true
@@ -78,8 +61,8 @@ module.exports = function(app) {
 
     app.get('/snippets/new', controller.ensureAuthenticated, snippetController.newSnippet);
     app.post('/snippets/new', controller.ensureAuthenticated, snippetController.doNewSnippet);
-    app.get('/snippets/search', autoLogin, snippetController.searchSnippet);
-    app.get('/snippets/:snippet_id', autoLogin, snippetController.viewSnippet);
+    app.get('/snippets/search', controller.autoLogin, snippetController.searchSnippet);
+    app.get('/snippets/:snippet_id', controller.autoLogin, snippetController.viewSnippet);
     app.post('/snippets/:snippet_id', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.updateSnippet);
 
     app.post('/api/email', userController.checkEmail);
