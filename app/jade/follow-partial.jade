@@ -1,12 +1,12 @@
 if followList.length>0
     include ./internal-pager-mixin
     for follow in followList
-        div.following-item.col-xs-4.col-md-3
+        div.following-item.col-sm-4.col-md-3
             div.card
                 div.row
-                    a.col-xs-5(href="/users/#{follow.id}/profile")
+                    a.col-sm-5(href="/users/#{follow.id}/profile")
                         img.profile(src='/static/images/profile.jpg')
-                    div.col-xs-7
+                    div.col-sm-7
                         div
                             | #{follow.name}
                         div
@@ -16,5 +16,5 @@ if followList.length>0
                             else if follow.status == 0
                                 button.btn-follow.btn.btn-sm(data-followId='#{follow.id}',data-url='/api/follow')
                                     | #{t("profile.follow")}
-    div.col-lg-12(style="float:left")
+    div.col-sm-12(style="float:left")
         mixin internal-pager(pagination.pager)

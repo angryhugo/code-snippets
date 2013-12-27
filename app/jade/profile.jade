@@ -27,15 +27,15 @@ block main
                     | #{viewUserObj.name}
                 else
                     | #{t("profile.title")}
-        div.row.col-xs-12
-            div.col-xs-12.col-md-2
+        div.row.col-sm-12
+            div.col-sm-12.col-md-2
                 div.row
-                    div.col-xs-2.col-md-12
+                    div.col-sm-2.col-md-12
                         img.profile(src='/static/images/profile-large.jpg')
-                    //- div.col-xs-3.col-md-12
+                    //- div.col-sm-3.col-md-12
                     //-     div.profile-info.profile-name
                     //-         | #{viewUserObj.name}
-            div.col-xs-12.col-md-10.form-horizontal
+            div.col-sm-12.col-md-10.form-horizontal
                 ul.nav.nav-tabs
                     li.active
                         a(href='#profile',data-toggle="tab")
@@ -63,35 +63,35 @@ block main
                 div.tab-content
                     div#profile.tab-pane.active
                         div.row
-                            div.col-xs-10.col-md-6
+                            div.col-sm-10.col-md-6
                                 div.row.form-horizontal
-                                    div.col-xs-10
+                                    div.col-sm-10
                                         div.form-group
-                                            label.col-xs-2.control-label(for='input-name')
+                                            label.col-sm-2.control-label(for='input-name')
                                                 | #{t("profile.name")}
-                                            div#div-name.div-content.col-xs-8
+                                            div#div-name.div-content.col-sm-8
                                                 | #{viewUserObj.name}
                                             if isSelf
-                                                div.col-xs-8.hide
+                                                div.col-sm-8.hide
                                                     input#input-name.form-control(type='text',value='#{viewUserObj.name}')
-                                                div.col-xs-2
+                                                div.col-sm-2
                                                     a#link-edit-profile.link-tooltip.pull-right(href='javascript:',data-original-title='#{t("profile.edit")}',data-placement='left')
                                                         i.fa.fa-edit
                                         div.form-group
-                                            label.col-xs-2.control-label
+                                            label.col-sm-2.control-label
                                                 | #{t("profile.email")}
-                                            div.div-content.col-xs-8
+                                            div.div-content.col-sm-8
                                                 | #{viewUserObj.email}
                                         div#edit-link-group.form-group.hide
-                                            div.col-xs-10
+                                            div.col-sm-4.col-md-6
                                                 a#link-save-snippet.btn.btn-success.btn-sm
                                                     | #{t("profile.save")}
                                                 a#link-cancel-edit.btn.btn-info.btn-right.btn-sm
                                                     | #{t("profile.cancel")}
                             //- Doughnut
-                            //- div.col-xs-offset-2.col-xs-6.col-md-offset-0.col-md-4(height=300)
+                            //- div.col-sm-offset-2.col-sm-6.col-md-offset-0.col-md-4(height=300)
                             //-     canvas#test-chart(width=200,height=200)
-                            //- div.col-xs-2.col-md-1(style="margin-top:10px")
+                            //- div.col-sm-2.col-md-1(style="margin-top:10px")
                             //-     p.text-center(style="background-color:#39b3d7")
                             //-         | js
                             //-     p.text-center(style="background-color:#47a447")
@@ -101,10 +101,10 @@ block main
                             //-     p.text-center(style="background-color:#d2322d")
                             //-         | c#
                             //- Line
-                            //- div.col-xs-offset-2.col-xs-12.col-md-offset-0.col-md-6(height=400)
+                            //- div.col-sm-offset-2.col-sm-12.col-md-offset-0.col-md-6(height=400)
                             //-     canvas#line-chart(width=300,height=300)
                             //- Radar
-                            div.col-xs-10.col-md-6(height=400)
+                            div.col-sm-10.col-md-6(height=400)
                                 canvas#radar-chart(width=300,height=300)
                     div#mine.tab-pane
                     if isSelf

@@ -11,25 +11,25 @@ div#modal-sign-up.modal.fade(data-backdrop="static")
                 form#form-sign-up.form-horizontal(action="/users/sign_up",method="POST")
                     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                     div.form-group
-                        label.col-lg-3.control-label(for='input-signup-email')
+                        label.col-sm-3.control-label(for='input-signup-email')
                             | #{t("signup.email")}
-                        div.col-lg-7
+                        div.col-sm-7
                             input#input-signup-email.form-control(type='text',placeholder='#{t("signup.emailPlaceholder")}',name='email',autocomplete='off')
                             label#lab-email-error.error.hide(for="input-signup-email", generated="true")                    
                     div.form-group
-                        label.col-lg-3.control-label(for='input-signup-name')
+                        label.col-sm-3.control-label(for='input-signup-name')
                             | #{t("signup.name")}
-                        div.col-lg-7
+                        div.col-sm-7
                             input#input-signup-name.form-control(type='text',placeholder='#{t("signup.namePlaceholder")}',name='username',autocomplete='off')
                             label#lab-username-error.error.hide(for="input-signup-name", generated="true")
                     div.form-group
-                        label.col-lg-3.control-label(for='input-signup-password')
+                        label.col-sm-3.control-label(for='input-signup-password')
                             | #{t("signup.password")}
-                        div.col-lg-7
+                        div.col-sm-7
                             input#input-signup-password.form-control(type='password',placeholder='#{t("signup.passwordPlaceholder")}',name='password',autocomplete='off')
                             label#lab-password-error.error.hide(for="input-signup-password", generated="true")
                     div.form-group
-                        div.col-lg-offset-3.col-lg-6
+                        div.col-sm-offset-3.col-sm-6
                             button#btn-sign-up.btn.btn-success(type="submit")
                                 | #{t("signup.signup")}
                             a#link-login-inModal.btn.btn-info.btn-right

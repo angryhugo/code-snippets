@@ -22,12 +22,12 @@ block main
                 a#link-back.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.backBtn")}',data-placement='left')
                     i.fa.fa-mail-reply
         div.row
-            div.col-xs-12.col-sm-1.col-md-2
+            div.col-sm-12.col-md-2
                 div.row
-                    div.col-xs-3.col-sm-12.col-md-6
+                    div.col-sm-2.col-md-6
                         a(href="/users/#{snippet.ownerId}/profile")
                             img(src='/static/images/profile.jpg',style='border-radius:15px')
-                    div.col-xs-3.col-sm-12.col-md-6
+                    div.col-sm-2.col-md-6
                         div
                             div(style='font-weight:bold;')
                                 | #{snippet.owner}
@@ -39,17 +39,17 @@ block main
                                 div(style='margin-top:3px')
                                     button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow')
                                         | #{t("view-snippet.follow")}
-            form.col-xs-12.col-sm-10.col-md-10.form-horizontal
+            form.col-sm-12.col-md-10.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                 input#input-snippet-id(type='hidden',value='#{snippet.id}')
                 input#input-snippet-type-id(type='hidden',value='#{snippet.type.id}')
                 input#input-snippet-hidden(type='hidden',value='#{snippet.snippet}')
                 div.form-group
-                    label.col-sm-2.col-md-1.control-label(for='input-snippet-title')
+                    label.col-sm-1.col-md-1.control-label(for='input-snippet-title')
                         | #{t("view-snippet.snippetTitle")}
-                    div#div-snippet-title.div-content.col-sm-8.col-md-9
+                    div#div-snippet-title.div-content.col-sm-9.col-md-9
                         | #{snippet.title}
-                    div.col-sm-8.col-md-11.hide
+                    div.col-sm-11.col-md-11.hide
                         input#input-snippet-title.form-control(type="text",name="title")
                     div.col-sm-2
                         if favoriteStatus==0
@@ -62,28 +62,28 @@ block main
                             a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/favorite',data-original-title='#{t("view-snippet.favorite")}',data-placement='left')
                                 i.fa.fa-star.fa-2x.unsubscribe
                 div.form-group
-                    label.col-sm-2.col-md-1.control-label
+                    label.col-sm-1.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}
-                    div#div-snippet-type.div-content.col-sm-10.col-md-11
+                    div#div-snippet-type.div-content.col-sm-11.col-md-11
                         | #{snippet.type.name}
-                    div.col-sm-10.col-md-11.hide
+                    div.col-sm-11.col-md-11.hide
                         select#select-snippet-type.form-control.selectpicker(name='type_id', data-live-search='true')
                             if typeList.length>0
                                 for type in typeList
                                     option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 
                                         | #{type.typeName}
                 div.form-group
-                    label.col-sm-2.col-md-1.control-label(for='input-snippet-content')
+                    label.col-sm-1.col-md-1.control-label(for='input-snippet-content')
                         | #{t("view-snippet.snippetContent")}
-                    div#div-snippet-content.div-content.col-sm-10.col-md-11
+                    div#div-snippet-content.div-content.col-sm-11.col-md-11
                         pre
                             code
                                 | #{snippet.snippet}
-                    div.col-sm-10.col-md-11.hide
+                    div.col-sm-11.col-md-11.hide
                         textarea#input-snippet-content.form-control(rows='15',name='snippet',style="resize:none")
                             | #{snippet.snippet}
                 div#edit-link-group.form-group.hide
-                    div.col-sm-offset-2.col-md-offset-1.col-sm-4
+                    div.col-sm-offset-1.col-md-offset-1.col-sm-4
                         a#link-save-snippet.btn.btn-success
                             | #{t("view-snippet.save")}
                         a#link-cancel-edit.btn.btn-info.btn-right

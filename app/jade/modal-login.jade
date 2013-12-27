@@ -11,23 +11,23 @@ div#modal-login.modal.fade(data-backdrop="static")
                 form#form-login.form-horizontal(action="/users/login",method="POST")
                     input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                     div.form-group
-                        label.col-lg-3.control-label(for='input-email')
+                        label.col-sm-3.control-label(for='input-email')
                             | #{t("login.email")}
-                        div.col-lg-7
+                        div.col-sm-7
                             input#input-email.form-control(type='text',placeholder='#{t("login.emailPlaceholder")}',name='login_email')
                     div.form-group
-                        label.col-lg-3.control-label(for='input-password')
+                        label.col-sm-3.control-label(for='input-password')
                             | #{t("login.password")}
-                        div.col-lg-7
+                        div.col-sm-7
                             input#input-password.form-control(type='password',placeholder='#{t("login.passwordPlaceholder")}',name='login_password')
                     div.form-group
-                        div.col-lg-7.col-lg-offset-3
-                            div.checkbox.col-lg-12
+                        div.col-sm-7.col-sm-offset-3
+                            div.checkbox.col-sm-12
                                 label
                                     input(type='checkbox', name='is_remember', checked)
                                     | #{t("login.rememberMe")}
                     div.form-group
-                        div.col-lg-offset-3.col-lg-6
+                        div.col-sm-offset-3.col-sm-6
                             button#btn-login.btn.btn-success(type="submit")
                                 | #{t("login.login")}
                             a#link-sign-up-inModal.btn.btn-info.btn-right
