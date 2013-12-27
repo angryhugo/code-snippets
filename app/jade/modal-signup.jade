@@ -28,11 +28,12 @@ div#modal-sign-up.modal.fade(data-backdrop="static")
                         div.col-lg-7
                             input#input-signup-password.form-control(type='password',placeholder='#{t("signup.passwordPlaceholder")}',name='password',autocomplete='off')
                             label#lab-password-error.error.hide(for="input-signup-password", generated="true")
-                    div.col-lg-offset-3.col-lg-6
-                        button#btn-sign-up.btn.btn-success(type="submit")
-                            | #{t("signup.signup")}
-                        a#link-login-inModal.btn.btn-info.btn-right
-                            | #{t("signup.login")}
+                    div.form-group
+                        div.col-lg-offset-3.col-lg-6
+                            button#btn-sign-up.btn.btn-success(type="submit")
+                                | #{t("signup.signup")}
+                            a#link-login-inModal.btn.btn-info.btn-right
+                                | #{t("signup.login")}
             div.modal-footer
                 a#link-close-sign-up-modal.btn.btn-default(data-dismiss="modal")
                     | #{t("signup.close")}

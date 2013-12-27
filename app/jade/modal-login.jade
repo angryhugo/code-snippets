@@ -20,11 +20,19 @@ div#modal-login.modal.fade(data-backdrop="static")
                             | #{t("login.password")}
                         div.col-lg-7
                             input#input-password.form-control(type='password',placeholder='#{t("login.passwordPlaceholder")}',name='login_password')
-                    div.col-lg-offset-3.col-lg-6
-                        button#btn-login.btn.btn-success(type="submit")
-                            | #{t("login.login")}
-                        a#link-sign-up-inModal.btn.btn-info.btn-right
-                            | #{t("login.signup")}
+                    div.form-group
+                        div.col-lg-7.col-lg-offset-3
+                            div.checkbox.col-lg-12
+                                label
+                                    input(type='checkbox', name='is_remember', checked)
+                                    | #{t("login.rememberMe")}
+                    div.form-group
+                        div.col-lg-offset-3.col-lg-6
+                            button#btn-login.btn.btn-success(type="submit")
+                                | #{t("login.login")}
+                            a#link-sign-up-inModal.btn.btn-info.btn-right
+                                | #{t("login.signup")}
+
             div.modal-footer
                 a#link-close-login-modal.btn.btn-default(data-dismiss="modal")
                     | #{t("login.close")}

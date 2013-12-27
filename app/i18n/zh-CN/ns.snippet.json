@@ -25,7 +25,8 @@
         "password": "密码",
         "passwordPlaceholder": "密码",
         "close": "关闭",
-        "signup": "注册"
+        "signup": "注册",
+        "rememberMe": "保持登录状态"
     },
     "layout": {
         "messagesFile": "constants_cn"

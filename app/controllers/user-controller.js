@@ -24,11 +24,15 @@ module.exports = {
     //     });
     // },
     doLogin: function(req, res, next) {
-        res.cookie('cs-user', req.user, {
-            path: '/',
-            httpOnly: false,
-            maxAge: 604800000
-        });
+        var isRemember = req.body.is_remember || false;
+        console.log(isRemember);
+        if (isRemember) {
+            res.cookie('cs-user', req.user, {
+                path: '/',
+                httpOnly: false,
+                maxAge: 604800000
+            });
+        }
         var returnUrl = '';
         if (req.user.admin_type === -1) {
             returnUrl = req.session.returnUrl || '/';

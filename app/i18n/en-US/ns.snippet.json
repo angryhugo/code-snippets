@@ -18,7 +18,8 @@
         "password": "Password",
         "passwordPlaceholder": "Password",
         "close": "Close",
-        "signup": "Sign up"
+        "signup": "Sign up",
+        "rememberMe": "Keep me signed in"
     },
     "layout": {
         "messagesFile": "constants_en"
