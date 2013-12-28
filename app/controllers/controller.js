@@ -1,11 +1,9 @@
-var async = require('async');
-
+var statistics = require('../helpers/statistics');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
-var CodeSnippet = entityFactory.CodeSnippet;
-var UserRelation = entityFactory.UserRelation;
+
 var SERVER_ERROR = 'Server error';
 var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 var USER_NOT_EXIST = 'User not exist';
@@ -82,7 +80,7 @@ module.exports = {
             if (!viewUser) {
                 exceptionFactory.errorHandler(null, USER_NOT_EXIST, next);
             } else {
-                getAmountObj(viewUserId, function(err, amountObj) {
+                statistics.getAmountObj(viewUserId, function(err, amountObj) {
                     if (err) {
                         exceptionFactory.errorHandler(err, SERVER_ERROR, next);
                     } else {
@@ -106,79 +104,3 @@ module.exports = {
         });
     }
 };
-
-function getAmountObj(userId, callback) {
-    async.series({
-            jsAmount: function(callback) {
-                var opiton = {
-                    where: {
-                        user_id: userId,
-                        type_id: 1,
-                        is_deleted: false
-                    }
-                };
-                CodeSnippet.count(opiton).success(function(jsAmount) {
-                    callback(null, jsAmount);
-                });
-            },
-            javaAmount: function(callback) {
-                var opiton = {
-                    where: {
-                        user_id: userId,
-                        type_id: 2,
-                        is_deleted: false
-                    }
-                };
-                CodeSnippet.count(opiton).success(function(javaAmount) {
-                    callback(null, javaAmount);
-                });
-            },
-            cAmount: function(callback) {
-                var opiton = {
-                    where: {
-                        user_id: userId,
-                        type_id: 3,
-                        is_deleted: false
-                    }
-                };
-                CodeSnippet.count(opiton).success(function(cAmount) {
-                    callback(null, cAmount);
-                });
-            },
-            csharpAmount: function(callback) {
-                var opiton = {
-                    where: {
-                        user_id: userId,
-                        type_id: 4,
-                        is_deleted: false
-                    }
-                };
-                CodeSnippet.count(opiton).success(function(csharpAmount) {
-                    callback(null, csharpAmount);
-                });
-            },
-            followAmount: function(callback) {
-                var opiton = {
-                    where: {
-                        user_id: userId
-                    }
-                };
-                UserRelation.count(opiton).success(function(followAmount) {
-                    callback(null, followAmount);
-                });
-            },
-            followerAmount: function(callback) {
-                var opiton = {
-                    where: {
-                        follow_id: userId
-                    }
-                };
-                UserRelation.count(opiton).success(function(followerAmount) {
-                    callback(null, followerAmount);
-                });
-            }
-        },
-        function(err, results) {
-            callback(null, results);
-        });
-}

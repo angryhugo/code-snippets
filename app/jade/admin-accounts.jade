@@ -30,7 +30,7 @@ block main
                             | #{t("admin-accounts.createTime")}
                         th.col-md-2
                             | #{t("admin-accounts.updateTime")}
-                        th.col-md-1
+                        th.col-md-2
                 for account in accountList
                     tr(id='#{account.id}')
                         td.col-md-3
@@ -41,18 +41,47 @@ block main
                             | #{account.createTime}
                         td.col-md-2
                             | #{account.updateTime}
-                        td.col-md-1
+                        td.col-md-2
                             a.link-delete-account.link-tooltip.pull-right(data-id='#{account.id}',data-original-title='#{t("admin-accounts.deleteTitle")}', data-placement='left')
                                 i.fa.fa-times.fa-lg
+                            a.link-view-account.link-tooltip.pull-right(data-id='#{account.id}',data-original-title='#{t("admin-accounts.viewTitle")}', data-placement='left')
+                                i.fa.fa-eye.fa-lg
             mixin pager(pagination.pager, pagination.url)
         else
             h3
                 | #{t("admin-accounts.noAccount")}
+
+        div#modal-account-detail.modal.fade(data-backdrop="static")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        button.close(type="button",data-dismiss="modal") ×
+                        h3.modal-title
+                            | #{t("admin-accounts.detail")}
+                    div.modal-body
+                        div.form-horizontal
+                            div.form-group
+                                div.col-sm-offset-2.col-sm-10(height=400)
+                                    canvas#radar-chart(width=300,height=300)
+                            div.form-group
+                                label.col-sm-3.control-label(for='input-email')
+                                    | #{t("admin-accounts.email")}
+                                div#account-detail-email.col-sm-7.div-content
+                            div.form-group
+                                label.col-sm-3.control-label(for='input-email')
+                                    | #{t("admin-accounts.name")}
+                                div#account-detail-name.col-sm-7.div-content
+                    div.modal-footer
+                        a#link-delete-account.btn.btn-danger(data-id='')
+                            | delete
+                        a.btn.btn-default(data-dismiss="modal")
+                            | #{t("admin-accounts.close")}
 block scripts
     - if (nodeEnv == "production") {
         script(type='text/javascript', src='/static/js/admin-accounts.min.js')
     - }
     - else {
         //- script(type='text/javascript', src='/assets/vendor/jquery/jquery.tablesorter.js')
+        script(type='text/javascript', src='/assets/vendor/chart/Chart.js')
         script(type='text/javascript', src='/assets/js/admin-accounts.js')
     - }

@@ -1,6 +1,7 @@
 var async = require('async');
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
+var statistics = require('../helpers/statistics');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 
@@ -61,6 +62,37 @@ module.exports = {
                     } else {
                         res.json({
                             code: 200
+                        });
+                    }
+                });
+            }
+        }).error(function(err) {
+            res.json({
+                code: 500
+            });
+        });
+    },
+    getAccountDeail: function(req, res, next) {
+        var userId = req.params.user_id || '';
+        User.find(userId).success(function(user) {
+            if (!user) {
+                res.json({
+                    code: 400
+                });
+            } else {
+                statistics.getAmountObj(userId, function(err, amountObj) {
+                    if (err) {
+                        res.json({
+                            code: 500
+                        });
+                    } else {
+                        res.json({
+                            code: 200,
+                            amountObj: amountObj,
+                            userObj: {
+                                name: user.name,
+                                email: user.email
+                            }
                         });
                     }
                 });

@@ -8,6 +8,16 @@
     }
 }*/
 
+.account-link {
+    margin-left: 25px;
+    color: #d2322d;
+    cursor: pointer;
+    opacity: 0.7;
+    &:hover {
+        opacity: 1;
+    }
+}
+
 table tbody tr {
     &.even{
         background-color: #F0F0F0;
@@ -16,11 +26,14 @@ table tbody tr {
         background-color: #CCCCCC;
     }
     td .link-delete-account {
-        color: #d2322d;
-        cursor: pointer;
-        opacity: 0.8;
-        &:hover {
-            opacity: 1;
-        }
+        .account-link;
     }
+    td .link-view-account {
+        .account-link;
+        color: #2E7EB3;
+    }
+}
+
+#modal-account-detail .div-content {
+    padding-top: 6px;
 }

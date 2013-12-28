@@ -1,7 +1,6 @@
 var async = require('async');
 var _str = require('underscore.string');
 var passwordHash = require('password-hash');
-
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
 var exceptionFactory = require('../helpers/exception-factory');
@@ -9,6 +8,7 @@ var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
+
 var FOLLOW_PAGE_TAKE = 24;
 var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 

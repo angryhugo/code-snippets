@@ -79,6 +79,7 @@ module.exports = function(app) {
 
     app.get('/admin/accounts', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountIndex);
     app.delete('/admin/accounts/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
+    app.get('/api/admin/accounts/:user_id/details', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getAccountDeail);
 
     app.use(function(req, res) {
         res.render('404', {

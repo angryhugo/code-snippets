@@ -1,5 +1,4 @@
 var _str = require('underscore.string');
-
 var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
 var exceptionFactory = require('../helpers/exception-factory');
@@ -10,6 +9,7 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
+
 var SNIPPET_PAGE_TAKE = 10;
 var SERVER_ERROR = 'Server error';
 var SNIPPET_NOT_EXIST = 'Snippet not exist';

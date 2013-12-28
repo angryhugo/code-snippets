@@ -138,6 +138,9 @@
         "createTime": "创建时间",
         "updateTime": "更新时间",
         "deleteTitle": "删除",
-        "noAccount": "没有搜索到相关的用户"
+        "viewTitle": "查看",
+        "noAccount": "没有搜索到相关的用户",
+        "detail": "详情",
+        "close": "关闭"
     }
 }
