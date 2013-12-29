@@ -60,6 +60,20 @@ var User = sequelize.define('Users', {
     }
 });
 
+var UserType = sequelize.define('UserTypes', {
+    id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true
+    },
+    typeName: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+}, {
+    timestamps: false
+});
+
 var CodeSnippet = sequelize.define('CodeSnippets', {
     id: {
         type: Sequelize.STRING,
@@ -132,6 +146,15 @@ CodeSnippet.belongsTo(SnippetType, {
     foreignKey: 'type_id'
 });
 
+UserType.hasMany(User, {
+    foreignKey: 'admin_type'
+});
+
+User.belongsTo(UserType, {
+    as: 'typer',
+    foreignKey: 'admin_type'
+});
+
 User.hasMany(UserRelation, {
     foreignKey: 'user_id'
 });
@@ -179,7 +202,12 @@ sequelize.sync({
     });
     SnippetType.count().success(function(total) {
         if (total < 1) {
-            var initType = require('../init/init-type');
+            var initType = require('../init/init-snippet-type');
+        }
+    });
+    UserType.count().success(function(total) {
+        if (total < 1) {
+            var initType = require('../init/init-user-type');
         }
     });
 }).error(function(err) {
@@ -188,6 +216,7 @@ sequelize.sync({
 
 module.exports = {
     User: User,
+    UserType: UserType,
     CodeSnippet: CodeSnippet,
     SnippetType: SnippetType,
     UserRelation: UserRelation,

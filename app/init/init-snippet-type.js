@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var Sequelize = require("sequelize");
 var entityFactory = require('../models/entity-factory');
-var TYPE_LIST_FILE_PATH = path.join(__dirname, '../../data/type.json');
+var TYPE_LIST_FILE_PATH = path.join(__dirname, '../../data/snippet-type.json');
 
 var SnippetType = entityFactory.SnippetType;
 
@@ -19,9 +19,9 @@ function initSnippetType() {
                             SnippetType.create({
                                 typeName: list[i].typeName
                             }).success(function() {
-                                console.log('create type success!');
+                                console.log('create snippetType success!');
                             }).error(function() {
-                                console.log('create type failed!');
+                                console.log('create snippetType failed!');
                             });
                         }
                     } else {

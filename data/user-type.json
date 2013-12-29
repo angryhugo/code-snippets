@@ -1,0 +1,22 @@
+[
+    {
+        "id": -1,
+        "typeName": "user"
+    }, {
+        "id": 0,
+        "typeName": "Admin"
+    }, {
+        "id": 1,
+        "typeName": "jsAdmin"
+    }, {
+        "id": 2,
+        "typeName": "javaAdmin"
+    }, {
+        "id": 3,
+        "typeName": "cAdmin"
+
+    }, {
+        "id": 4,
+        "typeName": "c#Admin"
+    }
+]
