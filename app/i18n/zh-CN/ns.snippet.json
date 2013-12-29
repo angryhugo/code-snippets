@@ -13,6 +13,8 @@
         "language": "语言",
         "logout": "退出",
         "home": "主页",
+        "users": "用户",
+        "administrators": "管理员",
         "signin": "登录",
         "signup": "注册",
         "searchSnippetPlaceholder": "搜索",
@@ -132,15 +134,23 @@
         "previous": "上一页"
     },
     "admin-accounts": {
-        "title": "账号管理",
+        "title": "账号管理员",
+        "userTitle": "用户账号",
+        "administratorTitle": "管理员账号",
+        "newAdministrator": "新建管理员",
         "email": "邮箱",
         "name": "昵称",
+        "type": "类型",
         "createTime": "创建时间",
         "updateTime": "更新时间",
         "deleteTitle": "删除",
         "viewTitle": "查看",
         "noAccount": "没有搜索到相关的用户",
         "detail": "详情",
-        "close": "关闭"
+        "close": "关闭",
+        "save": "保存",
+        "emailPlaceholder": "email@example.com",
+        "password": "密码",
+        "passwordPlaceholder": "密码"
     }
 }

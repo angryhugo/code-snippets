@@ -77,9 +77,12 @@ module.exports = function(app) {
     app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
     app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
 
-    app.get('/admin/accounts', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountIndex);
-    app.delete('/admin/accounts/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
-    app.get('/api/admin/accounts/:user_id/details', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getAccountDeail);
+    app.get('/admin/accounts/users', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountUserIndex);
+    app.get('/admin/accounts/administrators', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountAdministratorIndex);
+    app.post('/admin/accounts/administrators', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.doNewAdministrator);
+    app.delete('/admin/accounts/users/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
+    app.get('/api/admin/accounts/users/:user_id/details', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getAccountDeail);
+    app.get('/api/admin/accounts/usertypes', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getUserTypers);
 
     app.use(function(req, res) {
         res.render('404', {

@@ -40,7 +40,9 @@ var Message = {
     DELETE_USER_CONFIRM: "确定要删除该用户吗？",
     DELETE_USER_SUCCESS: "成功删除用户",
 
-    LEAVE_CONFIRM_WHEN_EDITING: "离开或者刷新此页面会丢失你编辑的内容！"
+    LEAVE_CONFIRM_WHEN_EDITING: "离开或者刷新此页面会丢失你编辑的内容！",
+
+    ADD_ADMINISTRATOR_SUCCESS: "成功添加管理员"
 };
 
 var Opertation = {

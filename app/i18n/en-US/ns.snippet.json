@@ -6,6 +6,8 @@
         "language": "Language",
         "logout": "Logout",
         "home": "Home",
+        "users": "Users",
+        "administrators": "Administrators",
         "signin": "Sign In",
         "signup": "sign Up",
         "searchSnippetPlaceholder": "search",
@@ -131,15 +133,23 @@
         "previous": "Previous"
     },
     "admin-accounts": {
-        "title": "Account Management",
+        "title": "Account Administrator",
+        "userTitle": "User Accounts",
+        "administratorTitle": "Admin Accounts",
+        "newAdministrator": "New Administrator",
         "email": "Email",
         "name": "Name",
+        "type": "Type",
         "createTime": "Created At",
         "updateTime": "Updated At",
         "deleteTitle": "Delete",
         "viewTitle": "More",
         "noAccount": "There's no user related",
         "detail": "Detail",
-        "close": "Close"
+        "close": "Close",
+        "save": "Save",
+        "emailPlaceholder": "email@example.com",
+        "password": "Password",
+        "passwordPlaceholder": "Password"
     }
 }

@@ -58,7 +58,7 @@ $(function() {
             if (result) {
                 $.ajax({
                     type: 'DELETE',
-                    url: '/admin/accounts/' + userId,
+                    url: '/admin/accounts/users/' + userId,
                     data: {
                         _csrf: _csrf
                     },
@@ -86,7 +86,7 @@ $(function() {
         _deleteAccountLinkInModal.attr('data-id', userId);
         $.ajax({
             type: 'GET',
-            url: '/api/admin/accounts/' + userId + '/details',
+            url: '/api/admin/accounts/users/' + userId + '/details',
             dataType: 'json',
             success: function(data) {
                 if (data.code === 200) {

@@ -1,0 +1,116 @@
+extends layout
+
+block title
+    | #{t("admin-accounts.title")}
+
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/admin-accounts.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/assets/vendor/bootstrap-select/bootstrap-select.css')
+        link(rel='stylesheet', href='/static/css/admin-accounts.css')
+    - }
+
+block main
+    include ./pager-mixin
+    input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+    div.container.nav-margin
+        div.page-header
+            h3
+                | #{t("admin-accounts.administratorTitle")}
+                a#link-new-administrator.btn.btn-info.pull-right
+                    i.fa.fa-plus
+                        | &nbsp;#{t("admin-accounts.newAdministrator")}
+        if accountList.length>0
+            table#table-accounts.table
+                thead
+                    tr
+                        th.col-md-3
+                            | #{t("admin-accounts.email")}
+                        th.col-md-2 
+                            | #{t("admin-accounts.name")}
+                        th.col-md-2 
+                            | #{t("admin-accounts.type")}
+                        th.col-md-2 
+                            | #{t("admin-accounts.createTime")}
+                        th.col-md-2
+                            | #{t("admin-accounts.updateTime")}
+                        th.col-md-1
+                tbody#tbody-accounts
+                    tr#tr-account-template.hide
+                        td.col-md-3.td-email
+                        td.col-md-2.td-name
+                        td.col-md-2.td-type
+                        td.col-md-2.td-created-at
+                        td.col-md-2.td-updated-at
+                        td.col-md-1
+                            a.link-delete-account.link-tooltip.pull-right(data-id='',data-original-title='#{t("admin-accounts.deleteTitle")}', data-placement='left')
+                                i.fa.fa-times.fa-lg
+                    for account in accountList
+                        tr(id='#{account.id}')
+                            td.col-md-3
+                                | #{account.email}
+                            td.col-md-2 
+                                | #{account.name}
+                            td.col-md-2 
+                                | #{account.type}
+                            td.col-md-2 
+                                | #{account.createTime}
+                            td.col-md-2
+                                | #{account.updateTime}
+                            td.col-md-1
+                                a.link-delete-account.link-tooltip.pull-right(data-id='#{account.id}',data-original-title='#{t("admin-accounts.deleteTitle")}', data-placement='left')
+                                    i.fa.fa-times.fa-lg
+            mixin pager(pagination.pager, pagination.url)
+        else
+            h3
+                | #{t("admin-accounts.noAccount")}
+
+        div#modal-new-administrator.modal.fade(data-backdrop="static")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        button.close(type="button",data-dismiss="modal") ×
+                        h3.modal-title
+                            | #{t("admin-accounts.newAdministrator")}
+                    div.modal-body
+                        form#form-new-administrator.form-horizontal
+                            div.form-group.success
+                                label.col-sm-3.control-label
+                                    | #{t("admin-accounts.type")}
+                                div.col-sm-7
+                                    select#select-user-type.form-control.selectpicker(name='type_id',data-live-search='true')
+                            div#div-email.form-group
+                                label.col-sm-3.control-label(for='input-email')
+                                    | #{t("admin-accounts.email")}
+                                div.col-sm-7
+                                    input#input-email.form-control(type='text',placeholder='#{t("admin-accounts.emailPlaceholder")}',name='email',autocomplete='off')
+                                    label#lab-email-error.error.hide(for="input-email", generated="true")
+                            div#div-name.form-group
+                                label.col-sm-3.control-label(for='input-name')
+                                    | #{t("admin-accounts.name")}
+                                div.col-sm-7
+                                    input#input-name.form-control(type='text',placeholder='#{t("admin-accounts.name")}',name='name',autocomplete='off')
+                                    label#lab-name-error.error.hide(for="input-name", generated="true")
+                            div#div-password.form-group
+                                label.col-sm-3.control-label(for='input-password')
+                                    | #{t("admin-accounts.password")}
+                                div.col-sm-7
+                                    input#input-password.form-control(type='password',placeholder='#{t("admin-accounts.passwordPlaceholder")}',name='password',autocomplete='off')
+                                    label#lab-password-error.error.hide(for="input-password", generated="true")
+                    div.modal-footer
+                        a#link-submit-new-administrator.btn.btn-success(data-id='')
+                            | #{t("admin-accounts.save")}
+                        a.btn.btn-default(data-dismiss="modal")
+                            | #{t("admin-accounts.close")}
+        div#template.hide
+            option#option-template(value='')
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/admin-account-administrators.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/vendor/bootstrap-select/bootstrap-select.js')
+        script(type='text/javascript', src='/assets/js/admin-account-administrators.js')
+    - }

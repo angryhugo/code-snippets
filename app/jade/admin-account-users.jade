@@ -17,7 +17,7 @@ block main
     div.container.nav-margin
         div.page-header
             h3
-                | #{t("admin-accounts.title")}
+                | #{t("admin-accounts.userTitle")}
         if accountList.length>0
             table#table-accounts.table
                 thead
@@ -73,15 +73,15 @@ block main
                                 div#account-detail-name.col-sm-7.div-content
                     div.modal-footer
                         a#link-delete-account.btn.btn-danger(data-id='')
-                            | delete
+                            | #{t("admin-accounts.deleteTitle")}
                         a.btn.btn-default(data-dismiss="modal")
                             | #{t("admin-accounts.close")}
 block scripts
     - if (nodeEnv == "production") {
-        script(type='text/javascript', src='/static/js/admin-accounts.min.js')
+        script(type='text/javascript', src='/static/js/admin-account-users.min.js')
     - }
     - else {
         //- script(type='text/javascript', src='/assets/vendor/jquery/jquery.tablesorter.js')
         script(type='text/javascript', src='/assets/vendor/chart/Chart.js')
-        script(type='text/javascript', src='/assets/js/admin-accounts.js')
+        script(type='text/javascript', src='/assets/js/admin-account-users.js')
     - }

@@ -2,6 +2,20 @@ var moment = require('moment');
 var async = require('async');
 
 module.exports = {
+    userTypeMapper: function(typeObj) {
+        return {
+            id: typeObj.id,
+            name: typeObj.typeName
+        };
+    },
+    userTypeListMapper: function(typeList) {
+        var userTypeList = [];
+        for (var i = 0; i < typeList.length; i++) {
+            var userType = this.userTypeMapper(typeList[i]);
+            userTypeList.push(userType);
+        }
+        return userTypeList;
+    },
     searchUserMapper: function(userObj) {
         return {
             id: userObj.id,
@@ -18,6 +32,24 @@ module.exports = {
             searchUserList.push(searchUser);
         }
         return searchUserList;
+    },
+    userMapper: function(userObj) {
+        return {
+            id: userObj.id,
+            email: userObj.email,
+            name: userObj.name,
+            type: userObj.typer.typeName,
+            createTime: moment(userObj.created_at).format('YYYY-MM-DD HH:mm'),
+            updateTime: moment(userObj.updated_at).format('YYYY-MM-DD HH:mm'),
+        };
+    },
+    searchAdministratorListMapper: function(administratorList) {
+        var searchAdministratorList = [];
+        for (var i = 0; i < administratorList.length; i++) {
+            var searchAdministrator = this.userMapper(administratorList[i]);
+            searchAdministratorList.push(searchAdministrator);
+        }
+        return searchAdministratorList;
     },
     viewSnippetMapper: function(snippetObj) {
         return {

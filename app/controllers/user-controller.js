@@ -39,7 +39,7 @@ module.exports = {
             returnUrl = req.session.returnUrl || '/';
         } else if (req.user.admin_type === 0) {
             //accont admin
-            returnUrl = req.session.returnUrl || '/admin/accounts';
+            returnUrl = req.session.returnUrl || '/admin/accounts/users';
         } else {
             //accont admin
             returnUrl = req.session.returnUrl || '/admin/modules';
@@ -57,7 +57,6 @@ module.exports = {
             name: name,
             password: hashedPassword
         }).success(function(user) {
-            console.log(user);
             res.redirect('/?success=1'); //sign up successfully
         }).error(function(err) {
             console.log(err);

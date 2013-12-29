@@ -40,7 +40,9 @@ var Message = {
     DELETE_USER_CONFIRM: "Are you sure to delete the user?",
     DELETE_USER_SUCCESS: "Delete user successfully",
 
-    LEAVE_CONFIRM_WHEN_EDITING: "Leave or refresh this page will lose your editing content!"
+    LEAVE_CONFIRM_WHEN_EDITING: "Leave or refresh this page will lose your editing content!",
+
+    ADD_ADMINISTRATOR_SUCCESS: "Add administrator successfully"
 };
 
 var Opertation = {

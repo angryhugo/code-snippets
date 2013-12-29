@@ -1,7 +1,7 @@
 nav.navbar.navbar-default.navbar-fixed-top
     div.container
         div.navbar-header
-            a.navbar-brand(href="/admin/accounts",style="border-right:'1px solid #cccccc';") 
+            a.navbar-brand(href=isUserManagement?"/admin/accounts/users":"/admin/accounts/administrators",style="border-right:'1px solid #cccccc';") 
                 | #{t("navbar.projectName")}
             button.navbar-toggle(type="button",data-toggle="collapse", data-target="#navbar-collapse-1")
                     span.sr-only Toggle navigation
@@ -11,7 +11,7 @@ nav.navbar.navbar-default.navbar-fixed-top
         div#navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
                 li
-                    form#form-inline-navbar.form-inline(role='form',action='/admin/accounts',method='get')
+                    form#form-inline-navbar.form-inline(role='form',action=isUserManagement?'/admin/accounts/users':'/admin/accounts/administrators',method='get')
                         div.input-group
                             input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("navbar.searchUserPlaceholder")}',autocomplete="off")
                             span.input-group-btn
@@ -27,14 +27,17 @@ nav.navbar.navbar-default.navbar-fixed-top
                             a#link-chinese(href="javascript:;") 中文
                 li.dropdown
                     a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
-                        i#layout-credential-name.fa.fa-user
+                        i#layout-credential-name.fa.fa-linux
                             | &nbsp;#{credential.name}
                         b.caret
                     ul.dropdown-menu
                         li
-                            a(href="/admin/accounts")
-                                i.fa.fa-home
-                                | &nbsp;#{t("navbar.home")}
+                            a(href="/admin/accounts/users")
+                                i.fa.fa-user
+                                | &nbsp;#{t("navbar.users")}
+                            a(href="/admin/accounts/administrators")
+                                i.fa.fa-linux
+                                | &nbsp;#{t("navbar.administrators")}
                             a#btn-change-password(href='/users/#{credential.id}/password')
                                 i.fa.fa-lock
                                 | &nbsp;&nbsp;#{t("navbar.password")}
