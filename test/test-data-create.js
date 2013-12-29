@@ -49,8 +49,23 @@ describe("create test data", function() {
 	it("create test data", function(done) {
 		this.timeout(5 * 60 * 1000);
 		var userEntities = [];
+		var HANCHUN_ID = '';
 
 		async.series([
+
+			function(cb) {
+					User.create({
+						id: utils.generateId(),
+						email: 'hanchun.yin@leediancn.com',
+						name: 'Hanchun Yin',
+						password: passwordHash.generate('123456')
+					}).success(function(user) {
+						HANCHUN_ID = user.id;
+						cb();
+					}).error(function(err) {
+						cb(err);
+					})
+			},
 
 			function(cb) {
 					createUsers(USER_AMOUNT, function(err, users) {
@@ -94,7 +109,7 @@ describe("create test data", function() {
 					}, function(cb2) {
 						UserRelation.create({
 							user_id: userEntities[index].id,
-							follow_id: userEntities[0].id,
+							follow_id: HANCHUN_ID,
 						}).success(function(userrelation) {
 							index++;
 							cb2();
