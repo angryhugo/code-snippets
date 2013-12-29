@@ -196,7 +196,6 @@ sequelize.sync({
 }).success(function() {
     User.count().success(function(total) {
         if (total < 1) {
-            var initUser = require('../init/init-user');
             var initAdmin = require('../init/init-admin');
         }
     });

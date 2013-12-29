@@ -15,7 +15,6 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 
 var USER_AMOUNT = 100;
-var HANCHUNYIN_ID = '9dc634c3174a48439eaa59cfa687be14';
 
 var createUsers = function(amount, callback) {
 	var userEntities = [];
@@ -95,7 +94,7 @@ describe("create test data", function() {
 					}, function(cb2) {
 						UserRelation.create({
 							user_id: userEntities[index].id,
-							follow_id: HANCHUNYIN_ID,
+							follow_id: userEntities[0].id,
 						}).success(function(userrelation) {
 							index++;
 							cb2();
