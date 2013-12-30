@@ -1,5 +1,7 @@
 {
     "database": "my_runnable",
     "db_user": "root",
-    "db_pwd": "123"
+    "db_pwd": "123",
+    "max_user_type_id": "4",
+    "max_snippet_type_id": "4"
 }

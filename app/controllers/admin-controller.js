@@ -6,6 +6,7 @@ var mapper = require('../helpers/mapper');
 var statistics = require('../helpers/statistics');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
+var config = require('../../config.json');
 
 var User = entityFactory.User;
 var UserType = entityFactory.UserType;
@@ -164,6 +165,9 @@ module.exports = {
         var typeId = req.body.type_id || 1;
         var password = req.body.password || '';
         var hashedPassword = passwordHash.generate(password);
+        if (typeId > parseInt(config.max_user_type_id)) {
+            typeId = 1;
+        }
         User.create({
             id: utils.generateId(),
             email: email,

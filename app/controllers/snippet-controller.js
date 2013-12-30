@@ -3,6 +3,7 @@ var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
+var config = require('../../config.json');
 
 var User = entityFactory.User;
 var CodeSnippet = entityFactory.CodeSnippet;
@@ -38,6 +39,9 @@ module.exports = {
         var title = req.body.title || '';
         var typeId = req.body.type_id || 1;
         var userId = req.user.id;
+        if (isNaN(typeId) || typeId > parseInt(config.max_snippet_type_id)) {
+            typeId = 1;
+        }
         CodeSnippet.create({
             id: utils.generateId(),
             title: title,
@@ -116,7 +120,9 @@ module.exports = {
         var title = req.body.title || '';
         var typeId = req.body.type_id || 1;
         var dataObj = {};
-
+        if (isNaN(typeId) || typeId > parseInt(config.max_snippet_type_id)) {
+            typeId = 1;
+        }
         CodeSnippet.find(snippetId).success(function(snippet) {
             if (!snippet) {
                 dataObj.code = 400;
@@ -148,76 +154,68 @@ module.exports = {
         // var whereString = '';
         var whereString = 'is_deleted = "0" AND ';
 
-        SnippetType.count().success(function(total) {
-            if (typeId > total || isNaN(typeId)) {
-                typeId = 0;
+        if (typeId > 0 && typeId <= parseInt(config.max_snippet_type_id)) {
+            whereString += 'type_id = ' + typeId + ' AND ';
+        }
+        for (var i = 0; i < keywords.length; i++) {
+            if (i == 0) {
+                whereString += '(title LIKE "%' + keywords[i] + '%"';
+            } else {
+                whereString += ' OR title LIKE "%' + keywords[i] + '%"';
             }
+        }
+        whereString += ')';
 
-            if (typeId != 0) {
-                whereString += 'type_id = ' + typeId + ' AND ';
-            }
-            for (var i = 0; i < keywords.length; i++) {
-                if (i == 0) {
-                    whereString += '(title LIKE "%' + keywords[i] + '%"';
-                } else {
-                    whereString += ' OR title LIKE "%' + keywords[i] + '%"';
-                }
-            }
-            whereString += ')';
+        url += 'keyword=' + _str.trim(keyword) + '&type=' + typeId;
 
-            url += 'keyword=' + _str.trim(keyword) + '&type=' + typeId;
-
-            CodeSnippet.count({
-                where: whereString
-            }).success(function(snippetTotal) {
-                var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
-                var option = {
-                    include: [{
-                        model: User,
-                        as: 'user'
+        CodeSnippet.count({
+            where: whereString
+        }).success(function(snippetTotal) {
+            var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+            var option = {
+                include: [{
+                    model: User,
+                    as: 'user'
                     }, {
-                        model: SnippetType,
-                        as: 'typer'
+                    model: SnippetType,
+                    as: 'typer'
                     }],
-                    offset: pageParams.skip,
-                    limit: SNIPPET_PAGE_TAKE,
-                    where: [whereString]
-                    // order: 'created_at DESC'
-                };
-                CodeSnippet.findAll(option).success(function(snippetList) {
-                    if (!snippetList) { //do not exist
-                        exceptionFactory.errorHandler(null, SNIPPET_NOT_EXIST, next);
-                    } else {
-                        SnippetType.findAll().success(function(typeList) {
-                            if (!typeList) {
-                                exceptionFactory.errorHandler(null, SNIPPET_TYPE_NOT_EXIST, next);
-                            } else {
-                                res.render('search-snippet', {
-                                    pagination: {
-                                        pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE),
-                                        url: url
-                                    },
-                                    keyword: keyword,
-                                    // credential: user,
-                                    snippetList: mapper.searchSnippetListMapper(snippetList),
-                                    typeList: typeList,
-                                    typeId: typeId,
-                                    token: req.csrfToken()
-                                });
-                            }
-                        }).error(function(err) {
-                            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
-                        });
-                    }
-                }).error(function(err) {
-                    exceptionFactory.errorHandler(err, SERVER_ERROR, next);
-                });
+                offset: pageParams.skip,
+                limit: SNIPPET_PAGE_TAKE,
+                where: [whereString]
+                // order: 'created_at DESC'
+            };
+            CodeSnippet.findAll(option).success(function(snippetList) {
+                if (!snippetList) { //do not exist
+                    exceptionFactory.errorHandler(null, SNIPPET_NOT_EXIST, next);
+                } else {
+                    SnippetType.findAll().success(function(typeList) {
+                        if (!typeList) {
+                            exceptionFactory.errorHandler(null, SNIPPET_TYPE_NOT_EXIST, next);
+                        } else {
+                            res.render('search-snippet', {
+                                pagination: {
+                                    pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE),
+                                    url: url
+                                },
+                                keyword: keyword,
+                                // credential: user,
+                                snippetList: mapper.searchSnippetListMapper(snippetList),
+                                typeList: typeList,
+                                typeId: typeId,
+                                token: req.csrfToken()
+                            });
+                        }
+                    }).error(function(err) {
+                        exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                    });
+                }
             }).error(function(err) {
                 exceptionFactory.errorHandler(err, SERVER_ERROR, next);
             });
         }).error(function(err) {
             exceptionFactory.errorHandler(err, SERVER_ERROR, next);
-        })
+        });
     },
     deleteSnippet: function(req, res, next) {
         // var snippetId = req.body.snippetId || '';
