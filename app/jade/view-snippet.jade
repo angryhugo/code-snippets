@@ -47,7 +47,7 @@ block main
                 div.form-group
                     label.col-sm-1.col-md-1.control-label(for='input-snippet-title')
                         | #{t("view-snippet.snippetTitle")}
-                    div#div-snippet-title.div-content.col-sm-9.col-md-9
+                    div#div-snippet-title.div-content.col-sm-9
                         | #{snippet.title}
                     div.col-sm-11.col-md-11.hide
                         input#input-snippet-title.form-control(type="text",name="title")
@@ -61,6 +61,10 @@ block main
                         else if favoriteStatus == 2
                             a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/favorite',data-original-title='#{t("view-snippet.favorite")}',data-placement='left')
                                 i.fa.fa-star.fa-2x.unsubscribe
+                        div#div-baidu-share.bdsharebuttonbox.pull-right
+                            a.bds_tsina.link-tooltip(href="#",data-cmd="tsina",data-original-title='#{t("view-snippet.sinaShare")}',data-placement='left')
+                            a.bds_tqq.link-tooltip(href="#",data-cmd="tqq",data-original-title='#{t("view-snippet.tencentShare")}',data-placement='left')
+                            a.bds_renren.link-tooltip(href="#",data-cmd="renren",data-original-title='#{t("view-snippet.renrenShare")}',data-placement='left')
                 div.form-group
                     label.col-sm-1.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}
@@ -82,6 +86,7 @@ block main
                     div.col-sm-11.col-md-11.hide
                         textarea#input-snippet-content.form-control(rows='15',name='snippet',style="resize:none")
                             | #{snippet.snippet}
+
                 div#edit-link-group.form-group.hide
                     div.col-sm-offset-1.col-md-offset-1.col-sm-4
                         a#link-save-snippet.btn.btn-success
@@ -100,4 +105,5 @@ block scripts
         script(type='text/javascript', src='/assets/vendor/codemirror/js/javascript.js')
         script(type='text/javascript', src='/assets/vendor/codemirror/addon/display/fullscreen.js')
         script(type='text/javascript', src='/assets/js/view-snippet.js')
+        script(type='text/javascript', src='/assets/js/baidu-share.js')
     - }

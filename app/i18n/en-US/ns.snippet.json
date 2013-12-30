@@ -86,7 +86,10 @@
         "unsubscribe": "Unsubscribe",
         "edit": "Edit",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Save",
+        "sinaShare": "sina",
+        "tencentShare": "tentent",
+        "renrenShare": "renren"
     },
     "search-snippet": {
         "searchFor": "Search Result For",

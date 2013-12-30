@@ -18,6 +18,7 @@ $(function() {
     var _snippetTitleDiv = $('#div-snippet-title');
     var _snippetTypeDiv = $('#div-snippet-type');
     var _snippetContentDiv = $('#div-snippet-content');
+    var _baiduShareDiv = $('#div-baidu-share');
     //input
     var _snippetTitleInput = $('#input-snippet-title');
     var _snippetTypeInput = $('#select-snippet-type');
@@ -54,6 +55,7 @@ $(function() {
         _snippetTitleDiv.removeClass('hide');
         _snippetTypeDiv.removeClass('hide');
         _snippetContentDiv.removeClass('hide');
+        _baiduShareDiv.removeClass('hide');
         _editLinkGroup.addClass('hide');
         _snippetTitleInput.parent().addClass('hide');
         _snippetTypeInput.parent().addClass('hide');
@@ -66,6 +68,7 @@ $(function() {
         _snippetTitleDiv.addClass('hide');
         _snippetTypeDiv.addClass('hide');
         _snippetContentDiv.addClass('hide');
+        _baiduShareDiv.addClass('hide');
         _editLinkGroup.removeClass('hide');
 
         _snippetTitleInput.val(_snippetTitleDiv.html());
