@@ -221,14 +221,11 @@ $(function() {
                             self.attr('data-url', '/api/unsubscribe');
                             self.attr('data-original-title', Opertation.UNSUBSCRIBE);
                             self.find('.fa').addClass('favorite').removeClass('unsubscribe');
-                            self.next().remove();
-                            // self.next().find('.tooltip-inner').text(Opertation.UNSUBSCRIBE);
+                            self.next('.tooltip').remove();
                         } else {
                             self.attr('data-url', '/api/favorite');
                             self.attr('data-original-title', Opertation.FAVORITE);
                             self.find('.fa').addClass('unsubscribe').removeClass('favorite');
-                            self.next().remove();
-                            // self.next().find('.tooltip-inner').text(Opertation.FAVORITE);
                         }
                     } else if (data.code === 400) {
                         bootbox.alert(Message.SNIPPET_NOT_EXSIT);
