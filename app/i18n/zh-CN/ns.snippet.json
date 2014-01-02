@@ -72,7 +72,12 @@
         "errorDescription": "出错啦",
         "backDescription": "你可以点击浏览器的返回按钮返回刚才的页面.",
         "anotherBackDescription": "或者点击下面的小按钮返回主页：",
-        "backBtn": "返回主页"
+        "backBtn": "返回主页",
+        "serverError": "服务器错误",
+        "userNotExist": "该用户不存在",
+        "snippetNotExist": "该代码片段不存在",
+        "snippetTypeNotExist": "不存在该片段类型",
+        "permissionNotAllowed": "你的权限不允许进入该页面"
     },
     "view-snippet": {
         "title": "查看片段",

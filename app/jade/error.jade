@@ -14,10 +14,19 @@ append head
 block main
     div.jumbotron.center
         div.container
-            h1
+            h2
                 | #{t("error.errorDescription")}
-            p
-                | #{errMessage}
+            h1
+                if errMessage === 'SERVER_ERROR'
+                    | #{t("error.serverError")}
+                else if errMessage === 'USER_NOT_EXIST'
+                    | #{t("error.userNotExist")}
+                else if errMessage === 'SNIPPET_NOT_EXIST'
+                    | #{t("error.snippetNotExist")}
+                else if errMessage === 'SNIPPET_TYPE_NOT_EXIST'
+                    | #{t("error.snippetTypeNotExist")}
+                else if errMessage === 'PERMISSION_NOT_ALLOWED'
+                    | #{t("error.permissionNotAllowed")}
             p
                 | #{t("error.backDescription")}
             p
