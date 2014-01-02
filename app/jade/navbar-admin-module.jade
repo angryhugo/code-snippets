@@ -1,7 +1,7 @@
 nav.navbar.navbar-default.navbar-fixed-top
     div.container
         div.navbar-header
-            a#link-navbar-admin-module.navbar-brand(href="/admin/modules/#{module}",style="border-right:'1px solid #cccccc';") 
+            a#link-navbar-admin-module.navbar-brand(href="/admin/modules/#{credential.module}",style="border-right:'1px solid #cccccc';") 
                 | #{t("navbar.projectName")}
             button.navbar-toggle(type="button",data-toggle="collapse", data-target="#navbar-collapse-1")
                     span.sr-only Toggle navigation
@@ -11,7 +11,7 @@ nav.navbar.navbar-default.navbar-fixed-top
         div#navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
                 li
-                    form#form-inline-navbar.form-inline(role='form',action='/admin/modules/#{module}',method='get')
+                    form#form-inline-navbar.form-inline(role='form',action='/admin/modules/#{credential.module}',method='get')
                         div.input-group
                             input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("navbar.searchSnippetPlaceholder")}',autocomplete="off")
                             span.input-group-btn
@@ -32,6 +32,9 @@ nav.navbar.navbar-default.navbar-fixed-top
                         b.caret
                     ul.dropdown-menu
                         li
+                            a(href="/admin/modules/#{credential.module}")
+                                i.fa.fa-home
+                                | &nbsp;#{t("navbar.home")}
                             a#btn-change-password(href='/users/#{credential.id}/password')
                                 i.fa.fa-lock
                                 | &nbsp;&nbsp;#{t("navbar.password")}

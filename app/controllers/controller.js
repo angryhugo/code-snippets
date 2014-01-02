@@ -67,6 +67,7 @@ module.exports = {
         if (adminType !== 1) {
             exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
+            req.user.module = 'javascript';
             return next();
         }
     },
@@ -76,6 +77,7 @@ module.exports = {
         if (adminType !== 2) {
             exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
+            req.user.module = 'java';
             return next();
         }
     },
@@ -85,6 +87,7 @@ module.exports = {
         if (adminType !== 3) {
             exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
+            req.user.module = 'c';
             return next();
         }
     },
@@ -94,6 +97,7 @@ module.exports = {
         if (adminType !== 4) {
             exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
+            req.user.module = 'csharp';
             return next();
         }
     },
