@@ -81,6 +81,23 @@ module.exports = {
         }
         return searchSnippetList;
     },
+    adminSearchSnippetMapper: function(snippetObj) {
+        return {
+            id: snippetObj.id,
+            title: snippetObj.title,
+            creator: snippetObj.user.name,
+            createTime: moment(snippetObj.created_at).format('YYYY-MM-DD HH:mm'),
+            updateTime: moment(snippetObj.updated_at).format('YYYY-MM-DD HH:mm')
+        };
+    },
+    adminSearchSnippetListMapper: function(snippetList) {
+        var adminSearchSnippetList = [];
+        for (var i = 0; i < snippetList.length; i++) {
+            var searchSnippet = this.adminSearchSnippetMapper(snippetList[i]);
+            adminSearchSnippetList.push(searchSnippet);
+        }
+        return adminSearchSnippetList;
+    },
     profileSnippetMapper: function(snippetObj) {
         return {
             id: snippetObj.id,

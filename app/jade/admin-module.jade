@@ -1,0 +1,68 @@
+extends layout
+
+block title
+    | #{t("admin-modules.title")}&nbsp;|&nbsp;#{module}
+
+append head
+    - if (nodeEnv == "production") {
+        link(rel='stylesheet', href='/static/css/admin.min.css')
+    - }
+    - else {
+        link(rel='stylesheet', href='/static/css/admin.css')
+    - }
+
+block main
+    include ./pager-mixin
+    div.container.nav-margin
+        input#input-csrf(type='hidden',name='_csrf',value='#{token}')
+        div.page-header
+            h3
+                | #{t("admin-modules.title")}
+        //- div.filter
+            //- select#select-search-snippets.selectpicker(style="width:200px", data-live-search='true')
+            //-     option(value=0)
+            //-         | #{t("search-snippet.all")}
+            //-         if typeList.length>0
+            //-             for type in typeList
+            //-                 option(value="#{type.id}",selected=( type.id == typeId ? true:false)) 
+            //-                     | #{type.typeName}
+        if snippetList.length>0
+            table#table-snippets.table
+                thead
+                    tr
+                        th.col-md-3
+                            | #{t("search-snippet.snippetTitle")}
+                        th.col-md-3
+                            | #{t("search-snippet.creater")}
+                        th.col-md-2
+                            | #{t("search-snippet.createTime")}
+                        th.col-md-2
+                            | #{t("search-snippet.updateTime")}
+                        th.col-md-2
+                for snippet in snippetList
+                    tr
+                        td.col-md-3
+                            | #{snippet.title}
+                        td.col-md-3
+                            | #{snippet.creator}
+                        td.col-md-2
+                            | #{snippet.createTime}
+                        td.col-md-2
+                            | #{snippet.updateTime}
+                        td.col-md-2
+                            a.link-delete-snippet.link-tooltip.pull-right(data-snippet-id='#{snippet.id}',data-original-title='#{t("search-snippet.deleteTitle")}', data-placement='left')
+                                i.fa.fa-times.fa-lg
+                            a.link-view-snippet.link-tooltip.pull-right(href='/snippets/#{snippet.id}',data-original-title='#{t("search-snippet.viewTitle")}', data-placement='left')
+                                i.fa.fa-eye.fa-lg
+            mixin pager(pagination.pager, pagination.url)
+        else
+            h3
+                | #{t("search-snippet.noSnippet")}
+
+block scripts
+    - if (nodeEnv == "production") {
+        script(type='text/javascript', src='/static/js/admin-module.min.js')
+    - }
+    - else {
+        script(type='text/javascript', src='/assets/js/admin-module.js')
+    - }

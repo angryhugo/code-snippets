@@ -61,6 +61,42 @@ module.exports = {
             return next();
         }
     },
+    adminModuleJsEnsureAuthenticated: function(req, res, next) {
+        var adminType = req.user.admin_type;
+        adminType = parseInt(adminType);
+        if (adminType !== 1) {
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
+        } else {
+            return next();
+        }
+    },
+    adminModuleJavaEnsureAuthenticated: function(req, res, next) {
+        var adminType = req.user.admin_type;
+        adminType = parseInt(adminType);
+        if (adminType !== 2) {
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
+        } else {
+            return next();
+        }
+    },
+    adminModuleCEnsureAuthenticated: function(req, res, next) {
+        var adminType = req.user.admin_type;
+        adminType = parseInt(adminType);
+        if (adminType !== 3) {
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
+        } else {
+            return next();
+        }
+    },
+    adminModuleCsharpEnsureAuthenticated: function(req, res, next) {
+        var adminType = req.user.admin_type;
+        adminType = parseInt(adminType);
+        if (adminType !== 4) {
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
+        } else {
+            return next();
+        }
+    },
     index: function(req, res, next) {
         // var user = req.user || '';
         res.render('index', {

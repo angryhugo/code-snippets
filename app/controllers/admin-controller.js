@@ -15,6 +15,8 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
 
+var MODULE_ARRAY = ['javascript', 'java', 'c', 'csharp'];
+
 module.exports = {
     accountUserIndex: function(req, res, next) {
         var page = req.query.page || 1;
@@ -192,6 +194,62 @@ module.exports = {
             res.json({
                 code: 500
             });
+        });
+    },
+    moduleIndex: function(req, res, next) {
+        var typeId = req.user.admin_type;
+        var page = req.query.page || 1;
+        var url = req.path + '?';
+        var keyword = req.query.keyword || '';
+        var keywords = _str.trim(keyword).split(' ');
+        var whereString = 'is_deleted = "0" AND type_id =' + typeId + ' AND ';
+
+        for (var i = 0; i < keywords.length; i++) {
+            if (i == 0) {
+                whereString += '(title LIKE "%' + keywords[i] + '%"';
+            } else {
+                whereString += ' OR title LIKE "%' + keywords[i] + '%"';
+            }
+        }
+        whereString += ')';
+
+        url += 'keyword=' + _str.trim(keyword) + '&type=' + typeId;
+
+        CodeSnippet.count({
+            where: whereString
+        }).success(function(snippetTotal) {
+            var pageParams = utils.generatePageParams(snippetTotal, config.snippet_page_take, page);
+            var option = {
+                include: [{
+                    model: User,
+                    as: 'user'
+                    }],
+                offset: pageParams.skip,
+                limit: config.snippet_page_take,
+                where: [whereString]
+                // order: 'created_at DESC'
+            };
+            CodeSnippet.findAll(option).success(function(snippetList) {
+                if (!snippetList) { //do not exist
+                    exceptionFactory.errorHandler(null, errorMessage.SNIPPET_NOT_EXIST, next);
+                } else {
+                    res.render('admin-module', {
+                        pagination: {
+                            pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take),
+                            url: url
+                        },
+                        keyword: keyword,
+                        snippetList: mapper.adminSearchSnippetListMapper(snippetList),
+                        typeId: typeId,
+                        module: MODULE_ARRAY[typeId - 1],
+                        token: req.csrfToken()
+                    });
+                }
+            }).error(function(err) {
+                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
+            });
+        }).error(function(err) {
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     }
 };

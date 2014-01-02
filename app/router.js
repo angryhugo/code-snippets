@@ -84,6 +84,11 @@ module.exports = function(app) {
     app.get('/api/admin/accounts/users/:user_id/details', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getAccountDeail);
     app.get('/api/admin/accounts/usertypes', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getUserTypers);
 
+    app.get('/admin/modules/javascript', controller.ensureAuthenticated, controller.adminModuleJsEnsureAuthenticated, adminController.moduleIndex);
+    app.get('/admin/modules/java', controller.ensureAuthenticated, controller.adminModuleJavaEnsureAuthenticated, adminController.moduleIndex);
+    app.get('/admin/modules/c', controller.ensureAuthenticated, controller.adminModuleCEnsureAuthenticated, adminController.moduleIndex);
+    app.get('/admin/modules/csharp', controller.ensureAuthenticated, controller.adminModuleCsharpEnsureAuthenticated, adminController.moduleIndex);
+
     app.use(function(req, res) {
         res.render('404', {
             credential: req.user || ''

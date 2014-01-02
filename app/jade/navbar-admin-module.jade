@@ -1,0 +1,41 @@
+nav.navbar.navbar-default.navbar-fixed-top
+    div.container
+        div.navbar-header
+            a.navbar-brand(href="/admin/modules/#{module}",style="border-right:'1px solid #cccccc';") 
+                | #{t("navbar.projectName")}
+            button.navbar-toggle(type="button",data-toggle="collapse", data-target="#navbar-collapse-1")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+        div#navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+                li
+                    form#form-inline-navbar.form-inline(role='form',action='/admin/modules/#{module}',method='get')
+                        div.input-group
+                            input#input-search-navbar.form-control(type="text",name="keyword",placeholder='#{t("navbar.searchSnippetPlaceholder")}',autocomplete="off")
+                            span.input-group-btn
+                                button#btn-search-navbar.btn.btn-success
+                                    i.fa.fa-search
+                li.dropdown
+                    a.dropdown-toggle.link-tooltip(href="javascript:;", data-original-title='#{t("navbar.language")}', data-placement='bottom',data-toggle="dropdown")
+                        i.fa.fa-globe.fa-spin
+                    ul.dropdown-menu
+                        li
+                            a#link-english(href="javascript:;") English
+                        li
+                            a#link-chinese(href="javascript:;") 中文
+                li.dropdown
+                    a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                        i#layout-credential-name.fa.fa-linux
+                            | &nbsp;#{credential.name}
+                        b.caret
+                    ul.dropdown-menu
+                        li
+                            a#btn-change-password(href='/users/#{credential.id}/password')
+                                i.fa.fa-lock
+                                | &nbsp;&nbsp;#{t("navbar.password")}
+                            a(href="/users/logout")
+                                i.fa.fa-sign-out
+                                | &nbsp;#{t("navbar.logout")}
+            

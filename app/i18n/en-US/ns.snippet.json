@@ -103,7 +103,9 @@
         "type": "Type",
         "creater": "Creator",
         "createTime": "Created At",
-        "viewTitle": "more",
+        "updateTime": "Updated At",
+        "viewTitle": "More",
+        "deleteTitle": "Delete",
         "noSnippet": "There's no snippet related",
         "backBtn": "Back",
         "all": "All"
@@ -159,5 +161,8 @@
         "emailPlaceholder": "email@example.com",
         "password": "Password",
         "passwordPlaceholder": "Password"
+    },
+    "admin-modules": {
+        "title": "Module Admin"
     }
 }

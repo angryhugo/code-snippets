@@ -216,17 +216,22 @@ module.exports = {
     deleteSnippet: function(req, res, next) {
         // var snippetId = req.body.snippetId || '';
         var snippetId = req.params.snippet_id || '';
-        var userId = req.user.id;
+        var user = req.user;
         var dataObj = {};
         CodeSnippet.find(snippetId).success(function(snippet) {
             if (!snippet) {
                 dataObj.code = 400;
                 res.json(dataObj);
-            } else if (snippet.user_id === userId) {
+            } else if (snippet.user_id === user.id || snippet.type_id === user.admin_type) {
                 snippet.is_deleted = true;
                 snippet.save().success(function() {
-                    dataObj.code = 200;
-                    res.json(dataObj);
+                    //whether delete favoriteSnippet when snippet deleted???
+                    FavoriteSnippet.destroy({
+                        snippet_id: snippet.id
+                    }).success(function() {
+                        dataObj.code = 200;
+                        res.json(dataObj);
+                    });
                 });
             } else {
                 dataObj.code = 403;

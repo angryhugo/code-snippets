@@ -39,9 +39,18 @@ module.exports = {
         } else if (req.user.admin_type === 0) {
             //accont admin
             returnUrl = req.session.returnUrl || '/admin/accounts/users';
-        } else {
+        } else if (req.user.admin_type === 1) {
             //accont admin
-            returnUrl = req.session.returnUrl || '/admin/modules';
+            returnUrl = req.session.returnUrl || '/admin/modules/javascript';
+        } else if (req.user.admin_type === 2) {
+            //accont admin
+            returnUrl = req.session.returnUrl || '/admin/modules/java';
+        } else if (req.user.admin_type === 3) {
+            //accont admin
+            returnUrl = req.session.returnUrl || '/admin/modules/c';
+        } else if (req.user.admin_type === 4) {
+            //accont admin
+            returnUrl = req.session.returnUrl || '/admin/modules/csharp';
         }
         res.redirect(returnUrl);
     },

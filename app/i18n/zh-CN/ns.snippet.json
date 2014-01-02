@@ -103,7 +103,9 @@
         "type": "类别",
         "creater": "创建者",
         "createTime": "创建时间",
+        "updateTime": "修改时间",
         "viewTitle": "查看",
+        "deleteTitle": "删除",
         "noSnippet": "没有搜索到相关的代码片段",
         "backBtn": "返回",
         "all": "全部类型"
@@ -160,5 +162,8 @@
         "emailPlaceholder": "email@example.com",
         "password": "密码",
         "passwordPlaceholder": "密码"
+    },
+    "admin-modules": {
+        "title": "模块管理员"
     }
 }
