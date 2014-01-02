@@ -9,7 +9,6 @@ $(function() {
         widgets: ["zebra"]
     });
 
-    // _select.select2();
     _select.selectpicker();
 
     function getUrlVars() {
