@@ -6,7 +6,7 @@ var UserRelation = entityFactory.UserRelation;
 module.exports = {
     getAmountObj: function(userId, callback) {
         async.series({
-                jsAmount: function(callback) {
+                jsAmount: function(cb) {
                     var opiton = {
                         where: {
                             user_id: userId,
@@ -15,10 +15,10 @@ module.exports = {
                         }
                     };
                     CodeSnippet.count(opiton).success(function(jsAmount) {
-                        callback(null, jsAmount);
+                        cb(null, jsAmount);
                     });
                 },
-                javaAmount: function(callback) {
+                javaAmount: function(cb) {
                     var opiton = {
                         where: {
                             user_id: userId,
@@ -27,10 +27,10 @@ module.exports = {
                         }
                     };
                     CodeSnippet.count(opiton).success(function(javaAmount) {
-                        callback(null, javaAmount);
+                        cb(null, javaAmount);
                     });
                 },
-                cAmount: function(callback) {
+                cAmount: function(cb) {
                     var opiton = {
                         where: {
                             user_id: userId,
@@ -39,10 +39,10 @@ module.exports = {
                         }
                     };
                     CodeSnippet.count(opiton).success(function(cAmount) {
-                        callback(null, cAmount);
+                        cb(null, cAmount);
                     });
                 },
-                csharpAmount: function(callback) {
+                csharpAmount: function(cb) {
                     var opiton = {
                         where: {
                             user_id: userId,
@@ -51,27 +51,27 @@ module.exports = {
                         }
                     };
                     CodeSnippet.count(opiton).success(function(csharpAmount) {
-                        callback(null, csharpAmount);
+                        cb(null, csharpAmount);
                     });
                 },
-                followAmount: function(callback) {
+                followAmount: function(cb) {
                     var opiton = {
                         where: {
                             user_id: userId
                         }
                     };
                     UserRelation.count(opiton).success(function(followAmount) {
-                        callback(null, followAmount);
+                        cb(null, followAmount);
                     });
                 },
-                followerAmount: function(callback) {
+                followerAmount: function(cb) {
                     var opiton = {
                         where: {
                             follow_id: userId
                         }
                     };
                     UserRelation.count(opiton).success(function(followerAmount) {
-                        callback(null, followerAmount);
+                        cb(null, followerAmount);
                     });
                 }
             },
