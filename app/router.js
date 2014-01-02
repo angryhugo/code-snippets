@@ -59,23 +59,23 @@ module.exports = function(app) {
     app.get('/users/:user_id/profile', controller.ensureAuthenticated, controller.userEnsureAuthenticated, controller.viewProfile);
     app.post('/users/:user_id/profile', controller.ensureAuthenticated, controller.userEnsureAuthenticated, userController.updateProfile);
 
-    app.get('/snippets/new', controller.ensureAuthenticated, snippetController.newSnippet);
-    app.post('/snippets/new', controller.ensureAuthenticated, snippetController.doNewSnippet);
+    app.get('/snippets/new', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.newSnippet);
+    app.post('/snippets/new', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.doNewSnippet);
     app.get('/snippets/search', controller.autoLogin, snippetController.searchSnippet);
     app.get('/snippets/:snippet_id', controller.autoLogin, snippetController.viewSnippet);
     app.post('/snippets/:snippet_id', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.updateSnippet);
 
     app.post('/api/email', userController.checkEmail);
-    app.post('/api/follow', controller.ensureAuthenticated, userController.followUser);
-    app.post('/api/unfollow', controller.ensureAuthenticated, userController.unfollowUser);
-    app.get('/api/users/:user_id/snippets/following', controller.ensureAuthenticated, snippetController.viewFollowingSnippets);
-    app.get('/api/users/:user_id/snippets/favorite', controller.ensureAuthenticated, snippetController.viewFavoriteSnippets);
-    app.get('/api/users/:user_id/snippets/mine', controller.ensureAuthenticated, snippetController.viewMineSnippets);
-    app.get('/api/users/:user_id/followers', controller.ensureAuthenticated, userController.viewFollowers);
-    app.get('/api/users/:user_id/followings', controller.ensureAuthenticated, userController.viewFollowings)
+    app.post('/api/follow', controller.ensureAuthenticated, controller.userEnsureAuthenticated, userController.followUser);
+    app.post('/api/unfollow', controller.ensureAuthenticated, controller.userEnsureAuthenticated, userController.unfollowUser);
+    app.get('/api/users/:user_id/snippets/following', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.viewFollowingSnippets);
+    app.get('/api/users/:user_id/snippets/favorite', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.viewFavoriteSnippets);
+    app.get('/api/users/:user_id/snippets/mine', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.viewMineSnippets);
+    app.get('/api/users/:user_id/followers', controller.ensureAuthenticated, controller.userEnsureAuthenticated, userController.viewFollowers);
+    app.get('/api/users/:user_id/followings', controller.ensureAuthenticated, controller.userEnsureAuthenticated, userController.viewFollowings)
     app.delete('/api/snippets/:snippet_id', controller.ensureAuthenticated, snippetController.deleteSnippet);
-    app.post('/api/favorite', controller.ensureAuthenticated, snippetController.favoriteSnippet);
-    app.post('/api/unsubscribe', controller.ensureAuthenticated, snippetController.unsubscribeSnippet);
+    app.post('/api/favorite', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.favoriteSnippet);
+    app.post('/api/unsubscribe', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.unsubscribeSnippet);
 
     app.get('/admin/accounts/users', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountUserIndex);
     app.get('/admin/accounts/administrators', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountAdministratorIndex);
