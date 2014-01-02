@@ -235,12 +235,14 @@ module.exports = {
                 snippet.is_deleted = true;
                 snippet.save().success(function() {
                     //whether delete favoriteSnippet when snippet deleted???
-                    FavoriteSnippet.destroy({
-                        snippet_id: snippet.id
-                    }).success(function() {
-                        dataObj.code = 200;
-                        res.json(dataObj);
-                    });
+                    // FavoriteSnippet.destroy({
+                    //     snippet_id: snippet.id
+                    // }).success(function() {
+                    //     dataObj.code = 200;
+                    //     res.json(dataObj);
+                    // });
+                    dataObj.code = 200;
+                    res.json(dataObj);
                 });
             } else {
                 dataObj.code = 403;
@@ -384,6 +386,7 @@ module.exports = {
                                     pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take)
                                 },
                                 isSelf: isSelf,
+                                isFavorite: true,
                                 snippetList: favoriteSnippets
                             });
                         }

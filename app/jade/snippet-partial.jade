@@ -15,6 +15,9 @@ if snippetList.length>0
                 if isSelf
                     a.link-delete-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.delete")}', data-placement='left')
                         i.fa.fa-times.fa-lg
+                else if isFavorite
+                    a.link-unsubscribe-snippet.btn.btn-sm.pull-right.link-tooltip(data-snippet-id='#{snippet.id}',data-original-title='#{t("profile.unsubscribe")}', data-placement='left')
+                        i.fa.fa-star.fa-lg
     mixin internal-pager(pagination.pager)
 else
     | zero

@@ -75,7 +75,7 @@
         "backBtn": "返回主页",
         "serverError": "服务器错误",
         "userNotExist": "该用户不存在",
-        "snippetNotExist": "该代码片段不存在",
+        "snippetNotExist": "该代码片段不存在或已被删除",
         "snippetTypeNotExist": "不存在该片段类型",
         "permissionNotAllowed": "你的权限不允许进入该页面"
     },
@@ -129,6 +129,7 @@
         "profile": "资料",
         "mine": "我的",
         "favorite": "收藏",
+        "unsubscribe": "取消收藏",
         "following's": "我关注的",
         "following": "关注",
         "follower": "粉丝",

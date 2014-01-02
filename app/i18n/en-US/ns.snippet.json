@@ -68,7 +68,7 @@
         "backBtn": "Take Me Home",
         "serverError": "Server error",
         "userNotExist": "User not exist",
-        "snippetNotExist": "Snippet not exist",
+        "snippetNotExist": "Snippet not exist or is deleted",
         "snippetTypeNotExist": "Snippet type not exist",
         "permissionNotAllowed": "Permission not allowed"
     },
@@ -128,6 +128,7 @@
         "profile": "Profile",
         "mine": "Mine",
         "favorite": "Favorite",
+        "unsubscribe": "Unsubscribe",
         "following's": "Following's",
         "following": "Following",
         "follower": "Follower",

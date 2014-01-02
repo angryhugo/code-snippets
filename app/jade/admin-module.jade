@@ -1,7 +1,7 @@
 extends layout
 
 block title
-    | #{t("admin-modules.title")}&nbsp;|&nbsp;#{module}
+    | #{t("admin-modules.title")}&nbsp;|&nbsp;#{credential.module}
 
 append head
     - if (nodeEnv == "production") {
