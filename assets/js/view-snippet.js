@@ -92,7 +92,7 @@ $(function() {
         _snippetTitleDiv.text(_snippetTitleInput.val());
         _snippetTypeDiv.text(_snippetTypeInput.find(findString).attr('data-type'));
         // _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
-        _snippetContentDiv.find('pre code').text(editor.getValue());
+        _snippetContentDiv.find('pre code').attr('class', '').text(editor.getValue());
     };
 
     function afterUpdate() {
