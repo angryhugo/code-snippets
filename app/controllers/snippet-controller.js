@@ -12,6 +12,8 @@ var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
 
+var MODULE_ARRAY = ['javascript', 'java', 'c', 'csharp'];
+
 module.exports = {
     newSnippet: function(req, res, next) {
         // var user = req.user || '';
@@ -90,6 +92,8 @@ module.exports = {
                                 } else {
                                     res.render('view-snippet', {
                                         // credential: user,
+                                        module: user.admin_type > 0 ? MODULE_ARRAY[user.admin_type - 1] : '',
+                                        isAdmin: user.admin_type > 0 ? true : false,
                                         typeList: typeList,
                                         snippet: mappedSnippet,
                                         followStatus: followStatus,

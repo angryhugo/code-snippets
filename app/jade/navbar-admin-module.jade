@@ -1,7 +1,7 @@
 nav.navbar.navbar-default.navbar-fixed-top
     div.container
         div.navbar-header
-            a.navbar-brand(href="/admin/modules/#{module}",style="border-right:'1px solid #cccccc';") 
+            a#link-navbar-admin-module.navbar-brand(href="/admin/modules/#{module}",style="border-right:'1px solid #cccccc';") 
                 | #{t("navbar.projectName")}
             button.navbar-toggle(type="button",data-toggle="collapse", data-target="#navbar-collapse-1")
                     span.sr-only Toggle navigation

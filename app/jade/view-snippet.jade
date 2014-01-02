@@ -31,14 +31,15 @@ block main
                         div
                             div(style='font-weight:bold;')
                                 | #{snippet.owner}
-                            if followStatus == 1
-                                div(style='margin-top:3px')
-                                    button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/unfollow')
-                                        | #{t("view-snippet.unfollow")}
-                            else if followStatus == 2
-                                div(style='margin-top:3px')
-                                    button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow')
-                                        | #{t("view-snippet.follow")}
+                            if !isAdmin
+                                if followStatus == 1
+                                    div(style='margin-top:3px')
+                                        button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/unfollow')
+                                            | #{t("view-snippet.unfollow")}
+                                else if followStatus == 2
+                                    div(style='margin-top:3px')
+                                        button#btn-follow.btn.btn-sm(data-followId='#{snippet.ownerId}',data-url='/api/follow')
+                                            | #{t("view-snippet.follow")}
             form.col-sm-12.col-md-10.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                 input#input-snippet-id(type='hidden',value='#{snippet.id}')
@@ -52,19 +53,23 @@ block main
                     div.col-sm-11.col-md-11.hide
                         input#input-snippet-title.form-control(type="text",name="title")
                     div.col-sm-2
-                        if favoriteStatus==0
-                            a#link-edit-snippet.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.edit")}',data-placement='left')
-                                i.fa.fa-edit.fa-2x
-                        if favoriteStatus == 1
-                            a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/unsubscribe',data-original-title='#{t("view-snippet.unsubscribe")}',data-placement='left')
-                                i.fa.fa-star.fa-2x.favorite
-                        else if favoriteStatus == 2
-                            a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/favorite',data-original-title='#{t("view-snippet.favorite")}',data-placement='left')
-                                i.fa.fa-star.fa-2x.unsubscribe
-                        div#div-baidu-share.bdsharebuttonbox.pull-right
-                            a.bds_tsina.link-tooltip(href="#",data-cmd="tsina",data-original-title='#{t("view-snippet.sinaShare")}',data-placement='left')
-                            a.bds_tqq.link-tooltip(href="#",data-cmd="tqq",data-original-title='#{t("view-snippet.tencentShare")}',data-placement='left')
-                            a.bds_renren.link-tooltip(href="#",data-cmd="renren",data-original-title='#{t("view-snippet.renrenShare")}',data-placement='left')
+                        if !isAdmin
+                            if favoriteStatus==0
+                                a#link-edit-snippet.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.edit")}',data-placement='left')
+                                    i.fa.fa-edit.fa-2x
+                            if favoriteStatus == 1
+                                a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/unsubscribe',data-original-title='#{t("view-snippet.unsubscribe")}',data-placement='left')
+                                    i.fa.fa-star.fa-2x.favorite
+                            else if favoriteStatus == 2
+                                a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-url='/api/favorite',data-original-title='#{t("view-snippet.favorite")}',data-placement='left')
+                                    i.fa.fa-star.fa-2x.unsubscribe
+                            div#div-baidu-share.bdsharebuttonbox.pull-right
+                                a.bds_tsina.link-tooltip(href="#",data-cmd="tsina",data-original-title='#{t("view-snippet.sinaShare")}',data-placement='left')
+                                a.bds_tqq.link-tooltip(href="#",data-cmd="tqq",data-original-title='#{t("view-snippet.tencentShare")}',data-placement='left')
+                                a.bds_renren.link-tooltip(href="#",data-cmd="renren",data-original-title='#{t("view-snippet.renrenShare")}',data-placement='left')
+                        else
+                            a#link-delete-snippet.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.delete")}',data-placement='left')
+                                i.fa.fa-times.fa-2x
                 div.form-group
                     label.col-sm-1.col-md-1.control-label
                         | #{t("new-snippet.snippetType")}

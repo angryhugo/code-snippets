@@ -8,6 +8,8 @@ $(function() {
     var _followBtn = $('#btn-follow');
     var _favoriteBtn = $('#btn-favorite');
 
+    var _deleteSnippetLink = $('#link-delete-snippet');
+    var _navbarAdminModuleLink = $('#link-navbar-admin-module');
     //for edit
     var _editSnippetLink = $('#link-edit-snippet');
     var _snippetContent = $('#input-snippet-hidden').val();
@@ -251,5 +253,37 @@ $(function() {
         } else {
             doFavoriteAjax();
         }
+    });
+
+    _deleteSnippetLink.on('click', function() {
+        var self = $(this);
+        bootbox.confirm(Message.DELETE_SNIPPET_CONFIRM, function(result) {
+            if (result) {
+                var snippetId = self.attr('data-snippetId');
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/snippets/' + snippetId,
+                    data: {
+                        _csrf: _csrf
+                        // snippetId: snippetId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code === 200) {
+                            bootbox.alert(Message.DELETE_SNIPPET_SUCCESS, function() {
+                                window.location.href = _navbarAdminModuleLink.attr('href');
+                            });
+                        } else if (data.code === 400) {
+                            bootbox.alert(Message.SNIPPET_NOT_EXSIT);
+                        } else {
+                            bootbox.alert(Message.DELETE_SNIPPET_FORBIDDEN);
+                        }
+                    },
+                    error: function(xhr, status, err) {
+                        bootbox.alert(Message.SERVER_ERROR);
+                    }
+                });
+            }
+        });
     });
 });

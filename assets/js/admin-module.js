@@ -1,6 +1,9 @@
 $(function() {
 	var _csrf = $('#input-csrf').val();
 	var _deleteSnippetLink = $('.link-delete-snippet');
+	var _snippetTable = $('#table-snippets');
+	_snippetTable.find("tr:even").addClass('even');
+
 	_deleteSnippetLink.on('click', function() {
 		var self = $(this);
 		bootbox.confirm(Message.DELETE_SNIPPET_CONFIRM, function(result) {
