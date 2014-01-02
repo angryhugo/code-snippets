@@ -67,7 +67,7 @@ block main
                                 a.bds_tsina.link-tooltip(href="#",data-cmd="tsina",data-original-title='#{t("view-snippet.sinaShare")}',data-placement='left')
                                 a.bds_tqq.link-tooltip(href="#",data-cmd="tqq",data-original-title='#{t("view-snippet.tencentShare")}',data-placement='left')
                                 a.bds_renren.link-tooltip(href="#",data-cmd="renren",data-original-title='#{t("view-snippet.renrenShare")}',data-placement='left')
-                        else
+                        else if hasDeleteRight
                             a#link-delete-snippet.link-tooltip.pull-right(href='javascript:',data-snippetId='#{snippet.id}',data-original-title='#{t("view-snippet.delete")}',data-placement='left')
                                 i.fa.fa-times.fa-2x
                 div.form-group
@@ -76,11 +76,12 @@ block main
                     div#div-snippet-type.div-content.col-sm-11.col-md-11
                         | #{snippet.type.name}
                     div.col-sm-11.col-md-11.hide
-                        select#select-snippet-type.form-control.selectpicker(name='type_id', data-live-search='true')
-                            if typeList.length>0
-                                for type in typeList
-                                    option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 
-                                        | #{type.typeName}
+                        if !isAdmin
+                            select#select-snippet-type.form-control.selectpicker(name='type_id', data-live-search='true')
+                                if typeList.length>0
+                                    for type in typeList
+                                        option(value="#{type.id}", selected=(type.typeName==snippet.type)?true:false, data-type="#{type.typeName}") 
+                                            | #{type.typeName}
                 div.form-group
                     label.col-sm-1.col-md-1.control-label(for='input-snippet-content')
                         | #{t("view-snippet.snippetContent")}

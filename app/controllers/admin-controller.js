@@ -15,8 +15,6 @@ var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
 
-var MODULE_ARRAY = ['javascript', 'java', 'c', 'csharp'];
-
 module.exports = {
     accountUserIndex: function(req, res, next) {
         var page = req.query.page || 1;
@@ -241,7 +239,6 @@ module.exports = {
                         keyword: keyword,
                         snippetList: mapper.adminSearchSnippetListMapper(snippetList),
                         typeId: typeId,
-                        module: MODULE_ARRAY[typeId - 1],
                         token: req.csrfToken()
                     });
                 }

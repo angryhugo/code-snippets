@@ -12,8 +12,6 @@ var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
 
-var MODULE_ARRAY = ['javascript', 'java', 'c', 'csharp'];
-
 module.exports = {
     newSnippet: function(req, res, next) {
         // var user = req.user || '';
@@ -75,39 +73,46 @@ module.exports = {
                 exceptionFactory.errorHandler(null, errorMessage.SNIPPET_NOT_EXIST, next);
             } else {
                 var mappedSnippet = mapper.viewSnippetMapper(snippet);
-                checkFollowStatus(user.id, mappedSnippet.ownerId, function(err, followStat) {
-                    if (err) {
-                        followStatus = 4;
-                    } else {
-                        followStatus = followStat;
-                        checkSnippetStatus(user.id, snippet.id, function(err, favoriteStat) {
-                            if (err) {
-                                favoriteStatus = 4;
-                            } else {
-                                favoriteStatus = favoriteStat;
-                            }
-                            SnippetType.findAll().success(function(typeList) {
-                                if (!typeList) {
-                                    exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
+                if (user.admin_type >= 0) {
+                    res.render('view-snippet', {
+                        // credential: user,
+                        isAdmin: true,
+                        hasDeleteRight: user.admin_type === mappedSnippet.type.id ? true : false,
+                        snippet: mappedSnippet,
+                        token: req.csrfToken()
+                    });
+                } else {
+                    checkFollowStatus(user.id, mappedSnippet.ownerId, function(err, followStat) {
+                        if (err) {
+                            followStatus = 4;
+                        } else {
+                            followStatus = followStat;
+                            checkSnippetStatus(user.id, snippet.id, function(err, favoriteStat) {
+                                if (err) {
+                                    favoriteStatus = 4;
                                 } else {
-                                    res.render('view-snippet', {
-                                        // credential: user,
-                                        module: user.admin_type > 0 ? MODULE_ARRAY[user.admin_type - 1] : '',
-                                        isAdmin: user.admin_type > 0 ? true : false,
-                                        typeList: typeList,
-                                        snippet: mappedSnippet,
-                                        followStatus: followStatus,
-                                        favoriteStatus: favoriteStatus,
-                                        token: req.csrfToken()
-                                    });
+                                    favoriteStatus = favoriteStat;
                                 }
-                            }).error(function(err) {
-                                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
-                            });
+                                SnippetType.findAll().success(function(typeList) {
+                                    if (!typeList) {
+                                        exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
+                                    } else {
+                                        res.render('view-snippet', {
+                                            typeList: typeList,
+                                            snippet: mappedSnippet,
+                                            followStatus: followStatus,
+                                            favoriteStatus: favoriteStatus,
+                                            token: req.csrfToken()
+                                        });
+                                    }
+                                }).error(function(err) {
+                                    exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
+                                });
 
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                }
             }
         }).error(function(err) {
             exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
