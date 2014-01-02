@@ -5,6 +5,7 @@ var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
 var statistics = require('../helpers/statistics');
 var exceptionFactory = require('../helpers/exception-factory');
+var errorMessage = require('../helpers/error-message');
 var entityFactory = require('../models/entity-factory');
 var config = require('../../config.json');
 
@@ -13,9 +14,6 @@ var UserType = entityFactory.UserType;
 var CodeSnippet = entityFactory.CodeSnippet;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
-
-var USER_PAGE_TAKE = 10;
-var SERVER_ERROR = 'Server error';
 
 module.exports = {
     accountUserIndex: function(req, res, next) {
@@ -27,10 +25,10 @@ module.exports = {
         User.count({
             where: whereString
         }).success(function(userTotal) {
-            var pageParams = utils.generatePageParams(userTotal, USER_PAGE_TAKE, page);
+            var pageParams = utils.generatePageParams(userTotal, config.user_page_take, page);
             var option = {
                 offset: pageParams.skip,
-                limit: USER_PAGE_TAKE,
+                limit: config.user_page_take,
                 where: whereString,
                 order: 'created_at DESC'
             };
@@ -38,17 +36,17 @@ module.exports = {
                 res.render('admin-account-users', {
                     isUserManagement: true,
                     pagination: {
-                        pager: utils.buildPager(userTotal, pageParams.skip, USER_PAGE_TAKE),
+                        pager: utils.buildPager(userTotal, pageParams.skip, config.user_page_take),
                         url: url
                     },
                     token: req.csrfToken(),
                     accountList: mapper.searchUserListMapper(users)
                 });
             }).error(function(err) {
-                exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
             });
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     },
     accountAdministratorIndex: function(req, res, next) {
@@ -60,14 +58,14 @@ module.exports = {
         User.count({
             where: whereString
         }).success(function(userTotal) {
-            var pageParams = utils.generatePageParams(userTotal, USER_PAGE_TAKE, page);
+            var pageParams = utils.generatePageParams(userTotal, config.user_page_take, page);
             var option = {
                 include: [{
                     model: UserType,
                     as: 'typer'
                     }],
                 offset: pageParams.skip,
-                limit: USER_PAGE_TAKE,
+                limit: config.user_page_take,
                 where: whereString,
                 order: 'created_at DESC'
             };
@@ -75,17 +73,17 @@ module.exports = {
                 res.render('admin-account-administrators', {
                     isUserManagement: false,
                     pagination: {
-                        pager: utils.buildPager(userTotal, pageParams.skip, USER_PAGE_TAKE),
+                        pager: utils.buildPager(userTotal, pageParams.skip, config.user_page_take),
                         url: url
                     },
                     token: req.csrfToken(),
                     accountList: mapper.searchAdministratorListMapper(users)
                 });
             }).error(function(err) {
-                exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
             });
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     },
     deleteUser: function(req, res, next) {

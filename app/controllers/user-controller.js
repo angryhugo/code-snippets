@@ -3,14 +3,13 @@ var _str = require('underscore.string');
 var passwordHash = require('password-hash');
 var utils = require('../helpers/utils');
 var mapper = require('../helpers/mapper');
+var errorMessage = require('../helpers/error-message');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
+var config = require('../../config.json');
 
 var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
-
-var FOLLOW_PAGE_TAKE = 24;
-var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
 
 module.exports = {
     // findUserByEmail: function(email, callback) {
@@ -67,7 +66,7 @@ module.exports = {
         var user = req.user || '';
         var userId = req.params.user_id || '';
         if (userId !== user.id) {
-            exceptionFactory.errorHandler(null, PERMISSION_NOT_ALLOWED, next);
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
             res.render('password', {
                 // credential: user,
@@ -157,14 +156,14 @@ module.exports = {
                 follow_id: viewUserId
             }
         }).success(function(relationTotal) {
-            var pageParams = utils.generatePageParams(relationTotal, FOLLOW_PAGE_TAKE, page);
+            var pageParams = utils.generatePageParams(relationTotal, config.follow_page_take, page);
             var option = {
                 include: [{
                     model: User,
                     as: 'user'
                             }],
                 offset: pageParams.skip,
-                limit: FOLLOW_PAGE_TAKE,
+                limit: config.follow_page_take,
                 where: {
                     follow_id: viewUserId
                 },
@@ -199,7 +198,7 @@ module.exports = {
                     } else {
                         res.render('follow-partial', {
                             pagination: {
-                                pager: utils.buildPager(relationTotal, pageParams.skip, FOLLOW_PAGE_TAKE)
+                                pager: utils.buildPager(relationTotal, pageParams.skip, config.follow_page_take)
                             },
                             isSelf: isSelf,
                             followList: mapper.followerListMapper(followerList)
@@ -222,14 +221,14 @@ module.exports = {
                 user_id: viewUserId
             }
         }).success(function(relationTotal) {
-            var pageParams = utils.generatePageParams(relationTotal, FOLLOW_PAGE_TAKE, page);
+            var pageParams = utils.generatePageParams(relationTotal, config.follow_page_take, page);
             var option = {
                 include: [{
                     model: User,
                     as: 'follow'
                             }],
                 offset: pageParams.skip,
-                limit: FOLLOW_PAGE_TAKE,
+                limit: config.follow_page_take,
                 where: {
                     user_id: viewUserId
                 },
@@ -264,7 +263,7 @@ module.exports = {
                     } else {
                         res.render('follow-partial', {
                             pagination: {
-                                pager: utils.buildPager(relationTotal, pageParams.skip, FOLLOW_PAGE_TAKE)
+                                pager: utils.buildPager(relationTotal, pageParams.skip, config.follow_page_take)
                             },
                             isSelf: isSelf,
                             followList: mapper.followingListMapper(followingList)

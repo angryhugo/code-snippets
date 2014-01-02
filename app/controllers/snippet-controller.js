@@ -1,6 +1,7 @@
 var _str = require('underscore.string');
 var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
+var errorMessage = require('../helpers/error-message');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 var config = require('../../config.json');
@@ -11,17 +12,12 @@ var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 var FavoriteSnippet = entityFactory.FavoriteSnippet;
 
-var SNIPPET_PAGE_TAKE = 10;
-var SERVER_ERROR = 'Server error';
-var SNIPPET_NOT_EXIST = 'Snippet not exist';
-var SNIPPET_TYPE_NOT_EXIST = 'Snippet type not exist';
-
 module.exports = {
     newSnippet: function(req, res, next) {
         // var user = req.user || '';
         SnippetType.findAll().success(function(typeList) {
             if (!typeList) {
-                exceptionFactory.errorHandler(null, SNIPPET_TYPE_NOT_EXIST, next);
+                exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
             } else {
                 res.render('new-snippet', {
                     // credential: user,
@@ -30,7 +26,7 @@ module.exports = {
                 });
             }
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
 
     },
@@ -51,7 +47,7 @@ module.exports = {
         }).success(function(snippet) {
             res.redirect('/snippets/' + snippet.id);
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     },
     viewSnippet: function(req, res, next) {
@@ -74,7 +70,7 @@ module.exports = {
         };
         CodeSnippet.find(option).success(function(snippet) {
             if (!snippet) { //do not exist
-                exceptionFactory.errorHandler(null, SNIPPET_NOT_EXIST, next);
+                exceptionFactory.errorHandler(null, errorMessage.SNIPPET_NOT_EXIST, next);
             } else {
                 var mappedSnippet = mapper.viewSnippetMapper(snippet);
                 checkFollowStatus(user.id, mappedSnippet.ownerId, function(err, followStat) {
@@ -90,7 +86,7 @@ module.exports = {
                             }
                             SnippetType.findAll().success(function(typeList) {
                                 if (!typeList) {
-                                    exceptionFactory.errorHandler(null, SNIPPET_TYPE_NOT_EXIST, next);
+                                    exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
                                 } else {
                                     res.render('view-snippet', {
                                         // credential: user,
@@ -102,7 +98,7 @@ module.exports = {
                                     });
                                 }
                             }).error(function(err) {
-                                exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                             });
 
                         });
@@ -110,7 +106,7 @@ module.exports = {
                 });
             }
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     },
     updateSnippet: function(req, res, next) {
@@ -171,7 +167,7 @@ module.exports = {
         CodeSnippet.count({
             where: whereString
         }).success(function(snippetTotal) {
-            var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+            var pageParams = utils.generatePageParams(snippetTotal, config.snippet_page_take, page);
             var option = {
                 include: [{
                     model: User,
@@ -181,21 +177,21 @@ module.exports = {
                     as: 'typer'
                     }],
                 offset: pageParams.skip,
-                limit: SNIPPET_PAGE_TAKE,
+                limit: config.snippet_page_take,
                 where: [whereString]
                 // order: 'created_at DESC'
             };
             CodeSnippet.findAll(option).success(function(snippetList) {
                 if (!snippetList) { //do not exist
-                    exceptionFactory.errorHandler(null, SNIPPET_NOT_EXIST, next);
+                    exceptionFactory.errorHandler(null, errorMessage.SNIPPET_NOT_EXIST, next);
                 } else {
                     SnippetType.findAll().success(function(typeList) {
                         if (!typeList) {
-                            exceptionFactory.errorHandler(null, SNIPPET_TYPE_NOT_EXIST, next);
+                            exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
                         } else {
                             res.render('search-snippet', {
                                 pagination: {
-                                    pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE),
+                                    pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take),
                                     url: url
                                 },
                                 keyword: keyword,
@@ -207,14 +203,14 @@ module.exports = {
                             });
                         }
                     }).error(function(err) {
-                        exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                        exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                     });
                 }
             }).error(function(err) {
-                exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
             });
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     },
     deleteSnippet: function(req, res, next) {
@@ -262,7 +258,7 @@ module.exports = {
                 CodeSnippet.count({
                     where: whereObjForSnippets
                 }).success(function(snippetTotal) {
-                    var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+                    var pageParams = utils.generatePageParams(snippetTotal, config.snippet_page_take, page);
                     var option = {
                         include: [{
                             model: User,
@@ -272,27 +268,27 @@ module.exports = {
                             as: 'typer'
                             }],
                         offset: pageParams.skip,
-                        limit: SNIPPET_PAGE_TAKE,
+                        limit: config.snippet_page_take,
                         where: whereObjForSnippets,
                         order: 'created_at DESC'
                     };
                     CodeSnippet.findAll(option).success(function(snippetList) {
                         res.render('snippet-partial', {
                             pagination: {
-                                pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
+                                pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take)
                             },
                             isSelf: false,
                             snippetList: mapper.profileSnippetListMapper(snippetList)
                         });
                     }).error(function(err) {
-                        exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                        exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                     })
                 }).error(function(err) {
-                    exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                    exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                 });
             }
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         })
     },
     viewMineSnippets: function(req, res, next) {
@@ -309,7 +305,7 @@ module.exports = {
         CodeSnippet.count({
             where: whereObj
         }).success(function(snippetTotal) {
-            var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+            var pageParams = utils.generatePageParams(snippetTotal, config.snippet_page_take, page);
             var option = {
                 include: [{
                     model: User,
@@ -319,14 +315,14 @@ module.exports = {
                     as: 'typer'
                             }],
                 offset: pageParams.skip,
-                limit: SNIPPET_PAGE_TAKE,
+                limit: config.snippet_page_take,
                 where: whereObj,
                 order: 'created_at DESC'
             };
             CodeSnippet.findAll(option).success(function(snippetList) {
                 res.render('snippet-partial', {
                     pagination: {
-                        pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
+                        pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take)
                     },
                     isSelf: isSelf,
                     snippetList: mapper.profileSnippetListMapper(snippetList)
@@ -353,25 +349,25 @@ module.exports = {
                     snippetList: []
                 });
             } else {
-                var pageParams = utils.generatePageParams(snippetTotal, SNIPPET_PAGE_TAKE, page);
+                var pageParams = utils.generatePageParams(snippetTotal, config.snippet_page_take, page);
                 var option = {
                     include: [{
                         model: CodeSnippet,
                         as: 'snippet'
                             }],
                     offset: pageParams.skip,
-                    limit: SNIPPET_PAGE_TAKE,
+                    limit: config.snippet_page_take,
                     where: whereObj,
                     order: 'created_at DESC'
                 };
                 FavoriteSnippet.findAll(option).success(function(favoriteSnippetList) {
                     mapper.favoriteSnippetListMapper(favoriteSnippetList, function(err, favoriteSnippets) {
                         if (err) {
-                            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                         } else {
                             res.render('snippet-partial', {
                                 pagination: {
-                                    pager: utils.buildPager(snippetTotal, pageParams.skip, SNIPPET_PAGE_TAKE)
+                                    pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take)
                                 },
                                 isSelf: isSelf,
                                 snippetList: favoriteSnippets

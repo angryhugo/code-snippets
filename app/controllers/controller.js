@@ -1,12 +1,9 @@
 var statistics = require('../helpers/statistics');
+var errorMessage = require('../helpers/error-message');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
-
-var SERVER_ERROR = 'Server error';
-var PERMISSION_NOT_ALLOWED = 'Permission not allowed';
-var USER_NOT_EXIST = 'User not exist';
 
 module.exports = {
     autoLogin: function(req, res, next) {
@@ -50,7 +47,7 @@ module.exports = {
         var adminType = req.user.admin_type;
         adminType = parseInt(adminType);
         if (adminType !== -1) {
-            exceptionFactory.errorHandler(null, PERMISSION_NOT_ALLOWED, next);
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
             return next();
         }
@@ -59,7 +56,7 @@ module.exports = {
         var adminType = req.user.admin_type;
         adminType = parseInt(adminType);
         if (adminType !== 0) {
-            exceptionFactory.errorHandler(null, PERMISSION_NOT_ALLOWED, next);
+            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
             return next();
         }
@@ -78,11 +75,11 @@ module.exports = {
         var isSelf = user.id == viewUserId ? true : false;
         User.find(viewUserId).success(function(viewUser) {
             if (!viewUser) {
-                exceptionFactory.errorHandler(null, USER_NOT_EXIST, next);
+                exceptionFactory.errorHandler(null, errorMessage.USER_NOT_EXIST, next);
             } else {
                 statistics.getAmountObj(viewUserId, function(err, amountObj) {
                     if (err) {
-                        exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+                        exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                     } else {
                         var viewUserObj = {
                             id: viewUserId,
@@ -100,7 +97,7 @@ module.exports = {
                 })
             }
         }).error(function(err) {
-            exceptionFactory.errorHandler(err, SERVER_ERROR, next);
+            exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     }
 };

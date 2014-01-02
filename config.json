@@ -3,5 +3,8 @@
     "db_user": "root",
     "db_pwd": "123",
     "max_user_type_id": "4",
-    "max_snippet_type_id": "4"
+    "max_snippet_type_id": "4",
+    "user_page_take": "10",
+    "follow_page_take": "24",
+    "snippet_page_take": "10"
 }
