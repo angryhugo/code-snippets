@@ -5,6 +5,8 @@ var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
 
+var MOUDLE_TYPE = ['javascript', 'java', 'c', 'csharp'];
+
 module.exports = {
     autoLogin: function(req, res, next) {
         if (!req.isAuthenticated() && req.cookies['cs-user']) {
@@ -61,44 +63,18 @@ module.exports = {
             return next();
         }
     },
-    adminModuleJsEnsureAuthenticated: function(req, res, next) {
+    adminModuleEnsureAuthenticated: function(req, res, next) {
         var adminType = req.user.admin_type;
-        adminType = parseInt(adminType);
-        if (adminType !== 1) {
+        var moduleType = req.params.module_type || '';
+        if (moduleType === MOUDLE_TYPE[adminType - 1]) {
+            req.user.module = MOUDLE_TYPE[adminType - 1];
+            return next();
+        } else if (isValidModule(moduleType)) {
             exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
-            req.user.module = 'javascript';
-            return next();
-        }
-    },
-    adminModuleJavaEnsureAuthenticated: function(req, res, next) {
-        var adminType = req.user.admin_type;
-        adminType = parseInt(adminType);
-        if (adminType !== 2) {
-            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
-        } else {
-            req.user.module = 'java';
-            return next();
-        }
-    },
-    adminModuleCEnsureAuthenticated: function(req, res, next) {
-        var adminType = req.user.admin_type;
-        adminType = parseInt(adminType);
-        if (adminType !== 3) {
-            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
-        } else {
-            req.user.module = 'c';
-            return next();
-        }
-    },
-    adminModuleCsharpEnsureAuthenticated: function(req, res, next) {
-        var adminType = req.user.admin_type;
-        adminType = parseInt(adminType);
-        if (adminType !== 4) {
-            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
-        } else {
-            req.user.module = 'csharp';
-            return next();
+            res.render('404', {
+                credential: req.user || ''
+            });
         }
     },
     index: function(req, res, next) {
@@ -140,4 +116,13 @@ module.exports = {
             exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     }
+};
+
+function isValidModule(module) {
+    for (var i in MOUDLE_TYPE) {
+        if (module === MOUDLE_TYPE[i]) {
+            return true;
+        }
+    }
+    return false;
 };

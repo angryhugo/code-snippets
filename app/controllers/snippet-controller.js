@@ -191,30 +191,26 @@ module.exports = {
                 // order: 'created_at DESC'
             };
             CodeSnippet.findAll(option).success(function(snippetList) {
-                if (!snippetList) { //do not exist
-                    exceptionFactory.errorHandler(null, errorMessage.SNIPPET_NOT_EXIST, next);
-                } else {
-                    SnippetType.findAll().success(function(typeList) {
-                        if (!typeList) {
-                            exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
-                        } else {
-                            res.render('search-snippet', {
-                                pagination: {
-                                    pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take),
-                                    url: url
-                                },
-                                keyword: keyword,
-                                // credential: user,
-                                snippetList: mapper.searchSnippetListMapper(snippetList),
-                                typeList: typeList,
-                                typeId: typeId,
-                                token: req.csrfToken()
-                            });
-                        }
-                    }).error(function(err) {
-                        exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
-                    });
-                }
+                SnippetType.findAll().success(function(typeList) {
+                    if (!typeList) {
+                        exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
+                    } else {
+                        res.render('search-snippet', {
+                            pagination: {
+                                pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take),
+                                url: url
+                            },
+                            keyword: keyword,
+                            // credential: user,
+                            snippetList: mapper.searchSnippetListMapper(snippetList),
+                            typeList: typeList,
+                            typeId: typeId,
+                            token: req.csrfToken()
+                        });
+                    }
+                }).error(function(err) {
+                    exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
+                });
             }).error(function(err) {
                 exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
             });

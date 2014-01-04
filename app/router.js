@@ -77,17 +77,13 @@ module.exports = function(app) {
     app.post('/api/favorite', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.favoriteSnippet);
     app.post('/api/unsubscribe', controller.ensureAuthenticated, controller.userEnsureAuthenticated, snippetController.unsubscribeSnippet);
 
+    app.get('/api/admin/accounts/users/:user_id/details', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getAccountDeail);
+    app.get('/api/admin/accounts/usertypes', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getUserTypers);
     app.get('/admin/accounts/users', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountUserIndex);
     app.get('/admin/accounts/administrators', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.accountAdministratorIndex);
     app.post('/admin/accounts/administrators', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.doNewAdministrator);
     app.delete('/admin/accounts/users/:user_id', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.deleteUser);
-    app.get('/api/admin/accounts/users/:user_id/details', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getAccountDeail);
-    app.get('/api/admin/accounts/usertypes', controller.ensureAuthenticated, controller.adminAccountEnsureAuthenticated, adminController.getUserTypers);
-
-    app.get('/admin/modules/javascript', controller.ensureAuthenticated, controller.adminModuleJsEnsureAuthenticated, adminController.moduleIndex);
-    app.get('/admin/modules/java', controller.ensureAuthenticated, controller.adminModuleJavaEnsureAuthenticated, adminController.moduleIndex);
-    app.get('/admin/modules/c', controller.ensureAuthenticated, controller.adminModuleCEnsureAuthenticated, adminController.moduleIndex);
-    app.get('/admin/modules/csharp', controller.ensureAuthenticated, controller.adminModuleCsharpEnsureAuthenticated, adminController.moduleIndex);
+    app.get('/admin/modules/:module_type', controller.ensureAuthenticated, controller.adminModuleEnsureAuthenticated, adminController.moduleIndex);
 
     app.use(function(req, res) {
         res.render('404', {

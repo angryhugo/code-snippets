@@ -228,20 +228,16 @@ module.exports = {
                 // order: 'created_at DESC'
             };
             CodeSnippet.findAll(option).success(function(snippetList) {
-                if (!snippetList) { //do not exist
-                    exceptionFactory.errorHandler(null, errorMessage.SNIPPET_NOT_EXIST, next);
-                } else {
-                    res.render('admin-module', {
-                        pagination: {
-                            pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take),
-                            url: url
-                        },
-                        keyword: keyword,
-                        snippetList: mapper.adminSearchSnippetListMapper(snippetList),
-                        typeId: typeId,
-                        token: req.csrfToken()
-                    });
-                }
+                res.render('admin-module', {
+                    pagination: {
+                        pager: utils.buildPager(snippetTotal, pageParams.skip, config.snippet_page_take),
+                        url: url
+                    },
+                    keyword: keyword,
+                    snippetList: mapper.adminSearchSnippetListMapper(snippetList),
+                    typeId: typeId,
+                    token: req.csrfToken()
+                });
             }).error(function(err) {
                 exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
             });
