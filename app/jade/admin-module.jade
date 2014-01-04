@@ -40,7 +40,7 @@ block main
                             | #{t("search-snippet.updateTime")}
                         th.col-md-2
                 for snippet in snippetList
-                    tr
+                    tr(id='#{snippet.id}')
                         td.col-md-3
                             | #{snippet.title}
                         td.col-md-3

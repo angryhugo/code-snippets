@@ -26,6 +26,12 @@ $(function() {
     var _snippetTypeInput = $('#select-snippet-type');
     var _snippetContentInput = $('#input-snippet-content');
 
+    //for delete
+    var _deleteSnippetLinkFinal = $('#link-delete-snippet-final');
+    var _deleteSnippetLinkCancel = $('#link-delete-snippet-cancel');
+    var _deleteSnippetModal = $('#modal-delete-snippet');
+    var _reasonInput = $('#input-reason');
+
     var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
     var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
 
@@ -256,34 +262,38 @@ $(function() {
     });
 
     _deleteSnippetLink.on('click', function() {
-        var self = $(this);
-        bootbox.confirm(Message.DELETE_SNIPPET_CONFIRM, function(result) {
-            if (result) {
-                var snippetId = self.attr('data-snippetId');
-                $.ajax({
-                    type: 'DELETE',
-                    url: '/api/snippets/' + snippetId,
-                    data: {
-                        _csrf: _csrf
-                        // snippetId: snippetId
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.code === 200) {
-                            bootbox.alert(Message.DELETE_SNIPPET_SUCCESS, function() {
-                                window.location.href = _navbarAdminModuleLink.attr('href');
-                            });
-                        } else if (data.code === 400) {
-                            bootbox.alert(Message.SNIPPET_NOT_EXSIT);
-                        } else {
-                            bootbox.alert(Message.DELETE_SNIPPET_FORBIDDEN);
-                        }
-                    },
-                    error: function(xhr, status, err) {
-                        bootbox.alert(Message.SERVER_ERROR);
-                    }
-                });
+        _deleteSnippetModal.modal();
+    });
+
+    _deleteSnippetLinkCancel.on('click', function() {
+        _reasonInput.val('');
+    });
+
+    _deleteSnippetLinkFinal.on('click', function() {
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/snippets/' + _snippetId,
+            data: {
+                _csrf: _csrf,
+                reason: _reasonInput.val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                _deleteSnippetModal.modal('hide');
+                if (data.code === 200) {
+                    bootbox.alert(Message.DELETE_SNIPPET_SUCCESS, function() {
+                        window.location.href = _navbarAdminModuleLink.attr('href');
+                    });
+                } else if (data.code === 400) {
+                    bootbox.alert(Message.SNIPPET_NOT_EXSIT);
+                } else {
+                    bootbox.alert(Message.DELETE_SNIPPET_FORBIDDEN);
+                }
+            },
+            error: function(xhr, status, err) {
+                _deleteSnippetModal.modal('hide');
+                bootbox.alert(Message.SERVER_ERROR);
             }
         });
-    });
+    })
 });

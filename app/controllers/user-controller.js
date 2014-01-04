@@ -12,17 +12,6 @@ var User = entityFactory.User;
 var UserRelation = entityFactory.UserRelation;
 
 module.exports = {
-    // findUserByEmail: function(email, callback) {
-    //     User.find({
-    //         where: {
-    //             email: username
-    //         }
-    //     }).success(function(user) {
-    //         callback(null, user);
-    //     }).error(function(err) {
-    //         callback(err);
-    //     });
-    // },
     doLogin: function(req, res, next) {
         var isRemember = req.body.is_remember || false;
         console.log(isRemember);
@@ -78,7 +67,6 @@ module.exports = {
             exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
         } else {
             res.render('password', {
-                // credential: user,
                 token: req.csrfToken()
             });
         }

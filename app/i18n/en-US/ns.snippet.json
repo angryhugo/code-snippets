@@ -165,6 +165,11 @@
         "passwordPlaceholder": "Password"
     },
     "admin-modules": {
-        "title": "Module Admin"
+        "title": "Module Admin",
+        "deleteSnippet": "Delete Snippet",
+        "reasonPlaceholder": "Please input reason for deleting",
+        "reason": "Reason",
+        "delete": "Delete",
+        "cancel": "Cancel"
     }
 }

@@ -1,3 +1,4 @@
+var moment = require('moment');
 var _str = require('underscore.string');
 var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
@@ -15,13 +16,11 @@ var FavoriteSnippet = entityFactory.FavoriteSnippet;
 
 module.exports = {
     newSnippet: function(req, res, next) {
-        // var user = req.user || '';
         SnippetType.findAll().success(function(typeList) {
             if (!typeList) {
                 exceptionFactory.errorHandler(null, errorMessage.SNIPPET_TYPE_NOT_EXIST, next);
             } else {
                 res.render('new-snippet', {
-                    // credential: user,
                     typeList: typeList,
                     token: req.csrfToken()
                 });
@@ -76,7 +75,6 @@ module.exports = {
                 var mappedSnippet = mapper.viewSnippetMapper(snippet);
                 if (user.admin_type >= 0) {
                     res.render('view-snippet', {
-                        // credential: user,
                         isAdmin: true,
                         hasDeleteRight: user.admin_type === mappedSnippet.type.id ? true : false,
                         snippet: mappedSnippet,
@@ -153,11 +151,9 @@ module.exports = {
     searchSnippet: function(req, res, next) {
         var page = req.query.page || 1;
         var url = req.path + '?';
-        // var user = req.user || '';
         var typeId = req.query.type || 0;
         var keyword = req.query.keyword || '';
         var keywords = _str.trim(keyword).split(' ');
-        // var whereString = '';
         var whereString = 'is_deleted = "0" AND ';
 
         if (typeId > 0 && typeId <= parseInt(config.max_snippet_type_id)) {
@@ -202,7 +198,6 @@ module.exports = {
                                 url: url
                             },
                             keyword: keyword,
-                            // credential: user,
                             snippetList: mapper.searchSnippetListMapper(snippetList),
                             typeList: typeList,
                             typeId: typeId,
@@ -220,8 +215,8 @@ module.exports = {
         });
     },
     deleteSnippet: function(req, res, next) {
-        // var snippetId = req.body.snippetId || '';
         var snippetId = req.params.snippet_id || '';
+        var reason = req.body.reason || '';
         var user = req.user;
         var dataObj = {};
         CodeSnippet.find(snippetId).success(function(snippet) {
@@ -231,17 +226,10 @@ module.exports = {
             } else if (snippet.user_id === user.id || snippet.type_id === user.admin_type) {
                 snippet.is_deleted = true;
                 snippet.save().success(function() {
-                    //whether delete favoriteSnippet when snippet deleted???
-                    // FavoriteSnippet.destroy({
-                    //     snippet_id: snippet.id
-                    // }).success(function() {
-                    //     dataObj.code = 200;
-                    //     res.json(dataObj);
-                    // });
                     dataObj.code = 200;
                     res.json(dataObj);
                     if (snippet.type_id === user.admin_type) {
-                        sendMailForDeletingSnippets(snippet.id, 'reason test');
+                        sendMailForDeletingSnippets(snippet.id, reason);
                     }
                 });
             } else {
@@ -525,7 +513,7 @@ function sendMailForDeletingSnippets(snippetId, reason) {
         locals.receivers = snippet.user.email;
         locals.name = snippet.user.name;
         locals.snippetTitle = snippet.title;
-        locals.createdAt = snippet.created_at;
+        locals.createdAt = moment(snippet.created_at).format('YYYY-MM-DD HH:mm');
         locals.reason = reason;
         mailSender.sendEmail('delete-snippet', locals, function(err) {
             if (err) {

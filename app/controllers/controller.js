@@ -101,7 +101,6 @@ module.exports = {
                             email: viewUser.email
                         };
                         res.render('profile', {
-                            // credential: user,
                             viewUserObj: viewUserObj,
                             amountObj: amountObj,
                             isSelf: isSelf,

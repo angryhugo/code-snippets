@@ -1,0 +1,21 @@
+div#modal-delete-snippet.modal.fade(data-backdrop="static")
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button.close(type="button",data-dismiss="modal") ×
+                h3.modal-title
+                    | #{t("admin-modules.deleteSnippet")}
+            div.modal-body
+                div#alert-reason-null.alert.alert-error.hide
+                form.form-horizontal
+                    div.form-group
+                        label.col-sm-3.control-label(for='input-reason')
+                            | #{t("admin-modules.reason")}
+                        div.col-sm-7
+                            textarea#input-reason.form-control(style='resize:none;',rows='5',placeholder='#{t("admin-modules.reasonPlaceholder")}')
+
+            div.modal-footer
+                a#link-delete-snippet-final.btn.btn-danger(data-snippet-id='')
+                    | #{t("admin-modules.delete")}
+                a#link-delete-snippet-cancel.btn.btn-default(data-dismiss="modal")
+                    | #{t("admin-modules.cancel")}
