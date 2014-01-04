@@ -1,6 +1,7 @@
 var _str = require('underscore.string');
 var mapper = require('../helpers/mapper');
 var utils = require('../helpers/utils');
+var mailSender = require('../helpers/mail-sender');
 var errorMessage = require('../helpers/error-message');
 var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
@@ -239,6 +240,9 @@ module.exports = {
                     // });
                     dataObj.code = 200;
                     res.json(dataObj);
+                    if (snippet.type_id === user.admin_type) {
+                        sendMailForDeletingSnippets(snippet.id, 'reason test');
+                    }
                 });
             } else {
                 dataObj.code = 403;
@@ -503,4 +507,30 @@ function checkSnippetStatus(userId, snippetId, callback) {
             callback(err);
         });
     }
+}
+
+function sendMailForDeletingSnippets(snippetId, reason) {
+    var locals = {};
+    var option = {
+        include: [{
+            model: User,
+            as: 'user'
+            }],
+        where: {
+            id: snippetId
+        }
+    };
+    CodeSnippet.find(option).success(function(snippet) {
+        locals.subject = 'Snippet deleted';
+        locals.receivers = snippet.user.email;
+        locals.name = snippet.user.name;
+        locals.snippetTitle = snippet.title;
+        locals.createdAt = snippet.created_at;
+        locals.reason = reason;
+        mailSender.sendEmail('delete-snippet', locals, function(err) {
+            if (err) {
+                console.log('Error occurred when sending email.');
+            }
+        });
+    });
 }

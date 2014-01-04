@@ -78,9 +78,7 @@ module.exports = {
         }
     },
     index: function(req, res, next) {
-        // var user = req.user || '';
         res.render('index', {
-            // credential: user,
             token: req.csrfToken()
         });
 
