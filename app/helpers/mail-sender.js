@@ -1,12 +1,13 @@
 var path = require('path');
+var config = require('../../config.json');
 var templatesDir = path.resolve(__dirname, '../email-templates');
 var emailTemplates = require('email-templates');
 var nodeMailer = require('nodemailer');
 var transport = nodeMailer.createTransport("SMTP", {
-    service: 'Gmail',
+    service: config.mail_server,
     auth: {
-        user: 'codesnippets2014@gmail.com',
-        pass: '123codesnippets'
+        user: config.mail_user,
+        pass: config.mail_password
     }
 });
 
@@ -20,7 +21,7 @@ exports.sendEmail = function(templateName, locals, callback) {
                     callback(err);
                 } else {
                     transport.sendMail({
-                        from: 'Code-Snippets <codesnippets2014@gmail.com>',
+                        from: 'Code-Snippets <' + config.mail_user + '>',
                         to: locals.receivers,
                         subject: locals.subject,
                         html: html,
