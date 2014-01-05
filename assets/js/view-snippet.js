@@ -3,6 +3,7 @@ $(function() {
     hljs.initHighlightingOnLoad();
     var _csrf = $('#input-csrf').val();
     var _snippetId = $('#input-snippet-id').val();
+    var _ownerId = $('#input-snippet-owner-id').val();
     var _snippetTypeId = $('#input-snippet-type-id').val();
 
     var _followBtn = $('#btn-follow');
@@ -31,6 +32,7 @@ $(function() {
     var _deleteSnippetLinkCancel = $('#link-delete-snippet-cancel');
     var _deleteSnippetModal = $('#modal-delete-snippet');
     var _reasonInput = $('#input-reason');
+    var _ownerDeleteSnippetLink = $('#link-owner-delete-snippet');
 
     var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
     var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
@@ -270,19 +272,35 @@ $(function() {
     });
 
     _deleteSnippetLinkFinal.on('click', function() {
+        deleteSnippetHandler(true);
+    });
+
+    _ownerDeleteSnippetLink.on('click', function() {
+        bootbox.confirm(Message.DELETE_SNIPPET_CONFIRM, function(result) {
+            if (result) {
+                deleteSnippetHandler(false);
+            }
+        });
+    });
+
+    function deleteSnippetHandler(isAdmin) {
+        var dataObj = {};
+        var location = '/users/' + _ownerId + '/profile';
+        dataObj._csrf = _csrf;
+        if (isAdmin) {
+            dataObj.reason = _reasonInput.val();
+            location = _navbarAdminModuleLink.attr('href');
+        }
         $.ajax({
             type: 'DELETE',
             url: '/api/snippets/' + _snippetId,
-            data: {
-                _csrf: _csrf,
-                reason: _reasonInput.val()
-            },
+            data: dataObj,
             dataType: 'json',
             success: function(data) {
                 _deleteSnippetModal.modal('hide');
                 if (data.code === 200) {
                     bootbox.alert(Message.DELETE_SNIPPET_SUCCESS, function() {
-                        window.location.href = _navbarAdminModuleLink.attr('href');
+                        window.location.href = location;
                     });
                 } else if (data.code === 400) {
                     bootbox.alert(Message.SNIPPET_NOT_EXSIT);
@@ -295,5 +313,5 @@ $(function() {
                 bootbox.alert(Message.SERVER_ERROR);
             }
         });
-    })
+    }
 });

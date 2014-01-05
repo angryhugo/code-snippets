@@ -43,6 +43,7 @@ block main
             form.col-sm-12.col-md-10.form-horizontal
                 input#input-csrf(type='hidden',name='_csrf',value='#{token}')
                 input#input-snippet-id(type='hidden',value='#{snippet.id}')
+                input#input-snippet-owner-id(type='hidden',value='#{snippet.ownerId}')
                 input#input-snippet-type-id(type='hidden',value='#{snippet.type.id}')
                 input#input-snippet-hidden(type='hidden',value='#{snippet.snippet}')
                 div.form-group
@@ -54,10 +55,13 @@ block main
                         input#input-snippet-title.form-control(type="text",name="title")
                     div.col-sm-2
                         if !isAdmin
+                            if hasDeleteRight
+                                a#link-owner-delete-snippet.link-tooltip.pull-right(href='javascript:',data-original-title='#{t("view-snippet.delete")}',data-placement='left')
+                                    i.fa.fa-times.fa-2x
                             if favoriteStatus==0
                                 a#link-edit-snippet.link-tooltip.pull-right(href='javascript:',data-original-title='#{t("view-snippet.edit")}',data-placement='left')
                                     i.fa.fa-edit.fa-2x
-                            if favoriteStatus == 1
+                            else if favoriteStatus == 1
                                 a#btn-favorite.link-tooltip.pull-right(href='javascript:',data-url='/api/unsubscribe',data-original-title='#{t("view-snippet.unsubscribe")}',data-placement='left')
                                     i.fa.fa-star.fa-2x.favorite
                             else if favoriteStatus == 2

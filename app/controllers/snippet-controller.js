@@ -101,6 +101,7 @@ module.exports = {
                                             snippet: mappedSnippet,
                                             followStatus: followStatus,
                                             favoriteStatus: favoriteStatus,
+                                            hasDeleteRight: user.id === mappedSnippet.ownerId ? true : false,
                                             token: req.csrfToken()
                                         });
                                     }
