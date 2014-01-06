@@ -10,17 +10,13 @@
         }
     }
     #btn-index-search {
+        -webkit-animation:shine 5s ease-in-out infinite .5s;
+        animation: 5s ease-in-out 0.5s normal none infinite shine;
         margin-top: -1px;
         height: 52px;
         width: 56px;
     }
-    .shine {
-        webkit-animation: shine 2s ease-in-out; 
-        -moz-animation: shine 2s ease-in-out; 
-        -ms-animation: shine 2s ease-in-out; 
-        -o-animation: shine 2s ease-in-out; 
-        animation: shine 2s ease-in-out;
-    }
+
 }
 
 .search-divider {
@@ -53,4 +49,67 @@
             font-size: 14px;
         }
     }
+}
+
+@-webkit-keyframes shine{
+    0%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1)
+    }
+
+    30%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136;
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136
+    }
+
+    100%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1)
+    }
+
+}
+
+@-moz-keyframes shine{
+    0%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1)
+    }
+
+    30%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136;
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136
+    }
+
+    100%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1)
+    }
+
+}
+
+@keyframes shine{
+    0%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1)
+    }
+
+    30%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136;
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136;
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1),2px 0 30px #37D136
+    }
+
+    100%{
+        -webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1);
+        box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 0 rgba(0,0,0,.1)
+    }
+
 }
