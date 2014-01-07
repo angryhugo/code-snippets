@@ -8,7 +8,7 @@ id              varchar(255)    not null   pk
 email           varchar(255)    not null   unique
 password        varchar(255)    not null
 name            varchar(255)    not null
-admin_type      varchar(255)    not null   fk
+admin_type      int             not null   fk
 ```
 
 ### UserType
@@ -26,7 +26,7 @@ title           varchar(255)    not null
 snippet         text            not null
 is_deleted      boolean         not null
 user_id         varchar(255)    not null   fk
-type_id         varchar(255)    not null   fk
+type_id         int             not null   fk
 ```
 
 ### SnippetType
