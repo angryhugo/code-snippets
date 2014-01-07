@@ -109,6 +109,7 @@ $(function() {
         refreshDiv();
         showDivsHideInputs();
         _editSnippetLink.removeClass('hide');
+        _ownerDeleteSnippetLink.removeClass('hide');
         hljs.highlightBlock(_snippetContentDiv.find('pre code')[0]);
         setLinkGroup(false);
     };
@@ -120,11 +121,13 @@ $(function() {
 
     _editSnippetLink.on('click', function() {
         showInputsHideDivs();
+        _ownerDeleteSnippetLink.addClass('hide');
         $(this).addClass('hide');
     });
 
     _cancelEditSnippetLink.on('click', function() {
         showDivsHideInputs();
+        _ownerDeleteSnippetLink.removeClass('hide');
         _editSnippetLink.removeClass('hide');
     });
 
