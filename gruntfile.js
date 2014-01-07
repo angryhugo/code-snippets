@@ -13,25 +13,14 @@ module.exports = function(grunt) {
                     dest: 'dist/app/'
                 }, {
                     expand: true,
-                    cwd: 'static/',
+                    cwd: 'static/images/',
                     src: ['**'],
-                    dest: 'dist/static/'
+                    dest: 'dist/images/static/'
                 }, {
                     expand: true,
-                    src: './package.json',
-                    dest: 'dist/'
-                }, {
-                    expand: true,
-                    src: './config.json',
-                    dest: 'dist/'
-                }, , {
-                    expand: true,
-                    src: './run.sh',
-                    dest: 'dist/'
-                }, , {
-                    expand: true,
-                    src: './README.md',
-                    dest: 'dist/'
+                    cwd: 'test/',
+                    src: ['**'],
+                    dest: 'dist/test/'
                 }, {
                     expand: true,
                     cwd: 'data/',
@@ -57,7 +46,7 @@ module.exports = function(grunt) {
                     'assets/vendor/highlight/css/tomorrow.css',
                     'static/css/layout.css'
                 ],
-                dest: 'dist/static/css/layout.css'
+                dest: 'dist/static/css/layout.min.css'
             },
             layoutjs: {
                 src: [
@@ -70,28 +59,28 @@ module.exports = function(grunt) {
                     'assets/vendor/highlight/js/highlight.pack.js',
                     'assets/js/layout.js'
                 ],
-                dest: 'dist/static/js/layout.js'
+                dest: 'dist/static/js/layout.min.js'
             },
             adminaccountadministratorscss: {
                 src: [
                     'assets/vendor/bootstrap-select/bootstrap-select.css',
                     'static/css/admin.css'
                 ],
-                dest: 'dist/static/css/admin-account-administrators.css'
+                dest: 'dist/static/css/admin-account-administrators.min.css'
             },
             adminaccountadministratorsjs: {
                 src: [
                     'assets/vendor/bootstrap-select/bootstrap-select.js',
                     'assets/js/admin-account-administrators.js',
                 ],
-                dest: 'dist/static/js/admin-account-administrators.js'
+                dest: 'dist/static/js/admin-account-administrators.min.js'
             },
             adminaccountusersjs: {
                 src: [
                     'assets/vendor/chart/Chart.js',
                     'assets/js/admin-account-users.js',
                 ],
-                dest: 'dist/static/js/admin-account-users.js'
+                dest: 'dist/static/js/admin-account-users.min.js'
             },
             newsnippetcss: {
                 src: [
@@ -100,7 +89,7 @@ module.exports = function(grunt) {
                     'assets/vendor/codemirror/css/base16-light.css',
                     'assets/vendor/codemirror/addon/display/fullscreen.css'
                 ],
-                dest: 'dist/static/css/new-snippet.css'
+                dest: 'dist/static/css/new-snippet.min.css'
             },
             newsnippetjs: {
                 src: [
@@ -111,28 +100,28 @@ module.exports = function(grunt) {
                     'assets/vendor/codemirror/addon/display/fullscreen.js',
                     'assets/js/new-snippet.js'
                 ],
-                dest: 'dist/static/js/new-snippet.js'
+                dest: 'dist/static/js/new-snippet.min.js'
             },
             profilejs: {
                 src: [
                     'assets/vendor/chart/Chart.js',
                     'assets/js/profile.js'
                 ],
-                dest: 'dist/static/js/profile.js'
+                dest: 'dist/static/js/profile.min.js'
             },
             searchsnippetcss: {
                 src: [
                     'assets/vendor/bootstrap-select/bootstrap-select.css',
                     'static/css/search-snippet.css'
                 ],
-                dest: 'dist/static/css/search-snippet.css'
+                dest: 'dist/static/css/search-snippet.min.css'
             },
             searchsnippetjs: {
                 src: [
                     'assets/vendor/bootstrap-select/bootstrap-select.js',
                     'assets/js/search-snippet.js'
                 ],
-                dest: 'dist/static/js/search-snippet.js'
+                dest: 'dist/static/js/search-snippet.min.js'
             },
             viewsnippetcss: {
                 src: [
@@ -142,7 +131,7 @@ module.exports = function(grunt) {
                     'assets/vendor/codemirror/addon/display/fullscreen.css',
                     'static/css/view-snippet.css',
                 ],
-                dest: 'dist/static/css/view-snippet.css'
+                dest: 'dist/static/css/view-snippet.min.css'
             },
             viewsnippetjs: {
                 src: [
@@ -154,7 +143,7 @@ module.exports = function(grunt) {
                     'assets/js/view-snippet.js',
                     'assets/js/baidu-share.js',
                 ],
-                dest: 'dist/static/js/view-snippet.js'
+                dest: 'dist/static/js/view-snippet.min.js'
             }
         },
 
@@ -224,33 +213,32 @@ module.exports = function(grunt) {
             },
             codesnippet: {
                 files: [{
-                        'dist/static/js/layout.min.js': ['<%= concat.layoutjs.dest %>']
+                    'dist/static/js/layout.min.js': ['<%= concat.layoutjs.dest %>']
                 }, {
-                        'dist/static/js/admin-account-administrators.min.js': ['<%= concat.adminaccountadministratorsjs.dest %>']
+                    'dist/static/js/admin-account-administrators.min.js': ['<%= concat.adminaccountadministratorsjs.dest %>']
                 }, {
-                        'dist/static/js/admin-account-users.min.js': ['<%= concat.adminaccountusersjs.dest %>']
+                    'dist/static/js/admin-account-users.min.js': ['<%= concat.adminaccountusersjs.dest %>']
                 }, {
-                        'dist/static/js/new-snippet.min.js': ['<%= concat.newsnippetjs.dest %>']
+                    'dist/static/js/new-snippet.min.js': ['<%= concat.newsnippetjs.dest %>']
                 }, {
-                        'dist/static/js/profile.min.js': ['<%= concat.profilejs.dest %>']
+                    'dist/static/js/profile.min.js': ['<%= concat.profilejs.dest %>']
                 }, {
-                        'dist/static/js/search-snippet.min.js': ['<%= concat.searchsnippetjs.dest %>']
+                    'dist/static/js/search-snippet.min.js': ['<%= concat.searchsnippetjs.dest %>']
                 }, {
-                        'dist/static/js/view-snippet.min.js': ['<%= concat.viewsnippetjs.dest %>']
+                    'dist/static/js/view-snippet.min.js': ['<%= concat.viewsnippetjs.dest %>']
                 }, {
-                        'dist/static/js/admin-module.min.js': ['assets/js/admin-module.js']
+                    'dist/static/js/admin-module.min.js': ['assets/js/admin-module.js']
                 }, {
-                        'dist/static/js/index.min.js': ['assets/js/index.js']
+                    'dist/static/js/index.min.js': ['assets/js/index.js']
                 }, {
-                        'dist/static/js/unauthorized.min.js': ['assets/js/unauthorized.js']
+                    'dist/static/js/unauthorized.min.js': ['assets/js/unauthorized.js']
                 }, {
-                        'dist/static/js/password.min.js': ['assets/js/password.js']
+                    'dist/static/js/password.min.js': ['assets/js/password.js']
                 }, {
-                        'dist/static/js/constants-cn.min.js': ['assets/js/constants-cn.js']
+                    'dist/static/js/constants_cn.min.js': ['assets/js/constants_cn.js']
                 }, {
-                        'dist/static/js/constants-en.min.js': ['assets/js/constants-en.js']
-                }
-                ]
+                    'dist/static/js/constants_en.min.js': ['assets/js/constants_en.js']
+                }]
             }
         },
         clean: {
@@ -293,4 +281,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('default', ['clean:all', 'less', 'copy', 'concat', 'cssmin', 'uglify']);
+    grunt.registerTask('testjs', ['jshint']);
 };
