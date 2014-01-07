@@ -182,11 +182,11 @@ $(function() {
                 success: function(data) {
                     if (data.code === 200) {
                         if (url == '/api/follow') {
-                            self.attr('data-url', '/api/unfollow');
-                            self.text(Opertation.UNFOLLOW);
+                            self.attr('data-url', '/api/unfollow')
+                                .text(Opertation.UNFOLLOW);
                         } else {
-                            self.attr('data-url', '/api/follow');
-                            self.text(Opertation.FOLLOW);
+                            self.attr('data-url', '/api/follow')
+                                .text(Opertation.FOLLOW);
                         }
                     } else if (data.code === 400) {
                         bootbox.alert(Message.USER_NOT_EXSIT);
@@ -231,14 +231,16 @@ $(function() {
                 success: function(data) {
                     if (data.code === 200) {
                         if (url == '/api/favorite') {
-                            self.attr('data-url', '/api/unsubscribe');
-                            self.attr('data-original-title', Opertation.UNSUBSCRIBE);
-                            self.find('.fa').addClass('favorite').removeClass('unsubscribe');
+                            self.attr('data-url', '/api/unsubscribe')
+                                .attr('data-original-title', Opertation.UNSUBSCRIBE);
+                            self.find('.fa').addClass('favorite')
+                                .removeClass('unsubscribe');
                             self.next('.tooltip').remove();
                         } else {
-                            self.attr('data-url', '/api/favorite');
-                            self.attr('data-original-title', Opertation.FAVORITE);
-                            self.find('.fa').addClass('unsubscribe').removeClass('favorite');
+                            self.attr('data-url', '/api/favorite')
+                                .attr('data-original-title', Opertation.FAVORITE);
+                            self.find('.fa').addClass('unsubscribe')
+                                .removeClass('favorite');
                         }
                     } else if (data.code === 400) {
                         bootbox.alert(Message.SNIPPET_NOT_EXSIT);

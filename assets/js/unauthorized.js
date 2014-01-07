@@ -131,10 +131,14 @@ $(function() {
             }
         },
         highlight: function(element) {
-            $(element).closest('.form-group').removeClass('success').addClass('error');
+            $(element).closest('.form-group')
+                .removeClass('success')
+                .addClass('error');
         },
         success: function(element) {
-            element.closest('.form-group').removeClass('error').addClass('success');
+            element.closest('.form-group')
+                .removeClass('error')
+                .addClass('success');
             element.closest('label').addClass('hide');
         }
     });

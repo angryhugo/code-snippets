@@ -31,9 +31,9 @@ $(function() {
                         _isUserTypeLoaded = true;
                         for (var i = 0; i < data.typeList.length; i++) {
                             var option = _optionTemplate.clone();
-                            option.attr('value', data.typeList[i].id);
-                            option.html(data.typeList[i].name);
-                            option.appendTo(_userTypeSelect);
+                            option.attr('value', data.typeList[i].id)
+                                .html(data.typeList[i].name)
+                                .appendTo(_userTypeSelect);
                         }
                         _userTypeSelect.selectpicker();
                         _newAdministratorModal.modal();
@@ -132,11 +132,16 @@ $(function() {
             }
         },
         highlight: function(element) {
-            $(element).closest('.form-group').removeClass('success').addClass('error');
+            $(element).closest('.form-group')
+                .removeClass('success')
+                .addClass('error');
         },
         success: function(element) {
-            element.closest('.form-group').removeClass('error').addClass('success');
-            element.closest('label').addClass('hide');
+            element.closest('.form-group')
+                .removeClass('error')
+                .addClass('success');
+            element.closest('label')
+                .addClass('hide');
         }
     });
 
@@ -165,8 +170,8 @@ $(function() {
                         _emailDiv.removeClass('success');
                         _passwordDiv.removeClass('success');
                         _newAdministratorSubmitLink.attr('disabled', false);
-                        tr.removeClass('hide');
-                        tr.attr('id', data.userObj.id);
+                        tr.removeClass('hide')
+                            .attr('id', data.userObj.id);
                         tr.find('.td-name').html(data.userObj.name);
                         tr.find('.td-email').html(data.userObj.email);
                         tr.find('.td-type').html(data.userObj.type);
