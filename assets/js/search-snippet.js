@@ -2,12 +2,12 @@ $(function() {
     var _keyword = getUrlVars()['keyword'] || '';
     var _select = $('#select-search-snippets');
 
-    $("#table-snippets").tablesorter({
-        sortList: [[0, 0]],
-        cssAsc: "sortUp",
-        cssDesc: "sortDown",
-        widgets: ["zebra"]
-    });
+    // $("#table-snippets").tablesorter({
+    //     sortList: [[0, 0]],
+    //     cssAsc: "sortUp",
+    //     cssDesc: "sortDown",
+    //     widgets: ["zebra"]
+    // });
 
     _select.selectpicker();
 

@@ -1,5 +1,5 @@
 {
-    "database": "my_runnable",
+    "database": "codesnippets",
     "db_user": "root",
     "db_pwd": "123",
     "mail_server": "Gmail",

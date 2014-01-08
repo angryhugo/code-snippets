@@ -58,7 +58,6 @@ block main
                             if hasDeleteRight
                                 a#link-owner-delete-snippet.link-tooltip.pull-right(href='javascript:',data-original-title='#{t("view-snippet.delete")}',data-placement='left')
                                     i.fa.fa-times.fa-2x
-                            if favoriteStatus==0
                                 a#link-edit-snippet.link-tooltip.pull-right(href='javascript:',data-original-title='#{t("view-snippet.edit")}',data-placement='left')
                                     i.fa.fa-edit.fa-2x
                             else if favoriteStatus == 1

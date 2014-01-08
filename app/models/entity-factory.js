@@ -9,15 +9,15 @@ if (nodeEnv === 'production') {
         host: 'localhost',
         port: 3306,
         logging: false,
-        pool: {
-            maxConnections: 100,
-            minConnections: 20,
-            maxIdleTime: 3600
-        },
+        // pool: {
+        //     maxConnections: 100,
+        //     minConnections: 20,
+        //     maxIdleTime: 3600
+        // },
         define: {
             freezeTableName: true,
-            underscored: true,
-            timestamps: false
+            underscored: true
+            // timestamps: false
         }
     });
 } else {
