@@ -14,7 +14,6 @@ var UserRelation = entityFactory.UserRelation;
 module.exports = {
     doLogin: function(req, res, next) {
         var isRemember = req.body.is_remember || false;
-        console.log(isRemember);
         if (isRemember) {
             res.cookie('cs-user', req.user, {
                 path: '/',

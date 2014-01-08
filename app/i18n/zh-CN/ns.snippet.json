@@ -139,7 +139,8 @@
         "follow": "关注",
         "edit": "编辑",
         "cancel": "取消",
-        "save": "保存"
+        "save": "保存",
+        "noSnippet": "没有相关的代码片段"
     },
     "pagination": {
         "next": "下一页",
