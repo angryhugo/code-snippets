@@ -26,7 +26,7 @@ $(function() {
 
 	_snippetTypeSelect.on('change', function() {
 		var self = $(this);
-		_editorMode = MODE_ARRAY[parseInt(self.val()) - 1];
+		_editorMode = MODE_ARRAY[parseInt(self.val(), 10) - 1];
 		editor.setOption("mode", _editorMode);
 		self.blur();
 	});

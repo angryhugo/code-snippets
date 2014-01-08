@@ -12,10 +12,10 @@ $(function() {
     var _followingDiv = $('#following');
     var _showFollowingLink = $('#link-following');
     var _viewUserId = $('#view-user-id');
-    var _jsAmount = parseInt($('#js-amount').val());
-    var _javaAmount = parseInt($('#java-amount').val());
-    var _cAmount = parseInt($('#c-amount').val());
-    var _csharpAmount = parseInt($('#csharp-amount').val());
+    var _jsAmount = parseInt($('#js-amount').val(), 10);
+    var _javaAmount = parseInt($('#java-amount').val(), 10);
+    var _cAmount = parseInt($('#c-amount').val(), 10);
+    var _csharpAmount = parseInt($('#csharp-amount').val(), 10);
 
     var _editProfileLink = $('#link-edit-profile');
     var _editLinkGroup = $('#edit-link-group');
@@ -26,7 +26,7 @@ $(function() {
     var _layoutCredentialName = $('#layout-credential-name');
 
     _nameInput.on('keypress', function(event) {
-        if (event.which == 13) {
+        if (event.which === 13) {
             _submitProfileLink.click();
         }
     });
@@ -77,14 +77,14 @@ $(function() {
     function setLinkGroup(isDisabled) {
         _submitProfileLink.attr('disabled', isDisabled);
         _cancelEditProfileLink.attr('disabled', isDisabled);
-    };
+    }
 
     function showDivsHideInputs() {
         _nameInput.parent().addClass('hide');
         _editLinkGroup.addClass('hide');
         _nameDiv.removeClass('hide');
         _editProfileLink.removeClass('hide');
-    };
+    }
 
     //Doughnut
     // var _testChart = $("#test-chart");
@@ -147,7 +147,7 @@ $(function() {
 
     var radarOption = {
         scaleLineColor: "rgba(0,0,0,.3)"
-    }
+    };
     var _myRadarChart = new Chart(ctx).Radar(radarChartData, radarOption);
 
 
@@ -249,7 +249,7 @@ $(function() {
                 dataType: 'json',
                 success: function(data) {
                     if (data.code === 200) {
-                        if (url == '/api/follow') {
+                        if (url === '/api/follow') {
                             thisElement.attr('data-url', '/api/unfollow');
                             thisElement.text(Opertation.UNFOLLOW);
                         } else {
@@ -267,21 +267,21 @@ $(function() {
                     bootbox.alert(xhr.responseText);
                 }
             });
-        };
+        }
 
-        if (url == '/api/unfollow') {
+        if (url === '/api/unfollow') {
             bootbox.confirm(Message.UNFOLLOW_CONFIRM, function(result) {
                 if (result) {
                     doFollowAjax();
                 } else {
                     thisElement.attr('disabled', false);
                 }
-            })
+            });
         } else {
             doFollowAjax();
         }
 
-    };
+    }
 
     function viewFollowerHandler(page) {
         if (_viewUserId.val()) {
@@ -297,7 +297,7 @@ $(function() {
                 }
             });
         }
-    };
+    }
 
     _showFollowerLink.on('click', function() {
         viewFollowerHandler(1);
@@ -327,7 +327,7 @@ $(function() {
                 }
             });
         }
-    };
+    }
 
     _showFollowingLink.on('click', function() {
         viewFollowingsHandler(1);
@@ -356,7 +356,7 @@ $(function() {
                 bootbox.alert(Message.SERVER_ERROR);
             }
         });
-    };
+    }
 
     _showFavoriteSnippetsLink.on('click', function() {
         viewFavoriteSnippetsHandler(1);

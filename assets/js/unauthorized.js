@@ -21,16 +21,16 @@ $(function() {
     var _loginForm = $('#form-login');
     var _loginBtn = $('#btn-login');
 
-    var _checkEmailBtn = $('#btn-check-email');
+    // var _checkEmailBtn = $('#btn-check-email');
     var _signupEmailInput = $('#input-signup-email');
 
-    var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    // var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
     function showModal(modalElement) {
         modalElement.modal({
             backdrop: "static"
         });
-    };
+    }
 
     function hideModal(modalElement) {
         modalElement.modal('hide');
@@ -46,17 +46,17 @@ $(function() {
             vars[hash[0]] = hash[1];
         }
         return vars;
-    };
+    }
 
     function errorAlert(modalElement, alertElement, message) {
         showModal(modalElement);
         alertElement.html(message).show();
         setTimeout(function() {
-            alertElement.hide()
+            alertElement.hide();
         }, 5000);
-    };
+    }
 
-    var errorType = parseInt(getUrlVars()['error']) || 0;
+    var errorType = parseInt(getUrlVars()['error'], 10) || 0;
     switch (errorType) {
         case 0:
             break;
@@ -71,14 +71,14 @@ $(function() {
             break;
     }
 
-    var successType = parseInt(getUrlVars()['success']) || 0;
+    var successType = parseInt(getUrlVars()['success'], 10) || 0;
     //sign up success
     if (successType === 1) {
         hideModal(_signupModal);
         showModal(_loginModal);
         _signupSuccessAlert.html(Message.SIGNUP_SUCCESS).show();
         setTimeout(function() {
-            _signupSuccessAlert.hide()
+            _signupSuccessAlert.hide();
         }, 5000);
     }
 

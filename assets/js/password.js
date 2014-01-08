@@ -56,18 +56,18 @@ $(function() {
             element.addClass('hide');
         }, 5000);
         emptyPassword();
-    };
+    }
 
     function emptyPassword() {
         _currentPassword.val('');
         _newPasswrod.val('');
         _confirmPassword.val('');
-    };
+    }
 
     function setBtnStatus(trueOrFalse) {
         _backLink.attr('disabled', trueOrFalse);
         _submitLink.attr('disabled', trueOrFalse);
-    };
+    }
 
     _submitLink.on('click', function() {
         if (validator.form()) {

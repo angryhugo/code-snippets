@@ -1,4 +1,5 @@
 $(function() {
+    "use strict";
     var _keyword = getUrlVars()['keyword'] || '';
     var _select = $('#select-search-snippets');
 

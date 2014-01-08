@@ -35,7 +35,7 @@ $(function() {
     var _ownerDeleteSnippetLink = $('#link-owner-delete-snippet');
 
     var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
-    var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
+    var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId, 10) - 1];
 
     var editor = CodeMirror.fromTextArea(document.getElementById("input-snippet-content"), {
         lineNumbers: true,
@@ -56,7 +56,7 @@ $(function() {
 
     _snippetTypeInput.on('change', function() {
         var self = $(this);
-        _editorMode = MODE_ARRAY[parseInt(self.val()) - 1];
+        _editorMode = MODE_ARRAY[parseInt(self.val(), 10) - 1];
         editor.setOption("mode", _editorMode);
         self.blur();
     });
@@ -70,9 +70,9 @@ $(function() {
         _snippetTitleInput.parent().addClass('hide');
         _snippetTypeInput.parent().addClass('hide');
         _snippetContentInput.parent().addClass('hide');
-        _editorMode = MODE_ARRAY[parseInt(_snippetTypeId) - 1];
+        _editorMode = MODE_ARRAY[parseInt(_snippetTypeId, 10) - 1];
         $(window).unbind("beforeunload");
-    };
+    }
 
     function showInputsHideDivs() {
         _snippetTitleDiv.addClass('hide');
@@ -93,7 +93,7 @@ $(function() {
         $(window).bind("beforeunload", function() {
             return Message.LEAVE_CONFIRM_WHEN_EDITING;
         });
-    };
+    }
 
     function refreshDiv() {
         var findString = "option[value='" + _snippetTypeId + "']";
@@ -101,7 +101,7 @@ $(function() {
         _snippetTypeDiv.text(_snippetTypeInput.find(findString).attr('data-type'));
         // _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
         _snippetContentDiv.find('pre code').attr('class', '').text(editor.getValue());
-    };
+    }
 
     function afterUpdate() {
         _snippetTypeId = _snippetTypeInput.val();
@@ -112,12 +112,12 @@ $(function() {
         _ownerDeleteSnippetLink.removeClass('hide');
         hljs.highlightBlock(_snippetContentDiv.find('pre code')[0]);
         setLinkGroup(false);
-    };
+    }
 
     function setLinkGroup(isDisabled) {
         _submitSnippetLink.attr('disabled', isDisabled);
         _cancelEditSnippetLink.attr('disabled', isDisabled);
-    };
+    }
 
     _editSnippetLink.on('click', function() {
         showInputsHideDivs();
@@ -181,7 +181,7 @@ $(function() {
                 dataType: 'json',
                 success: function(data) {
                     if (data.code === 200) {
-                        if (url == '/api/follow') {
+                        if (url === '/api/follow') {
                             self.attr('data-url', '/api/unfollow')
                                 .text(Opertation.UNFOLLOW);
                         } else {
@@ -199,16 +199,16 @@ $(function() {
                     bootbox.alert(xhr.responseText);
                 }
             });
-        };
+        }
 
-        if (url == '/api/unfollow') {
+        if (url === '/api/unfollow') {
             bootbox.confirm(Message.UNFOLLOW_CONFIRM, function(result) {
                 if (result) {
                     doFollowAjax();
                 } else {
                     _followBtn.attr('disabled', false);
                 }
-            })
+            });
         } else {
             doFollowAjax();
         }
@@ -230,7 +230,7 @@ $(function() {
                 dataType: 'json',
                 success: function(data) {
                     if (data.code === 200) {
-                        if (url == '/api/favorite') {
+                        if (url === '/api/favorite') {
                             self.attr('data-url', '/api/unsubscribe')
                                 .attr('data-original-title', Opertation.UNSUBSCRIBE);
                             self.find('.fa').addClass('favorite')
@@ -253,16 +253,16 @@ $(function() {
                     bootbox.alert(xhr.responseText);
                 }
             });
-        };
+        }
 
-        if (url == '/api/unsubscribe') {
+        if (url === '/api/unsubscribe') {
             bootbox.confirm(Message.UNSUBSCRIBE_SNIPPET_CONFIRM, function(result) {
                 if (result) {
                     doFavoriteAjax();
                 } else {
                     _favoriteBtn.attr('disabled', false);
                 }
-            })
+            });
         } else {
             doFavoriteAjax();
         }
