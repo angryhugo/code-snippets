@@ -2,29 +2,25 @@ $(function() {
     "use strict";
     var _csrf = $('#input-csrf').val();
 
-    var _signupModal = $('#modal-sign-up');
-    var _loginModal = $('#modal-login');
-    var _loginAlert = $('#alert-login');
-    var _signupErrorAlert = $('#alert-sign-up-error');
-    var _signupEmailSuccessAlert = $('#alert-sign-up-email-success');
-    var _signupSuccessAlert = $('#alert-sign-up-success');
+    var $signupModal = $('#modal-sign-up');
+    var $loginModal = $('#modal-login');
+    var $loginAlert = $('#alert-login');
+    var $signupErrorAlert = $('#alert-sign-up-error');
+    var $signupEmailSuccessAlert = $('#alert-sign-up-email-success');
+    var $signupSuccessAlert = $('#alert-sign-up-success');
 
-    _loginAlert.hide();
-    _signupErrorAlert.hide();
-    _signupSuccessAlert.hide();
-    _signupEmailSuccessAlert.hide();
+    $loginAlert.hide();
+    $signupErrorAlert.hide();
+    $signupSuccessAlert.hide();
+    $signupEmailSuccessAlert.hide();
 
-    var _loginModalLink = $('#link-login-inModal');
-    var _signupModalLink = $('#link-sign-up-inModal');
-    var _signupForm = $('#form-sign-up');
-    var _signupBtn = $('#btn-sign-up');
-    var _loginForm = $('#form-login');
-    var _loginBtn = $('#btn-login');
-
-    // var _checkEmailBtn = $('#btn-check-email');
-    var _signupEmailInput = $('#input-signup-email');
-
-    // var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    var $loginModalLink = $('#link-login-inModal');
+    var $signupModalLink = $('#link-sign-up-inModal');
+    var $signupForm = $('#form-sign-up');
+    var $signupBtn = $('#btn-sign-up');
+    var $loginForm = $('#form-login');
+    var $loginBtn = $('#btn-login');
+    var $signupEmailInput = $('#input-signup-email');
 
     function showModal(modalElement) {
         modalElement.modal({
@@ -61,28 +57,28 @@ $(function() {
         case 0:
             break;
         case 1:
-            errorAlert(_loginModal, _loginAlert, Message.LOGIN_ERROR);
+            errorAlert($loginModal, $loginAlert, Message.LOGIN_ERROR);
             break;
         case 2:
-            errorAlert(_signupModal, _signupErrorAlert, Message.SIGNUP_ERROR);
+            errorAlert($signupModal, $signupErrorAlert, Message.SIGNUP_ERROR);
             break;
         case 3:
-            errorAlert(_loginModal, _loginAlert, Message.LOGIN_FIRST);
+            errorAlert($loginModal, $loginAlert, Message.LOGIN_FIRST);
             break;
     }
 
     var successType = parseInt(getUrlVars()['success'], 10) || 0;
     //sign up success
     if (successType === 1) {
-        hideModal(_signupModal);
-        showModal(_loginModal);
-        _signupSuccessAlert.html(Message.SIGNUP_SUCCESS).show();
+        hideModal($signupModal);
+        showModal($loginModal);
+        $signupSuccessAlert.html(Message.SIGNUP_SUCCESS).show();
         setTimeout(function() {
-            _signupSuccessAlert.hide();
+            $signupSuccessAlert.hide();
         }, 5000);
     }
 
-    var signupValidator = _signupForm.validate({
+    var signupValidator = $signupForm.validate({
         rules: {
             email: {
                 required: true,
@@ -93,7 +89,7 @@ $(function() {
                     dataType: "json",
                     data: {
                         email: function() {
-                            return _signupEmailInput.val()
+                            return $signupEmailInput.val()
                         },
                         _csrf: _csrf
                     }
@@ -143,7 +139,7 @@ $(function() {
         }
     });
 
-    var loginValidator = _loginForm.validate({
+    var loginValidator = $loginForm.validate({
         rules: {
             login_email: {
                 required: true,
@@ -176,96 +172,44 @@ $(function() {
     //     });
     // };
 
-    // submitFormHelper(_signupForm);
-    // submitFormHelper(_loginForm);
+    // submitFormHelper($signupForm);
+    // submitFormHelper($loginForm);
 
-    // _signupForm.on('click', '#btn-sign-up', function() {
-    //     _signupBtn.attr('disabled', true);
-    //     _loginModalLink.attr('disabled', true);
-    //     _signupForm.submit();
+    // $signupForm.on('click', '#btn-sign-up', function() {
+    //     $signupBtn.attr('disabled', true);
+    //     $loginModalLink.attr('disabled', true);
+    //     $signupForm.submit();
     // });
 
-    // _loginForm.on('click', '#btn-login', function() {
-    //     _loginBtn.attr('disabled', true);
-    //     _signupModalLink.attr('disabled', true);
-    //     _loginForm.submit();
+    // $loginForm.on('click', '#btn-login', function() {
+    //     $loginBtn.attr('disabled', true);
+    //     $signupModalLink.attr('disabled', true);
+    //     $loginForm.submit();
     // });
 
-    _signupBtn.click(function() {
+    $signupBtn.click(function() {
         if (signupValidator.form()) {
-            _signupBtn.attr('disabled', true);
-            _loginModalLink.attr('disabled', true);
-            _signupForm.submit();
+            $signupBtn.attr('disabled', true);
+            $loginModalLink.attr('disabled', true);
+            $signupForm.submit();
         }
     });
 
-    _loginBtn.click(function() {
+    $loginBtn.click(function() {
         if (loginValidator.form()) {
-            _loginBtn.attr('disabled', true);
-            _signupModalLink.attr('disabled', true);
-            _loginForm.submit();
+            $loginBtn.attr('disabled', true);
+            $signupModalLink.attr('disabled', true);
+            $loginForm.submit();
         }
     });
 
-    _loginModalLink.click(function() {
-        hideModal(_signupModal);
-        showModal(_loginModal);
+    $loginModalLink.click(function() {
+        hideModal($signupModal);
+        showModal($loginModal);
     });
 
-    _signupModalLink.click(function() {
-        hideModal(_loginModal);
-        showModal(_signupModal);
+    $signupModalLink.click(function() {
+        hideModal($loginModal);
+        showModal($signupModal);
     });
-
-    // _checkEmailBtn.click(function() {
-    //     //first validate email!!!(not do yet)
-    //     if (_signupEmailInput.val() == '') {
-    //         _checkEmailBtn.blur();
-    //         _signupEmailSuccessAlert.hide();
-    //         _signupErrorAlert.html(Message.EMAIL_REQUIRED).show();
-    //         setTimeout(function() {
-    //             _signupErrorAlert.hide()
-    //         }, 5000);
-    //         return false;
-    //     } else if (!emailReg.test(_signupEmailInput.val())) {
-    //         _checkEmailBtn.blur();
-    //         _signupEmailSuccessAlert.hide();
-    //         _signupErrorAlert.html(Message.EMAIL_ERROR).show();
-    //         setTimeout(function() {
-    //             _signupErrorAlert.hide()
-    //         }, 5000);
-    //         return false;
-    //     } else {
-    //         _checkEmailBtn.attr('disabled', true);
-    //         $.ajax({
-    //             url: '/api/email',
-    //             type: 'POST',
-    //             data: {
-    //                 email: _signupEmailInput.val(),
-    //                 _csrf: _csrf
-    //             },
-    //             dataType: 'json',
-    //             success: function(data) {
-    //                 _checkEmailBtn.attr('disabled', false);
-    //                 if (data == 'ok') {
-    //                     _signupErrorAlert.hide();
-    //                     _signupEmailSuccessAlert.html(Message.EMAIL_NOT_EXISTED).show();
-    //                     setTimeout(function() {
-    //                         _signupEmailSuccessAlert.hide();
-    //                     }, 5000);
-    //                 } else {
-    //                     _signupEmailSuccessAlert.hide();
-    //                     _signupErrorAlert.html(Message.EMAIL_EXISTED).show();
-    //                     setTimeout(function() {
-    //                         _signupErrorAlert.hide();
-    //                     }, 5000);
-    //                 }
-    //             },
-    //             error: function(xhr, status, err) {
-    //                 bootbox.alert(xhr.responseText);
-    //             }
-    //         });
-    //     }
-    // });
-
 });

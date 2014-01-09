@@ -6,33 +6,33 @@ $(function() {
     var _ownerId = $('#input-snippet-owner-id').val();
     var _snippetTypeId = $('#input-snippet-type-id').val();
 
-    var _followBtn = $('#btn-follow');
-    var _favoriteBtn = $('#btn-favorite');
+    var $followBtn = $('#btn-follow');
+    var $favoriteBtn = $('#btn-favorite');
 
-    var _deleteSnippetLink = $('#link-delete-snippet');
-    var _navbarAdminModuleLink = $('#link-navbar-admin-module');
+    var $deleteSnippetLink = $('#link-delete-snippet');
+    var $navbarAdminModuleLink = $('#link-navbar-admin-module');
     //for edit
-    var _editSnippetLink = $('#link-edit-snippet');
+    var $editSnippetLink = $('#link-edit-snippet');
     var _snippetContent = $('#input-snippet-hidden').val();
-    var _editLinkGroup = $('#edit-link-group');
-    var _cancelEditSnippetLink = $('#link-cancel-edit');
-    var _submitSnippetLink = $('#link-save-snippet');
+    var $editLinkGroup = $('#edit-link-group');
+    var $cancelEditSnippetLink = $('#link-cancel-edit');
+    var $submitSnippetLink = $('#link-save-snippet');
     //div
-    var _snippetTitleDiv = $('#div-snippet-title');
-    var _snippetTypeDiv = $('#div-snippet-type');
-    var _snippetContentDiv = $('#div-snippet-content');
-    var _baiduShareDiv = $('#div-baidu-share');
+    var $snippetTitleDiv = $('#div-snippet-title');
+    var $snippetTypeDiv = $('#div-snippet-type');
+    var $snippetContentDiv = $('#div-snippet-content');
+    var $baiduShareDiv = $('#div-baidu-share');
     //input
-    var _snippetTitleInput = $('#input-snippet-title');
-    var _snippetTypeInput = $('#select-snippet-type');
-    var _snippetContentInput = $('#input-snippet-content');
+    var $snippetTitleInput = $('#input-snippet-title');
+    var $snippetTypeInput = $('#select-snippet-type');
+    var $snippetContentInput = $('#input-snippet-content');
 
     //for delete
-    var _deleteSnippetLinkFinal = $('#link-delete-snippet-final');
-    var _deleteSnippetLinkCancel = $('#link-delete-snippet-cancel');
-    var _deleteSnippetModal = $('#modal-delete-snippet');
-    var _reasonInput = $('#input-reason');
-    var _ownerDeleteSnippetLink = $('#link-owner-delete-snippet');
+    var $deleteSnippetLinkFinal = $('#link-delete-snippet-final');
+    var $deleteSnippetLinkCancel = $('#link-delete-snippet-cancel');
+    var $deleteSnippetModal = $('#modal-delete-snippet');
+    var $reasonInput = $('#input-reason');
+    var $ownerDeleteSnippetLink = $('#link-owner-delete-snippet');
 
     var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
     var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId, 10) - 1];
@@ -52,9 +52,9 @@ $(function() {
         }
     });
 
-    _snippetTypeInput.selectpicker();
+    $snippetTypeInput.selectpicker();
 
-    _snippetTypeInput.on('change', function() {
+    $snippetTypeInput.on('change', function() {
         var self = $(this);
         _editorMode = MODE_ARRAY[parseInt(self.val(), 10) - 1];
         editor.setOption("mode", _editorMode);
@@ -62,32 +62,32 @@ $(function() {
     });
 
     function showDivsHideInputs() {
-        _snippetTitleDiv.removeClass('hide');
-        _snippetTypeDiv.removeClass('hide');
-        _snippetContentDiv.removeClass('hide');
-        _baiduShareDiv.removeClass('hide');
-        _editLinkGroup.addClass('hide');
-        _snippetTitleInput.parent().addClass('hide');
-        _snippetTypeInput.parent().addClass('hide');
-        _snippetContentInput.parent().addClass('hide');
+        $snippetTitleDiv.removeClass('hide');
+        $snippetTypeDiv.removeClass('hide');
+        $snippetContentDiv.removeClass('hide');
+        $baiduShareDiv.removeClass('hide');
+        $editLinkGroup.addClass('hide');
+        $snippetTitleInput.parent().addClass('hide');
+        $snippetTypeInput.parent().addClass('hide');
+        $snippetContentInput.parent().addClass('hide');
         _editorMode = MODE_ARRAY[parseInt(_snippetTypeId, 10) - 1];
         $(window).unbind("beforeunload");
     }
 
     function showInputsHideDivs() {
-        _snippetTitleDiv.addClass('hide');
-        _snippetTypeDiv.addClass('hide');
-        _snippetContentDiv.addClass('hide');
-        _baiduShareDiv.addClass('hide');
-        _editLinkGroup.removeClass('hide');
+        $snippetTitleDiv.addClass('hide');
+        $snippetTypeDiv.addClass('hide');
+        $snippetContentDiv.addClass('hide');
+        $baiduShareDiv.addClass('hide');
+        $editLinkGroup.removeClass('hide');
 
-        _snippetTitleInput.val(_snippetTitleDiv.html());
-        _snippetTypeInput.selectpicker('val', _snippetTypeId);
-        // _snippetTypeInput.val(_snippetTypeId);
+        $snippetTitleInput.val($snippetTitleDiv.html());
+        $snippetTypeInput.selectpicker('val', _snippetTypeId);
+        // $snippetTypeInput.val(_snippetTypeId);
 
-        _snippetTitleInput.parent().removeClass('hide');
-        _snippetTypeInput.parent().removeClass('hide');
-        _snippetContentInput.parent().removeClass('hide');
+        $snippetTitleInput.parent().removeClass('hide');
+        $snippetTypeInput.parent().removeClass('hide');
+        $snippetContentInput.parent().removeClass('hide');
         editor.refresh();
         editor.setCursor(editor.lineCount());
         $(window).bind("beforeunload", function() {
@@ -97,49 +97,49 @@ $(function() {
 
     function refreshDiv() {
         var findString = "option[value='" + _snippetTypeId + "']";
-        _snippetTitleDiv.text(_snippetTitleInput.val());
-        _snippetTypeDiv.text(_snippetTypeInput.find(findString).attr('data-type'));
-        // _snippetContentDiv.find('pre code').text(_snippetContentInput.val());
-        _snippetContentDiv.find('pre code').attr('class', '').text(editor.getValue());
+        $snippetTitleDiv.text($snippetTitleInput.val());
+        $snippetTypeDiv.text($snippetTypeInput.find(findString).attr('data-type'));
+        // $snippetContentDiv.find('pre code').text($snippetContentInput.val());
+        $snippetContentDiv.find('pre code').attr('class', '').text(editor.getValue());
     }
 
     function afterUpdate() {
-        _snippetTypeId = _snippetTypeInput.val();
+        _snippetTypeId = $snippetTypeInput.val();
         _snippetContent = editor.getValue();
         refreshDiv();
         showDivsHideInputs();
-        _editSnippetLink.removeClass('hide');
-        _ownerDeleteSnippetLink.removeClass('hide');
-        hljs.highlightBlock(_snippetContentDiv.find('pre code')[0]);
+        $editSnippetLink.removeClass('hide');
+        $ownerDeleteSnippetLink.removeClass('hide');
+        hljs.highlightBlock($snippetContentDiv.find('pre code')[0]);
         setLinkGroup(false);
     }
 
     function setLinkGroup(isDisabled) {
-        _submitSnippetLink.attr('disabled', isDisabled);
-        _cancelEditSnippetLink.attr('disabled', isDisabled);
+        $submitSnippetLink.attr('disabled', isDisabled);
+        $cancelEditSnippetLink.attr('disabled', isDisabled);
     }
 
-    _editSnippetLink.on('click', function() {
+    $editSnippetLink.on('click', function() {
         showInputsHideDivs();
-        _ownerDeleteSnippetLink.addClass('hide');
+        $ownerDeleteSnippetLink.addClass('hide');
         $(this).addClass('hide');
     });
 
-    _cancelEditSnippetLink.on('click', function() {
+    $cancelEditSnippetLink.on('click', function() {
         showDivsHideInputs();
-        _ownerDeleteSnippetLink.removeClass('hide');
-        _editSnippetLink.removeClass('hide');
+        $ownerDeleteSnippetLink.removeClass('hide');
+        $editSnippetLink.removeClass('hide');
     });
 
-    _submitSnippetLink.on('click', function() {
+    $submitSnippetLink.on('click', function() {
         setLinkGroup(true);
         $.ajax({
             type: 'POST',
             url: '/snippets/' + _snippetId,
             data: {
                 _csrf: _csrf,
-                title: _snippetTitleInput.val(),
-                type_id: _snippetTypeInput.val(),
+                title: $snippetTitleInput.val(),
+                type_id: $snippetTypeInput.val(),
                 snippet: editor.getValue()
             },
             dataType: 'json',
@@ -164,8 +164,8 @@ $(function() {
         });
     });
 
-    _followBtn.on('click', function() {
-        _followBtn.attr('disabled', true);
+    $followBtn.on('click', function() {
+        $followBtn.attr('disabled', true);
         var self = $(this);
         var url = self.attr('data-url') || '/api/follow';
 
@@ -193,7 +193,7 @@ $(function() {
                     } else {
                         bootbox.alert(Message.SERVER_ERROR);
                     }
-                    _followBtn.attr('disabled', false);
+                    $followBtn.attr('disabled', false);
                 },
                 error: function(xhr, status, err) {
                     bootbox.alert(xhr.responseText);
@@ -206,7 +206,7 @@ $(function() {
                 if (result) {
                     doFollowAjax();
                 } else {
-                    _followBtn.attr('disabled', false);
+                    $followBtn.attr('disabled', false);
                 }
             });
         } else {
@@ -214,8 +214,8 @@ $(function() {
         }
     });
 
-    _favoriteBtn.on('click', function() {
-        _favoriteBtn.attr('disabled', true);
+    $favoriteBtn.on('click', function() {
+        $favoriteBtn.attr('disabled', true);
         var self = $(this);
         var url = self.attr('data-url') || '/api/favorite';
 
@@ -247,7 +247,7 @@ $(function() {
                     } else {
                         bootbox.alert(Message.SERVER_ERROR);
                     }
-                    _favoriteBtn.attr('disabled', false);
+                    $favoriteBtn.attr('disabled', false);
                 },
                 error: function(xhr, status, err) {
                     bootbox.alert(xhr.responseText);
@@ -260,7 +260,7 @@ $(function() {
                 if (result) {
                     doFavoriteAjax();
                 } else {
-                    _favoriteBtn.attr('disabled', false);
+                    $favoriteBtn.attr('disabled', false);
                 }
             });
         } else {
@@ -268,19 +268,19 @@ $(function() {
         }
     });
 
-    _deleteSnippetLink.on('click', function() {
-        _deleteSnippetModal.modal();
+    $deleteSnippetLink.on('click', function() {
+        $deleteSnippetModal.modal();
     });
 
-    _deleteSnippetLinkCancel.on('click', function() {
-        _reasonInput.val('');
+    $deleteSnippetLinkCancel.on('click', function() {
+        $reasonInput.val('');
     });
 
-    _deleteSnippetLinkFinal.on('click', function() {
+    $deleteSnippetLinkFinal.on('click', function() {
         deleteSnippetHandler(true);
     });
 
-    _ownerDeleteSnippetLink.on('click', function() {
+    $ownerDeleteSnippetLink.on('click', function() {
         bootbox.confirm(Message.DELETE_SNIPPET_CONFIRM, function(result) {
             if (result) {
                 deleteSnippetHandler(false);
@@ -293,8 +293,8 @@ $(function() {
         var location = '/users/' + _ownerId + '/profile';
         dataObj._csrf = _csrf;
         if (isAdmin) {
-            dataObj.reason = _reasonInput.val();
-            location = _navbarAdminModuleLink.attr('href');
+            dataObj.reason = $reasonInput.val();
+            location = $navbarAdminModuleLink.attr('href');
         }
         $.ajax({
             type: 'DELETE',
@@ -302,7 +302,7 @@ $(function() {
             data: dataObj,
             dataType: 'json',
             success: function(data) {
-                _deleteSnippetModal.modal('hide');
+                $deleteSnippetModal.modal('hide');
                 if (data.code === 200) {
                     bootbox.alert(Message.DELETE_SNIPPET_SUCCESS, function() {
                         window.location.href = location;
@@ -314,7 +314,7 @@ $(function() {
                 }
             },
             error: function(xhr, status, err) {
-                _deleteSnippetModal.modal('hide');
+                $deleteSnippetModal.modal('hide');
                 bootbox.alert(Message.SERVER_ERROR);
             }
         });

@@ -1,7 +1,7 @@
 $(function() {
     "use strict";
-    var _searchInputInNavbar = $('#input-search-navbar');
-    var _searchBtnInNavbar = $('#btn-search-navbar');
+    var $searchInputInNavbar = $('#input-search-navbar');
+    var $searchBtnInNavbar = $('#btn-search-navbar');
 
     $('.link-tooltip').tooltip();
 
@@ -34,9 +34,9 @@ $(function() {
         history.back();
     });
 
-    _searchInputInNavbar.on('focus', function() {
-        _searchBtnInNavbar.addClass('btn-search-navbar-focus');
+    $searchInputInNavbar.on('focus', function() {
+        $searchBtnInNavbar.addClass('btn-search-navbar-focus');
     }).on('blur', function() {
-        _searchBtnInNavbar.removeClass('btn-search-navbar-focus');
+        $searchBtnInNavbar.removeClass('btn-search-navbar-focus');
     });
 });

@@ -1,18 +1,18 @@
 $(function() {
     'use strict';
     var _csrf = $('#input-csrf').val();
-    var userId = $('#user-id').val();
+    var _userId = $('#user-id').val();
 
-    var _changePasswordForm = $('#form-change-password');
-    var _submitLink = $('#link-submit');
-    var _backLink = $('#link-back');
-    var _currentPassword = $('#input-current-password');
-    var _newPasswrod = $('#input-new-password');
-    var _confirmPassword = $('#input-confirm-new-password');
-    var _saveSuccessInfo = $('div.alert-success');
-    var _saveErrorInfo = $('div.alert-danger');
+    var $changePasswordForm = $('#form-change-password');
+    var $submitLink = $('#link-submit');
+    var $backLink = $('#link-back');
+    var $currentPassword = $('#input-current-password');
+    var $newPasswrod = $('#input-new-password');
+    var $confirmPassword = $('#input-confirm-new-password');
+    var $saveSuccessInfo = $('div.alert-success');
+    var $saveErrorInfo = $('div.alert-danger');
 
-    var validator = _changePasswordForm.validate({
+    var validator = $changePasswordForm.validate({
         rules: {
             current_password: {
                 required: true,
@@ -26,7 +26,7 @@ $(function() {
             },
             confirm_new_password: {
                 required: true,
-                equalTo: _newPasswrod
+                equalTo: $newPasswrod
             }
         },
         messages: {
@@ -59,43 +59,43 @@ $(function() {
     }
 
     function emptyPassword() {
-        _currentPassword.val('');
-        _newPasswrod.val('');
-        _confirmPassword.val('');
+        $currentPassword.val('');
+        $newPasswrod.val('');
+        $confirmPassword.val('');
     }
 
     function setBtnStatus(trueOrFalse) {
-        _backLink.attr('disabled', trueOrFalse);
-        _submitLink.attr('disabled', trueOrFalse);
+        $backLink.attr('disabled', trueOrFalse);
+        $submitLink.attr('disabled', trueOrFalse);
     }
 
-    _submitLink.on('click', function() {
+    $submitLink.on('click', function() {
         if (validator.form()) {
-            if (_newPasswrod.val() === _currentPassword.val()) {
-                showInfo(_saveErrorInfo, Message.PASSWORD_SAME_ERROR);
+            if ($newPasswrod.val() === $currentPassword.val()) {
+                showInfo($saveErrorInfo, Message.PASSWORD_SAME_ERROR);
                 return false;
             } else {
                 setBtnStatus(true);
                 $.ajax({
-                    url: '/users/' + userId + '/password',
+                    url: '/users/' + _userId + '/password',
                     type: 'post',
                     data: {
                         _csrf: _csrf,
-                        current_password: _currentPassword.val(),
-                        new_password: _newPasswrod.val()
+                        current_password: $currentPassword.val(),
+                        new_password: $newPasswrod.val()
                     },
                     dataType: 'text',
                     success: function(data) {
                         setBtnStatus(false);
                         if (data !== '200') {
-                            showInfo(_saveErrorInfo, Message[data]);
+                            showInfo($saveErrorInfo, Message[data]);
                         } else {
-                            showInfo(_saveSuccessInfo);
+                            showInfo($saveSuccessInfo);
                         }
                     },
                     error: function(xhr, status, err) {
                         setBtnStatus(false);
-                        showInfo(_saveErrorInfo, Message.PASSWORD_SAVE_ERROR);
+                        showInfo($saveErrorInfo, Message.PASSWORD_SAVE_ERROR);
                     }
                 });
             }

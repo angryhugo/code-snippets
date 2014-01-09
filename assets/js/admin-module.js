@@ -1,25 +1,26 @@
 $(function() {
+	"use strict";
 	var _csrf = $('#input-csrf').val();
-	var _deleteSnippetLink = $('.link-delete-snippet');
-	var _deleteSnippetLinkFinal = $('#link-delete-snippet-final');
-	var _deleteSnippetLinkCancel = $('#link-delete-snippet-cancel');
-	var _deleteSnippetModal = $('#modal-delete-snippet');
-	var _reasonInput = $('#input-reason');
-	var _snippetTable = $('#table-snippets');
+	var $deleteSnippetLink = $('.link-delete-snippet');
+	var $deleteSnippetLinkFinal = $('#link-delete-snippet-final');
+	var $deleteSnippetLinkCancel = $('#link-delete-snippet-cancel');
+	var $deleteSnippetModal = $('#modal-delete-snippet');
+	var $reasonInput = $('#input-reason');
+	var $snippetTable = $('#table-snippets');
 
-	_snippetTable.find("tr:even").addClass('even');
+	$snippetTable.find("tr:even").addClass('even');
 
-	_deleteSnippetLink.on('click', function() {
+	$deleteSnippetLink.on('click', function() {
 		var self = $(this);
-		_deleteSnippetModal.modal();
-		_deleteSnippetLinkFinal.attr('data-snippet-id', self.attr('data-snippet-id'));
+		$deleteSnippetModal.modal();
+		$deleteSnippetLinkFinal.attr('data-snippet-id', self.attr('data-snippet-id'));
 	});
 
-	_deleteSnippetLinkCancel.on('click', function() {
-		_reasonInput.val('');
+	$deleteSnippetLinkCancel.on('click', function() {
+		$reasonInput.val('');
 	});
 
-	_deleteSnippetLinkFinal.on('click', function() {
+	$deleteSnippetLinkFinal.on('click', function() {
 		var self = $(this);
 		var snippetId = self.attr('data-snippet-id');
 		$.ajax({
@@ -27,11 +28,11 @@ $(function() {
 			url: '/api/snippets/' + snippetId,
 			data: {
 				_csrf: _csrf,
-				reason: _reasonInput.val()
+				reason: $reasonInput.val()
 			},
 			dataType: 'json',
 			success: function(data) {
-				_deleteSnippetModal.modal('hide');
+				$deleteSnippetModal.modal('hide');
 				if (data.code === 200) {
 					$('#' + snippetId).remove();
 					bootbox.alert(Message.DELETE_SNIPPET_SUCCESS);
@@ -42,7 +43,7 @@ $(function() {
 				}
 			},
 			error: function(xhr, status, err) {
-				_deleteSnippetModal.modal('hide');
+				$deleteSnippetModal.modal('hide');
 				bootbox.alert(Message.SERVER_ERROR);
 			}
 		});

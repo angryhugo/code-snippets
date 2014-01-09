@@ -1,26 +1,27 @@
 $(function() {
+    "use strict";
     var _csrf = $('#input-csrf').val();
-    var _optionTemplate = $('#option-template');
-    var _trTemplate = $('#tr-account-template');
-    var _newAdministratorForm = $('#form-new-administrator');
-    var _accountTable = $("#table-accounts");
-    var _accountTbody = $('#tbody-accounts');
-    var _newAdministratorLink = $('#link-new-administrator');
-    var _newAdministratorSubmitLink = $('#link-submit-new-administrator');
-    var _newAdministratorModal = $('#modal-new-administrator');
-    var _userTypeSelect = $('#select-user-type');
-    var _emailInput = $('#input-email');
-    var _nameInput = $('#input-name');
-    var _passwordInput = $('#input-password');
-    var _emailDiv = $('#div-email');
-    var _nameDiv = $('#div-name');
-    var _passwordDiv = $('#div-password');
+    var $optionTemplate = $('#option-template');
+    var $trTemplate = $('#tr-account-template');
+    var $newAdministratorForm = $('#form-new-administrator');
+    var $accountTable = $("#table-accounts");
+    var $accountTbody = $('#tbody-accounts');
+    var $newAdministratorLink = $('#link-new-administrator');
+    var $newAdministratorSubmitLink = $('#link-submit-new-administrator');
+    var $newAdministratorModal = $('#modal-new-administrator');
+    var $userTypeSelect = $('#select-user-type');
+    var $emailInput = $('#input-email');
+    var $nameInput = $('#input-name');
+    var $passwordInput = $('#input-password');
+    var $emailDiv = $('#div-email');
+    var $nameDiv = $('#div-name');
+    var $passwordDiv = $('#div-password');
 
     var _isUserTypeLoaded = false;
 
-    _accountTable.find("tr:even").addClass('even');
+    $accountTable.find("tr:even").addClass('even');
 
-    _newAdministratorLink.on('click', function() {
+    $newAdministratorLink.on('click', function() {
         if (!_isUserTypeLoaded) {
             $.ajax({
                 type: 'GET',
@@ -30,13 +31,13 @@ $(function() {
                     if (data.code === 200) {
                         _isUserTypeLoaded = true;
                         for (var i = 0; i < data.typeList.length; i++) {
-                            var option = _optionTemplate.clone();
+                            var option = $optionTemplate.clone();
                             option.attr('value', data.typeList[i].id)
                                 .html(data.typeList[i].name)
-                                .appendTo(_userTypeSelect);
+                                .appendTo($userTypeSelect);
                         }
-                        _userTypeSelect.selectpicker();
-                        _newAdministratorModal.modal();
+                        $userTypeSelect.selectpicker();
+                        $newAdministratorModal.modal();
                     } else {
                         bootbox.alert(Message.SERVER_ERROR);
                     }
@@ -46,7 +47,7 @@ $(function() {
                 }
             });
         } else {
-            _newAdministratorModal.modal();
+            $newAdministratorModal.modal();
         }
     });
 
@@ -78,12 +79,12 @@ $(function() {
         });
     }
 
-    _accountTbody.on('click', '.link-delete-account', function() {
+    $accountTbody.on('click', '.link-delete-account', function() {
         var userId = $(this).attr('data-id');
         deleteUserHandler(userId);
     });
 
-    var validator = _newAdministratorForm.validate({
+    var validator = $newAdministratorForm.validate({
         rules: {
             email: {
                 required: true,
@@ -94,7 +95,7 @@ $(function() {
                     dataType: "json",
                     data: {
                         email: function() {
-                            return _emailInput.val()
+                            return $emailInput.val()
                         },
                         _csrf: _csrf
                     }
@@ -145,31 +146,31 @@ $(function() {
         }
     });
 
-    _newAdministratorSubmitLink.click(function() {
+    $newAdministratorSubmitLink.click(function() {
         if (validator.form()) {
-            _newAdministratorSubmitLink.attr('disabled', true);
+            $newAdministratorSubmitLink.attr('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '/admin/accounts/administrators',
                 data: {
                     _csrf: _csrf,
-                    name: _nameInput.val(),
-                    email: _emailInput.val(),
-                    type_id: _userTypeSelect.val(),
-                    password: _passwordInput.val()
+                    name: $nameInput.val(),
+                    email: $emailInput.val(),
+                    type_id: $userTypeSelect.val(),
+                    password: $passwordInput.val()
                 },
                 dataType: 'json',
                 success: function(data) {
                     if (data.code === 200) {
-                        var tr = _trTemplate.clone();
-                        _newAdministratorModal.modal('hide');
-                        _nameInput.val('');
-                        _emailInput.val('');
-                        _passwordInput.val('');
-                        _nameDiv.removeClass('success');
-                        _emailDiv.removeClass('success');
-                        _passwordDiv.removeClass('success');
-                        _newAdministratorSubmitLink.attr('disabled', false);
+                        var tr = $trTemplate.clone();
+                        $newAdministratorModal.modal('hide');
+                        $nameInput.val('');
+                        $emailInput.val('');
+                        $passwordInput.val('');
+                        $nameDiv.removeClass('success');
+                        $emailDiv.removeClass('success');
+                        $passwordDiv.removeClass('success');
+                        $newAdministratorSubmitLink.attr('disabled', false);
                         tr.removeClass('hide')
                             .attr('id', data.userObj.id);
                         tr.find('.td-name').html(data.userObj.name);
@@ -178,15 +179,15 @@ $(function() {
                         tr.find('.td-created-at').html(data.userObj.createTime);
                         tr.find('.td-updated-at').html(data.userObj.updateTime);
                         tr.find('.link-delete-account').attr('data-id', data.userObj.id);
-                        tr.prependTo(_accountTbody);
+                        tr.prependTo($accountTbody);
                         bootbox.alert(Message.ADD_ADMINISTRATOR_SUCCESS);
                     } else {
-                        _newAdministratorModal.modal('hide');
+                        $newAdministratorModal.modal('hide');
                         bootbox.alert(Message.SERVER_ERROR);
                     }
                 },
                 error: function(xhr) {
-                    _newAdministratorModal.modal('hide');
+                    $newAdministratorModal.modal('hide');
                     bootbox.alert(Message.SERVER_ERROR);
                 }
             });

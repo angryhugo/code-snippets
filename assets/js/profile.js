@@ -1,62 +1,62 @@
 $(function() {
     "use strict";
     var _csrf = $('#input-csrf').val();
-    var _showFollowingSnippetsLink = $('#link-following-snippets');
-    var _followingSnippetsDiv = $('#followingSnippets');
-    var _showFavoriteSnippetsLink = $('#link-favorite-snippets');
-    var _favoriteSnippetsDiv = $('#favoriteSnippets');
-    var _showMineSnippetLink = $('#link-mine-snippets');
-    var _mineSnippetsDiv = $('#mine');
-    var _followerDiv = $('#follower');
-    var _showFollowerLink = $('#link-follower');
-    var _followingDiv = $('#following');
-    var _showFollowingLink = $('#link-following');
-    var _viewUserId = $('#view-user-id');
+    var $showFollowingSnippetsLink = $('#link-following-snippets');
+    var $followingSnippetsDiv = $('#followingSnippets');
+    var $showFavoriteSnippetsLink = $('#link-favorite-snippets');
+    var $favoriteSnippetsDiv = $('#favoriteSnippets');
+    var $showMineSnippetLink = $('#link-mine-snippets');
+    var $mineSnippetsDiv = $('#mine');
+    var $followerDiv = $('#follower');
+    var $showFollowerLink = $('#link-follower');
+    var $followingDiv = $('#following');
+    var $showFollowingLink = $('#link-following');
+    var $viewUserId = $('#view-user-id');
     var _jsAmount = parseInt($('#js-amount').val(), 10);
     var _javaAmount = parseInt($('#java-amount').val(), 10);
     var _cAmount = parseInt($('#c-amount').val(), 10);
     var _csharpAmount = parseInt($('#csharp-amount').val(), 10);
 
-    var _editProfileLink = $('#link-edit-profile');
-    var _editLinkGroup = $('#edit-link-group');
-    var _cancelEditProfileLink = $('#link-cancel-edit');
-    var _submitProfileLink = $('#link-save-snippet');
-    var _nameInput = $('#input-name');
-    var _nameDiv = $('#div-name');
-    var _layoutCredentialName = $('#layout-credential-name');
+    var $editProfileLink = $('#link-edit-profile');
+    var $editLinkGroup = $('#edit-link-group');
+    var $cancelEditProfileLink = $('#link-cancel-edit');
+    var $submitProfileLink = $('#link-save-snippet');
+    var $nameInput = $('#input-name');
+    var $nameDiv = $('#div-name');
+    var $layoutCredentialName = $('#layout-credential-name');
 
-    _nameInput.on('keypress', function(event) {
+    $nameInput.on('keypress', function(event) {
         if (event.which === 13) {
-            _submitProfileLink.click();
+            $submitProfileLink.click();
         }
     });
 
-    _editProfileLink.on('click', function() {
-        _nameInput.parent().removeClass('hide');
-        _editLinkGroup.removeClass('hide');
-        _nameDiv.addClass('hide');
+    $editProfileLink.on('click', function() {
+        $nameInput.parent().removeClass('hide');
+        $editLinkGroup.removeClass('hide');
+        $nameDiv.addClass('hide');
         $(this).addClass('hide');
     });
 
-    _cancelEditProfileLink.on('click', function() {
+    $cancelEditProfileLink.on('click', function() {
         showDivsHideInputs();
-        _nameInput.val(_nameDiv.text());
+        $nameInput.val($nameDiv.text());
     });
 
-    _submitProfileLink.on('click', function() {
+    $submitProfileLink.on('click', function() {
         setLinkGroup(true);
         $.ajax({
             type: 'POST',
-            url: '/users/' + _viewUserId.val() + '/profile',
+            url: '/users/' + $viewUserId.val() + '/profile',
             data: {
                 _csrf: _csrf,
-                name: _nameInput.val()
+                name: $nameInput.val()
             },
             dataType: 'json',
             success: function(data) {
                 if (data.code === 200) {
-                    _layoutCredentialName.text(' ' + _nameInput.val());
-                    _nameDiv.text(_nameInput.val());
+                    $layoutCredentialName.text(' ' + $nameInput.val());
+                    $nameDiv.text($nameInput.val());
                     bootbox.alert(Message.UPDATE_PROFILE_SUCCESS);
                 } else if (data.code === 400) {
                     bootbox.alert(Message.USER_NOT_EXSIT);
@@ -75,15 +75,15 @@ $(function() {
     });
 
     function setLinkGroup(isDisabled) {
-        _submitProfileLink.attr('disabled', isDisabled);
-        _cancelEditProfileLink.attr('disabled', isDisabled);
+        $submitProfileLink.attr('disabled', isDisabled);
+        $cancelEditProfileLink.attr('disabled', isDisabled);
     }
 
     function showDivsHideInputs() {
-        _nameInput.parent().addClass('hide');
-        _editLinkGroup.addClass('hide');
-        _nameDiv.removeClass('hide');
-        _editProfileLink.removeClass('hide');
+        $nameInput.parent().addClass('hide');
+        $editLinkGroup.addClass('hide');
+        $nameDiv.removeClass('hide');
+        $editProfileLink.removeClass('hide');
     }
 
     //Doughnut
@@ -131,8 +131,8 @@ $(function() {
     // var _myLineChart = new Chart(ctx).Line(lineChartData);
 
     //radar
-    var _radarChart = $('#radar-chart');
-    var ctx = _radarChart.get(0).getContext("2d");
+    var $radarChart = $('#radar-chart');
+    var ctx = $radarChart.get(0).getContext("2d");
     var radarChartData = {
         labels: ["Javascript", "Java", "C/C++", "C#"],
         datasets: [
@@ -152,13 +152,13 @@ $(function() {
 
 
     function viewFollowingSnippetsHandler(page) {
-        if (_viewUserId.val()) {
+        if ($viewUserId.val()) {
             $.ajax({
                 type: 'GET',
-                url: '/api/users/' + _viewUserId.val() + '/snippets/following?page=' + page,
+                url: '/api/users/' + $viewUserId.val() + '/snippets/following?page=' + page,
                 dataType: 'html',
                 success: function(snippetsHtml) {
-                    _followingSnippetsDiv.html(snippetsHtml);
+                    $followingSnippetsDiv.html(snippetsHtml);
                 },
                 error: function(xhr, status, err) {
                     bootbox.alert(Message.SERVER_ERROR);
@@ -167,24 +167,24 @@ $(function() {
         }
     }
 
-    _followingSnippetsDiv.on('click', '.pagination a', function() {
+    $followingSnippetsDiv.on('click', '.pagination a', function() {
         var page = $(this).attr('data-page');
         viewFollowingSnippetsHandler(page);
     });
 
-    _showFollowingSnippetsLink.on('click', function() {
+    $showFollowingSnippetsLink.on('click', function() {
         viewFollowingSnippetsHandler(1);
     });
 
     function viewMineSnippetsHandler(page) {
-        if (_viewUserId.val()) {
+        if ($viewUserId.val()) {
             $.ajax({
                 type: 'GET',
-                url: '/api/users/' + _viewUserId.val() + '/snippets/mine?page=' + page,
+                url: '/api/users/' + $viewUserId.val() + '/snippets/mine?page=' + page,
                 dataType: 'html',
                 success: function(snippetsHtml) {
-                    _mineSnippetsDiv.html(snippetsHtml);
-                    _mineSnippetsDiv.find('.link-tooltip').tooltip();
+                    $mineSnippetsDiv.html(snippetsHtml);
+                    $mineSnippetsDiv.find('.link-tooltip').tooltip();
                 },
                 error: function(xhr, status, err) {
                     bootbox.alert(Message.SERVER_ERROR);
@@ -193,16 +193,16 @@ $(function() {
         }
     }
 
-    _mineSnippetsDiv.on('click', '.pagination a', function() {
+    $mineSnippetsDiv.on('click', '.pagination a', function() {
         var page = $(this).attr('data-page');
         viewMineSnippetsHandler(page);
     });
 
-    _showMineSnippetLink.on('click', function() {
+    $showMineSnippetLink.on('click', function() {
         viewMineSnippetsHandler(1);
     });
 
-    _mineSnippetsDiv.on('click', 'a.link-delete-snippet', function() {
+    $mineSnippetsDiv.on('click', 'a.link-delete-snippet', function() {
         var self = $(this);
         bootbox.confirm(Message.DELETE_SNIPPET_CONFIRM, function(result) {
             if (result) {
@@ -284,13 +284,13 @@ $(function() {
     }
 
     function viewFollowerHandler(page) {
-        if (_viewUserId.val()) {
+        if ($viewUserId.val()) {
             $.ajax({
                 type: 'GET',
-                url: '/api/users/' + _viewUserId.val() + '/followers?page=' + page,
+                url: '/api/users/' + $viewUserId.val() + '/followers?page=' + page,
                 dataType: 'html',
                 success: function(followersHtml) {
-                    _followerDiv.html(followersHtml);
+                    $followerDiv.html(followersHtml);
                 },
                 error: function(xhr, status, err) {
                     bootbox.alert(Message.SERVER_ERROR);
@@ -299,28 +299,28 @@ $(function() {
         }
     }
 
-    _showFollowerLink.on('click', function() {
+    $showFollowerLink.on('click', function() {
         viewFollowerHandler(1);
     });
 
 
-    _followerDiv.on('click', '.pagination a', function() {
+    $followerDiv.on('click', '.pagination a', function() {
         var page = $(this).attr('data-page');
         viewFollowerHandler(page);
     });
 
-    _followerDiv.on('click', '.btn-follow', function() {
+    $followerDiv.on('click', '.btn-follow', function() {
         followHandler($(this));
     });
 
     function viewFollowingsHandler(page) {
-        if (_viewUserId.val()) {
+        if ($viewUserId.val()) {
             $.ajax({
                 type: 'GET',
-                url: '/api/users/' + _viewUserId.val() + '/followings?page=' + page,
+                url: '/api/users/' + $viewUserId.val() + '/followings?page=' + page,
                 dataType: 'html',
                 success: function(followingsHtml) {
-                    _followingDiv.html(followingsHtml);
+                    $followingDiv.html(followingsHtml);
                 },
                 error: function(xhr, status, err) {
                     bootbox.alert(Message.SERVER_ERROR);
@@ -329,16 +329,16 @@ $(function() {
         }
     }
 
-    _showFollowingLink.on('click', function() {
+    $showFollowingLink.on('click', function() {
         viewFollowingsHandler(1);
     });
 
-    _followingDiv.on('click', '.pagination a', function() {
+    $followingDiv.on('click', '.pagination a', function() {
         var page = $(this).attr('data-page');
         viewFollowingsHandler(page);
     });
 
-    _followingDiv.on('click', '.btn-follow', function() {
+    $followingDiv.on('click', '.btn-follow', function() {
         followHandler($(this));
     });
 
@@ -346,11 +346,11 @@ $(function() {
     function viewFavoriteSnippetsHandler(page) {
         $.ajax({
             type: 'GET',
-            url: '/api/users/' + _viewUserId.val() + '/snippets/favorite?page=' + page,
+            url: '/api/users/' + $viewUserId.val() + '/snippets/favorite?page=' + page,
             dataType: 'html',
             success: function(snippetsHtml) {
-                _favoriteSnippetsDiv.html(snippetsHtml);
-                _favoriteSnippetsDiv.find('.link-tooltip').tooltip();
+                $favoriteSnippetsDiv.html(snippetsHtml);
+                $favoriteSnippetsDiv.find('.link-tooltip').tooltip();
             },
             error: function(xhr, status, err) {
                 bootbox.alert(Message.SERVER_ERROR);
@@ -358,16 +358,16 @@ $(function() {
         });
     }
 
-    _showFavoriteSnippetsLink.on('click', function() {
+    $showFavoriteSnippetsLink.on('click', function() {
         viewFavoriteSnippetsHandler(1);
     });
 
-    _favoriteSnippetsDiv.on('click', '.pagination a', function() {
+    $favoriteSnippetsDiv.on('click', '.pagination a', function() {
         var page = $(this).attr('data-page');
         viewFavoriteSnippetsHandler(page);
     });
 
-    _favoriteSnippetsDiv.on('click', 'a.link-unsubscribe-snippet', function() {
+    $favoriteSnippetsDiv.on('click', 'a.link-unsubscribe-snippet', function() {
         var self = $(this);
         bootbox.confirm(Message.UNSUBSCRIBE_SNIPPET_CONFIRM, function(result) {
             if (result) {

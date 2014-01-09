@@ -1,14 +1,15 @@
 $(function() {
+    "use strict";
     var _csrf = $('#input-csrf').val();
-    var _accountTable = $("#table-accounts");
-    var _deleteAccountLink = $('.link-delete-account');
-    var _viewAccountLink = $('.link-view-account');
-    var _accountDetailModal = $('#modal-account-detail');
-    var _accountDetailEmail = $('#account-detail-email');
-    var _accountDetailName = $('#account-detail-name');
-    var _deleteAccountLinkInModal = $('#link-delete-account');
+    var $accountTable = $("#table-accounts");
+    var $deleteAccountLink = $('.link-delete-account');
+    var $viewAccountLink = $('.link-view-account');
+    var $accountDetailModal = $('#modal-account-detail');
+    var $accountDetailEmail = $('#account-detail-email');
+    var $accountDetailName = $('#account-detail-name');
+    var $deleteAccountLinkInModal = $('#link-delete-account');
 
-    _accountTable.find("tr:even").addClass('even');
+    $accountTable.find("tr:even").addClass('even');
 
     // $("#table-accounts").tablesorter({
     //     sortList: [[0, 0]],
@@ -49,8 +50,8 @@ $(function() {
 
     function refreshModal(amountObj, userObj) {
         generateChart(amountObj);
-        _accountDetailEmail.html(userObj.email);
-        _accountDetailName.html(userObj.name);
+        $accountDetailEmail.html(userObj.email);
+        $accountDetailName.html(userObj.name);
     }
 
     function deleteUserHandler(userId) {
@@ -81,9 +82,9 @@ $(function() {
         });
     }
 
-    _viewAccountLink.on('click', function() {
+    $viewAccountLink.on('click', function() {
         var userId = $(this).attr('data-id');
-        _deleteAccountLinkInModal.attr('data-id', userId);
+        $deleteAccountLinkInModal.attr('data-id', userId);
         $.ajax({
             type: 'GET',
             url: '/api/admin/accounts/users/' + userId + '/details',
@@ -91,7 +92,7 @@ $(function() {
             success: function(data) {
                 if (data.code === 200) {
                     refreshModal(data.amountObj, data.userObj);
-                    _accountDetailModal.modal();
+                    $accountDetailModal.modal();
                 } else if (data.code === 400) {
                     bootbox.alert(Message.USER_NOT_EXSIT);
                 } else {
@@ -104,13 +105,13 @@ $(function() {
         })
     });
 
-    _deleteAccountLinkInModal.on('click', function() {
+    $deleteAccountLinkInModal.on('click', function() {
         var userId = $(this).attr('data-id');
-        _accountDetailModal.modal('hide');
+        $accountDetailModal.modal('hide');
         deleteUserHandler(userId);
     });
 
-    _deleteAccountLink.on('click', function() {
+    $deleteAccountLink.on('click', function() {
         var userId = $(this).attr('data-id');
         deleteUserHandler(userId);
     });

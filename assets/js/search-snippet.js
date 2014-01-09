@@ -1,7 +1,7 @@
 $(function() {
     "use strict";
     var _keyword = getUrlVars()['keyword'] || '';
-    var _select = $('#select-search-snippets');
+    var $select = $('#select-search-snippets');
 
     // $("#table-snippets").tablesorter({
     //     sortList: [[0, 0]],
@@ -10,7 +10,7 @@ $(function() {
     //     widgets: ["zebra"]
     // });
 
-    _select.selectpicker();
+    $select.selectpicker();
 
     function getUrlVars() {
         var vars = [],
@@ -24,8 +24,8 @@ $(function() {
         return vars;
     }
 
-    _select.on('change', function() {
-        window.location.href = '/snippets/search?keyword=' + _keyword + '&type=' + _select.val();
+    $select.on('change', function() {
+        window.location.href = '/snippets/search?keyword=' + _keyword + '&type=' + $select.val();
     });
 
 });
