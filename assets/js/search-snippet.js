@@ -3,13 +3,6 @@ $(function() {
     var _keyword = getUrlVars()['keyword'] || '';
     var $select = $('#select-search-snippets');
 
-    // $("#table-snippets").tablesorter({
-    //     sortList: [[0, 0]],
-    //     cssAsc: "sortUp",
-    //     cssDesc: "sortDown",
-    //     widgets: ["zebra"]
-    // });
-
     $select.selectpicker();
 
     function getUrlVars() {
