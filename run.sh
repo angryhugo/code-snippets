@@ -41,11 +41,11 @@ case $1 in
     ;;
     debug)
         npm i
-        node --debug ./app/app.js
+        supervisor --debug ./app/app.js
     ;;
     dev)
         npm i
-        node ./app/app.js
+        supervisor ./app/app.js
     ;;
     build)
         grunt

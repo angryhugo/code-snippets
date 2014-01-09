@@ -18,7 +18,8 @@ function initUserType() {
                         for (var i = 0; i < list.length; i++) {
                             UserType.create({
                                 id: list[i].id,
-                                typeName: list[i].typeName
+                                typeName: list[i].typeName,
+                                routerName: list[i].routerName || ''
                             }).success(function() {
                                 console.log('create userType success!');
                             }).error(function() {

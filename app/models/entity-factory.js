@@ -69,6 +69,10 @@ var UserType = sequelize.define('UserTypes', {
     typeName: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    routerName: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 }, {
     timestamps: false

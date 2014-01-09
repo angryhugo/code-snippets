@@ -4,8 +4,7 @@ var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
-
-var MOUDLE_TYPE = ['javascript', 'java', 'c', 'csharp'];
+var UserType = entityFactory.UserType;
 
 module.exports = {
     autoLogin: function(req, res, next) {
@@ -66,16 +65,30 @@ module.exports = {
     adminModuleEnsureAuthenticated: function(req, res, next) {
         var adminType = req.user.admin_type;
         var moduleType = req.params.module_type || '';
-        if (moduleType === MOUDLE_TYPE[adminType - 1]) {
-            req.user.module = MOUDLE_TYPE[adminType - 1];
-            return next();
-        } else if (isValidModule(moduleType)) {
-            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
-        } else {
-            res.render('404', {
-                credential: req.user || ''
-            });
-        }
+        UserType.find(adminType).success(function(type) {
+            if (type) {
+                if (type.routerName === moduleType) {
+                    req.user.module = type.routerName;
+                    return next();
+                } else {
+                    UserType.find({
+                        where: {
+                            routerName: moduleType
+                        }
+                    }).success(function(type) {
+                        if (type) {
+                            exceptionFactory.errorHandler(null, errorMessage.PERMISSION_NOT_ALLOWED, next);
+                        } else {
+                            res.render('404', {
+                                credential: req.user || ''
+                            });
+                        }
+                    });
+                }
+            } else {
+                exceptionFactory.errorHandler(null, errorMessage.SERVER_ERROR, next);
+            }
+        });
     },
     index: function(req, res, next) {
         res.render('index', {
@@ -113,13 +126,4 @@ module.exports = {
             exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
         });
     }
-};
-
-function isValidModule(module) {
-    for (var i in MOUDLE_TYPE) {
-        if (module === MOUDLE_TYPE[i]) {
-            return true;
-        }
-    }
-    return false;
 };
