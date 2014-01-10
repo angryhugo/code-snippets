@@ -92,6 +92,14 @@ var CodeSnippet = sequelize.define('codeSnippet', {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: 0
+    },
+    user_id: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    type_id: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
@@ -120,6 +128,14 @@ var UserRelation = sequelize.define('userRelation', {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
+    },
+    user_id: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    follow_id: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
@@ -129,6 +145,14 @@ var FavoriteSnippet = sequelize.define('favoriteSnippet', {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
+    },
+    user_id: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    snippet_id: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
