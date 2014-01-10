@@ -116,6 +116,10 @@ var SnippetType = sequelize.define('snippetType', {
     routerName: {
         type: Sequelize.STRING,
         allowNull: true
+    },
+    modeName: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 }, {
     timestamps: false

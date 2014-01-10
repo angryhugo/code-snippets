@@ -18,7 +18,8 @@ function initSnippetType() {
                         for (var i = 0; i < list.length; i++) {
                             SnippetType.create({
                                 typeName: list[i].typeName,
-                                routerName: list[i].routerName
+                                routerName: list[i].routerName,
+                                modeName: list[i].modeName
                             }).success(function() {
                                 console.log('create snippetType success!');
                             }).error(function() {

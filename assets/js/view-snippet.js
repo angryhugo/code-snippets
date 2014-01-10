@@ -34,7 +34,11 @@ $(function() {
     var $reasonInput = $('#input-reason');
     var $ownerDeleteSnippetLink = $('#link-owner-delete-snippet');
 
-    var MODE_ARRAY = ['text/javascript', 'text/x-java', 'text/x-c++src', 'text/x-csharp'];
+    var _options = $snippetTypeInput.find('option');
+    var MODE_ARRAY = [];
+    for (var i = 0; i < _options.length; i++) {
+        MODE_ARRAY[i] = _options[i].dataset.mode;
+    }
     var _editorMode = MODE_ARRAY[parseInt(_snippetTypeId, 10) - 1];
 
     var editor = CodeMirror.fromTextArea(document.getElementById("input-snippet-content"), {

@@ -11,7 +11,6 @@ append head
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/codemirror.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/css/base16-light.css')
         link(rel='stylesheet', href='/assets/vendor/codemirror/addon/display/fullscreen.css')
-        //- link(rel='stylesheet', href='/assets/vendor/codemirror/css/paraiso-light.css')
     - }
 
 block main
@@ -33,7 +32,7 @@ block main
                     select#select-snippet-type.form-control.selectpicker(name='type_id',data-live-search='true')
                         if typeList.length>0
                             for type in typeList
-                                option(value="#{type.id}") 
+                                option(value='#{type.id}',data-mode='#{type.modeName}') 
                                     | #{type.typeName}
             div.form-group
                 label.col-sm-1.col-md-2.control-label(for='input-snippet-content')
