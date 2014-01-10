@@ -1,59 +1,40 @@
 var async = require('async');
 var entityFactory = require('../models/entity-factory');
 var CodeSnippet = entityFactory.CodeSnippet;
+var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 
 module.exports = {
-    getAmountObj: function(userId, callback) {
+    getSnippetAmountObj: function(userId, callback) {
+        var snippetAmountObj = {};
+        SnippetType.findAll().success(function(typeList) {
+            async.each(typeList, function(type, cb) {
+                var opiton = {
+                    where: {
+                        user_id: userId,
+                        type_id: type.id,
+                        is_deleted: false
+                    }
+                };
+                CodeSnippet.count(opiton).success(function(amount) {
+                    var amountObj = {
+                        type: type.typeName,
+                        amount: amount
+                    };
+                    snippetAmountObj[type.routerName] = amountObj;
+                    cb(null);
+                });
+            }, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    callback(null, snippetAmountObj);
+                };
+            });
+        });
+    },
+    getRelationAmountObj: function(userId, callback) {
         async.series({
-                jsAmount: function(cb) {
-                    var opiton = {
-                        where: {
-                            user_id: userId,
-                            type_id: 1,
-                            is_deleted: false
-                        }
-                    };
-                    CodeSnippet.count(opiton).success(function(jsAmount) {
-                        cb(null, jsAmount);
-                    });
-                },
-                javaAmount: function(cb) {
-                    var opiton = {
-                        where: {
-                            user_id: userId,
-                            type_id: 2,
-                            is_deleted: false
-                        }
-                    };
-                    CodeSnippet.count(opiton).success(function(javaAmount) {
-                        cb(null, javaAmount);
-                    });
-                },
-                cAmount: function(cb) {
-                    var opiton = {
-                        where: {
-                            user_id: userId,
-                            type_id: 3,
-                            is_deleted: false
-                        }
-                    };
-                    CodeSnippet.count(opiton).success(function(cAmount) {
-                        cb(null, cAmount);
-                    });
-                },
-                csharpAmount: function(cb) {
-                    var opiton = {
-                        where: {
-                            user_id: userId,
-                            type_id: 4,
-                            is_deleted: false
-                        }
-                    };
-                    CodeSnippet.count(opiton).success(function(csharpAmount) {
-                        cb(null, csharpAmount);
-                    });
-                },
                 followAmount: function(cb) {
                     var opiton = {
                         where: {

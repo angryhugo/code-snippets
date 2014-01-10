@@ -11,9 +11,15 @@
 `sudo apt-get install mysql-server`
 
 ### 2. Create Test Data
+
 `
 sudo npm i -g mocha
 mocha test/test-data-create.js
+`
+
+### 3. Add SnippetType
+
+Do not forget modify config.json(max_snippet_type_id)
 
 
 ## Models

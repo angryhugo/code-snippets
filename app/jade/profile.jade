@@ -17,10 +17,7 @@ block main
     div.container.nav-margin
         input#input-csrf(type='hidden',name='_csrf',value='#{token}')
         input#view-user-id(type='hidden',value='#{viewUserObj.id}')
-        input#js-amount(type='hidden',name='js_amount',value='#{amountObj.jsAmount}')
-        input#java-amount(type='hidden',name='java_amount',value='#{amountObj.javaAmount}')
-        input#c-amount(type='hidden',name='c_amount',value='#{amountObj.cAmount}')
-        input#csharp-amount(type='hidden',name='csharp_amount',value='#{amountObj.csharpAmount}')
+        input#snippet-amount-str(type='hidden',value='#{snippetAmountStr}')
         div.page-header
             h3
                 if !isSelf
@@ -32,9 +29,6 @@ block main
                 div.row
                     div.col-sm-2.col-md-12
                         img.profile(src='/static/images/profile-large.jpg')
-                    //- div.col-sm-3.col-md-12
-                    //-     div.profile-info.profile-name
-                    //-         | #{viewUserObj.name}
             div.col-sm-12.col-md-10.form-horizontal
                 ul.nav.nav-tabs
                     li.active
@@ -54,12 +48,12 @@ block main
                         a#link-following(href='#following',data-toggle="tab")
                             | #{t("profile.following")}&nbsp;
                             span.badge
-                                | #{amountObj.followAmount}
+                                | #{relationAmountObj.followAmount}
                     li
                         a#link-follower(href='#follower',data-toggle="tab")
                             | #{t("profile.follower")}&nbsp;
                             span.badge
-                                | #{amountObj.followerAmount}
+                                | #{relationAmountObj.followerAmount}
                 div.tab-content
                     div#profile.tab-pane.active
                         div.row
@@ -88,22 +82,6 @@ block main
                                                     | #{t("profile.save")}
                                                 a#link-cancel-edit.btn.btn-info.btn-right.btn-sm
                                                     | #{t("profile.cancel")}
-                            //- Doughnut
-                            //- div.col-sm-offset-2.col-sm-6.col-md-offset-0.col-md-4(height=300)
-                            //-     canvas#test-chart(width=200,height=200)
-                            //- div.col-sm-2.col-md-1(style="margin-top:10px")
-                            //-     p.text-center(style="background-color:#39b3d7")
-                            //-         | js
-                            //-     p.text-center(style="background-color:#47a447")
-                            //-         | java
-                            //-     p.text-center(style="background-color:#ed9c28")
-                            //-         | c++
-                            //-     p.text-center(style="background-color:#d2322d")
-                            //-         | c#
-                            //- Line
-                            //- div.col-sm-offset-2.col-sm-12.col-md-offset-0.col-md-6(height=400)
-                            //-     canvas#line-chart(width=300,height=300)
-                            //- Radar
                             div.col-sm-10.col-md-6(height=400)
                                 canvas#radar-chart(width=300,height=300)
                     div#mine.tab-pane

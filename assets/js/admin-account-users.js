@@ -8,29 +8,21 @@ $(function() {
     var $accountDetailEmail = $('#account-detail-email');
     var $accountDetailName = $('#account-detail-name');
     var $deleteAccountLinkInModal = $('#link-delete-account');
-
     $accountTable.find("tr:even").addClass('even');
-
-    // $("#table-accounts").tablesorter({
-    //     sortList: [[0, 0]],
-    //     cssAsc: "sortUp",
-    //     cssDesc: "sortDown",
-    //     widgets: ["zebra"]
-    // });
 
     var _radarChart = $('#radar-chart');
     var ctx = _radarChart.get(0).getContext("2d");
     var MyChart = new Chart(ctx);
 
     var radarChartData = {
-        labels: ["Javascript", "Java", "C/C++", "C#"],
+        labels: [],
         datasets: [
             {
                 fillColor: "rgba(151,187,205,0.5)",
                 strokeColor: "rgba(151,187,205,1)",
                 pointColor: "rgba(151,187,205,1)",
                 pointStrokeColor: "#fff",
-                data: [0, 0, 0, 0]
+                data: []
         }]
     };
 
@@ -41,10 +33,11 @@ $(function() {
 
 
     function generateChart(amountObj) {
-        radarChartData.datasets[0].data[0] = amountObj.jsAmount;
-        radarChartData.datasets[0].data[1] = amountObj.javaAmount;
-        radarChartData.datasets[0].data[2] = amountObj.cAmount;
-        radarChartData.datasets[0].data[3] = amountObj.csharpAmount;
+        var snippetAmountObjKeysArray = Object.keys(amountObj);
+        for (var i = 0; i < snippetAmountObjKeysArray.length; i++) {
+            radarChartData.datasets[0].data[i] = amountObj[snippetAmountObjKeysArray[i]].amount;
+            radarChartData.labels[i] = amountObj[snippetAmountObjKeysArray[i]].type;
+        }
         _myRadarChart = MyChart.Radar(radarChartData, radarOption);
     }
 

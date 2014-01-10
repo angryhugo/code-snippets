@@ -12,11 +12,6 @@ $(function() {
     var $followingDiv = $('#following');
     var $showFollowingLink = $('#link-following');
     var $viewUserId = $('#view-user-id');
-    var _jsAmount = parseInt($('#js-amount').val(), 10);
-    var _javaAmount = parseInt($('#java-amount').val(), 10);
-    var _cAmount = parseInt($('#c-amount').val(), 10);
-    var _csharpAmount = parseInt($('#csharp-amount').val(), 10);
-
     var $editProfileLink = $('#link-edit-profile');
     var $editLinkGroup = $('#edit-link-group');
     var $cancelEditProfileLink = $('#link-cancel-edit');
@@ -24,6 +19,32 @@ $(function() {
     var $nameInput = $('#input-name');
     var $nameDiv = $('#div-name');
     var $layoutCredentialName = $('#layout-credential-name');
+
+    var $radarChart = $('#radar-chart');
+    var _snippetAmountObj = JSON.parse($('#snippet-amount-str').val());
+    var _snippetAmountObjKeysArray = Object.keys(_snippetAmountObj);
+    var ctx = $radarChart.get(0).getContext("2d");
+    var radarChartData = {
+        labels: [],
+        datasets: [
+            {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                data: []
+        }]
+    };
+
+    for (var i = 0; i < _snippetAmountObjKeysArray.length; i++) {
+        radarChartData.datasets[0].data[i] = _snippetAmountObj[_snippetAmountObjKeysArray[i]].amount;
+        radarChartData.labels[i] = _snippetAmountObj[_snippetAmountObjKeysArray[i]].type;
+    }
+
+    var radarOption = {
+        scaleLineColor: "rgba(0,0,0,.3)"
+    };
+    var _myRadarChart = new Chart(ctx).Radar(radarChartData, radarOption);
 
     $nameInput.on('keypress', function(event) {
         if (event.which === 13) {
@@ -85,71 +106,6 @@ $(function() {
         $nameDiv.removeClass('hide');
         $editProfileLink.removeClass('hide');
     }
-
-    //Doughnut
-    // var _testChart = $("#test-chart");
-
-    // var ctx = _testChart.get(0).getContext("2d");
-
-    // var doughnutData = [
-    //     {
-    //         value: _jsAmount,
-    //         color: "#39b3d7"
-    //     },
-    //     {
-    //         value: _javaAmount,
-    //         color: "#47a447"
-    //     },
-    //     {
-    //         value: _cAmount,
-    //         color: "#ed9c28"
-    //     },
-    //     {
-    //         value: _csharpAmount,
-    //         color: "#d2322d"
-    //     }
-
-    // ];
-
-    // var _myChart = new Chart(ctx).Doughnut(doughnutData);
-
-    //line
-    // var _lineChart = $('#line-chart');
-    // var ctx = _lineChart.get(0).getContext("2d");
-    // var lineChartData = {
-    //     labels: ["Javascript", "Java", "C/C++", "C#"],
-    //     datasets: [
-    //         {
-    //             fillColor: "rgba(151,187,205,0.5)",
-    //             strokeColor: "rgba(151,187,205,1)",
-    //             pointColor: "rgba(151,187,205,1)",
-    //             pointStrokeColor: "#fff",
-    //             data: [_jsAmount, _javaAmount, _cAmount, _csharpAmount]
-    //     }]
-    // };
-
-    // var _myLineChart = new Chart(ctx).Line(lineChartData);
-
-    //radar
-    var $radarChart = $('#radar-chart');
-    var ctx = $radarChart.get(0).getContext("2d");
-    var radarChartData = {
-        labels: ["Javascript", "Java", "C/C++", "C#"],
-        datasets: [
-            {
-                fillColor: "rgba(151,187,205,0.5)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                data: [_jsAmount, _javaAmount, _cAmount, _csharpAmount]
-        }]
-    };
-
-    var radarOption = {
-        scaleLineColor: "rgba(0,0,0,.3)"
-    };
-    var _myRadarChart = new Chart(ctx).Radar(radarChartData, radarOption);
-
 
     function viewFollowingSnippetsHandler(page) {
         if ($viewUserId.val()) {

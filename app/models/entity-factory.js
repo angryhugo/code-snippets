@@ -17,7 +17,6 @@ if (nodeEnv === 'production') {
         define: {
             freezeTableName: true,
             underscored: true
-            // timestamps: false
         }
     });
 } else {

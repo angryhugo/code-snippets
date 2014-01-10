@@ -120,7 +120,7 @@ module.exports = {
                     code: 400
                 });
             } else {
-                statistics.getAmountObj(userId, function(err, amountObj) {
+                statistics.getSnippetAmountObj(userId, function(err, amountObj) {
                     if (err) {
                         res.json({
                             code: 500

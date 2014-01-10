@@ -104,20 +104,27 @@ module.exports = {
             if (!viewUser) {
                 exceptionFactory.errorHandler(null, errorMessage.USER_NOT_EXIST, next);
             } else {
-                statistics.getAmountObj(viewUserId, function(err, amountObj) {
+                statistics.getSnippetAmountObj(viewUserId, function(err, snippetAmountObj) {
                     if (err) {
                         exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
                     } else {
-                        var viewUserObj = {
-                            id: viewUserId,
-                            name: viewUser.name,
-                            email: viewUser.email
-                        };
-                        res.render('profile', {
-                            viewUserObj: viewUserObj,
-                            amountObj: amountObj,
-                            isSelf: isSelf,
-                            token: req.csrfToken()
+                        statistics.getRelationAmountObj(viewUserId, function(err, relationAmountObj) {
+                            if (err) {
+                                exceptionFactory.errorHandler(err, errorMessage.SERVER_ERROR, next);
+                            } else {
+                                var viewUserObj = {
+                                    id: viewUserId,
+                                    name: viewUser.name,
+                                    email: viewUser.email
+                                };
+                                res.render('profile', {
+                                    viewUserObj: viewUserObj,
+                                    snippetAmountStr: JSON.stringify(snippetAmountObj),
+                                    relationAmountObj: relationAmountObj,
+                                    isSelf: isSelf,
+                                    token: req.csrfToken()
+                                });
+                            }
                         });
                     }
                 })
