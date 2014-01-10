@@ -7,19 +7,15 @@
         "typeName": "Admin"
     }, {
         "id": 1,
-        "typeName": "jsAdmin",
-        "routerName": "javascript"
+        "typeName": "jsAdmin"
     }, {
         "id": 2,
-        "typeName": "javaAdmin",
-        "routerName": "java"
+        "typeName": "javaAdmin"
     }, {
         "id": 3,
-        "typeName": "cAdmin",
-        "routerName": "c"
+        "typeName": "cAdmin"
     }, {
         "id": 4,
-        "typeName": "c#Admin",
-        "routerName": "csharp"
+        "typeName": "c#Admin"
     }
 ]

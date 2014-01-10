@@ -1,11 +1,15 @@
 [
     {
-        "typeName": "javascript"
+        "typeName": "javascript",
+        "routerName": "javascript"
     }, {
-        "typeName": "java"
+        "typeName": "java",
+        "routerName": "java"
     }, {
-        "typeName": "c/c++"
+        "typeName": "c/c++",
+        "routerName": "c"
     }, {
-        "typeName": "c#"
+        "typeName": "c#",
+        "routerName": "csharp"
     }
 ]

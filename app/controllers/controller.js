@@ -4,7 +4,7 @@ var exceptionFactory = require('../helpers/exception-factory');
 var entityFactory = require('../models/entity-factory');
 
 var User = entityFactory.User;
-var UserType = entityFactory.UserType;
+var SnippetType = entityFactory.SnippetType;
 
 module.exports = {
     autoLogin: function(req, res, next) {
@@ -65,13 +65,13 @@ module.exports = {
     adminModuleEnsureAuthenticated: function(req, res, next) {
         var adminType = req.user.admin_type;
         var moduleType = req.params.module_type || '';
-        UserType.find(adminType).success(function(type) {
+        SnippetType.find(adminType).success(function(type) {
             if (type) {
                 if (type.routerName === moduleType) {
                     req.user.module = type.routerName;
                     return next();
                 } else {
-                    UserType.find({
+                    SnippetType.find({
                         where: {
                             routerName: moduleType
                         }

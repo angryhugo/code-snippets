@@ -9,7 +9,7 @@ var entityFactory = require('../models/entity-factory');
 var config = require('../../config.json');
 
 var User = entityFactory.User;
-var UserType = entityFactory.UserType;
+var SnippetType = entityFactory.SnippetType;
 var UserRelation = entityFactory.UserRelation;
 
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
             returnUrl = req.session.returnUrl || '/admin/accounts/users';
             res.redirect(returnUrl);
         } else {
-            UserType.find(req.user.admin_type).success(function(type) {
+            SnippetType.find(req.user.admin_type).success(function(type) {
                 if (type) {
                     returnUrl = req.session.returnUrl || '/admin/modules/' + type.routerName;
                     res.redirect(returnUrl);
