@@ -42,8 +42,4 @@ function initAdmin() {
     });
 }
 
-// module.exports = {
-//     initUser: initUser
-// }
-
 initAdmin();
