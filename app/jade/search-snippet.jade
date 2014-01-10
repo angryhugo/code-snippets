@@ -21,7 +21,6 @@ block main
                 a.link-tooltip.pull-right(href='/',data-original-title='#{t("search-snippet.backBtn")}',data-placement='left')
                     i.fa.fa-mail-reply
         div.filter
-            //- select#select-search-snippets(style="width:200px")
             select#select-search-snippets.selectpicker(style="width:200px", data-live-search='true')
                 option(value=0)
                     | #{t("search-snippet.all")}

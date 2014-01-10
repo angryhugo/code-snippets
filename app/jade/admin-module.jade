@@ -18,14 +18,6 @@ block main
         div.page-header
             h3
                 | #{t("admin-modules.title")}
-        //- div.filter
-            //- select#select-search-snippets.selectpicker(style="width:200px", data-live-search='true')
-            //-     option(value=0)
-            //-         | #{t("search-snippet.all")}
-            //-         if typeList.length>0
-            //-             for type in typeList
-            //-                 option(value="#{type.id}",selected=( type.id == typeId ? true:false)) 
-            //-                     | #{type.typeName}
         if snippetList.length>0
             table#table-snippets.table
                 thead
