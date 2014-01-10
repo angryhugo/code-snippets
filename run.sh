@@ -51,15 +51,15 @@ case $1 in
         grunt
     ;;
     *)
-        echo "Params: {start|stop|debug|build|dev|restart|init|thumbnail|-t}"
+        echo "Params: {start|stop|debug|build|dev|restart|init|-t}"
         echo "==================================================================\n"
+        echo "  default         show help text"
         echo "  start           start project with production environment"
         echo "  stop            stop server"
         echo "  debug           start up server with '--debug'"
         echo "  dev             start up server with development environment"
-        echo "  build           build FM demo"
         echo "  restart         restart server with production environment"
-        echo "  default         show help text"
+        echo "  build           build"
         exit 1
     ;;
 esac
