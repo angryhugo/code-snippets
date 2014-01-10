@@ -1,5 +1,22 @@
-## Models
+**Code-Snippets**
+=======================
 
+
+## How to install 
+
+### 1. install depencies:
+
+#### mysql
+
+`sudo apt-get install mysql-server`
+
+### 2. Create Test Data
+`
+sudo npm i -g mocha
+mocha test/test-data-create.js
+
+
+## Models
 
 ### User
 
@@ -34,6 +51,7 @@ type_id         int             not null   fk
 ```
 id              int             not null   pk
 typeName        varchar(255)    not null
+routerName      varchar(255)    not null
 ```
 
 ### UserRelation

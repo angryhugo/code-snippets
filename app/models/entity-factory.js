@@ -98,7 +98,7 @@ var CodeSnippet = sequelize.define('codeSnippet', {
         allowNull: false
     },
     type_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 });
