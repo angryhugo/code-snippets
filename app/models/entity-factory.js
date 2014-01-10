@@ -34,7 +34,7 @@ if (nodeEnv === 'production') {
     });
 }
 
-var User = sequelize.define('Users', {
+var User = sequelize.define('user', {
     id: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -60,7 +60,7 @@ var User = sequelize.define('Users', {
     }
 });
 
-var UserType = sequelize.define('UserTypes', {
+var UserType = sequelize.define('userType', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -74,7 +74,7 @@ var UserType = sequelize.define('UserTypes', {
     timestamps: false
 });
 
-var CodeSnippet = sequelize.define('CodeSnippets', {
+var CodeSnippet = sequelize.define('codeSnippet', {
     id: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -95,7 +95,7 @@ var CodeSnippet = sequelize.define('CodeSnippets', {
     }
 });
 
-var SnippetType = sequelize.define('SnippetTypes', {
+var SnippetType = sequelize.define('snippetType', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -114,7 +114,7 @@ var SnippetType = sequelize.define('SnippetTypes', {
     timestamps: false
 });
 
-var UserRelation = sequelize.define('UserRelations', {
+var UserRelation = sequelize.define('userRelation', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -123,7 +123,7 @@ var UserRelation = sequelize.define('UserRelations', {
     }
 });
 
-var FavoriteSnippet = sequelize.define('FavoriteSnippets', {
+var FavoriteSnippet = sequelize.define('favoriteSnippet', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
