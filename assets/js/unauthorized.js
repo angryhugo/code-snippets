@@ -164,29 +164,6 @@ $(function() {
         }
     });
 
-    // function submitFormHelper(formElement) {
-    //     formElement.on('click', formElement.find('.btn-success'), function() {
-    //         formElement.find('.btn-success').attr('disabled', true);
-    //         formElement.find('.btn-info').attr('disabled', true);
-    //         formElement.submit();
-    //     });
-    // };
-
-    // submitFormHelper($signupForm);
-    // submitFormHelper($loginForm);
-
-    // $signupForm.on('click', '#btn-sign-up', function() {
-    //     $signupBtn.attr('disabled', true);
-    //     $loginModalLink.attr('disabled', true);
-    //     $signupForm.submit();
-    // });
-
-    // $loginForm.on('click', '#btn-login', function() {
-    //     $loginBtn.attr('disabled', true);
-    //     $signupModalLink.attr('disabled', true);
-    //     $loginForm.submit();
-    // });
-
     $signupBtn.click(function() {
         if (signupValidator.form()) {
             $signupBtn.attr('disabled', true);

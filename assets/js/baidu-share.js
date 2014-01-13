@@ -1,8 +1,7 @@
-var BD_TEXT = '#代码片段#我分享了一段代码片段~';
 window._bd_share_config = {
     "common": {
         "bdSnsKey": {},
-        "bdText": BD_TEXT,
+        "bdText": BaiduShare.BD_TEXT,
         "bdMini": "1",
         "bdMiniList": false,
         "bdPic": "",

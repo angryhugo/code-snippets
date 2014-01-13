@@ -55,3 +55,7 @@ var Opertation = {
 var BootstrapSelect = {
     NO_RESULTS_MATCH: 'No results match "'
 };
+
+var BaiduShare = {
+    BD_TEXT: '#code-snippets# I shared a code snippet~'
+};

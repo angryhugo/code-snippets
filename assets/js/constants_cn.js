@@ -55,3 +55,7 @@ var Opertation = {
 var BootstrapSelect = {
     NO_RESULTS_MATCH: '未找到 "'
 };
+
+var BaiduShare = {
+    BD_TEXT: '#代码片段#我分享了一段代码片段~'
+};
