@@ -2,13 +2,14 @@
 =======================
 
 
-## How to install 
+## How to use 
 
-### 1. install depencies:
+### 1. install dependencies:
 
 #### mysql
 
 `sudo apt-get install mysql-server`
+
 
 ### 2. Create Test Data
 
