@@ -20,5 +20,4 @@ $(function() {
     $select.on('change', function() {
         window.location.href = '/snippets/search?keyword=' + _keyword + '&type=' + $select.val();
     });
-
 });

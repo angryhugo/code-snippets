@@ -47,7 +47,5 @@ $(function() {
 				bootbox.alert(Message.SERVER_ERROR);
 			}
 		});
-	})
-
-
+	});
 });
