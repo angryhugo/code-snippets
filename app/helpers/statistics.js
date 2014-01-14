@@ -56,8 +56,12 @@ module.exports = {
                     });
                 }
             },
-            function(err, results) {
-                callback(null, results);
+            function(err, relationAmountObj) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    callback(null, relationAmountObj);
+                };
             });
     }
 }
