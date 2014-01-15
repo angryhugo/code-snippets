@@ -76,6 +76,14 @@ block main
                                                 | #{t("profile.email")}
                                             div.div-content.col-sm-8
                                                 | #{viewUserObj.email}
+                                        div.form-group
+                                            label.col-sm-2.control-label
+                                                | #{t("profile.slogan")}
+                                            div#div-slogan.div-content.col-sm-8
+                                                | !{viewUserObj.slogan}
+                                            if isSelf
+                                                div.col-sm-8.hide
+                                                    textarea#input-slogan.form-control(rows="5",style='resize:none;')
                                         div#edit-link-group.form-group.hide
                                             div.col-sm-4.col-md-6
                                                 a#link-save-snippet.btn.btn-success.btn-sm

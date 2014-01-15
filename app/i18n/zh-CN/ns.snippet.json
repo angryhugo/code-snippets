@@ -135,6 +135,7 @@
         "follower": "粉丝",
         "email": "邮箱",
         "name": "昵称",
+        "slogan": "简介",
         "unfollow": "取消关注",
         "follow": "关注",
         "edit": "编辑",

@@ -52,6 +52,10 @@ var User = sequelize.define('user', {
         allowNull: false,
         type: Sequelize.STRING
     },
+    slogan: {
+        allowNull: true,
+        type: Sequelize.TEXT
+    },
     admin_type: {
         type: Sequelize.INTEGER,
         allowNull: false,

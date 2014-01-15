@@ -18,6 +18,8 @@ $(function() {
     var $submitProfileLink = $('#link-save-snippet');
     var $nameInput = $('#input-name');
     var $nameDiv = $('#div-name');
+    var $sloganInput = $('#input-slogan');
+    var $sloganDiv = $('#div-slogan');
     var $layoutCredentialName = $('#layout-credential-name');
 
     var $radarChart = $('#radar-chart');
@@ -46,22 +48,20 @@ $(function() {
     };
     var _myRadarChart = new Chart(ctx).Radar(radarChartData, radarOption);
 
-    $nameInput.on('keypress', function(event) {
-        if (event.which === 13) {
-            $submitProfileLink.click();
-        }
-    });
-
     $editProfileLink.on('click', function() {
+        $sloganInput.val($sloganDiv.text());
         $nameInput.parent().removeClass('hide');
+        $sloganInput.parent().removeClass('hide');
         $editLinkGroup.removeClass('hide');
         $nameDiv.addClass('hide');
+        $sloganDiv.addClass('hide');
         $(this).addClass('hide');
     });
 
     $cancelEditProfileLink.on('click', function() {
         showDivsHideInputs();
         $nameInput.val($nameDiv.text());
+        $sloganInput.val($sloganDiv.text());
     });
 
     $submitProfileLink.on('click', function() {
@@ -71,13 +71,15 @@ $(function() {
             url: '/users/' + $viewUserId.val() + '/profile',
             data: {
                 _csrf: _csrf,
-                name: $nameInput.val()
+                name: $nameInput.val(),
+                slogan: $sloganInput.val()
             },
             dataType: 'json',
             success: function(data) {
                 if (data.code === 200) {
                     $layoutCredentialName.text(' ' + $nameInput.val());
                     $nameDiv.text($nameInput.val());
+                    $sloganDiv.text($sloganInput.val());
                     bootbox.alert(Message.UPDATE_PROFILE_SUCCESS);
                 } else if (data.code === 400) {
                     bootbox.alert(Message.USER_NOT_EXSIT);
@@ -102,8 +104,10 @@ $(function() {
 
     function showDivsHideInputs() {
         $nameInput.parent().addClass('hide');
+        $sloganInput.parent().addClass('hide');
         $editLinkGroup.addClass('hide');
         $nameDiv.removeClass('hide');
+        $sloganDiv.removeClass('hide');
         $editProfileLink.removeClass('hide');
     }
 
