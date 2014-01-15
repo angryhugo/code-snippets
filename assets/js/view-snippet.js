@@ -56,6 +56,8 @@ $(function() {
         }
     });
 
+    editor.setSize(null, 500);
+
     $snippetTypeInput.selectpicker();
 
     $snippetTypeInput.on('change', function() {

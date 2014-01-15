@@ -27,6 +27,8 @@ $(function() {
 		}
 	});
 
+	editor.setSize(null, 500);
+
 	$snippetTypeSelect.selectpicker();
 
 	$snippetTypeSelect.on('change', function() {
