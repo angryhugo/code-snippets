@@ -272,6 +272,7 @@ module.exports = {
         var user = req.user || '';
         var userId = req.params.user_id || '';
         var name = _str.trim(req.body.name || '');
+        var slogan = _str.trim(req.body.slogan || '');
         var dataObj = {};
         User.find(userId).success(function(userObj) {
             if (!userObj) {
@@ -282,6 +283,7 @@ module.exports = {
                 res.json(dataObj);
             } else {
                 userObj.name = name;
+                userObj.slogan = slogan;
                 userObj.save().success(function() {
                     dataObj.code = 200;
                     res.json(dataObj);

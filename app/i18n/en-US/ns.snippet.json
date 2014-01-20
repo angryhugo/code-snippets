@@ -134,6 +134,7 @@
         "follower": "Follower",
         "email": "Email",
         "name": "Name",
+        "slogan": "Slogan",
         "unfollow": "Unfollow",
         "follow": "Follow",
         "edit": "Edit",

@@ -220,6 +220,7 @@ module.exports = {
         var reason = req.body.reason || '';
         var user = req.user;
         var dataObj = {};
+        var lng = req.locale;
         CodeSnippet.find(snippetId).success(function(snippet) {
             if (!snippet) {
                 dataObj.code = 400;
@@ -230,7 +231,7 @@ module.exports = {
                     dataObj.code = 200;
                     res.json(dataObj);
                     if (snippet.type_id === user.admin_type) {
-                        sendMailForDeletingSnippets(snippet.id, reason);
+                        sendMailForDeletingSnippets(lng, snippet.id, reason);
                     }
                 });
             } else {
@@ -498,7 +499,7 @@ function checkSnippetStatus(userId, snippetId, callback) {
     }
 }
 
-function sendMailForDeletingSnippets(snippetId, reason) {
+function sendMailForDeletingSnippets(lng, snippetId, reason) {
     var locals = {};
     var option = {
         include: [{
@@ -516,7 +517,7 @@ function sendMailForDeletingSnippets(snippetId, reason) {
         locals.snippetTitle = snippet.title;
         locals.createdAt = moment(snippet.created_at).format('YYYY-MM-DD HH:mm');
         locals.reason = reason;
-        mailSender.sendEmail('delete-snippet', locals, function(err) {
+        mailSender.sendEmail(lng + '/delete-snippet', locals, function(err) {
             if (err) {
                 console.log('Error occurred when sending email.');
             }

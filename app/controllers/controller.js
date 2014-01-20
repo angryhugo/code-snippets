@@ -115,7 +115,8 @@ module.exports = {
                                 var viewUserObj = {
                                     id: viewUserId,
                                     name: viewUser.name,
-                                    email: viewUser.email
+                                    email: viewUser.email,
+                                    slogan: viewUser.slogan
                                 };
                                 res.render('profile', {
                                     viewUserObj: viewUserObj,
