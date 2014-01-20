@@ -2,6 +2,8 @@ $(function() {
     "use strict";
     var _keyword = getUrlVars()['keyword'] || '';
     var $select = $('#select-search-snippets');
+    var $snippetTable = $('#table-snippets');
+    $snippetTable.find("tr:even").addClass('even');
 
     $select.selectpicker();
 

@@ -1,9 +1,20 @@
+@import "function.less";
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    .background-gradient-new(#fff, top, #fff, 0%, #ececec, 100%, '#fff', '#ececec', 0);
+}
+
 .nav-margin {
     margin-top: 70px;
 }
 
 .page-header {
     margin-top: 20px;
+    border-bottom: 1px solid #d1d1d1;
 }
 
 
@@ -83,6 +94,15 @@ pre code {
 #modal-sign-up,#modal-login {
     .modal-body {
         padding-bottom: 0px;
+    }
+}
+
+table tbody tr {
+    &.even{
+        background-color: #F0F0F0;
+    }
+    &:hover{
+        background-color: #DFDFDF;
     }
 }
 
