@@ -13,6 +13,7 @@ $(function() {
     var $saveErrorInfo = $('div.alert-danger');
 
     var validator = $changePasswordForm.validate({
+        // onkeyup: false,
         rules: {
             current_password: {
                 required: true,
