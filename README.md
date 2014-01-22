@@ -6,9 +6,8 @@
 
 ### 1. install dependencies:
 
-#### mysql
 
-    sudo apt-get install mysql-server
+    sudo apt-get install mysql-server-5.5
 
 
 ### 2. Create Test Data
