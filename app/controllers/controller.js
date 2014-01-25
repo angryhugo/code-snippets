@@ -14,14 +14,24 @@ module.exports = {
                 if (err) {
                     console.log(err);
                     res.redirect('/?error=1');
+                    return next();
+                } else if (user.admin_type > 0) {
+                    SnippetType.find(user.admin_type).success(function(type) {
+                        req.user.module = type.routerName;
+                        res.locals.credential = req.user;
+                        return next();
+                    });
                 } else {
                     res.locals.credential = req.user;
+                    return next();
                 }
             });
         } else if (req.isAuthenticated()) {
             res.locals.credential = req.user;
+            return next();
+        } else {
+            return next();
         }
-        return next();
     },
     ensureAuthenticated: function(req, res, next) {
         if (req.isAuthenticated()) {
