@@ -67,7 +67,7 @@ user_id         varchar(255)    not null   fk
 follow_id       varchar(255)    not null   fk
 ```
 
-### UserRelation
+### FavoriteSnippet
 
 ```
 id              int             not null   pk autoIncrement
