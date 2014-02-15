@@ -58,6 +58,7 @@ type_id         int             not null   fk
 id              int             not null   pk
 typeName        varchar(255)    not null
 routerName      varchar(255)    not null
+modeName        varchar(255)    not null
 ```
 
 ### UserRelation
