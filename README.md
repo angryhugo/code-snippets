@@ -26,10 +26,11 @@ Do not forget modify config.json(max_snippet_type_id)
 ### User
 
 ```
-id              varchar(255)    not null   pk
+id              char(32)        not null   pk
 email           varchar(255)    not null   unique
 password        varchar(255)    not null
 name            varchar(255)    not null
+slogan          text
 admin_type      int             not null   fk
 ```
 
@@ -43,7 +44,7 @@ typeName        varchar(255)    not null
 ### CodeSnippet
 
 ```
-id              varchar(255)    not null   pk
+id              char(32)        not null   pk
 title           varchar(255)    not null
 snippet         text            not null
 is_deleted      boolean         not null
@@ -63,14 +64,14 @@ routerName      varchar(255)    not null
 
 ```
 id              int             not null   pk autoIncrement
-user_id         varchar(255)    not null   fk
-follow_id       varchar(255)    not null   fk
+user_id         char(32)        not null   fk
+follow_id       char(32)        not null   fk
 ```
 
 ### FavoriteSnippet
 
 ```
 id              int             not null   pk autoIncrement
-user_id         varchar(255)    not null   fk
-snippet_id      varchar(255)    not null   fk
+user_id         char(32)        not null   fk
+snippet_id      char(32)        not null   fk
 ```
