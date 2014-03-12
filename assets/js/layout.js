@@ -5,16 +5,9 @@ $(function() {
 
     $('.link-tooltip').tooltip();
 
-    $("#link-english").click(function() {
-        $.cookie("cs_i18next", "en-US", {
-            expires: 3000,
-            path: '/'
-        });
-        window.location.reload();
-    });
-
-    $("#link-chinese").click(function() {
-        $.cookie("cs_i18next", "zh-CN", {
+    $(".link-language").click(function() {
+        var lng = $(this).attr('data-lang');
+        $.cookie("cs_i18next", lng, {
             expires: 3000,
             path: '/'
         });
